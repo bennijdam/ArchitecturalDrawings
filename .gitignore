@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Environment secrets
+api/.env
+
+# SQLite database and uploads (runtime data)
+api/data/
+api/uploads/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Vercel
+.vercel
+
+# Editor
+.vscode/
+*.swp
+*.swo

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /portal/
+Disallow: /api/
+Disallow: /quote.html
+
+Sitemap: https://architecturaldrawings.co.uk/sitemap.xml
