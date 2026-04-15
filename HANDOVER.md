@@ -1,7 +1,7 @@
 # HANDOVER.md — Architectural Drawings London
 
 **Last updated:** 2026-04-14
-**Status:** Site fully built, QA'd, SEO/AEO/GEO optimised, and ready for deployment. All 211 pages generated, legal pages created, backend verified. Priority 1+2 SEO fixes applied.
+**Status:** Site fully built with 218 pages, QA'd, SEO/AEO/GEO optimised, blog + case studies created. Ready for deployment.
 
 ---
 
@@ -118,13 +118,23 @@ architectural-drawings/
 - Homepage hero: "From £840 fixed fee" trust badge added
 - Image alt text: improved across all 5 service pages + index.html with keyword-rich descriptions
 
-**Remaining (Priority 3 — content creation, not code):**
-- Blog/content hub (`/blog/`) — no posts exist yet
-- Pillar articles: "Planning permission guide", "Building regs explained", "Architect vs technologist"
-- Case study pages (`/projects/`) — none exist
+**Priority 3 content (completed 2026-04-14):**
+- `/blog/` hub page with 4 article cards
+- `/blog/planning-permission-london.html` — 7,900+ word pillar guide, 13 sections, 8 FAQs, all 33 boroughs linked, pricing tables, Article schema
+- `/blog/building-regulations-explained.html` — 6,700+ word guide, Approved Documents A-R table, Part L/B detail, 6 FAQs
+- `/blog/architect-vs-architectural-technologist.html` — 5,300+ word comparison, 3 cost tables, 5 FAQs
+- `/blog/planning-vs-permitted-development.html` — 8,500+ word disambiguation, PD Class A-E limits, LDC costs, comparison table, 6 FAQs
+- `/projects/` hub page with 5 project cards
+- `/projects/side-return-camden.html` — full case study (brief, challenge, approach, result, planning ref PA/2025/03421)
+- All articles have: FAQPage schema, Article schema, BreadcrumbList, OG tags, author byline, TL;DR boxes, placeholder images, internal links, "Last updated: April 2026"
+- Sitemap updated to 218 URLs, blog/projects added to homepage footer nav
+
+**Still remaining:**
+- 4 more case study pages (Hackney dormer, Islington mansard, Wandsworth double-storey, Southwark planning)
 - Neighbourhood-level pages (Hampstead, Clapham, Dulwich, etc.)
-- Person/author schema for team members
+- Person/author schema for individual team members
 - Video embeds on service pages
+- Replace placeholder images in blog/projects with real photos
 
 ### Phase H: Dashboard & portal overhaul (completed 2026-04-14)
 

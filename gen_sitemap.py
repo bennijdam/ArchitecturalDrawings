@@ -26,6 +26,13 @@ core = [
     ("/services/mansard-roof.html", "0.9", "monthly"),
     ("/privacy.html", "0.3", "yearly"),
     ("/terms.html", "0.3", "yearly"),
+    ("/blog/", "0.8", "weekly"),
+    ("/blog/planning-permission-london.html", "0.8", "monthly"),
+    ("/blog/building-regulations-explained.html", "0.8", "monthly"),
+    ("/blog/architect-vs-architectural-technologist.html", "0.8", "monthly"),
+    ("/blog/planning-vs-permitted-development.html", "0.8", "monthly"),
+    ("/projects/", "0.7", "monthly"),
+    ("/projects/side-return-camden.html", "0.6", "monthly"),
 ]
 for loc, priority, freq in core:
     urls.append(f"  <url><loc>{BASE}{loc}</loc><lastmod>{DATE}</lastmod><priority>{priority}</priority><changefreq>{freq}</changefreq></url>")

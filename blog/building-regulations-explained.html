@@ -1,0 +1,1325 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Building Regulations Explained: London Homeowner Guide | AD</title>
+<meta name="description" content="A comprehensive guide to building regulations in London. Learn about Approved Documents A-R, Full Plans vs Building Notice, LABC vs approved inspectors, costs, and the inspection process." />
+<link rel="canonical" href="https://architecturaldrawings.co.uk/blog/building-regulations-explained.html" />
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://architecturaldrawings.co.uk/blog/building-regulations-explained.html" />
+<meta property="og:title" content="Building Regulations Explained: London Homeowner Guide" />
+<meta property="og:description" content="A comprehensive guide to building regulations in London. Approved Documents, Full Plans vs Building Notice, costs, Part L compliance, fire safety and more." />
+<meta property="og:locale" content="en_GB" />
+<meta property="article:published_time" content="2026-04-14T09:00:00+01:00" />
+<meta property="article:modified_time" content="2026-04-14T09:00:00+01:00" />
+<meta property="article:author" content="Architectural Drawings" />
+<meta property="article:section" content="Building Regulations" />
+<style>
+/* ==========================================================================
+   ARCHITECTURAL DRAWINGS — London Architectural Technology
+   Design system: warm editorial minimalism with architectural precision
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Palette */
+  --bg: #FAFAF7;
+  --bg-2: #F2EFE8;
+  --bg-deep: #E8E4D8;
+  --surface: #FFFFFF;
+  --ink: #0E1116;
+  --ink-soft: #4A5260;
+  --ink-softer: #6B7280;
+  --line: rgba(14, 17, 22, 0.08);
+  --line-strong: rgba(14, 17, 22, 0.14);
+  --accent: #C8664A;
+  --accent-deep: #9D4A32;
+  --accent-soft: #F5E6DD;
+  --accent-glow: rgba(200, 102, 74, 0.12);
+  --success: #47845A;
+  --warn: #D4A547;
+
+  /* Type */
+  --font-display: 'Fraunces', 'Times New Roman', serif;
+  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Radius */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 36px;
+  --r-full: 999px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(14, 17, 22, 0.04), 0 2px 6px rgba(14, 17, 22, 0.04);
+  --shadow-md: 0 4px 12px rgba(14, 17, 22, 0.06), 0 12px 32px rgba(14, 17, 22, 0.05);
+  --shadow-lg: 0 24px 60px rgba(14, 17, 22, 0.08), 0 8px 20px rgba(14, 17, 22, 0.05);
+  --shadow-glow: 0 20px 60px rgba(200, 102, 74, 0.18);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Container */
+  --container: 1240px;
+  --container-tight: 960px;
+}
+
+/* ============== Reset ============== */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+img, svg, video { display: block; max-width: 100%; height: auto; }
+button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+input, textarea, select { font-family: inherit; font-size: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+::selection { background: var(--accent); color: #fff; }
+
+/* ============== Typography ============== */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-optical-sizing: auto;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+h1 { font-size: clamp(2.8rem, 6.5vw, 5.5rem); font-variation-settings: "opsz" 144, "SOFT" 50; }
+h2 { font-size: clamp(2.1rem, 4.2vw, 3.4rem); font-variation-settings: "opsz" 100, "SOFT" 40; }
+h3 { font-size: clamp(1.5rem, 2.4vw, 2rem); font-variation-settings: "opsz" 60; letter-spacing: -0.015em; }
+h4 { font-size: 1.3rem; font-variation-settings: "opsz" 36; letter-spacing: -0.01em; }
+em, .italic { font-style: italic; }
+.serif { font-family: var(--font-display); }
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+.muted { color: var(--ink-soft); }
+.tiny { font-size: 0.85rem; }
+
+/* ============== Layout ============== */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.container-tight { max-width: var(--container-tight); margin: 0 auto; padding: 0 24px; }
+section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
+.section-header { max-width: 780px; margin-bottom: clamp(40px, 6vw, 72px); }
+.section-header h2 { margin-top: 16px; }
+.section-header p { color: var(--ink-soft); font-size: 1.1rem; margin-top: 16px; max-width: 640px; }
+
+/* ============== Nav ============== */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 14px 0;
+  background: rgba(250, 250, 247, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.nav.scrolled { border-bottom-color: var(--line); }
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 60;
+}
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  list-style: none;
+}
+.nav-links a {
+  padding: 10px 14px;
+  font-size: 0.94rem;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.nav-links a:hover { background: rgba(14, 17, 22, 0.05); }
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-menu {
+  display: none;
+  width: 42px; height: 42px;
+  align-items: center; justify-content: center;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .btn-menu { display: inline-flex; }
+  .nav-cta .btn-ghost { display: none; }
+}
+
+/* ============== Buttons ============== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--r-full);
+  transition: transform 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.3s var(--ease), color 0.2s var(--ease);
+  white-space: nowrap;
+  cursor: pointer;
+  line-height: 1;
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+.btn-primary:hover {
+  background: var(--accent-deep);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow);
+}
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-accent:hover {
+  background: var(--accent-deep);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  padding: 12px 18px;
+}
+.btn-ghost:hover { background: rgba(14, 17, 22, 0.06); }
+.btn-outline {
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--ink);
+}
+.btn-outline:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn-lg { padding: 18px 30px; font-size: 1rem; }
+.btn-sm { padding: 10px 16px; font-size: 0.88rem; }
+.btn-block { width: 100%; justify-content: center; }
+
+.btn svg { width: 16px; height: 16px; }
+
+/* ============== CTA Band ============== */
+.cta-band {
+  padding: clamp(60px, 9vw, 100px) 0;
+  text-align: center;
+  position: relative;
+}
+.cta-band h2 {
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  max-width: 820px;
+  margin: 0 auto 24px;
+}
+.cta-band h2 .accent { color: var(--accent); font-style: italic; font-weight: 300; }
+.cta-band p { color: var(--ink-soft); max-width: 560px; margin: 0 auto 32px; font-size: 1.1rem; }
+
+/* ============== Footer ============== */
+.footer {
+  padding: 80px 0 40px;
+  border-top: 1px solid var(--line);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+@media (max-width: 860px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-col-brand { grid-column: 1 / -1; }
+}
+.footer .logo { margin-bottom: 16px; }
+.footer-col p { color: var(--ink-soft); font-size: 0.92rem; max-width: 320px; line-height: 1.6; }
+.footer-col h5 {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-col a { font-size: 0.94rem; transition: color 0.2s var(--ease); }
+.footer-col a:hover { color: var(--accent-deep); }
+.footer-bottom {
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+/* ============== FAQ ============== */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.faq-item {
+  border-top: 1px solid var(--line-strong);
+}
+.faq-item:last-child { border-bottom: 1px solid var(--line-strong); }
+.faq-q {
+  width: 100%;
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-variation-settings: "opsz" 60;
+  color: var(--ink);
+  gap: 20px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.faq-q:hover { color: var(--accent-deep); }
+.faq-q-icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease-spring), background 0.3s var(--ease);
+  color: var(--ink-soft);
+}
+.faq-item.open .faq-q-icon {
+  transform: rotate(45deg);
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease), padding 0.3s var(--ease);
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+.faq-item.open .faq-a {
+  max-height: 500px;
+  padding: 0 0 24px;
+}
+
+/* ============== Reveal animations ============== */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.reveal.in { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ============== Utilities ============== */
+.text-center { text-align: center; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.hidden { display: none !important; }
+.flex { display: flex; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.wrap { flex-wrap: wrap; }
+
+/* Print */
+@media print {
+  .nav, .footer, .cta-band { display: none; }
+  body { background: white; color: black; }
+}
+
+/* ===== Fail-safe reveal (works even if JS never runs) ===== */
+@keyframes __ad_safety_in { to { opacity: 1; transform: none; } }
+.reveal { animation: __ad_safety_in 0.01s linear 1.5s forwards; }
+.reveal.in { animation: none; opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { animation: none; opacity: 1; transform: none; } }
+
+/* ============== Blog article styles ============== */
+.article-header {
+  padding: clamp(40px, 7vw, 100px) 0 clamp(32px, 4vw, 48px);
+}
+.article-header h1 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  max-width: 820px;
+  margin-bottom: 24px;
+  line-height: 1.1;
+}
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+.article-meta time { font-weight: 500; }
+.article-body {
+  padding-bottom: clamp(40px, 6vw, 80px);
+}
+.article-body h2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  margin: 48px 0 20px;
+}
+.article-body h3 {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  margin: 36px 0 16px;
+}
+.article-body p {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  max-width: 720px;
+}
+.article-body ul, .article-body ol {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0 0 20px 24px;
+  max-width: 720px;
+}
+.article-body li { margin-bottom: 8px; }
+.article-body strong { color: var(--ink); }
+.article-body a {
+  color: var(--accent-deep);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s var(--ease);
+}
+.article-body a:hover { color: var(--accent); }
+.article-body blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 16px 24px;
+  margin: 24px 0;
+  background: var(--accent-soft);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  max-width: 720px;
+}
+.article-body blockquote p { color: var(--ink); margin-bottom: 0; }
+.article-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 0.95rem;
+  background: var(--surface);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.article-table th {
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 600;
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+}
+.article-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  vertical-align: top;
+}
+.article-table tr:last-child td { border-bottom: none; }
+.article-table tr:hover td { background: var(--bg-2); }
+.featured-snippet {
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  padding: 24px 28px;
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+  margin: 24px 0 32px;
+  max-width: 720px;
+}
+.featured-snippet p {
+  color: var(--ink);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.breadcrumb a { transition: color 0.2s var(--ease); }
+.breadcrumb a:hover { color: var(--accent-deep); }
+.breadcrumb svg { width: 12px; height: 12px; opacity: 0.5; }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E1116'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' fill='%23FAFAF7' font-family='Georgia,serif' font-weight='500' font-size='17' font-style='italic'%3EA%3C/text%3E%3C/svg%3E" />
+<script defer data-domain="architecturaldrawings.uk" src="https://plausible.io/js/script.js"></script>
+
+<!-- Article Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Building Regulations Explained: A Complete London Homeowner Guide",
+  "description": "A comprehensive guide to building regulations in London. Learn about Approved Documents A-R, Full Plans vs Building Notice, LABC vs approved inspectors, costs, and the inspection process.",
+  "datePublished": "2026-04-14",
+  "dateModified": "2026-04-14",
+  "author": {
+    "@type": "Organization",
+    "name": "Architectural Drawings",
+    "url": "https://architecturaldrawings.co.uk"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Architectural Drawings",
+    "url": "https://architecturaldrawings.co.uk"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://architecturaldrawings.co.uk/blog/building-regulations-explained.html"
+  }
+}
+</script>
+
+<!-- BreadcrumbList Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://architecturaldrawings.co.uk/" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://architecturaldrawings.co.uk/blog/" },
+    { "@type": "ListItem", "position": 3, "name": "Building Regulations Explained" }
+  ]
+}
+</script>
+
+<!-- FAQPage Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I need building regulations for a loft conversion?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, every loft conversion in London requires building regulations approval. This is separate from planning permission. Building regulations cover structural safety, fire escape routes, insulation, staircase design, and minimum headroom. Even if your loft conversion is permitted development and doesn't need planning permission, you must still obtain building regulations approval before work begins."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much do building regulations drawings cost in London?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Building regulations drawings in London typically cost from £840 for an Essentials package covering straightforward domestic work. A Complete package including structural calculations, energy assessments, and construction details starts from £1,750. Structural calculations alone range from £350 to £1,050 depending on complexity. These fees are for the drawings — you will also pay a separate building control fee to your local authority or approved inspector."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use an approved inspector instead of LABC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you can choose either your Local Authority Building Control (LABC) or a private approved inspector for building regulations approval. Approved inspectors are often faster and more flexible with scheduling. However, LABC has enforcement powers that approved inspectors do not, and some mortgage lenders prefer LABC sign-off. Both routes result in a legally valid completion certificate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I don't get building regulations approval?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Building without regulations approval is a criminal offence. The local authority can serve an enforcement notice requiring you to alter or remove non-compliant work, potentially at significant cost. When you come to sell your property, solicitors will check for completion certificates — missing certificates can delay or derail sales. You may need retrospective regularisation, which costs more than getting approval upfront and offers no guarantee of success."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does building control take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Full Plans application is typically reviewed within 5 weeks (or up to 2 months by agreement). Once approved and construction begins, building control inspections occur at key stages — typically 6 to 10 site visits over the construction period. The final completion certificate is issued after the last inspection confirms all work meets regulations. Total timeline from application to completion certificate depends on your build schedule but is typically 3 to 9 months for domestic projects."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need building regs for a kitchen extension?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Any extension to your home requires building regulations approval regardless of whether it needs planning permission. This includes single-storey kitchen extensions, even those built under permitted development. Building regulations ensure the extension meets standards for structural integrity, damp-proofing, insulation, drainage, ventilation, electrical safety, and energy efficiency. The only exemptions are very small detached buildings (under 15 square metres with no sleeping accommodation) and certain conservatories."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="../" class="logo"><span class="logo-mark">A</span><span>Architectural<span style="color:var(--accent);font-style:italic;font-weight:400;"> Drawings</span></span></a>
+    <nav><ul class="nav-links">
+      <li><a href="../services.html">Services</a></li>
+      <li><a href="../pricing.html">Pricing</a></li>
+      <li><a href="../index.html#process">Process</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul></nav>
+    <div class="nav-cta">
+      <a href="../portal/login.html" class="btn btn-ghost btn-sm">Sign in</a>
+      <a href="../quote.html" class="btn btn-primary btn-sm">Free quote</a>
+    </div>
+  </div>
+</header>
+
+<article>
+
+<!-- Header -->
+<section class="article-header" style="padding-bottom: 0;">
+  <div class="container-tight">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../">Home</a>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 4 4 4-4 4"/></svg>
+      <a href="../blog/">Blog</a>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 4 4 4-4 4"/></svg>
+      <span>Building Regulations Explained</span>
+    </nav>
+    <span class="eyebrow">Building Regulations</span>
+    <h1 style="font-size: clamp(2.2rem, 5vw, 3.8rem); margin-top: 16px;">Building Regulations Explained: <em style="color: var(--accent); font-weight: 300;">London Homeowner Guide</em></h1>
+    <div class="article-meta" style="margin-top: 24px;">
+      <span>By the Architectural Drawings team &middot; MCIAT Chartered</span>
+      <span>&middot;</span>
+      <time datetime="2026-04-14">14 April 2026</time>
+      <span>&middot;</span>
+      <span>15 min read</span>
+    </div>
+  </div>
+</section>
+
+<!-- Article body -->
+<section class="article-body" style="padding-top: 40px;">
+  <div class="container-tight">
+
+    <div style="background:var(--bg-2);border-radius:var(--r-lg);padding:60px 24px;text-align:center;color:var(--ink-soft);margin:0 0 40px;">
+      <p style="font-size:0.9rem;">IMAGE PLACEHOLDER — Architectural technologist reviewing building regulations drawings at a desk with Approved Documents reference books</p>
+    </div>
+
+    <!-- Section 1 -->
+    <h2 id="what-are-building-regulations">What are building regulations?</h2>
+
+    <div class="featured-snippet">
+      <p>Building regulations are a set of legal standards that ensure building work in England and Wales meets minimum requirements for safety, health, energy efficiency, and accessibility. They apply to most construction, alteration, and extension work on domestic and commercial properties, and are enforced by local authority building control or approved inspectors under the Building Act 1984.</p>
+    </div>
+
+    <p>If you're planning any significant work to your London home — from a rear extension to a loft conversion, a new bathroom installation to knocking through internal walls — building regulations are almost certainly going to be part of the process. They exist to protect you, your family, your neighbours, and anyone who might one day live in the property after you.</p>
+
+    <p>Building regulations are not the same as planning permission (more on that distinction below). They are a separate legal framework that governs <strong>how</strong> your building work is constructed, rather than <strong>what</strong> you are allowed to build. You can have full planning permission for an extension but still be breaking the law if the actual construction doesn't meet building regulations.</p>
+
+    <p>In London, building regulations are enforced by the building control teams of each of the <strong>33 London boroughs</strong>, or alternatively by private approved inspectors. The regulations themselves are set nationally by the UK government, but local authorities administer and enforce them. Each borough has its own building control team with its own officers, fees, and processing timescales — which is why having a practice like ours that has submitted across all 33 boroughs is a genuine advantage.</p>
+
+    <p>The regulations are codified in a series of documents called <strong>Approved Documents</strong>, labelled A through S, each covering a specific aspect of building safety and performance. We'll go through each of the ones relevant to domestic work below.</p>
+
+    <!-- Section 2 -->
+    <h2 id="building-regs-vs-planning">Building regulations vs planning permission</h2>
+
+    <p>This is one of the most common sources of confusion for London homeowners, and it's essential to understand the distinction clearly before starting any project.</p>
+
+    <p><strong>Planning permission</strong> controls what you can build. It governs the appearance, size, position, and use of buildings and land. It is administered by your local council's planning department, guided by the National Planning Policy Framework and local development plans. Planning permission is about impact on the neighbourhood: how your extension looks from the street, whether it overshadows your neighbour's garden, whether it's in keeping with the local character.</p>
+
+    <p><strong>Building regulations</strong> control how you build. They govern the technical construction standards: is the structure strong enough? Will it be energy efficient? Are the fire escape routes adequate? Is the drainage connected properly? Building regulations apply regardless of whether your project needs planning permission.</p>
+
+    <h3>When you need both</h3>
+
+    <p>Most substantial London projects require both planning permission and building regulations approval. A typical two-storey rear extension, for example, will need a full planning application (or at minimum a Lawful Development Certificate to confirm permitted development rights) and a Full Plans building regulations application. A loft conversion with a rear dormer almost always needs both. A mansard roof extension invariably needs both.</p>
+
+    <h3>When you need only building regulations</h3>
+
+    <p>Many projects fall under <strong>permitted development</strong> — meaning they don't need planning permission — but still require building regulations. Common examples include:</p>
+
+    <ul>
+      <li>Single-storey rear extensions under 3 metres (detached) or 4 metres (attached) from the rear wall</li>
+      <li>Internal structural alterations — removing load-bearing walls, installing steels</li>
+      <li>Re-roofing or adding roof insulation</li>
+      <li>Installing a new bathroom or WC where new drainage is needed</li>
+      <li>Electrical rewiring or new circuits (especially in kitchens and bathrooms)</li>
+      <li>Replacement windows (unless done by a FENSA-registered installer)</li>
+      <li>Installing a wood-burning stove or flue</li>
+    </ul>
+
+    <p>Be particularly careful in London: many boroughs have <strong>Article 4 directions</strong> that remove permitted development rights in conservation areas. What would be permitted development in Barking might require a full planning application in <a href="../areas/">Islington or Camden</a>. We deal with Article 4 restrictions daily across London and can advise whether your project is affected.</p>
+
+    <h3>When you need only planning permission</h3>
+
+    <p>A few types of work need planning permission but not building regulations. These tend to be external-only changes with no structural or habitable implications: boundary walls and fences over a certain height, satellite dishes in conservation areas, changes of use that don't involve physical building work, or certain advertising signs. These are rare in residential contexts.</p>
+
+    <div style="background:var(--bg-2);border-radius:var(--r-lg);padding:60px 24px;text-align:center;color:var(--ink-soft);margin:32px 0;">
+      <p style="font-size:0.9rem;">IMAGE PLACEHOLDER — Infographic comparing building regulations vs planning permission: two-column layout showing what each covers</p>
+    </div>
+
+    <!-- Section 3 -->
+    <h2 id="approved-documents">The Approved Documents A&ndash;R</h2>
+
+    <p>The building regulations are set out in a series of <strong>Approved Documents</strong>, each dealing with a specific technical area. These are guidance documents — they show one way of meeting the regulations, though alternative approaches are possible if they can be shown to achieve the same outcome. Here are the Approved Documents most relevant to domestic building work in London:</p>
+
+    <div style="overflow-x: auto; margin: 24px 0;">
+      <table class="article-table">
+        <thead>
+          <tr>
+            <th style="width: 60px;">Part</th>
+            <th style="width: 180px;">Title</th>
+            <th>What it covers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>A</strong></td>
+            <td>Structure</td>
+            <td>Structural stability, foundations, walls, roofs, and floor loadings. Requires structural calculations for steels, loft conversions, and load-bearing wall removals.</td>
+          </tr>
+          <tr>
+            <td><strong>B</strong></td>
+            <td>Fire safety</td>
+            <td>Means of escape, fire detection (smoke/heat alarms), fire-resistant construction, compartmentation between dwellings, sprinkler requirements, and access for firefighters.</td>
+          </tr>
+          <tr>
+            <td><strong>C</strong></td>
+            <td>Site preparation &amp; resistance to contaminants and moisture</td>
+            <td>Damp-proof courses, membranes, subfloor ventilation, and protection against ground contaminants. Critical for basement conversions and ground-floor extensions.</td>
+          </tr>
+          <tr>
+            <td><strong>E</strong></td>
+            <td>Resistance to sound</td>
+            <td>Sound insulation between dwellings — party walls, party floors. Relevant to loft conversions in terraced/semi-detached houses and flat conversions (HMOs).</td>
+          </tr>
+          <tr>
+            <td><strong>F</strong></td>
+            <td>Ventilation</td>
+            <td>Background ventilation, extract fans, trickle vents in windows, mechanical ventilation. All habitable rooms must meet minimum ventilation rates.</td>
+          </tr>
+          <tr>
+            <td><strong>G</strong></td>
+            <td>Sanitation, hot water safety and water efficiency</td>
+            <td>Hot water storage safety (thermostats, expansion vessels), water efficiency (max 125 litres/person/day), and sanitary facilities provision.</td>
+          </tr>
+          <tr>
+            <td><strong>K</strong></td>
+            <td>Protection from falling, collision and impact</td>
+            <td>Staircase design (rise, going, headroom, handrails), guarding (balustrade heights), ramps, and glazing safety. Frequently the most scrutinised element in loft conversions.</td>
+          </tr>
+          <tr>
+            <td><strong>L</strong></td>
+            <td>Conservation of fuel and power</td>
+            <td>Thermal insulation (U-values), air permeability, heating system efficiency, SAP calculations. Significantly tightened in 2022 and again in the 2025 uplift toward Future Homes Standard.</td>
+          </tr>
+          <tr>
+            <td><strong>M</strong></td>
+            <td>Access to and use of buildings</td>
+            <td>Level or ramped approach, door widths, accessible WC provision. Applies to all new-build dwellings (M4(1) minimum) and extensions where reasonably practicable.</td>
+          </tr>
+          <tr>
+            <td><strong>O</strong></td>
+            <td>Overheating</td>
+            <td>Introduced June 2022. Requires assessment of overheating risk in new residential buildings. Particularly relevant to south/west-facing extensions with large glazing areas in London.</td>
+          </tr>
+          <tr>
+            <td><strong>P</strong></td>
+            <td>Electrical safety</td>
+            <td>Electrical installations must comply with BS 7671 (IET Wiring Regulations). Notifiable work in kitchens, bathrooms, outdoors, and around swimming pools. Must be certified by a Part P registered electrician or inspected by building control.</td>
+          </tr>
+          <tr>
+            <td><strong>Q</strong></td>
+            <td>Security</td>
+            <td>Doors and windows on new dwellings and extensions must meet PAS 24 security standards. Applies to all ground-floor and accessible windows and all external doors.</td>
+          </tr>
+          <tr>
+            <td><strong>R</strong></td>
+            <td>Physical infrastructure for high-speed electronic communications</td>
+            <td>New dwellings must have infrastructure capable of supporting gigabit broadband. In practice: suitable ducting from the building boundary to an internal termination point.</td>
+          </tr>
+          <tr>
+            <td><strong>S</strong></td>
+            <td>Infrastructure for charging electric vehicles</td>
+            <td>Introduced 2022. New dwellings with associated parking must have an EV charge point. Extensions or renovations with new/existing parking may also trigger the requirement.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Our <a href="../services/building-regulations.html">building regulations drawings service</a> covers all of the above Approved Documents as standard. We produce a complete set of construction drawings showing compliance with every relevant Part, annotated with references to specific clauses so your building control officer can check off each requirement efficiently.</p>
+
+    <!-- Section 4 -->
+    <h2 id="full-plans-vs-building-notice">Full Plans vs Building Notice</h2>
+
+    <p>There are two routes to obtaining building regulations approval in England and Wales. The right choice depends on the complexity of your project, your risk tolerance, and how much certainty you want before construction begins.</p>
+
+    <h3>Full Plans application</h3>
+
+    <p>A Full Plans application involves submitting detailed architectural drawings and specifications to building control <strong>before construction starts</strong>. The building control body reviews the drawings against the regulations and either approves them (with or without conditions) or requests amendments. Once approved, your builder knows exactly what standards to build to, and the building control officer uses the approved drawings as a benchmark during site inspections.</p>
+
+    <h3>Building Notice</h3>
+
+    <p>A Building Notice is a simpler notification that you intend to carry out building work. You give building control 48 hours' notice before starting, and they inspect the work as it progresses. There are no drawings submitted for approval — compliance is checked on site by the inspector.</p>
+
+    <div style="overflow-x: auto; margin: 24px 0;">
+      <table class="article-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Full Plans</th>
+            <th>Building Notice</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Drawings required</strong></td>
+            <td>Yes — detailed construction drawings</td>
+            <td>No formal drawings needed</td>
+          </tr>
+          <tr>
+            <td><strong>Pre-approval</strong></td>
+            <td>Yes — approved before work starts</td>
+            <td>No — compliance checked on site</td>
+          </tr>
+          <tr>
+            <td><strong>Certainty</strong></td>
+            <td>High — you know it complies before building</td>
+            <td>Low — problems discovered during construction</td>
+          </tr>
+          <tr>
+            <td><strong>Cost</strong></td>
+            <td>Higher (drawing fees + application fee)</td>
+            <td>Lower upfront, but risk of costly changes</td>
+          </tr>
+          <tr>
+            <td><strong>Timeline</strong></td>
+            <td>5 weeks to 2 months for plan approval</td>
+            <td>Work can start after 48 hours' notice</td>
+          </tr>
+          <tr>
+            <td><strong>Best for</strong></td>
+            <td>Extensions, loft conversions, structural work, anything complex</td>
+            <td>Very minor works, like-for-like replacements</td>
+          </tr>
+          <tr>
+            <td><strong>Risk</strong></td>
+            <td>Minimal — issues resolved on paper</td>
+            <td>Significant — non-compliant work may need demolishing</td>
+          </tr>
+          <tr>
+            <td><strong>Party wall / neighbours</strong></td>
+            <td>Required for work near party walls</td>
+            <td>Cannot be used for work on or near party walls in some cases</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <blockquote>
+      <p><strong>Our recommendation:</strong> Always use a Full Plans application for anything beyond the most minor domestic work. The cost of professional drawings (from &pound;840 with our <a href="../pricing.html">Essentials package</a>) is trivial compared to the cost of discovering during construction that your steels are undersized or your staircase doesn't meet Part K. We have seen homeowners spend &pound;15,000+ correcting work that would have cost &pound;2,000 to get right from the outset.</p>
+    </blockquote>
+
+    <!-- Section 5 -->
+    <h2 id="labc-vs-approved-inspectors">LABC vs Approved Inspectors</h2>
+
+    <p>When you submit a building regulations application, you choose who will inspect and approve your work. There are two options:</p>
+
+    <h3>Local Authority Building Control (LABC)</h3>
+
+    <p>LABC is the building control service provided by your London borough council. Every borough has a building control team staffed by qualified surveyors. LABC is the "default" option and the only body with legal enforcement powers. If something goes wrong on site, LABC can issue enforcement notices compelling you to correct or remove non-compliant work.</p>
+
+    <p>Advantages of LABC:</p>
+    <ul>
+      <li>Enforcement powers — can compel compliance</li>
+      <li>Familiar with local conditions, ground types, and common construction issues in your borough</li>
+      <li>Preferred by some mortgage lenders and solicitors</li>
+      <li>Fees are set by the council and published publicly</li>
+      <li>Can handle Building Notices and Full Plans applications</li>
+    </ul>
+
+    <h3>Approved Inspectors (private building control)</h3>
+
+    <p>Approved inspectors are private companies registered with the Construction Industry Council (CICAIR) to carry out building control functions. They compete with LABC and often offer faster turnaround, more flexible scheduling, and a more commercial service approach.</p>
+
+    <p>Advantages of Approved Inspectors:</p>
+    <ul>
+      <li>Often faster response times, especially for plan checking</li>
+      <li>More flexible scheduling for site inspections</li>
+      <li>Can offer a fixed-fee package including all inspections</li>
+      <li>Sometimes more pragmatic about alternative compliance solutions</li>
+      <li>Single point of contact throughout the project</li>
+    </ul>
+
+    <h3>Pricing differences</h3>
+
+    <p>LABC fees vary by borough and are based on the type and value of work. A typical domestic extension in London might attract LABC fees of &pound;400&ndash;&pound;900 (plan fee + inspection fee). Approved inspectors typically quote &pound;500&ndash;&pound;1,200 for equivalent work but as an all-inclusive package. For complex projects like <a href="../services/loft-conversions.html">loft conversions</a> or <a href="../services/mansard-roof.html">mansard roof extensions</a>, approved inspector fees can be higher but often include faster turnaround.</p>
+
+    <p>We work with both LABC and approved inspectors across all 33 London boroughs and can recommend the best option for your specific project and location.</p>
+
+    <!-- Section 6 -->
+    <h2 id="building-regs-drawings-cost">How much do building regulations drawings cost?</h2>
+
+    <p>The cost of building regulations drawings depends on the complexity of your project and the level of detail required. Here's what you can expect to pay with our practice:</p>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 32px 0;">
+      <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px;">
+        <p style="font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-deep); margin-bottom: 12px;">Essentials</p>
+        <p style="font-family: var(--font-display); font-size: 2.4rem; font-variation-settings: 'opsz' 144; color: var(--ink); margin-bottom: 8px; line-height: 1;"><span style="font-size: 0.85rem; opacity: 0.6; font-family: var(--font-body);">from</span> &pound;840</p>
+        <p style="font-size: 0.9rem; color: var(--ink-soft); line-height: 1.5;">Floor plans, sections, elevations annotated for building control. Suitable for straightforward internal alterations and minor extensions.</p>
+      </div>
+      <div style="background: var(--ink); border: 1px solid var(--ink); border-radius: var(--r-lg); padding: 28px; color: var(--bg);">
+        <p style="font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px;">Complete</p>
+        <p style="font-family: var(--font-display); font-size: 2.4rem; font-variation-settings: 'opsz' 144; margin-bottom: 8px; line-height: 1;"><span style="font-size: 0.85rem; opacity: 0.6; font-family: var(--font-body);">from</span> &pound;1,750</p>
+        <p style="font-size: 0.9rem; color: rgba(250,250,247,0.7); line-height: 1.5;">Full construction drawings, structural calculations, energy assessment, U-value calculations, construction details. Our most popular option.</p>
+      </div>
+      <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px;">
+        <p style="font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-deep); margin-bottom: 12px;">Structural calcs</p>
+        <p style="font-family: var(--font-display); font-size: 2.4rem; font-variation-settings: 'opsz' 144; color: var(--ink); margin-bottom: 8px; line-height: 1;">&pound;350&ndash;&pound;1,050</p>
+        <p style="font-size: 0.9rem; color: var(--ink-soft); line-height: 1.5;">Chartered engineer structural calculations. Steel beam design, foundation calculations, load analysis. Can be added to any package.</p>
+      </div>
+    </div>
+
+    <p>These fees are <strong>30% below typical London architect rates</strong> for equivalent work. We can offer this because we are architectural technologists — we specialise in the technical drawing and regulatory compliance that building control actually needs, without the design-school overhead. You get the same (or better) technical competence at a significantly lower cost.</p>
+
+    <p>Our structural calculations are produced in-house by a chartered structural engineer (CEng MICE), which means faster turnaround and better coordination with the architectural drawings. No waiting weeks for a third-party engineer.</p>
+
+    <p>For full pricing details including project-specific estimates, see our <a href="../pricing.html">pricing page</a> or <a href="../quote.html">request a free quote</a>.</p>
+
+    <!-- Section 7 -->
+    <h2 id="part-l-energy-efficiency">Part L compliance (energy efficiency)</h2>
+
+    <p>Part L of the building regulations — Conservation of fuel and power — is arguably the most technically demanding Approved Document for domestic projects. It has been significantly tightened in recent years, with the 2022 uplift and further changes heading toward the <strong>Future Homes Standard</strong> expected to take full effect from 2025.</p>
+
+    <h3>What Part L requires</h3>
+
+    <p>For extensions and alterations, Part L sets minimum thermal performance standards expressed as <strong>U-values</strong> — a measure of how much heat passes through a building element. Lower U-values mean better insulation. Current minimum U-values for domestic extensions include:</p>
+
+    <ul>
+      <li><strong>Walls:</strong> 0.18 W/m&sup2;K (down from 0.28 pre-2022)</li>
+      <li><strong>Roof:</strong> 0.15 W/m&sup2;K</li>
+      <li><strong>Floor:</strong> 0.18 W/m&sup2;K</li>
+      <li><strong>Windows and doors:</strong> 1.4 W/m&sup2;K (whole unit, including frame)</li>
+    </ul>
+
+    <p>For new-build dwellings and major conversions, Part L also requires a full <strong>SAP calculation</strong> (Standard Assessment Procedure) — a government-defined methodology for calculating the overall energy performance of a dwelling. The SAP calculation produces the Energy Performance Certificate (EPC) rating.</p>
+
+    <h3>The 2025 uplift and Future Homes Standard</h3>
+
+    <p>The <strong>Future Homes Standard</strong> will require new homes to produce 75-80% fewer carbon emissions than homes built to 2013 standards. The 2025 interim uplift has already tightened insulation requirements and introduced new requirements for low-carbon heating systems. For London homeowners, this means:</p>
+
+    <ul>
+      <li>Extension walls now need significantly more insulation — typically 100mm+ of rigid insulation or equivalent</li>
+      <li>New heating systems in new builds must be low-carbon (heat pumps, not gas boilers)</li>
+      <li>Ventilation requirements are stricter to prevent condensation in highly insulated buildings</li>
+      <li>Overheating risk assessments (Part O) must be carried out alongside Part L calculations for new residential buildings</li>
+    </ul>
+
+    <p>Our building regulations packages include full Part L compliance documentation. For extensions and alterations, this means U-value calculations for every building element and confirmation of compliant construction details. For larger projects, we coordinate SAP calculations and can recommend energy consultants for EPC assessments.</p>
+
+    <div style="background:var(--bg-2);border-radius:var(--r-lg);padding:60px 24px;text-align:center;color:var(--ink-soft);margin:32px 0;">
+      <p style="font-size:0.9rem;">IMAGE PLACEHOLDER — Diagram showing wall build-up with insulation layers, U-value annotations, and Part L compliance callouts</p>
+    </div>
+
+    <!-- Section 8 -->
+    <h2 id="fire-safety-part-b">Fire safety (Part B)</h2>
+
+    <p>Fire safety is taken very seriously by London building control officers, and Part B requirements are among the most common reasons for plan amendments and site rejections. Understanding Part B early in your project can save significant time and cost.</p>
+
+    <h3>Escape routes</h3>
+
+    <p>Every habitable room must have a means of escape in case of fire. For most two-storey houses, this is straightforward — rooms open onto a hallway/landing that leads directly to the front door. But when you add a third storey (a loft conversion), the fire escape requirements step up considerably:</p>
+
+    <ul>
+      <li><strong>Protected stairway:</strong> The staircase must be enclosed with fire-resistant walls and doors (FD30 fire doors — 30 minutes' fire resistance). This usually means upgrading every door that opens onto the staircase, from ground floor to loft.</li>
+      <li><strong>Inner rooms:</strong> If a loft bedroom opens into another room rather than directly onto the protected stairway, the inner room must have an alternative escape route (typically an openable window meeting minimum size requirements).</li>
+      <li><strong>Open-plan ground floors:</strong> If your ground floor is open-plan (a common London layout — living room flowing into kitchen/diner), you may need a sprinkler system or alternative escape route from the loft because the open-plan layout breaks the protected stairway enclosure.</li>
+    </ul>
+
+    <h3>Fire detection and alarms</h3>
+
+    <p>Part B requires:</p>
+    <ul>
+      <li>A <strong>Grade D, LD2 fire detection system</strong> for loft conversions — mains-powered, interlinked smoke detectors in the escape route (hallways and landings on every level) plus heat detectors in high-risk rooms (kitchens)</li>
+      <li>Smoke alarms on every storey</li>
+      <li>A heat alarm in the kitchen</li>
+      <li>All alarms must be mains-powered with battery backup and interlinked (when one sounds, they all sound)</li>
+    </ul>
+
+    <h3>Compartmentation</h3>
+
+    <p>Between separate dwellings (flats, HMOs, semi-detached houses), Part B requires <strong>fire compartmentation</strong> — fire-resistant barriers that prevent fire and smoke spreading from one dwelling to another. Party walls in terraced and semi-detached houses must achieve 60 minutes' fire resistance. Party floors in flats must achieve the same. When converting a house to flats or an HMO, compartmentation is one of the most significant building regulations requirements.</p>
+
+    <h3>HMO requirements</h3>
+
+    <p>Houses in Multiple Occupation (HMOs) have enhanced fire safety requirements beyond standard domestic Part B provisions. These include fire-rated doors to every letting room, emergency lighting in common areas, fire blankets in shared kitchens, and often a full fire alarm system (Grade A or Grade D, Category LD1). London borough licensing teams work alongside building control on HMO fire safety, and requirements can vary between boroughs.</p>
+
+    <!-- Section 9 -->
+    <h2 id="structural-calculations">Structural calculations</h2>
+
+    <p>Structural calculations are required whenever your project involves changes to the structural integrity of the building. In practice, this covers most London domestic projects beyond cosmetic refurbishment.</p>
+
+    <h3>When structural calculations are needed</h3>
+
+    <ul>
+      <li><strong>Removing or altering load-bearing walls</strong> — to determine the size and type of steel beam (RSJ/UB) needed to carry the loads above</li>
+      <li><strong>Loft conversions</strong> — floor strengthening, ridge beam or purlin removal, dormer construction, staircase opening</li>
+      <li><strong>Extensions</strong> — new foundations, roof structure, connection to existing building</li>
+      <li><strong>Mansard roof extensions</strong> — complete roof structure replacement, party wall loading, new floor structure</li>
+      <li><strong>Basement conversions</strong> — underpinning, retaining walls, waterproofing structural design</li>
+      <li><strong>Chimney breast removal</strong> — supporting the remaining structure above where the chimney breast has been removed</li>
+    </ul>
+
+    <h3>What structural calculations include</h3>
+
+    <p>A typical set of structural calculations for a London domestic project will include:</p>
+
+    <ul>
+      <li>Dead load and imposed load analysis</li>
+      <li>Steel beam/column sizing (universal beams, universal columns, RSJs)</li>
+      <li>Padstone and bearing specifications</li>
+      <li>Foundation design (strip foundations, trench fill, or pad foundations)</li>
+      <li>Timber floor joist sizing and spacing</li>
+      <li>Roof structure calculations (rafters, purlins, ridge beams)</li>
+      <li>Connection details and fixing specifications</li>
+    </ul>
+
+    <h3>Chartered engineer sign-off</h3>
+
+    <p>Building control requires structural calculations to be prepared and signed off by a suitably qualified engineer. Our in-house chartered structural engineer (CEng MICE) produces all calculations to building control standards and liaises directly with the building control officer if any queries arise. This in-house capability means <strong>faster turnaround</strong> (typically 5&ndash;7 working days for domestic projects) and better integration with the architectural drawings.</p>
+
+    <p>Structural calculations range from <strong>&pound;350 for a single beam</strong> (e.g., chimney breast removal) to <strong>&pound;1,050 for a full structural package</strong> (loft conversion with dormer, new floor, staircase, and steels). See our <a href="../pricing.html">pricing page</a> for detailed structural calculation costs.</p>
+
+    <!-- Section 10 -->
+    <h2 id="building-control-inspection-process">The building control inspection process</h2>
+
+    <p>Once your building regulations drawings are approved and construction begins, the building control officer will carry out a series of inspections at key stages. These inspections verify that the actual construction matches the approved drawings and meets the regulations.</p>
+
+    <h3>Timeline</h3>
+
+    <p>After submitting a Full Plans application, the local authority has <strong>5 weeks</strong> to decide (extendable to 2 months by mutual agreement). Most London boroughs currently process Full Plans applications within 4&ndash;6 weeks. Approved inspectors can often be faster — some offer 2&ndash;3 week turnaround for plan approval.</p>
+
+    <h3>Typical inspection stages (6&ndash;10 visits)</h3>
+
+    <p>The exact inspections required depend on the type of work, but a typical domestic extension or loft conversion involves:</p>
+
+    <ol>
+      <li><strong>Commencement</strong> — notifying building control that work has started</li>
+      <li><strong>Foundation excavation</strong> — inspector checks trench depth, width, and ground conditions before concrete is poured</li>
+      <li><strong>Foundation concrete</strong> — verifying the concrete specification and level</li>
+      <li><strong>Damp-proof course (DPC)</strong> — checking DPC position and material before walls are built above</li>
+      <li><strong>Oversite/ground floor</strong> — floor slab preparation, insulation, and membrane</li>
+      <li><strong>Structural steels</strong> — verifying beam sizes, bearing details, and padstones before they are concealed</li>
+      <li><strong>Pre-plaster / pre-plasterboard</strong> — checking insulation, fire barriers, sound insulation, and services before they are covered up. This is one of the most critical inspections.</li>
+      <li><strong>Drainage</strong> — checking falls, connections, air tests on new drainage runs</li>
+      <li><strong>Completion / final inspection</strong> — verifying all work is complete, testing smoke alarms, checking final finishes, confirming compliance with all Approved Documents</li>
+    </ol>
+
+    <h3>The completion certificate</h3>
+
+    <p>After the final inspection, if the building control officer is satisfied that all work complies with the regulations, they will issue a <strong>completion certificate</strong>. This document is legally important:</p>
+
+    <ul>
+      <li>It confirms the work has been inspected and approved</li>
+      <li>You will need it when you sell the property — solicitors will ask for it</li>
+      <li>Mortgage lenders require completion certificates for recent building work</li>
+      <li>It provides legal protection if defects are later discovered (proving the work was inspected at the time)</li>
+    </ul>
+
+    <p><strong>Keep your completion certificate safe.</strong> If you lose it, you can request a copy from the local authority, but this can take weeks and there may be a search fee. Some boroughs charge up to &pound;50 for replacement copies.</p>
+
+    <p>The total timeline from building regulations application to completion certificate depends on your build schedule. For a typical London <a href="../services/house-extensions.html">house extension</a>, expect 3&ndash;6 months. For a <a href="../services/loft-conversions.html">loft conversion</a>, 3&ndash;5 months. For a <a href="../services/mansard-roof.html">mansard roof extension</a>, 5&ndash;9 months.</p>
+
+    <div style="background:var(--bg-2);border-radius:var(--r-lg);padding:60px 24px;text-align:center;color:var(--ink-soft);margin:32px 0;">
+      <p style="font-size:0.9rem;">IMAGE PLACEHOLDER — Timeline graphic showing the building control process from application to completion certificate</p>
+    </div>
+
+    <!-- FAQ Section -->
+    <h2 id="faq" style="margin-top: 64px;">Frequently asked questions</h2>
+
+    <div class="faq-list" style="margin-top: 32px;">
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          Do I need building regulations for a loft conversion?
+          <span class="faq-q-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M3 8h10"/></svg></span>
+        </summary>
+        <div class="faq-a">
+          <p>Yes, every loft conversion in London requires building regulations approval. This is separate from planning permission. Building regulations cover structural safety (Part A), fire escape routes (Part B), sound insulation between dwellings (Part E), ventilation (Part F), staircase design (Part K), thermal insulation (Part L), and more. Even if your loft conversion is permitted development and doesn't need planning permission, you must still obtain building regulations approval before work begins. We recommend a Full Plans application so that compliance is confirmed on paper before any construction starts.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          How much do building regulations drawings cost in London?
+          <span class="faq-q-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M3 8h10"/></svg></span>
+        </summary>
+        <div class="faq-a">
+          <p>Building regulations drawings in London typically cost from &pound;840 for an Essentials package covering straightforward domestic work. A Complete package including structural calculations, energy assessments, and construction details starts from &pound;1,750. Structural calculations alone range from &pound;350 to &pound;1,050 depending on complexity. These fees are for the drawings — you will also pay a separate building control fee to your local authority (typically &pound;400&ndash;&pound;900) or approved inspector (typically &pound;500&ndash;&pound;1,200). Our fees are 30% below typical London architect rates for equivalent technical work.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          Can I use an approved inspector instead of LABC?
+          <span class="faq-q-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M3 8h10"/></svg></span>
+        </summary>
+        <div class="faq-a">
+          <p>Yes, you can choose either your Local Authority Building Control (LABC) or a private approved inspector for building regulations approval. Approved inspectors are often faster and more flexible with scheduling. However, LABC has enforcement powers that approved inspectors do not, and some mortgage lenders prefer LABC sign-off. Both routes result in a legally valid completion certificate. We work with both LABC teams and approved inspectors across all 33 London boroughs and can recommend the best option for your specific project.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          What happens if I don't get building regulations approval?
+          <span class="faq-q-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M3 8h10"/></svg></span>
+        </summary>
+        <div class="faq-a">
+          <p>Building without regulations approval is a criminal offence under the Building Act 1984. The local authority can serve an enforcement notice requiring you to alter or remove non-compliant work — potentially at very significant cost. When you come to sell your property, your buyer's solicitor will check for completion certificates, and missing certificates can delay or derail sales entirely. You may be able to apply for retrospective regularisation, but this costs more than getting approval upfront, involves intrusive investigations into concealed work, and there is no guarantee of a successful outcome. The message is clear: always get building regulations approval before starting work.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          How long does building control take?
+          <span class="faq-q-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M3 8h10"/></svg></span>
+        </summary>
+        <div class="faq-a">
+          <p>The Full Plans application is typically reviewed within 5 weeks (or up to 2 months by agreement). Most London boroughs currently process within 4&ndash;6 weeks. Once approved and construction begins, building control inspections occur at key stages — typically 6 to 10 site visits over the construction period. The final completion certificate is issued after the last inspection confirms all work meets the regulations. Total timeline from application to completion certificate depends on your build schedule but is typically 3 to 9 months for domestic projects in London.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          Do I need building regs for a kitchen extension?
+          <span class="faq-q-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M3 8h10"/></svg></span>
+        </summary>
+        <div class="faq-a">
+          <p>Yes. Any extension to your home requires building regulations approval regardless of whether it needs planning permission. This includes single-storey kitchen extensions, even those built under permitted development. Building regulations ensure the extension meets standards for structural integrity (Part A), damp-proofing (Part C), insulation (Part L), drainage (Part H), ventilation (Part F), electrical safety (Part P), and energy efficiency. The only exemptions are very small detached buildings (under 15 square metres with no sleeping accommodation) and certain conservatories with thermal separation from the main house.</p>
+        </div>
+      </details>
+
+    </div>
+
+    <!-- Last updated -->
+    <p style="margin-top: 48px; font-size: 0.85rem; color: var(--ink-softer);">Last updated: April 2026</p>
+
+  </div>
+</section>
+
+</article>
+
+<!-- CTA Band -->
+<section class="cta-band" style="background: var(--bg-2);">
+  <div class="container">
+    <h2>Need building regulations <span class="accent">drawings?</span></h2>
+    <p>MCIAT chartered practice. From &pound;840. Structural calculations in-house. All 33 London boroughs.</p>
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+      <a href="../quote.html" class="btn btn-primary btn-lg">Get a free quote</a>
+      <a href="../services/building-regulations.html" class="btn btn-outline btn-lg">View service details</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col footer-col-brand">
+        <a href="../" class="logo"><span class="logo-mark">A</span><span>Architectural<span style="color:var(--accent);font-style:italic;font-weight:400;"> Drawings</span></span></a>
+        <p>Chartered architectural technology for London homeowners, landlords and developers. MCIAT &middot; ICO &middot; &pound;2m PI.</p>
+        <p class="tiny muted" style="margin-top: 16px;">86&ndash;90 Paul Street, London EC2A 4NE<br/>020 7946 0000 &middot; hello@architecturaldrawings.co.uk</p>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="../services/planning-drawings.html">Planning drawings</a></li>
+          <li><a href="../services/building-regulations.html">Building regs</a></li>
+          <li><a href="../services/loft-conversions.html">Loft conversions</a></li>
+          <li><a href="../services/house-extensions.html">House extensions</a></li>
+          <li><a href="../services/mansard-roof.html">Mansard &amp; dormers</a></li>
+          <li><a href="../services.html">All services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../pricing.html">Pricing</a></li>
+          <li><a href="../index.html#process">Process</a></li>
+          <li><a href="../search.html">Search</a></li>
+          <li><a href="../areas/">Areas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Account</h5>
+        <ul>
+          <li><a href="../portal/login.html">Sign in</a></li>
+          <li><a href="../portal/register.html">Create account</a></li>
+          <li><a href="../quote.html">Free quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Architectural Drawings Ltd. Registered in England No. 14872049.</span>
+      <span><a href="../sitemap.xml">Sitemap</a> &middot; <a href="../privacy.html">Privacy</a> &middot; <a href="../terms.html">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Architectural Drawings — main site interactions */
+(() => {
+  'use strict';
+
+  /* ---------- Scroll-triggered reveals ---------- */
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && reveals.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    reveals.forEach((el) => io.observe(el));
+  } else {
+    reveals.forEach((el) => el.classList.add('in'));
+  }
+
+  /* ---------- Nav scroll state ---------- */
+  const nav = document.getElementById('nav');
+  if (nav) {
+    const onScroll = () => {
+      nav.classList.toggle('scrolled', window.scrollY > 12);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ---------- Mobile menu ---------- */
+  const btnMenu = document.getElementById('btnMenu');
+  if (btnMenu) {
+    btnMenu.addEventListener('click', () => {
+      document.body.classList.toggle('menu-open');
+      const navLinks = document.querySelector('.nav-links');
+      if (navLinks) {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '64px';
+        navLinks.style.left = '0';
+        navLinks.style.right = '0';
+        navLinks.style.background = 'var(--bg)';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.padding = '16px 24px';
+        navLinks.style.borderBottom = '1px solid var(--line)';
+      }
+    });
+  }
+
+  /* ---------- FAQ accordion ---------- */
+  document.querySelectorAll('.faq-item').forEach((item) => {
+    item.addEventListener('toggle', () => {
+      item.classList.toggle('open', item.open);
+    });
+  });
+
+  /* ---------- Smooth anchor scrolling with nav offset ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      const id = anchor.getAttribute('href');
+      if (id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      const navHeight = nav ? nav.offsetHeight : 0;
+      const y = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  });
+})();
+</script>
+</body>
+</html>
