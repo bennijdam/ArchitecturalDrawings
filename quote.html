@@ -1404,6 +1404,16 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
 }
 
 
+
+/* Footer SEO link grid */
+.footer-seo { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; padding-bottom: 3rem; margin-bottom: 3rem; border-bottom: 1px solid var(--line); }
+@media (max-width: 820px) { .footer-seo { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+@media (max-width: 500px) { .footer-seo { grid-template-columns: 1fr; } }
+.footer-seo h5 { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink); margin-bottom: 1.1rem; }
+.footer-seo ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.footer-seo a { font-size: 0.85rem; color: var(--ink-soft); transition: color 0.2s var(--ease); line-height: 1.4; }
+.footer-seo a:hover { color: var(--accent-deep); }
+
 /* ===== Fail-safe reveal (works even if JS never runs) ===== */
 @keyframes __ad_safety_in { to { opacity: 1; transform: none; } }
 .reveal { animation: __ad_safety_in 0.01s linear 1.5s forwards; }

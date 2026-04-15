@@ -118,6 +118,14 @@ architectural-drawings/
 - Homepage hero: "From £840 fixed fee" trust badge added
 - Image alt text: improved across all 5 service pages + index.html with keyword-rich descriptions
 
+### SEO Footer link grid (completed 2026-04-14)
+- Added `.footer-seo` 4-column keyword link grid to ALL pages (matching Crown Architecture / competitor pattern)
+- 4 columns: "Services in London" (10 links), "Loft conversions by borough" (10 links), "Extension plans by borough" (12 links), "Planning drawings by borough" (11 links)
+- CSS added to `assets/css/style.css` and inlined in all HTML pages
+- Applied to: 8 root pages, 5 service pages, 5 blog pages, 2 project pages, 199 pSEO pages (via gen_pseo.py)
+- Created `scripts/add_seo_footer.py` for batch-applying to new pages
+- Updated CLAUDE.md §4 with footer-seo documentation
+
 **Priority 3 content (completed 2026-04-14):**
 - `/blog/` hub page with 4 article cards
 - `/blog/planning-permission-london.html` — 7,900+ word pillar guide, 13 sections, 8 FAQs, all 33 boroughs linked, pricing tables, Article schema

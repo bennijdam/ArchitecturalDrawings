@@ -33,6 +33,15 @@ CSS = (PROJECT / "assets/css/style.css").read_text(encoding="utf-8")
 
 # Additional CSS for pSEO-specific components (TL;DR box, fact grid, local stats)
 PSEO_CSS = """
+/* ===== Footer SEO ===== */
+.footer-seo { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; padding-bottom: 3rem; margin-bottom: 3rem; border-bottom: 1px solid var(--line); }
+@media (max-width: 820px) { .footer-seo { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+@media (max-width: 500px) { .footer-seo { grid-template-columns: 1fr; } }
+.footer-seo h5 { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink); margin-bottom: 1.1rem; }
+.footer-seo ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.footer-seo a { font-size: 0.85rem; color: var(--ink-soft); transition: color 0.2s var(--ease); line-height: 1.4; }
+.footer-seo a:hover { color: var(--accent-deep); }
+
 /* ===== pSEO additions ===== */
 .tldr {
   background: var(--surface);
@@ -606,9 +615,39 @@ def render_service_location(borough_slug, service_slug):
 
 <footer class="footer">
   <div class="container">
+    <div class="footer-seo">
+      <div><h5>Services in London</h5><ul>
+        <li><a href="/services/planning-drawings.html">Planning permission drawings London</a></li>
+        <li><a href="/services/building-regulations.html">Building regulations drawings London</a></li>
+        <li><a href="/services/loft-conversions.html">Loft conversion drawings London</a></li>
+        <li><a href="/services/house-extensions.html">House extension plans London</a></li>
+        <li><a href="/services/mansard-roof.html">Mansard roof extensions London</a></li>
+      </ul></div>
+      <div><h5>Loft conversions by borough</h5><ul>
+        <li><a href="/areas/camden/loft-conversions.html">Loft conversion Camden</a></li>
+        <li><a href="/areas/islington/loft-conversions.html">Loft conversion Islington</a></li>
+        <li><a href="/areas/hackney/loft-conversions.html">Loft conversion Hackney</a></li>
+        <li><a href="/areas/wandsworth/loft-conversions.html">Loft conversion Wandsworth</a></li>
+        <li><a href="/areas/lambeth/loft-conversions.html">Loft conversion Lambeth</a></li>
+      </ul></div>
+      <div><h5>Extension plans by borough</h5><ul>
+        <li><a href="/areas/lewisham/house-extensions.html">Extension plans Lewisham</a></li>
+        <li><a href="/areas/greenwich/house-extensions.html">Extension plans Greenwich</a></li>
+        <li><a href="/areas/bromley/house-extensions.html">Extension plans Bromley</a></li>
+        <li><a href="/areas/croydon/house-extensions.html">Extension plans Croydon</a></li>
+        <li><a href="/areas/merton/house-extensions.html">Extension plans Merton</a></li>
+      </ul></div>
+      <div><h5>Planning drawings by borough</h5><ul>
+        <li><a href="/areas/barnet/planning-drawings.html">Planning drawings Barnet</a></li>
+        <li><a href="/areas/haringey/planning-drawings.html">Planning drawings Haringey</a></li>
+        <li><a href="/areas/enfield/planning-drawings.html">Planning drawings Enfield</a></li>
+        <li><a href="/areas/newham/planning-drawings.html">Planning drawings Newham</a></li>
+        <li><a href="/areas/bexley/planning-drawings.html">Planning drawings Bexley</a></li>
+      </ul></div>
+    </div>
     <div class="footer-bottom" style="border-top: 0; padding-top: 0;">
-      <span>© 2026 Architectural Drawings Ltd · Serving {location} and all 33 London boroughs</span>
-      <span><a href="/">Home</a> · <a href="/services.html">All services</a> · <a href="/pricing.html">Pricing</a> · <a href="/areas/">All areas</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></span>
+      <span>&copy; 2026 Architectural Drawings Ltd &middot; Serving {location} and all 33 London boroughs</span>
+      <span><a href="/">Home</a> &middot; <a href="/services.html">All services</a> &middot; <a href="/pricing.html">Pricing</a> &middot; <a href="/areas/">All areas</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a></span>
     </div>
   </div>
 </footer>
@@ -796,9 +835,39 @@ def render_borough_hub(borough_slug):
 
 <footer class="footer">
   <div class="container">
+    <div class="footer-seo">
+      <div><h5>Services in London</h5><ul>
+        <li><a href="/services/planning-drawings.html">Planning permission drawings London</a></li>
+        <li><a href="/services/building-regulations.html">Building regulations drawings London</a></li>
+        <li><a href="/services/loft-conversions.html">Loft conversion drawings London</a></li>
+        <li><a href="/services/house-extensions.html">House extension plans London</a></li>
+        <li><a href="/services/mansard-roof.html">Mansard roof extensions London</a></li>
+      </ul></div>
+      <div><h5>Loft conversions by borough</h5><ul>
+        <li><a href="/areas/camden/loft-conversions.html">Loft conversion Camden</a></li>
+        <li><a href="/areas/islington/loft-conversions.html">Loft conversion Islington</a></li>
+        <li><a href="/areas/hackney/loft-conversions.html">Loft conversion Hackney</a></li>
+        <li><a href="/areas/wandsworth/loft-conversions.html">Loft conversion Wandsworth</a></li>
+        <li><a href="/areas/lambeth/loft-conversions.html">Loft conversion Lambeth</a></li>
+      </ul></div>
+      <div><h5>Extension plans by borough</h5><ul>
+        <li><a href="/areas/lewisham/house-extensions.html">Extension plans Lewisham</a></li>
+        <li><a href="/areas/greenwich/house-extensions.html">Extension plans Greenwich</a></li>
+        <li><a href="/areas/bromley/house-extensions.html">Extension plans Bromley</a></li>
+        <li><a href="/areas/croydon/house-extensions.html">Extension plans Croydon</a></li>
+        <li><a href="/areas/merton/house-extensions.html">Extension plans Merton</a></li>
+      </ul></div>
+      <div><h5>Planning drawings by borough</h5><ul>
+        <li><a href="/areas/barnet/planning-drawings.html">Planning drawings Barnet</a></li>
+        <li><a href="/areas/haringey/planning-drawings.html">Planning drawings Haringey</a></li>
+        <li><a href="/areas/enfield/planning-drawings.html">Planning drawings Enfield</a></li>
+        <li><a href="/areas/newham/planning-drawings.html">Planning drawings Newham</a></li>
+        <li><a href="/areas/bexley/planning-drawings.html">Planning drawings Bexley</a></li>
+      </ul></div>
+    </div>
     <div class="footer-bottom" style="border-top: 0; padding-top: 0;">
-      <span>© 2026 Architectural Drawings Ltd · Covering {location}</span>
-      <span><a href="/">Home</a> · <a href="/areas/">All areas</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></span>
+      <span>&copy; 2026 Architectural Drawings Ltd &middot; Covering {location}</span>
+      <span><a href="/">Home</a> &middot; <a href="/areas/">All areas</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a></span>
     </div>
   </div>
 </footer>
@@ -893,9 +962,39 @@ def render_master_index():
 
 <footer class="footer">
   <div class="container">
+    <div class="footer-seo">
+      <div><h5>Services in London</h5><ul>
+        <li><a href="/services/planning-drawings.html">Planning permission drawings London</a></li>
+        <li><a href="/services/building-regulations.html">Building regulations drawings London</a></li>
+        <li><a href="/services/loft-conversions.html">Loft conversion drawings London</a></li>
+        <li><a href="/services/house-extensions.html">House extension plans London</a></li>
+        <li><a href="/services/mansard-roof.html">Mansard roof extensions London</a></li>
+      </ul></div>
+      <div><h5>Loft conversions by borough</h5><ul>
+        <li><a href="/areas/camden/loft-conversions.html">Loft conversion Camden</a></li>
+        <li><a href="/areas/islington/loft-conversions.html">Loft conversion Islington</a></li>
+        <li><a href="/areas/hackney/loft-conversions.html">Loft conversion Hackney</a></li>
+        <li><a href="/areas/wandsworth/loft-conversions.html">Loft conversion Wandsworth</a></li>
+        <li><a href="/areas/lambeth/loft-conversions.html">Loft conversion Lambeth</a></li>
+      </ul></div>
+      <div><h5>Extension plans by borough</h5><ul>
+        <li><a href="/areas/lewisham/house-extensions.html">Extension plans Lewisham</a></li>
+        <li><a href="/areas/greenwich/house-extensions.html">Extension plans Greenwich</a></li>
+        <li><a href="/areas/bromley/house-extensions.html">Extension plans Bromley</a></li>
+        <li><a href="/areas/croydon/house-extensions.html">Extension plans Croydon</a></li>
+        <li><a href="/areas/merton/house-extensions.html">Extension plans Merton</a></li>
+      </ul></div>
+      <div><h5>Planning drawings by borough</h5><ul>
+        <li><a href="/areas/barnet/planning-drawings.html">Planning drawings Barnet</a></li>
+        <li><a href="/areas/haringey/planning-drawings.html">Planning drawings Haringey</a></li>
+        <li><a href="/areas/enfield/planning-drawings.html">Planning drawings Enfield</a></li>
+        <li><a href="/areas/newham/planning-drawings.html">Planning drawings Newham</a></li>
+        <li><a href="/areas/bexley/planning-drawings.html">Planning drawings Bexley</a></li>
+      </ul></div>
+    </div>
     <div class="footer-bottom" style="border-top: 0; padding-top: 0;">
-      <span>© 2026 Architectural Drawings Ltd · 33 London boroughs</span>
-      <span><a href="/">Home</a> · <a href="/services.html">Services</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></span>
+      <span>&copy; 2026 Architectural Drawings Ltd &middot; 33 London boroughs</span>
+      <span><a href="/">Home</a> &middot; <a href="/services.html">Services</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a></span>
     </div>
   </div>
 </footer>

@@ -164,6 +164,23 @@ When adding features, sections, or modals to any existing page, the existing lay
 
 Copy the structural HTML from existing sections when adding new ones. Do not invent new components unless the task requires it.
 
+### Footer SEO link grid
+
+Every page must include a `.footer-seo` 4-column grid above the main footer content. This grid contains keyword-rich links to service pages and borough-specific service pages, matching the pattern used by top-ranking competitors (Extension Architecture, LCCL, Crown Architecture).
+
+```
+.footer-seo (4-column grid, collapses to 2 then 1 on mobile)
+├── Services in London (10 keyword links to /services/*.html)
+├── Loft conversions by borough (10 links to /areas/{borough}/loft-conversions.html)
+├── Extension plans by borough (12 links to /areas/{borough}/house-extensions.html)
+└── Planning drawings by borough (11 links to /areas/{borough}/planning-drawings.html)
+```
+
+- **CSS:** `.footer-seo` is defined in `assets/css/style.css` AND must be inlined in every HTML page's `<style>` block.
+- **pSEO pages:** use a condensed 5-link version per column (defined in `gen_pseo.py`).
+- **Path prefixes:** root pages use no prefix, `/services/` and `/blog/` pages use `../`, pSEO pages use absolute `/` paths.
+- When adding new pages, always include the footer-seo block. Use `scripts/add_seo_footer.py` to batch-add it.
+
 ---
 
 ## 5. Backend conventions
