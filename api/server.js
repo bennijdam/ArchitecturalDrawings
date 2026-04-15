@@ -12,6 +12,7 @@ import rateLimit from 'express-rate-limit';
 import path from 'node:path';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { Sentry, sentryEnabled } from './instrument.js';
 
 import { initDb } from './models/db.js';
 import authRouter from './routes/auth.js';
@@ -25,6 +26,9 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Trust first proxy (Cloudflare, Railway, Vercel) so rate limiting and req.ip work correctly
+app.set('trust proxy', 1);
 
 /* ---------- Initialise filesystem + DB ---------- */
 ['data', process.env.UPLOAD_DIR || './uploads'].forEach((dir) => {
@@ -77,6 +81,10 @@ app.use('/uploads', express.static(process.env.UPLOAD_DIR || './uploads'));
 // Comment this block if frontend is served separately (CDN, Nginx, etc.)
 const FRONTEND_DIR = path.join(__dirname, '..');
 app.use(express.static(FRONTEND_DIR, { extensions: ['html'] }));
+
+if (sentryEnabled) {
+  Sentry.setupExpressErrorHandler(app);
+}
 
 /* ---------- Error handling ---------- */
 app.use((err, req, res, next) => {

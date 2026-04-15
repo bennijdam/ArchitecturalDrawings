@@ -1313,7 +1313,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   gap: 16px;
   margin-bottom: 40px;
 }
-@media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
 .stat-card {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -1382,6 +1382,61 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
 .file-drop strong { display: block; margin-bottom: 4px; }
 .file-drop span { font-size: 0.84rem; color: var(--ink-soft); }
 
+/* ============== Portal section toggle ============== */
+.portal-main [data-section] { display: none; }
+.portal-main [data-section].active { display: block; }
+.portal-main.hide-overview .overview-el { display: none !important; }
+
+/* ============== Messages ============== */
+.message-empty {
+  text-align: center; padding: 60px 24px; color: var(--ink-soft);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+}
+.message-empty svg { width: 48px; height: 48px; margin: 0 auto 16px; color: var(--line-strong); }
+
+/* ============== Settings ============== */
+.settings-group {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-lg); padding: 28px; margin-bottom: 20px;
+}
+.settings-group h3 { font-size: 1.2rem; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.settings-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 0; border-bottom: 1px solid var(--line); gap: 16px;
+}
+.settings-row:last-child { border-bottom: 0; }
+.settings-label { font-size: 0.94rem; font-weight: 500; }
+.settings-value { font-size: 0.9rem; color: var(--ink-soft); }
+.settings-field { margin-bottom: 16px; }
+.settings-field label { display: block; font-size: 0.84rem; font-weight: 600; color: var(--ink-soft); margin-bottom: 6px; }
+.settings-field input { width: 100%; padding: 12px 16px; border: 1px solid var(--line-strong); border-radius: var(--r-sm); background: var(--bg); }
+.settings-field input:focus { outline: none; border-color: var(--accent); }
+
+/* ============== Project detail modal ============== */
+.modal-overlay { position: fixed; inset: 0; background: rgba(14,17,22,0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.active { display: flex; }
+.modal { background: var(--surface); border-radius: var(--r-xl); max-width: 560px; width: 100%; padding: 36px; position: relative; box-shadow: var(--shadow-lg); max-height: calc(100vh - 40px); overflow-y: auto; }
+.modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; cursor: pointer; }
+.modal-close:hover { background: var(--bg-2); }
+.modal-close svg { width: 16px; height: 16px; }
+.modal-detail-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 0.94rem; }
+.modal-detail-row:last-child { border-bottom: 0; }
+.modal-detail-label { color: var(--ink-soft); }
+
+/* ============== Sign-out ============== */
+.portal-signout { padding: 10px 14px; display: flex; align-items: center; gap: 10px; border-radius: var(--r-sm); color: rgba(250,250,247,0.5); font-size: 0.88rem; cursor: pointer; margin-top: -24px; width: 100%; text-align: left; }
+.portal-signout:hover { background: rgba(250,250,247,0.08); color: var(--bg); }
+.portal-signout svg { width: 18px; height: 18px; }
+
+/* ============== Mobile sidebar toggle ============== */
+.portal-mobile-toggle { display: none; position: fixed; bottom: 20px; right: 20px; width: 52px; height: 52px; border-radius: 50%; background: var(--ink); color: var(--bg); z-index: 150; place-items: center; box-shadow: var(--shadow-lg); cursor: pointer; }
+.portal-mobile-toggle svg { width: 22px; height: 22px; }
+@media (max-width: 860px) {
+  .portal-mobile-toggle { display: grid; }
+  .portal-sidebar { display: none !important; }
+  .portal-sidebar.open { display: flex !important; position: fixed; inset: 0; z-index: 140; width: 280px; }
+}
+
 /* ============== Utilities ============== */
 .text-center { text-align: center; }
 .mt-0 { margin-top: 0 !important; }
@@ -1434,20 +1489,25 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
     </nav>
 
     <div class="portal-user">
-      <div class="portal-user-avatar" id="userAvatar">A</div>
+      <div class="portal-user-avatar" id="userAvatar"></div>
       <div>
-        <strong id="userName">Alex Morgan</strong>
-        <span id="userEmail">alex@example.com</span>
+        <strong id="userName"></strong>
+        <span id="userEmail"></span>
       </div>
     </div>
+    <button class="portal-signout" id="signOut">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Sign out
+    </button>
   </aside>
+  <div id="sidebarOverlay" style="display:none;position:fixed;inset:0;background:rgba(14,17,22,0.4);z-index:139;" onclick="document.querySelector('.portal-sidebar').classList.remove('open');this.style.display='none';"></div>
 
   <!-- ============ MAIN ============ -->
   <main class="portal-main">
-    <div class="portal-header">
+    <div class="portal-header overview-el">
       <div>
-        <span class="eyebrow">Monday, 13 April</span>
-        <h1 style="margin-top: 8px;">Welcome back, <em id="userFirstName" style="color: var(--accent);">Alex</em>.</h1>
+        <span class="eyebrow" id="portalDate"></span>
+        <h1 style="margin-top: 8px;">Welcome back, <em id="userFirstName" style="color: var(--accent);"></em>.</h1>
       </div>
       <a href="../quote.html" class="btn btn-primary">
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg>
@@ -1456,7 +1516,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
     </div>
 
     <!-- Stats -->
-    <div class="stats-grid">
+    <div class="stats-grid overview-el">
       <div class="stat-card">
         <div class="stat-card-label">Active projects</div>
         <div class="stat-card-value">2</div>
@@ -1480,7 +1540,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
     </div>
 
     <!-- Projects -->
-    <section id="projects" style="margin-bottom: 40px;">
+    <section id="projects" class="overview-el" style="margin-bottom: 40px;padding:0;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
         <h2 style="font-size:1.8rem;">Your projects</h2>
         <a href="#" style="font-size:0.9rem;color:var(--accent-deep);font-weight:600;">View all →</a>
@@ -1518,7 +1578,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
     </section>
 
     <!-- File upload + Payment grid -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+    <div class="overview-el" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
 
       <section id="files">
         <h2 style="font-size:1.4rem;margin-bottom:16px;">Upload files</h2>
@@ -1551,84 +1611,191 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
       </section>
 
     </div>
+
+    <!-- ====== MESSAGES (hidden by default) ====== -->
+    <div data-section="messages">
+      <div class="portal-header">
+        <div>
+          <span class="eyebrow">Communication</span>
+          <h1 style="margin-top: 8px;">Messages</h1>
+        </div>
+      </div>
+      <div class="message-empty">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M42 24a16 16 0 0 1-24 14l-10 4 4-10A16 16 0 1 1 42 24z"/></svg>
+        <p style="font-size:1.05rem;font-weight:500;color:var(--ink);margin-bottom:6px;">No messages yet</p>
+        <p>Messages from your project team will appear here.</p>
+      </div>
+    </div>
+
+    <!-- ====== SETTINGS (hidden by default) ====== -->
+    <div data-section="settings">
+      <div class="portal-header">
+        <div>
+          <span class="eyebrow">Account</span>
+          <h1 style="margin-top: 8px;">Settings</h1>
+        </div>
+      </div>
+      <div class="settings-group">
+        <h3>Profile</h3>
+        <div class="settings-field"><label for="sName">Full name</label><input type="text" id="sName" /></div>
+        <div class="settings-field"><label for="sEmail">Email</label><input type="email" id="sEmail" /></div>
+        <div class="settings-field"><label for="sPhone">Phone</label><input type="tel" id="sPhone" placeholder="07700 900 000" /></div>
+        <button class="btn btn-primary btn-sm" id="saveProfile" style="margin-top:8px;">Save changes</button>
+      </div>
+      <div class="settings-group">
+        <h3>Security</h3>
+        <div class="settings-row"><div><div class="settings-label">Password</div><div class="settings-value">Change your password</div></div><button class="btn btn-outline btn-sm" onclick="alert('In production this sends a password reset email.')">Change</button></div>
+        <div class="settings-row"><div><div class="settings-label">Two-factor authentication</div><div class="settings-value">Not enabled</div></div><button class="btn btn-outline btn-sm" disabled>Coming soon</button></div>
+      </div>
+      <div class="settings-group">
+        <h3>Notifications</h3>
+        <div class="settings-row"><div><div class="settings-label">Email notifications</div><div class="settings-value">Project updates, deliveries, receipts</div></div><label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--accent);" /><span style="font-size:0.88rem;">On</span></label></div>
+      </div>
+    </div>
+
   </main>
 </div>
 
+<!-- Project detail modal -->
+<div class="modal-overlay" id="projectModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div id="modalBadge" style="margin-bottom:12px;"></div>
+    <h3 id="modalTitle" style="margin-bottom:4px;"></h3>
+    <p class="muted tiny" id="modalMeta" style="margin-bottom:24px;"></p>
+    <div id="modalDetails"></div>
+    <div style="margin-top:24px;display:flex;gap:10px;">
+      <a href="../quote.html" class="btn btn-primary btn-sm" style="flex:1;justify-content:center;">Request amendment</a>
+      <button class="btn btn-outline btn-sm" onclick="document.getElementById('projectModal').classList.remove('active')" style="flex:1;justify-content:center;">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile sidebar toggle -->
+<button class="portal-mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+</button>
+
 <script>
-// Auth check — if no token, redirect to login
-if (!sessionStorage.getItem('ad_token')) {
-  window.location.href = 'login.html';
-}
+(() => {
+  'use strict';
+  const API = location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://api.architecturaldrawings.co.uk';
+  if (!sessionStorage.getItem('ad_token')) { window.location.href = 'login.html'; return; }
 
-// Populate user from session
-try {
-  const user = JSON.parse(sessionStorage.getItem('ad_user') || '{}');
-  if (user.name) {
-    document.getElementById('userName').textContent = user.name;
-    document.getElementById('userFirstName').textContent = user.name.split(' ')[0];
-    document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+  // Dynamic date
+  const now = new Date();
+  const D = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const M = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('portalDate').textContent = D[now.getDay()] + ', ' + now.getDate() + ' ' + M[now.getMonth()];
+
+  // User
+  let usr = {};
+  try { usr = JSON.parse(sessionStorage.getItem('ad_user') || '{}'); } catch(e) {}
+  function fill(u) {
+    if (u.name) { document.getElementById('userName').textContent = u.name; document.getElementById('userFirstName').textContent = u.name.split(' ')[0]; document.getElementById('userAvatar').textContent = u.name.charAt(0).toUpperCase(); document.getElementById('sName').value = u.name; }
+    if (u.email) { document.getElementById('userEmail').textContent = u.email; document.getElementById('sEmail').value = u.email; }
+    if (u.phone) document.getElementById('sPhone').value = u.phone;
   }
-  if (user.email) document.getElementById('userEmail').textContent = user.email;
-} catch (err) { /* ignore */ }
+  fill(usr);
 
-// File upload handling
-const drop = document.getElementById('fileDrop');
-const input = document.getElementById('fileInput');
-const list = document.getElementById('fileList');
-
-drop.addEventListener('click', () => input.click());
-drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('drag'); });
-drop.addEventListener('dragleave', () => drop.classList.remove('drag'));
-drop.addEventListener('drop', (e) => {
-  e.preventDefault();
-  drop.classList.remove('drag');
-  handleFiles(e.dataTransfer.files);
-});
-input.addEventListener('change', () => handleFiles(input.files));
-
-function handleFiles(files) {
-  Array.from(files).forEach((f) => {
-    const li = document.createElement('li');
-    li.style.cssText = 'padding: 12px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin-top: 8px; display: flex; justify-content: space-between; align-items: center;';
-    li.innerHTML = `
-      <div>
-        <strong>${f.name}</strong>
-        <div style="font-size: 0.8rem; color: var(--ink-soft);">${(f.size / 1024).toFixed(0)} KB</div>
-      </div>
-      <span style="color: var(--success); font-size: 0.84rem;">✓ Ready to upload</span>
-    `;
-    list.appendChild(li);
-
-    // In production: POST to /api/files/upload with FormData + auth token
-    const fd = new FormData();
-    fd.append('file', f);
-    fetch('/api/files/upload', {
-      method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('ad_token') },
-      body: fd
-    }).catch(() => { /* demo fallback — file stays local */ });
-  });
-}
-
-// Stripe payment
-document.getElementById('payNow').addEventListener('click', async () => {
-  try {
-    const res = await fetch('/api/stripe/checkout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('ad_token')
-      },
-      body: JSON.stringify({ amount: 87500, currency: 'gbp', description: 'Stage 2 — drawings delivery' })
+  // Section nav
+  const main = document.querySelector('.portal-main');
+  document.querySelectorAll('.portal-nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const id = a.getAttribute('href').replace('#','');
+      document.querySelectorAll('.portal-nav a').forEach(l => l.classList.remove('active'));
+      a.classList.add('active');
+      main.querySelectorAll('[data-section]').forEach(s => s.classList.remove('active'));
+      if (id === 'overview' || id === 'projects' || id === 'files' || id === 'payments') {
+        main.classList.remove('hide-overview');
+        if (id !== 'overview') { const el = document.getElementById(id); if (el) el.scrollIntoView({behavior:'smooth',block:'start'}); }
+      } else {
+        main.classList.add('hide-overview');
+        const p = main.querySelector('[data-section="'+id+'"]');
+        if (p) p.classList.add('active');
+      }
+      document.querySelector('.portal-sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').style.display = 'none';
     });
-    if (res.ok) {
-      const { sessionUrl } = await res.json();
-      window.location.href = sessionUrl;
-      return;
-    }
-  } catch (err) { /* fall through */ }
-  alert('Demo mode: In production, this opens Stripe Checkout for £875.');
-});
+  });
+
+  // Sign out
+  document.getElementById('signOut').addEventListener('click', () => { sessionStorage.clear(); window.location.href = 'login.html'; });
+
+  // Mobile toggle
+  document.getElementById('mobileToggle').addEventListener('click', () => {
+    const sb = document.querySelector('.portal-sidebar'), ov = document.getElementById('sidebarOverlay');
+    sb.classList.toggle('open'); ov.style.display = sb.classList.contains('open') ? 'block' : 'none';
+  });
+
+  // Project modal
+  const modal = document.getElementById('projectModal');
+  document.getElementById('modalClose').addEventListener('click', () => modal.classList.remove('active'));
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('active'); });
+  const demos = [
+    {title:'Side return extension \u2014 42 Broadhurst Gardens',service:'Complete package',postcode:'NW6',status:'review',value_pence:175000,created_at:'2026-03-03'},
+    {title:'Loft conversion (mansard) \u2014 17a Ormonde Terrace',service:'Bespoke',postcode:'NW8',status:'active',value_pence:320000,created_at:'2026-01-18'},
+    {title:'Rear extension \u2014 8 Henderson Road',service:'Complete',postcode:'SW18',status:'approved',value_pence:175000,created_at:'2025-10-15'}
+  ];
+  const sMap = {active:['In progress','badge-active'],review:['In review','badge-review'],approved:['Approved','badge-done']};
+  document.querySelectorAll('.project-item .btn-outline').forEach((btn, i) => {
+    if (!demos[i]) return;
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const p = demos[i], s = sMap[p.status]||['Pending','badge-pending'];
+      const fee = '\u00A3'+(p.value_pence/100).toLocaleString('en-GB');
+      const dt = new Date(p.created_at), ds = dt.getDate()+' '+M[dt.getMonth()]+' '+dt.getFullYear();
+      document.getElementById('modalBadge').innerHTML = '<span class="badge '+s[1]+'">'+s[0]+'</span>';
+      document.getElementById('modalTitle').textContent = p.title;
+      document.getElementById('modalMeta').textContent = p.service+' \u00B7 Started '+ds;
+      document.getElementById('modalDetails').innerHTML =
+        '<div class="modal-detail-row"><span class="modal-detail-label">Service</span><strong>'+p.service+'</strong></div>'+
+        '<div class="modal-detail-row"><span class="modal-detail-label">Postcode</span><strong>'+p.postcode+'</strong></div>'+
+        '<div class="modal-detail-row"><span class="modal-detail-label">Fee</span><strong>'+fee+'</strong></div>'+
+        '<div class="modal-detail-row"><span class="modal-detail-label">Status</span><span class="badge '+s[1]+'">'+s[0]+'</span></div>'+
+        '<div class="modal-detail-row"><span class="modal-detail-label">Started</span><strong>'+ds+'</strong></div>';
+      modal.classList.add('active');
+    });
+  });
+
+  // Save profile
+  document.getElementById('saveProfile').addEventListener('click', () => {
+    const n = document.getElementById('sName').value.trim(), e = document.getElementById('sEmail').value.trim();
+    if (!n||!e) { alert('Name and email required.'); return; }
+    usr = {...usr, name:n, email:e, phone:document.getElementById('sPhone').value.trim()};
+    sessionStorage.setItem('ad_user', JSON.stringify(usr)); fill(usr); alert('Profile updated.');
+  });
+
+  // File upload
+  const drop = document.getElementById('fileDrop'), fi = document.getElementById('fileInput'), fl = document.getElementById('fileList');
+  drop.addEventListener('click', () => fi.click());
+  drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('drag'); });
+  drop.addEventListener('dragleave', () => drop.classList.remove('drag'));
+  drop.addEventListener('drop', e => { e.preventDefault(); drop.classList.remove('drag'); up(e.dataTransfer.files); });
+  fi.addEventListener('change', () => up(fi.files));
+  function up(files) {
+    Array.from(files).forEach(f => {
+      const li = document.createElement('li');
+      li.style.cssText = 'padding:12px 16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;';
+      li.innerHTML = '<div><strong>'+f.name+'</strong><div style="font-size:0.8rem;color:var(--ink-soft);">'+(f.size/1024).toFixed(0)+' KB</div></div><span style="color:var(--success);font-size:0.84rem;">Ready</span>';
+      fl.appendChild(li);
+      const fd = new FormData(); fd.append('file', f);
+      fetch(API+'/api/files/upload',{method:'POST',headers:{'Authorization':'Bearer '+sessionStorage.getItem('ad_token')},body:fd})
+        .then(()=>{li.querySelector('span').textContent='Uploaded';}).catch(()=>{});
+    });
+  }
+
+  // Stripe
+  document.getElementById('payNow').addEventListener('click', async () => {
+    try {
+      const r = await fetch(API+'/api/stripe/checkout',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+sessionStorage.getItem('ad_token')},body:JSON.stringify({amount:87500,currency:'gbp',description:'Stage 2 \u2014 drawings delivery'})});
+      if (r.ok) { window.location.href = (await r.json()).sessionUrl; return; }
+    } catch(e) {}
+    alert('Demo mode: In production, this opens Stripe Checkout for \u00A3875.');
+  });
+})();
 </script>
 
 </body>

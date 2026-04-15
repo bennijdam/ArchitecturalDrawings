@@ -7,23 +7,25 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "migrate": "node scripts/migrate.js"
+    "migrate": "node scripts/migrate.js",
+    "provision:user": "node scripts/provision-user.js"
   },
   "dependencies": {
-    "express": "^4.21.0",
-    "cors": "^2.8.5",
-    "helmet": "^8.0.0",
-    "compression": "^1.7.5",
-    "morgan": "^1.10.0",
-    "dotenv": "^16.4.7",
+    "@sentry/node": "^10.48.0",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2",
+    "better-sqlite3": "^11.7.0",
+    "compression": "^1.7.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.0",
     "express-rate-limit": "^7.4.1",
     "express-validator": "^7.2.0",
-    "better-sqlite3": "^11.7.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "stripe": "^17.5.0",
     "nodemailer": "^6.9.16",
+    "stripe": "^17.5.0",
     "uuid": "^11.0.3"
   },
   "engines": {

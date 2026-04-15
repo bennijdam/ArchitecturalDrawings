@@ -1394,6 +1394,39 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
 .justify-between { justify-content: space-between; }
 .wrap { flex-wrap: wrap; }
 
+/* ============== Modal ============== */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(14, 17, 22, 0.5);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  z-index: 200; display: none;
+  align-items: center; justify-content: center; padding: 20px;
+  animation: modal-fade 0.25s var(--ease);
+}
+.modal-overlay.active { display: flex; }
+@keyframes modal-fade { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: var(--surface); border-radius: var(--r-xl);
+  max-width: 440px; width: 100%; padding: 36px;
+  position: relative; box-shadow: var(--shadow-lg);
+  animation: modal-slide 0.35s var(--ease-spring);
+}
+@keyframes modal-slide {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--line); display: grid; place-items: center;
+  cursor: pointer; transition: background 0.2s var(--ease);
+}
+.modal-close:hover { background: var(--bg-2); }
+.modal-close svg { width: 16px; height: 16px; }
+.modal-success { display: none; text-align: center; padding: 20px 0; }
+.modal-success.show { display: block; }
+.modal-form.hide { display: none; }
+
 /* Print */
 @media print {
   .nav, .footer, .cta-band { display: none; }
@@ -1451,7 +1484,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
         <label style="display:flex;gap:8px;align-items:center;cursor:pointer;">
           <input type="checkbox" name="remember" /> <span>Remember me</span>
         </label>
-        <a href="#" style="color: var(--accent-deep); font-weight: 600;">Forgot password?</a>
+        <button type="button" id="forgotOpen" style="color: var(--accent-deep); font-weight: 600; background:none; border:0; cursor:pointer; font-size:inherit; font-family:inherit;">Forgot password?</button>
       </div>
 
       <button type="submit" class="btn btn-primary btn-block btn-lg">
@@ -1479,33 +1512,119 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   </div>
 </main>
 
+<!-- Forgot password modal -->
+<div class="modal-overlay" id="forgotModal">
+  <div class="modal">
+    <button class="modal-close" id="forgotClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="modal-form" id="forgotForm">
+      <span class="eyebrow">Account recovery</span>
+      <h3 style="margin: 12px 0 6px;">Reset your password</h3>
+      <p class="muted" style="font-size: 0.9rem; margin-bottom: 24px;">Enter your email address and we'll send a password reset link.</p>
+      <div class="quote-field" style="margin-bottom: 16px;">
+        <label for="forgot-email">Email address</label>
+        <input type="email" id="forgot-email" required placeholder="you@example.com" style="width:100%;padding:12px 16px;border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--bg);" />
+      </div>
+      <button type="button" id="forgotSubmit" class="btn btn-primary btn-block">Send reset link</button>
+    </div>
+    <div class="modal-success" id="forgotSuccess">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(71,132,90,0.12);display:grid;place-items:center;margin:0 auto 16px;">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--success)" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+      </div>
+      <h3 style="margin-bottom: 8px;">Check your inbox</h3>
+      <p class="muted" style="font-size: 0.9rem;">If an account exists with that email, you'll receive a password reset link shortly.</p>
+      <button type="button" class="btn btn-ghost btn-sm" id="forgotDone" style="margin-top: 20px;">Back to sign in</button>
+    </div>
+  </div>
+</div>
+
 <script>
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = document.getElementById('l-email').value.trim();
-  const password = document.getElementById('l-password').value;
-  if (!email || !password) { alert('Please fill in both fields.'); return; }
+(() => {
+  'use strict';
 
-  // POST to /api/auth/login — in demo, we simulate
-  try {
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
-    if (res.ok) {
-      const { token } = await res.json();
-      sessionStorage.setItem('ad_token', token);
-      window.location.href = 'dashboard.html';
+  const API_BASE = location.hostname === 'localhost'
+    ? 'http://localhost:3001'
+    : 'https://api.architecturaldrawings.co.uk';
+
+  // ====== Login form ======
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('l-email').value.trim();
+    const password = document.getElementById('l-password').value;
+    if (!email || !password) { alert('Please fill in both fields.'); return; }
+
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        sessionStorage.setItem('ad_token', data.token);
+        if (data.user) sessionStorage.setItem('ad_user', JSON.stringify(data.user));
+        window.location.href = 'dashboard.html';
+        return;
+      }
+      const err = await res.json().catch(() => ({}));
+      alert(err.error || 'Invalid email or password.');
       return;
-    }
-  } catch (err) { /* fall through to demo */ }
+    } catch (err) { /* fall through to demo */ }
 
-  // Demo fallback
-  sessionStorage.setItem('ad_token', 'demo-token');
-  sessionStorage.setItem('ad_user', JSON.stringify({ name: email.split('@')[0], email }));
-  window.location.href = 'dashboard.html';
-});
+    // Demo fallback
+    const name = email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    sessionStorage.setItem('ad_token', 'demo-token');
+    sessionStorage.setItem('ad_user', JSON.stringify({ name, email }));
+    window.location.href = 'dashboard.html';
+  });
+
+  // ====== SSO buttons — graceful handling ======
+  document.querySelectorAll('.auth-divider ~ div .btn-outline').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const provider = btn.textContent.trim();
+      alert(`${provider} sign-in is not yet available. Please use email and password, or create an account.`);
+    });
+  });
+
+  // ====== Forgot password modal ======
+  const forgotModal = document.getElementById('forgotModal');
+  const forgotForm = document.getElementById('forgotForm');
+  const forgotSuccess = document.getElementById('forgotSuccess');
+
+  function openForgot() {
+    forgotForm.classList.remove('hide');
+    forgotSuccess.classList.remove('show');
+    forgotModal.classList.add('active');
+    document.getElementById('forgot-email').value = document.getElementById('l-email').value || '';
+    document.getElementById('forgot-email').focus();
+  }
+  function closeForgot() {
+    forgotModal.classList.remove('active');
+  }
+
+  document.getElementById('forgotOpen').addEventListener('click', openForgot);
+  document.getElementById('forgotClose').addEventListener('click', closeForgot);
+  document.getElementById('forgotDone').addEventListener('click', closeForgot);
+  forgotModal.addEventListener('click', (e) => { if (e.target === forgotModal) closeForgot(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && forgotModal.classList.contains('active')) closeForgot(); });
+
+  document.getElementById('forgotSubmit').addEventListener('click', async () => {
+    const email = document.getElementById('forgot-email').value.trim();
+    if (!email) { alert('Please enter your email address.'); return; }
+
+    // Attempt real API call
+    try {
+      await fetch(`${API_BASE}/api/auth/reset-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+    } catch (e) { /* always show success to avoid email enumeration */ }
+
+    // Always show success (prevents email enumeration attacks)
+    forgotForm.classList.add('hide');
+    forgotSuccess.classList.add('show');
+  });
+})();
 </script>
 
 </body>

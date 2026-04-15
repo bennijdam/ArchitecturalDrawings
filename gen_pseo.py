@@ -18,17 +18,18 @@ import os
 import re
 from pathlib import Path
 
-sys.path.insert(0, '/home/claude')
+SCRIPT_DIR = Path(__file__).resolve().parent
+sys.path.insert(0, str(SCRIPT_DIR))
 from pseo_boroughs import BOROUGHS, BOROUGH_SLUGS, adjacent_names
 from pseo_services import SERVICES, SERVICE_SLUGS
 
 # Output
-PROJECT = Path("/home/claude/architectural-drawings")
+PROJECT = SCRIPT_DIR
 AREAS_DIR = PROJECT / "areas"
 AREAS_DIR.mkdir(exist_ok=True)
 
 # Load inline CSS from the existing style.css (we inline into every page)
-CSS = (PROJECT / "assets/css/style.css").read_text()
+CSS = (PROJECT / "assets/css/style.css").read_text(encoding="utf-8")
 
 # Additional CSS for pSEO-specific components (TL;DR box, fact grid, local stats)
 PSEO_CSS = """
@@ -607,7 +608,7 @@ def render_service_location(borough_slug, service_slug):
   <div class="container">
     <div class="footer-bottom" style="border-top: 0; padding-top: 0;">
       <span>© 2026 Architectural Drawings Ltd · Serving {location} and all 33 London boroughs</span>
-      <span><a href="/">Home</a> · <a href="/services.html">All services</a> · <a href="/pricing.html">Pricing</a> · <a href="/areas/">All areas</a></span>
+      <span><a href="/">Home</a> · <a href="/services.html">All services</a> · <a href="/pricing.html">Pricing</a> · <a href="/areas/">All areas</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></span>
     </div>
   </div>
 </footer>
@@ -797,7 +798,7 @@ def render_borough_hub(borough_slug):
   <div class="container">
     <div class="footer-bottom" style="border-top: 0; padding-top: 0;">
       <span>© 2026 Architectural Drawings Ltd · Covering {location}</span>
-      <span><a href="/">Home</a> · <a href="/areas/">All areas</a></span>
+      <span><a href="/">Home</a> · <a href="/areas/">All areas</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></span>
     </div>
   </div>
 </footer>
@@ -894,7 +895,7 @@ def render_master_index():
   <div class="container">
     <div class="footer-bottom" style="border-top: 0; padding-top: 0;">
       <span>© 2026 Architectural Drawings Ltd · 33 London boroughs</span>
-      <span><a href="/">Home</a> · <a href="/services.html">Services</a></span>
+      <span><a href="/">Home</a> · <a href="/services.html">Services</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></span>
     </div>
   </div>
 </footer>
@@ -915,9 +916,9 @@ if __name__ == "__main__":
     count = 0
 
     # Master index
-    (AREAS_DIR / "index.html").write_text(render_master_index())
+    (AREAS_DIR / "index.html").write_text(render_master_index(), encoding="utf-8")
     count += 1
-    print("✓ /areas/index.html")
+    print("[OK] /areas/index.html")
 
     # Each borough
     for slug in BOROUGH_SLUGS:
@@ -925,17 +926,17 @@ if __name__ == "__main__":
         bdir.mkdir(exist_ok=True)
 
         # Borough hub
-        (bdir / "index.html").write_text(render_borough_hub(slug))
+        (bdir / "index.html").write_text(render_borough_hub(slug), encoding="utf-8")
         count += 1
 
         # Each service in this borough
         for service_slug in SERVICE_SLUGS:
-            (bdir / f"{service_slug}.html").write_text(render_service_location(slug, service_slug))
+            (bdir / f"{service_slug}.html").write_text(render_service_location(slug, service_slug), encoding="utf-8")
             count += 1
 
-        print(f"✓ /areas/{slug}/ + {len(SERVICE_SLUGS)} service pages")
+        print(f"[OK] /areas/{slug}/ + {len(SERVICE_SLUGS)} service pages")
 
-    print(f"\n✓ Generated {count} pSEO pages total")
+    print(f"\n[OK] Generated {count} pSEO pages total")
     print(f"  Master index: 1")
     print(f"  Borough hubs: {len(BOROUGH_SLUGS)}")
     print(f"  Service × borough: {len(BOROUGH_SLUGS) * len(SERVICE_SLUGS)}")

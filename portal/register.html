@@ -1457,7 +1457,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
 
       <label style="display:flex;gap:10px;font-size:0.88rem;color:var(--ink-soft);margin: 16px 0 24px;">
         <input type="checkbox" name="terms" required style="margin-top:4px;" />
-        <span>I agree to the <a href="#" style="color:var(--accent-deep);text-decoration:underline;">Terms of Service</a> and <a href="#" style="color:var(--accent-deep);text-decoration:underline;">Privacy Policy</a>.</span>
+        <span>I agree to the <a href="/terms.html" style="color:var(--accent-deep);text-decoration:underline;">Terms of Service</a> and <a href="/privacy.html" style="color:var(--accent-deep);text-decoration:underline;">Privacy Policy</a>.</span>
       </label>
 
       <button type="submit" class="btn btn-primary btn-block btn-lg">
@@ -1473,6 +1473,10 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
 </main>
 
 <script>
+const API_BASE = location.hostname === 'localhost'
+  ? 'http://localhost:3001'
+  : 'https://api.architecturaldrawings.co.uk';
+
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = document.getElementById('r-name').value.trim();
@@ -1487,7 +1491,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
   }
 
   try {
-    const res = await fetch('/api/auth/register', {
+    const res = await fetch(`${API_BASE}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password, phone })

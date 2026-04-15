@@ -1,8 +1,23 @@
 import express from 'express';
+import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
+import nodemailer from 'nodemailer';
 import { body, validationResult } from 'express-validator';
 import { getDb } from '../models/db.js';
 import { requireAuth, signToken } from '../middleware/auth.js';
+
+let transporter;
+function getMailer() {
+  if (!transporter && process.env.SMTP_HOST) {
+    transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || '587', 10),
+      secure: process.env.SMTP_PORT === '465',
+      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+    });
+  }
+  return transporter;
+}
 
 const router = express.Router();
 
@@ -61,5 +76,70 @@ router.post('/login',
 router.get('/me', requireAuth, (req, res) => {
   res.json({ user: req.user });
 });
+
+/* POST /api/auth/reset-password — request a reset link */
+router.post('/reset-password',
+  body('email').isEmail().normalizeEmail(),
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ error: 'Valid email required.' });
+
+    const { email } = req.body;
+    const db = getDb();
+
+    // Always return 200 to prevent email enumeration
+    const user = db.prepare('SELECT id, name FROM users WHERE email = ?').get(email);
+    if (!user) return res.json({ ok: true });
+
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString(); // 1 hour
+
+    db.prepare(
+      'INSERT INTO password_resets (user_id, token, expires_at) VALUES (?, ?, ?)'
+    ).run(user.id, token, expiresAt);
+
+    const resetUrl = `${process.env.ALLOWED_ORIGIN || 'http://localhost:8080'}/portal/reset.html?token=${token}`;
+
+    const mailer = getMailer();
+    if (mailer) {
+      mailer.sendMail({
+        from: process.env.EMAIL_FROM || 'hello@architecturaldrawings.co.uk',
+        to: email,
+        subject: 'Reset your password — Architectural Drawings',
+        text: `Hi ${user.name},\n\nYou requested a password reset. Click the link below within 1 hour:\n\n${resetUrl}\n\nIf you didn't request this, ignore this email.\n\nArchitectural Drawings London`,
+        html: `<p>Hi ${user.name},</p><p>You requested a password reset. Click the link below within 1 hour:</p><p><a href="${resetUrl}">${resetUrl}</a></p><p>If you didn't request this, ignore this email.</p><p>Architectural Drawings London</p>`,
+      }).catch((err) => console.error('Reset email failed:', err));
+    } else {
+      console.log(`[DEV] Password reset link for ${email}: ${resetUrl}`);
+    }
+
+    res.json({ ok: true });
+  }
+);
+
+/* POST /api/auth/reset-password/confirm — set new password with token */
+router.post('/reset-password/confirm',
+  body('token').isLength({ min: 64, max: 64 }).isHexadecimal(),
+  body('password').isLength({ min: 8 }),
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ error: 'Invalid token or password too short.' });
+
+    const { token, password } = req.body;
+    const db = getDb();
+
+    const reset = db.prepare(
+      'SELECT * FROM password_resets WHERE token = ? AND used = 0 AND expires_at > datetime(\'now\')'
+    ).get(token);
+
+    if (!reset) return res.status(400).json({ error: 'Reset link is invalid or has expired.' });
+
+    const hash = bcrypt.hashSync(password, 10);
+    db.prepare('UPDATE users SET password_hash = ? WHERE id = ?').run(hash, reset.user_id);
+    db.prepare('UPDATE password_resets SET used = 1 WHERE id = ?').run(reset.id);
+
+    res.json({ ok: true });
+  }
+);
 
 export default router;

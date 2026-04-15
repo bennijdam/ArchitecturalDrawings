@@ -2,6 +2,10 @@
 (() => {
   'use strict';
 
+  const API_BASE = location.hostname === 'localhost'
+    ? 'http://localhost:3001'
+    : 'https://api.architecturaldrawings.co.uk';
+
   const form = document.getElementById('quoteForm');
   if (!form) return;
 
@@ -181,7 +185,7 @@
 
     // POST to backend (if available)
     try {
-      await fetch('/api/quotes', {
+      await fetch(`${API_BASE}/api/quotes`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)

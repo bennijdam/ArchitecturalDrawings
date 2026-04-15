@@ -1,5 +1,13 @@
 import jwt from 'jsonwebtoken';
 
+function getJwtSecret() {
+  const secret = process.env.JWT_SECRET;
+  if (!secret && process.env.NODE_ENV === 'production') {
+    throw new Error('JWT_SECRET must be set in production');
+  }
+  return secret || 'dev-secret-change-me';
+}
+
 export function requireAuth(req, res, next) {
   const header = req.headers.authorization || '';
   const [scheme, token] = header.split(' ');
@@ -7,7 +15,7 @@ export function requireAuth(req, res, next) {
     return res.status(401).json({ error: 'Missing or invalid Authorization header' });
   }
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET || 'dev-secret-change-me');
+    const payload = jwt.verify(token, getJwtSecret());
     req.user = payload;
     next();
   } catch (err) {
@@ -28,7 +36,7 @@ export function requireRole(role) {
 export function signToken(user) {
   return jwt.sign(
     { id: user.id, email: user.email, name: user.name, role: user.role || 'client' },
-    process.env.JWT_SECRET || 'dev-secret-change-me',
+    getJwtSecret(),
     { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
   );
 }

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Rebuild sitemap.xml with all core pages + 199 pSEO pages."""
 import sys
-sys.path.insert(0, '/home/claude')
+from pathlib import Path
+SCRIPT_DIR = Path(__file__).resolve().parent
+sys.path.insert(0, str(SCRIPT_DIR))
 from pseo_boroughs import BOROUGH_SLUGS, BOROUGHS
 from pseo_services import SERVICE_SLUGS
-from pathlib import Path
 
 BASE = "https://architecturaldrawings.co.uk"
 DATE = "2026-04-13"
@@ -23,6 +24,8 @@ core = [
     ("/services/loft-conversions.html", "0.9", "monthly"),
     ("/services/house-extensions.html", "0.9", "monthly"),
     ("/services/mansard-roof.html", "0.9", "monthly"),
+    ("/privacy.html", "0.3", "yearly"),
+    ("/terms.html", "0.3", "yearly"),
 ]
 for loc, priority, freq in core:
     urls.append(f"  <url><loc>{BASE}{loc}</loc><lastmod>{DATE}</lastmod><priority>{priority}</priority><changefreq>{freq}</changefreq></url>")
@@ -38,8 +41,8 @@ for slug in BOROUGH_SLUGS:
 
 xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(urls) + "\n</urlset>\n"
 
-out = Path("/home/claude/architectural-drawings/sitemap.xml")
-out.write_text(xml)
+out = SCRIPT_DIR / "sitemap.xml"
+out.write_text(xml, encoding="utf-8")
 
 # Count URLs
-print(f"✓ sitemap.xml — {len(urls)} URLs")
+print(f"[OK] sitemap.xml — {len(urls)} URLs")
