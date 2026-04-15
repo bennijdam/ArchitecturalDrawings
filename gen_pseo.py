@@ -33,6 +33,11 @@ CSS = (PROJECT / "assets/css/style.css").read_text(encoding="utf-8")
 
 # Additional CSS for pSEO-specific components (TL;DR box, fact grid, local stats)
 PSEO_CSS = """
+/* ===== Footer dark ===== */
+.footer { background: var(--ink); color: rgba(250,250,247,0.6); }
+.footer .logo { color: var(--bg); }
+.footer-bottom { border-top-color: rgba(255,255,255,0.1); color: rgba(250,250,247,0.5); }
+
 /* ===== Footer SEO ===== */
 .footer-seo { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; padding-bottom: 3rem; margin-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
 @media (max-width: 820px) { .footer-seo { grid-template-columns: 1fr 1fr; gap: 2rem; } }
