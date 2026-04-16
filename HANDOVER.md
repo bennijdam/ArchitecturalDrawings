@@ -1,7 +1,7 @@
 # HANDOVER.md — Architectural Drawings London
 
 **Last updated:** 2026-04-16
-**Status:** Site fully built with 453 URLs in sitemap, SEO/AEO/GEO optimised, 16 blog posts, 5 case studies, 50 neighbourhood pages, team hub, FAQ hub, glossary, interactive cost calculator, 364 pSEO pages (10 services x 33 boroughs), sticky CTA + exit-intent on every page, video placeholders on service pages, hreflang on all pages. Ready for deployment.
+**Status:** Site fully built with 527 URLs in sitemap, SEO/AEO/GEO optimised, 59 blog posts, 5 case studies, 80 neighbourhood pages, team hub, FAQ hub, glossary, cost calculator, PD checker tool, 364 pSEO pages (10 services x 33 boroughs), sticky CTA + exit-intent on every page, video placeholders on service pages, hreflang on all pages. Ready for deployment.
 
 ---
 
@@ -248,6 +248,37 @@ Sitemap: **408 URLs** (up from 243).
 **Blog hub** updated to 16 article cards
 
 **Sitemap:** 453 URLs
+
+### Massive content expansion (completed 2026-04-16)
+
+**33 borough planning guides** (generated via `scripts/gen_borough_guides.py`):
+- One per London borough: "Planning Permission in {Borough}: 2026 Guide"
+- Each: Article + FAQPage schema, TL;DR box, Article 4/conservation detail, 5 FAQs, hero image placeholder
+- Targets: "planning permission in [borough]" long-tail keywords
+
+**30 more neighbourhood pages** (total: 80, generated via updated `scripts/gen_neighbourhoods.py`):
+- Canary Wharf, Mile End, Stamford Hill, Lewisham, Catford, Eltham, Charlton, Stratford, Forest Gate, Manor Park, Ilford, Bexleyheath, Romford, Uxbridge, Southall, Hanwell, Harlesden, Willesden, Palmers Green, Winchmore Hill, Harrow on the Hill, Pinner, Kingston, Surbiton, Norbury, Crystal Palace, Beckenham, Colliers Wood, Raynes Park, Northfields
+
+**6 project-type deep dives:**
+- HMO conversion guide (Article 4, licensing, fire safety, room sizes)
+- Flat conversion guide (change of use, Part B/E, CIL)
+- Outbuilding planning guide (Class E PD, habitable vs incidental)
+- Wraparound extension guide (L-shaped, 2 RSJs, Party Wall)
+- Double storey extension guide (45-degree rule, privacy, foundations)
+- Change of use planning guide (Use Classes, Class MA Prior Approval)
+
+**4 comparison blog posts:**
+- Dormer vs Velux loft conversion (cost, space, planning, value)
+- LABC vs Approved Inspector (cost, speed, process)
+- Full planning vs Prior Approval (when to use each)
+- Architect fees vs fixed fee (worked examples, 5 project types)
+
+**PD checker interactive tool** at `/tools/pd-checker/`:
+- 4-step flow: project type → property details → project specifics → GREEN/AMBER/RED result
+- 11 project types, PD logic for England, Article 4 borough warnings
+- Shareable results via URL params, CTA to /quote.html
+
+**Sitemap:** 527 URLs
 
 **Still remaining:**
 - Video embeds on service pages (nice-to-have)
