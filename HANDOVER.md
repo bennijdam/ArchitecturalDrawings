@@ -1,7 +1,7 @@
 # HANDOVER.md — Architectural Drawings London
 
 **Last updated:** 2026-04-16
-**Status:** Site fully built with 410 URLs in sitemap, SEO/AEO/GEO optimised, 8 blog posts, 5 case studies, 16 neighbourhood pages, team hub, FAQ hub, glossary, 364 pSEO pages (10 services x 33 boroughs), sticky CTA + exit-intent on every page, hreflang on all pages. Ready for deployment.
+**Status:** Site fully built with 411 URLs in sitemap, SEO/AEO/GEO optimised, 8 blog posts, 5 case studies, 16 neighbourhood pages, team hub, FAQ hub, glossary, interactive cost calculator, 364 pSEO pages (10 services x 33 boroughs), sticky CTA + exit-intent on every page, hreflang on all pages. Ready for deployment.
 
 ---
 
@@ -209,6 +209,19 @@ Sitemap: **408 URLs** (up from 243).
 - `/glossary/index.html` — 50+ planning and building terms, alphabetical with A-Z jump nav, DefinedTermSet schema, definition-intent SEO
 
 **Sitemap:** 410 URLs (up from 408)
+
+### Interactive cost calculator (completed 2026-04-16)
+
+- `/calculator/index.html` — 4-step interactive tool (2,159 lines):
+  - Step 1: 12 project types with visual cards and SVG icons
+  - Step 2: Property details (type, area, borough dropdown, conservation/listed status)
+  - Step 3: Package tier selector (Essentials/Complete/Bespoke) with live price recalculation
+  - Step 4: Full cost breakdown (drawing fee, council fee, structural, build cost estimate, total range)
+- Shareable URL via query params (`?type=loft&property=terraced&area=50-100&borough=camden&tier=complete`)
+- Print button, share button (copies URL), "Get your exact quote" CTA
+- WebApplication schema, BreadcrumbList, OG tags
+- Linked from homepage hero ("Cost calculator" button) and pricing page CTA
+- Sitemap: 411 URLs
 
 **Still remaining:**
 - Video embeds on service pages (nice-to-have)
