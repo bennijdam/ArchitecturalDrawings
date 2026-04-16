@@ -8,7 +8,7 @@ from pseo_boroughs import BOROUGH_SLUGS, BOROUGHS
 from pseo_services import SERVICE_SLUGS
 
 BASE = "https://architecturaldrawings.co.uk"
-DATE = "2026-04-13"
+DATE = "2026-04-16"
 
 urls = []
 
@@ -31,6 +31,10 @@ core = [
     ("/blog/building-regulations-explained.html", "0.8", "monthly"),
     ("/blog/architect-vs-architectural-technologist.html", "0.8", "monthly"),
     ("/blog/planning-vs-permitted-development.html", "0.8", "monthly"),
+    ("/blog/planning-drawings-cost-london.html", "0.8", "monthly"),
+    ("/blog/extension-cost-guide-london.html", "0.8", "monthly"),
+    ("/blog/loft-vs-mansard.html", "0.8", "monthly"),
+    ("/blog/drawing-service-vs-architect.html", "0.8", "monthly"),
     ("/projects/", "0.7", "monthly"),
     ("/projects/side-return-camden.html", "0.6", "monthly"),
     ("/projects/dormer-loft-hackney.html", "0.6", "monthly"),
@@ -53,6 +57,7 @@ core = [
     ("/areas/neighbourhoods/stoke-newington.html", "0.6", "monthly"),
     ("/areas/neighbourhoods/richmond.html", "0.6", "monthly"),
     ("/areas/neighbourhoods/angel-islington.html", "0.6", "monthly"),
+    ("/team/", "0.7", "monthly"),
 ]
 for loc, priority, freq in core:
     urls.append(f"  <url><loc>{BASE}{loc}</loc><lastmod>{DATE}</lastmod><priority>{priority}</priority><changefreq>{freq}</changefreq></url>")

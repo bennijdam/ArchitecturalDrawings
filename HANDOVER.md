@@ -1,7 +1,7 @@
 # HANDOVER.md — Architectural Drawings London
 
-**Last updated:** 2026-04-14
-**Status:** Site fully built with 218 pages, QA'd, SEO/AEO/GEO optimised, blog + case studies created. Ready for deployment.
+**Last updated:** 2026-04-16
+**Status:** Site fully built with 408 URLs in sitemap, SEO/AEO/GEO optimised, 8 blog posts, 5 case studies, 16 neighbourhood pages, team hub, 364 pSEO pages (10 services x 33 boroughs), sticky CTA + exit-intent on every page. Ready for deployment.
 
 ---
 
@@ -127,7 +127,7 @@ architectural-drawings/
 - Updated CLAUDE.md §4 with footer-seo documentation
 
 **Priority 3 content (completed 2026-04-14):**
-- `/blog/` hub page with 4 article cards
+- `/blog/` hub page with 4 article cards → updated to 8 cards (2026-04-16)
 - `/blog/planning-permission-london.html` — 7,900+ word pillar guide, 13 sections, 8 FAQs, all 33 boroughs linked, pricing tables, Article schema
 - `/blog/building-regulations-explained.html` — 6,700+ word guide, Approved Documents A-R table, Part L/B detail, 6 FAQs
 - `/blog/architect-vs-architectural-technologist.html` — 5,300+ word comparison, 3 cost tables, 5 FAQs
@@ -135,14 +135,68 @@ architectural-drawings/
 - `/projects/` hub page with 5 project cards
 - `/projects/side-return-camden.html` — full case study (brief, challenge, approach, result, planning ref PA/2025/03421)
 - All articles have: FAQPage schema, Article schema, BreadcrumbList, OG tags, author byline, TL;DR boxes, placeholder images, internal links, "Last updated: April 2026"
-- Sitemap updated to 218 URLs, blog/projects added to homepage footer nav
+- Sitemap updated to 243 URLs
+
+### Content expansion + SEO hardening (completed 2026-04-16)
+
+**4 new blog posts added:**
+- `/blog/planning-drawings-cost-london.html` — 2,500+ word cost guide with breakdown by project type, DIY vs professional, FAQ
+- `/blog/extension-cost-guide-london.html` — 2,500+ word extension cost guide with per-sqm pricing, hidden costs, borough variations
+- `/blog/loft-vs-mansard.html` — 2,000+ word comparison, build costs, planning requirements, ROI, borough preferences
+- `/blog/drawing-service-vs-architect.html` — 2,000+ word three-way comparison (drawing service vs architect vs technologist), cost tables
+- All 4 posts have: Article + FAQPage + BreadcrumbList schema, OG tags, WhatsApp FABs, dark footer-seo grid, dateModified
+
+**Team/author hub page:**
+- `/team/index.html` — 3 team member profiles with Person schema (name, jobTitle, worksFor, knowsAbout, alumniOf, memberOf)
+- "Why chartered matters" section explaining MCIAT credentials
+- Responsive 3-column grid with credential badges
+
+**Blog hub updated:**
+- Fixed broken links (Cards 2-4 pointed to non-existent pages)
+- Added 4 new article cards (planning drawings cost, extension cost, loft vs mansard, drawing service vs architect)
+- Now 8 article cards total
+
+**WhatsApp + Phone FABs on pSEO pages:**
+- Added inline-styled FAB (phone + WhatsApp) to all 3 gen_pseo.py templates (service-location, borough hub, master index)
+- Regenerated all 199 pSEO pages with location-specific WhatsApp messages
+- Total: every public page on the site now has contact FABs
+
+**Sitemap:**
+- `gen_sitemap.py` updated with 4 new blog posts + team page
+- `lastmod` updated to 2026-04-16
+- Regenerated: 243 URLs total
+
+### Service expansion + conversion optimisation (completed 2026-04-16)
+
+**5 new services added to pSEO:**
+- `garage-conversions` — from £995, garage-to-habitable drawings + building regs
+- `basement-conversions` — from £1,950, underpinning + waterproofing + Party Wall
+- `structural-calculations` — from £350, standalone structural engineering (beams, foundations, lintels)
+- `party-wall` — from £450, Party Wall Act notices + schedule of condition + award support
+- `rear-dormer` — from £1,225, full-width rear dormer loft conversions (PD or planning route)
+
+Each service × 33 boroughs = **165 new service-location pages**.
+Total pSEO pages: **364** (10 services × 33 boroughs + 33 hubs + 1 master index).
+Sitemap: **408 URLs** (up from 243).
+
+**Sticky CTA bar added to all pages:**
+- Fixed bottom bar appears after 400px scroll: "Free quote in 60 seconds — From £840 fixed fee"
+- Dismissable per session (sessionStorage), z-index 80 (below WhatsApp FABs)
+- Accent-colored CTA button linking to /quote.html
+
+**Exit-intent modal added to all pages:**
+- Triggers on mouse-leave (desktop only, >768px viewport)
+- One-time per session (sessionStorage)
+- Email capture form with "Send my quote →" CTA
+- Trust signals: "98% first-time approval rate · All 33 London boroughs"
+- Success state on submit
 
 **Still remaining:**
-- 4 more case study pages (Hackney dormer, Islington mansard, Wandsworth double-storey, Southwark planning)
-- Neighbourhood-level pages (Hampstead, Clapham, Dulwich, etc.)
-- Person/author schema for individual team members
-- Video embeds on service pages
-- Replace placeholder images in blog/projects with real photos
+- Video embeds on service pages (nice-to-have)
+- Replace placeholder images in blog/projects/team with real photos
+- Replace placeholder business details (phone, address, CIAT/ICO/Companies House numbers)
+- Off-page SEO: Google Business Profile, Search Console, 35+ citation directories, review acquisition
+- Content velocity: 2 new blog posts per week targeting long-tail keywords
 
 ### Phase H: Dashboard & portal overhaul (completed 2026-04-14)
 
