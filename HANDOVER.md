@@ -1,7 +1,7 @@
 # HANDOVER.md — Architectural Drawings London
 
 **Last updated:** 2026-04-16
-**Status:** Site fully built with 408 URLs in sitemap, SEO/AEO/GEO optimised, 8 blog posts, 5 case studies, 16 neighbourhood pages, team hub, 364 pSEO pages (10 services x 33 boroughs), sticky CTA + exit-intent on every page. Ready for deployment.
+**Status:** Site fully built with 410 URLs in sitemap, SEO/AEO/GEO optimised, 8 blog posts, 5 case studies, 16 neighbourhood pages, team hub, FAQ hub, glossary, 364 pSEO pages (10 services x 33 boroughs), sticky CTA + exit-intent on every page, hreflang on all pages. Ready for deployment.
 
 ---
 
@@ -190,6 +190,25 @@ Sitemap: **408 URLs** (up from 243).
 - Email capture form with "Send my quote →" CTA
 - Trust signals: "98% first-time approval rate · All 33 London boroughs"
 - Success state on submit
+
+### Technical SEO quick wins + content pages (completed 2026-04-16)
+
+**Schema enhancements:**
+- Organization schema added to `about.html` (ProfessionalService type, CIAT membership, knowsAbout, social profiles)
+- BreadcrumbList schema added to `about.html`
+- Review schema added to `index.html` (3 testimonials as individual Review objects with ratings)
+- Person schema already present on `team/index.html` (3 team members)
+
+**E-E-A-T signals:**
+- Cross-link: about.html now links to `/team/` ("Meet the full team →")
+- `rel="author"` added to all 9 blog HTML files pointing to `/team/`
+- `hreflang="en-GB"` added to all 409 pages + gen_pseo.py templates
+
+**New content pages:**
+- `/faq/index.html` — 40+ FAQs consolidated from across the site, 6 sections, FAQPage schema, AEO-optimized for featured snippets
+- `/glossary/index.html` — 50+ planning and building terms, alphabetical with A-Z jump nav, DefinedTermSet schema, definition-intent SEO
+
+**Sitemap:** 410 URLs (up from 408)
 
 **Still remaining:**
 - Video embeds on service pages (nice-to-have)

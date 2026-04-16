@@ -330,6 +330,7 @@ def render_service_location(borough_slug, service_slug):
 <html lang="en-GB">
 <head>
 <meta charset="utf-8" />
+<link rel="alternate" hreflang="en-GB" href="https://architecturaldrawings.co.uk/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#FAFAF7" />
 
@@ -989,6 +990,7 @@ def render_borough_hub(borough_slug):
 <html lang="en-GB">
 <head>
 <meta charset="utf-8" />
+<link rel="alternate" hreflang="en-GB" href="https://architecturaldrawings.co.uk/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
 <meta name="description" content="{meta_desc}" />
@@ -1459,6 +1461,7 @@ def render_master_index():
 <html lang="en-GB">
 <head>
 <meta charset="utf-8" />
+<link rel="alternate" hreflang="en-GB" href="https://architecturaldrawings.co.uk/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>London Areas We Cover | Architectural Drawings London</title>
 <meta name="description" content="We provide architectural technology services — planning drawings, building regs, loft conversions, extensions — across all 33 London boroughs. Find your area." />

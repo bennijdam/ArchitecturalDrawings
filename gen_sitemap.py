@@ -58,6 +58,8 @@ core = [
     ("/areas/neighbourhoods/richmond.html", "0.6", "monthly"),
     ("/areas/neighbourhoods/angel-islington.html", "0.6", "monthly"),
     ("/team/", "0.7", "monthly"),
+    ("/faq/", "0.8", "monthly"),
+    ("/glossary/", "0.7", "monthly"),
 ]
 for loc, priority, freq in core:
     urls.append(f"  <url><loc>{BASE}{loc}</loc><lastmod>{DATE}</lastmod><priority>{priority}</priority><changefreq>{freq}</changefreq></url>")
