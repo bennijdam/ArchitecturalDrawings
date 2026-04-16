@@ -35,6 +35,7 @@ core_pages = [
     ("/services/loft-conversions.html", "0.9", "monthly"),
     ("/services/house-extensions.html", "0.9", "monthly"),
     ("/services/mansard-roof.html", "0.9", "monthly"),
+    ("/why-us.html", "0.8", "monthly"),
     ("/privacy.html", "0.3", "yearly"),
     ("/terms.html", "0.3", "yearly"),
     ("/team/", "0.7", "monthly"),

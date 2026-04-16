@@ -610,6 +610,20 @@ def render_service_location(borough_slug, service_slug):
   </div>
 </section>
 
+<!-- ===== CALLBACK ===== -->
+<section id="callback">
+  <div class="container" style="max-width: 640px; text-align: center;">
+    <span class="eyebrow">Speak to a technologist</span>
+    <h2 style="margin-top: 16px;">Get a callback in <em>30 minutes</em></h2>
+    <p style="color: var(--ink-soft); margin: 16px auto 32px; max-width: 480px;">Leave your number and a chartered technologist will call you back within 30 minutes during working hours.</p>
+    <form style="display: flex; gap: 12px; max-width: 440px; margin: 0 auto;" onsubmit="event.preventDefault(); this.innerHTML='<p style=&quot;color:var(--success);font-weight:600;padding:16px;&quot;>Thanks! We\\'ll call you within 30 minutes.</p>';">
+      <input type="tel" name="phone" placeholder="Your phone number" required style="flex: 1; padding: 14px 18px; border: 1px solid var(--line); border-radius: var(--r-full); font-size: 0.95rem; background: var(--surface);" />
+      <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Call me back</button>
+    </form>
+    <p style="font-size: 0.78rem; color: var(--ink-soft); margin-top: 12px;">No obligation. No sales pressure. Just expert advice about {service_short} in {location}.</p>
+  </div>
+</section>
+
 <!-- ===== CTA ===== -->
 <section class="cta-band">
   <div class="container">
@@ -1111,6 +1125,18 @@ def render_borough_hub(borough_slug):
   </div>
 </section>
 
+<section id="callback">
+  <div class="container" style="max-width: 640px; text-align: center;">
+    <span class="eyebrow">Speak to a technologist</span>
+    <h2 style="margin-top: 16px;">Get a callback in <em>30 minutes</em></h2>
+    <p style="color: var(--ink-soft); margin: 16px auto 32px; max-width: 480px;">Leave your number and a chartered technologist covering {location} will call you back within 30 minutes during working hours.</p>
+    <form style="display: flex; gap: 12px; max-width: 440px; margin: 0 auto;" onsubmit="event.preventDefault(); this.innerHTML='<p style=&quot;color:var(--success);font-weight:600;padding:16px;&quot;>Thanks! We\\'ll call you within 30 minutes.</p>';">
+      <input type="tel" name="phone" placeholder="Your phone number" required style="flex: 1; padding: 14px 18px; border: 1px solid var(--line); border-radius: var(--r-full); font-size: 0.95rem; background: var(--surface);" />
+      <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Call me back</button>
+    </form>
+  </div>
+</section>
+
 <section class="cta-band">
   <div class="container">
     <h2>Start your {location} project <span class="accent">this week.</span></h2>
@@ -1513,6 +1539,20 @@ def render_master_index():
     <div class="adjacent-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
       {boroughs_html}
     </div>
+  </div>
+</section>
+
+<!-- ===== CALLBACK ===== -->
+<section id="callback">
+  <div class="container" style="max-width: 640px; text-align: center;">
+    <span class="eyebrow">Speak to a technologist</span>
+    <h2 style="margin-top: 16px;">Get a callback in <em>30 minutes</em></h2>
+    <p style="color: var(--ink-soft); margin: 16px auto 32px; max-width: 480px;">Leave your number and a chartered technologist will call you back within 30 minutes during working hours.</p>
+    <form style="display: flex; gap: 12px; max-width: 440px; margin: 0 auto;" onsubmit="event.preventDefault(); this.innerHTML='<p style=&quot;color:var(--success);font-weight:600;padding:16px;&quot;>Thanks! We\\'ll call you within 30 minutes.</p>';">
+      <input type="tel" name="phone" placeholder="Your phone number" required style="flex: 1; padding: 14px 18px; border: 1px solid var(--line); border-radius: var(--r-full); font-size: 0.95rem; background: var(--surface);" />
+      <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Call me back</button>
+    </form>
+    <p style="font-size: 0.78rem; color: var(--ink-soft); margin-top: 12px;">No obligation. Just expert advice about your London project.</p>
   </div>
 </section>
 
