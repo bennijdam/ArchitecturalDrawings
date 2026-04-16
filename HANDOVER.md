@@ -1,7 +1,7 @@
 # HANDOVER.md — Architectural Drawings London
 
 **Last updated:** 2026-04-16
-**Status:** Site fully built with 411 URLs in sitemap, SEO/AEO/GEO optimised, 8 blog posts, 5 case studies, 16 neighbourhood pages, team hub, FAQ hub, glossary, interactive cost calculator, 364 pSEO pages (10 services x 33 boroughs), sticky CTA + exit-intent on every page, hreflang on all pages. Ready for deployment.
+**Status:** Site fully built with 453 URLs in sitemap, SEO/AEO/GEO optimised, 16 blog posts, 5 case studies, 50 neighbourhood pages, team hub, FAQ hub, glossary, interactive cost calculator, 364 pSEO pages (10 services x 33 boroughs), sticky CTA + exit-intent on every page, video placeholders on service pages, hreflang on all pages. Ready for deployment.
 
 ---
 
@@ -222,6 +222,32 @@ Sitemap: **408 URLs** (up from 243).
 - WebApplication schema, BreadcrumbList, OG tags
 - Linked from homepage hero ("Cost calculator" button) and pricing page CTA
 - Sitemap: 411 URLs
+
+### Content expansion phase (completed 2026-04-16)
+
+**34 new neighbourhood pages** (total: 50):
+- Generated via `scripts/gen_neighbourhoods.py` from data dict
+- New areas: Shoreditch, Dalston, Camden Town, Kentish Town, Belsize Park, Finsbury Park, Holloway, Tooting, Balham, Bermondsey, Streatham, Herne Hill, Blackheath, Deptford, Woolwich, Bow, Bethnal Green, Acton, Twickenham, Teddington, Wembley, Kilburn, Tottenham, Wood Green, Walthamstow, Sydenham, Forest Hill, East Dulwich, Earlsfield, Putney, Barnes, Maida Vale, Hackney Wick, Queens Park
+- Each page: Service + FAQPage + BreadcrumbList schema, 5 location-specific FAQs, nearby neighbourhoods grid, borough service links
+
+**8 new blog posts** (total: 16):
+- Kitchen extension cost London (side return vs rear, build costs, kitchen fitting)
+- Permitted development rules 2026 (Class A-E limits, Prior Approval, Article 4)
+- Planning permission refused — what next (resubmission, appeal, redesign)
+- Side return extension London guide (costs, structural, Party Wall, design tips)
+- Loft conversion without planning (PD rules, LDC process, when PD removed)
+- Choosing an architect in London (RIBA vs CIAT, fee structures, red flags)
+- Part L building regulations guide (U-values, SAP, MVHR, Future Homes Standard)
+- Conservation area planning London (Heritage Statements, Article 4, 10 tips)
+- All posts have Article + FAQPage + BreadcrumbList schema, OG tags, hreflang
+
+**Video embed sections** on all 5 service pages:
+- Placeholder with play icon + "Video coming soon"
+- Commented-out YouTube iframe ready for real video IDs
+
+**Blog hub** updated to 16 article cards
+
+**Sitemap:** 453 URLs
 
 **Still remaining:**
 - Video embeds on service pages (nice-to-have)
