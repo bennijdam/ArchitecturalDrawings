@@ -70,6 +70,12 @@ blog_posts = [
     "double-storey-extension-guide", "change-of-use-planning-london",
     "dormer-vs-velux-loft", "labc-vs-approved-inspector",
     "full-planning-vs-prior-approval", "architect-fees-vs-fixed-fee",
+    # Phase 2 comparison/guide posts
+    "rear-vs-side-extension", "planning-agent-vs-diy",
+    "how-long-planning-permission", "party-wall-guide-london",
+    "structural-engineer-guide", "garden-room-planning-london",
+    "basement-conversion-guide-london", "hip-to-gable-loft-guide",
+    "flat-roof-extension-guide", "pre-application-advice-london",
 ]
 for slug in blog_posts:
     core_urls.append(make_url(f"/blog/{slug}.html", "0.8", "monthly"))
@@ -77,6 +83,23 @@ for slug in blog_posts:
 # Borough planning guides
 for borough_slug in BOROUGH_SLUGS:
     core_urls.append(make_url(f"/blog/planning-{borough_slug}.html", "0.7", "monthly"))
+
+# Borough extension cost guides
+for borough_slug in BOROUGH_SLUGS:
+    core_urls.append(make_url(f"/blog/extension-cost-{borough_slug}.html", "0.7", "monthly"))
+
+# Borough loft conversion guides
+for borough_slug in BOROUGH_SLUGS:
+    core_urls.append(make_url(f"/blog/loft-cost-{borough_slug}.html", "0.7", "monthly"))
+
+# Cornerstone guide hubs
+core_urls.append(make_url("/guides/extensions/", "0.9", "monthly"))
+core_urls.append(make_url("/guides/lofts/", "0.9", "monthly"))
+core_urls.append(make_url("/guides/planning/", "0.9", "monthly"))
+
+# Additional case studies
+for slug in ["garage-conversion-ealing", "basement-dig-kensington", "hmo-conversion-hackney", "rear-dormer-lewisham", "wraparound-extension-wandsworth"]:
+    core_urls.append(make_url(f"/projects/{slug}.html", "0.6", "monthly"))
 
 count_core = write_sitemap("sitemap-core.xml", core_urls)
 

@@ -1,7 +1,7 @@
 # HANDOVER.md — Architectural Drawings London
 
 **Last updated:** 2026-04-16
-**Status:** Site fully built with 528 URLs across 2 sub-sitemaps, SEO/AEO/GEO optimised, 59 blog posts (all with related articles), 5 case studies, 80 neighbourhood pages, team hub, FAQ hub, glossary, resources hub, cost calculator, PD checker, 364 pSEO pages (10 services x 33 boroughs), sticky CTA + exit-intent + WhatsApp FABs on every page, SiteNavigationElement schema, minified CSS (-4MB), visible "Last updated" dates on 86 content pages. Ready for deployment.
+**Status:** Site fully built with 612 URLs across 2 sub-sitemaps, SEO/AEO/GEO optimised, 135 blog posts, 10 case studies, 80 neighbourhood pages, 3 cornerstone guide hubs, team hub, FAQ hub, glossary, resources hub, cost calculator, PD checker, 364 pSEO pages (10 services x 33 boroughs), sticky CTA + exit-intent + WhatsApp FABs on every page, SiteNavigationElement schema, minified CSS, visible "Last updated" dates. Ready for deployment.
 
 ---
 
