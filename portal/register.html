@@ -5,13 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Create account · Architectural Drawings London</title>
 <meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" /></noscript>
 <style>
 /* ==========================================================================
    ARCHITECTURAL DRAWINGS — London Architectural Technology
    Design system: warm editorial minimalism with architectural precision
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap');
+/* Fonts loaded via non-blocking link tags in the document head */
 
 :root {
   /* Palette */
@@ -1475,7 +1480,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
 <script>
 const API_BASE = location.hostname === 'localhost'
   ? 'http://localhost:3001'
-  : 'https://api.architecturaldrawings.co.uk';
+  : 'https://api.architecturaldrawings.uk';
 
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -1497,8 +1502,9 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
       body: JSON.stringify({ name, email, password, phone })
     });
     if (res.ok) {
-      const { token } = await res.json();
-      sessionStorage.setItem('ad_token', token);
+      const data = await res.json();
+      sessionStorage.setItem('ad_token', data.token);
+      sessionStorage.setItem('ad_user', JSON.stringify(data.user || { name, email, phone }));
       window.location.href = 'dashboard.html';
       return;
     }

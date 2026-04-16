@@ -32,7 +32,11 @@ app.set('trust proxy', 1);
 
 /* ---------- Initialise filesystem + DB ---------- */
 ['data', process.env.UPLOAD_DIR || './uploads'].forEach((dir) => {
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  try {
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  } catch {
+    console.warn(`Skipping unwritable directory during startup: ${dir}`);
+  }
 });
 initDb();
 

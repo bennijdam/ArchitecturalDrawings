@@ -103,7 +103,7 @@ router.post('/reset-password',
     const mailer = getMailer();
     if (mailer) {
       mailer.sendMail({
-        from: process.env.EMAIL_FROM || 'hello@architecturaldrawings.co.uk',
+        from: process.env.EMAIL_FROM || 'hello@architecturaldrawings.uk',
         to: email,
         subject: 'Reset your password — Architectural Drawings',
         text: `Hi ${user.name},\n\nYou requested a password reset. Click the link below within 1 hour:\n\n${resetUrl}\n\nIf you didn't request this, ignore this email.\n\nArchitectural Drawings London`,

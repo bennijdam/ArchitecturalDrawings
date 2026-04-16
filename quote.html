@@ -2,15 +2,15 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8" />
-<link rel="alternate" hreflang="en-GB" href="https://architecturaldrawings.co.uk/" />
+<link rel="alternate" hreflang="en-GB" href="https://www.architecturaldrawings.uk/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#F2EFE8" />
 <title>Free Quote in 60 Seconds · Architectural Drawings London</title>
 <meta name="description" content="Get a fixed-fee quote for planning drawings, building regs or a complete architectural technology package in London. 60 seconds, no obligation." />
 <meta name="robots" content="noindex, follow" />
-<link rel="canonical" href="https://architecturaldrawings.co.uk/quote.html" />
+<link rel="canonical" href="https://www.architecturaldrawings.uk/quote.html" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://architecturaldrawings.co.uk/quote.html" />
+<meta property="og:url" content="https://www.architecturaldrawings.uk/quote.html" />
 <meta property="og:title" content="Free Quote in 60 Seconds | Architectural Drawings London" />
 <meta property="og:description" content="Get a free fixed-fee quote for planning drawings, building regs, loft conversions across London." />
 <meta property="og:locale" content="en_GB" />
@@ -1439,6 +1439,58 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
 </style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E1116'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' fill='%23FAFAF7' font-family='Georgia,serif' font-weight='500' font-size='17' font-style='italic'%3EA%3C/text%3E%3C/svg%3E" />
   <script defer data-domain="architecturaldrawings.uk" src="https://plausible.io/js/script.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-77CQ2PWJM4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = window.gtag || gtag;
+    gtag('js', new Date());
+    gtag('config', 'G-77CQ2PWJM4', {
+      anonymize_ip: true,
+      allow_google_signals: false
+    });
+
+    document.addEventListener('click', function (event) {
+      const target = event.target.closest('a, button');
+      if (!target) return;
+
+      const label = (target.textContent || target.getAttribute('aria-label') || '').trim().slice(0, 120) || 'unknown';
+      const href = target.getAttribute('href') || '';
+
+      if (/quote|book|get started|contact|call/i.test(label) || /quote\.html/i.test(href)) {
+        gtag('event', 'cta_click', {
+          event_category: 'engagement',
+          event_label: label,
+          link_url: href || window.location.pathname
+        });
+      }
+
+      if (href.startsWith('tel:')) {
+        gtag('event', 'phone_click', {
+          event_category: 'contact',
+          event_label: href.replace('tel:', '')
+        });
+      }
+
+      if (href.startsWith('mailto:')) {
+        gtag('event', 'email_click', {
+          event_category: 'contact',
+          event_label: href.replace('mailto:', '')
+        });
+      }
+    }, { passive: true });
+
+    document.addEventListener('submit', function (event) {
+      const form = event.target;
+      if (!(form instanceof HTMLFormElement)) return;
+      const formName = form.getAttribute('id') || form.getAttribute('name') || 'form';
+      gtag('event', 'form_submit', {
+        event_category: 'lead',
+        event_label: formName,
+        page_location: window.location.pathname
+      });
+    });
+  </script>
 </head>
 <body class="quote-page">
 
@@ -1716,7 +1768,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
 
   const API_BASE = location.hostname === 'localhost'
     ? 'http://localhost:3001'
-    : 'https://api.architecturaldrawings.co.uk';
+    : 'https://api.architecturaldrawings.uk';
 
   const form = document.getElementById('quoteForm');
   if (!form) return;
@@ -1757,6 +1809,13 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
     bespoke: 1.8
   };
 
+  const estimatePrice = (serviceKey, tierKey) => {
+    const svcInfo = servicePrices[serviceKey] || servicePrices.other;
+    const mult = tierMultiplier[tierKey] || 1;
+    if (svcInfo.base === 0) return 0;
+    return Math.round((svcInfo.base * mult) / 5) * 5;
+  };
+
   // Aside messages per step
   const asideMessages = {
     1: 'Tell us about your plan and we\'ll send a <em>free, fixed-fee quote</em> within the same working day.',
@@ -1776,6 +1835,13 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
     });
     if (asideMessages[n] && aside) aside.innerHTML = asideMessages[n];
     current = n;
+    if (window.gtag) {
+      window.gtag('event', 'quote_step_view', {
+        event_category: 'quote_flow',
+        step_number: n,
+        step_label: `step_${n}`
+      });
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -1850,7 +1916,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
     const svcInfo = servicePrices[svcKey];
     const mult = tierMultiplier[tier] || 1;
 
-    let price = Math.round((svcInfo.base * mult) / 5) * 5;
+    let price = estimatePrice(svcKey, tier);
     if (svcInfo.base === 0) price = 0;
 
     const rows = [
@@ -1887,6 +1953,8 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
       createdAt: new Date().toISOString()
     };
 
+    const estimatedPrice = estimatePrice(data.service || 'other', data.tier);
+
     // Persist locally for demo continuity (in prod: POST /api/quotes)
     try {
       const quotes = JSON.parse(sessionStorage.getItem('ad_quotes') || '[]');
@@ -1904,6 +1972,20 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
       });
     } catch (err) { /* backend optional in demo */ }
 
+    if (window.gtag) {
+      window.gtag('event', 'generate_lead', {
+        currency: 'GBP',
+        value: estimatedPrice,
+        service: data.service || 'unknown',
+        tier: data.tier || 'unknown',
+        event_category: 'quote_flow'
+      });
+      window.gtag('event', 'quote_submit', {
+        event_category: 'quote_flow',
+        event_label: `${data.service || 'unknown'}:${data.tier || 'unknown'}`
+      });
+    }
+
     showStep(6);
   });
 
@@ -1911,6 +1993,8 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   if (params.get('step')) {
     const s = parseInt(params.get('step'), 10);
     if (s >= 1 && s <= 5) showStep(s);
+  } else {
+    showStep(1);
   }
 
 })();

@@ -4,7 +4,7 @@
 
   const API_BASE = location.hostname === 'localhost'
     ? 'http://localhost:3001'
-    : 'https://api.architecturaldrawings.co.uk';
+    : 'https://api.architecturaldrawings.uk';
 
   const form = document.getElementById('quoteForm');
   if (!form) return;
@@ -45,6 +45,13 @@
     bespoke: 1.8
   };
 
+  const estimatePrice = (serviceKey, tierKey) => {
+    const svcInfo = servicePrices[serviceKey] || servicePrices.other;
+    const mult = tierMultiplier[tierKey] || 1;
+    if (svcInfo.base === 0) return 0;
+    return Math.round((svcInfo.base * mult) / 5) * 5;
+  };
+
   // Aside messages per step
   const asideMessages = {
     1: 'Tell us about your plan and we\'ll send a <em>free, fixed-fee quote</em> within the same working day.',
@@ -64,6 +71,13 @@
     });
     if (asideMessages[n] && aside) aside.innerHTML = asideMessages[n];
     current = n;
+    if (window.gtag) {
+      window.gtag('event', 'quote_step_view', {
+        event_category: 'quote_flow',
+        step_number: n,
+        step_label: `step_${n}`
+      });
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -138,7 +152,7 @@
     const svcInfo = servicePrices[svcKey];
     const mult = tierMultiplier[tier] || 1;
 
-    let price = Math.round((svcInfo.base * mult) / 5) * 5;
+    let price = estimatePrice(svcKey, tier);
     if (svcInfo.base === 0) price = 0;
 
     const rows = [
@@ -175,6 +189,8 @@
       createdAt: new Date().toISOString()
     };
 
+    const estimatedPrice = estimatePrice(data.service || 'other', data.tier);
+
     // Persist locally for demo continuity (in prod: POST /api/quotes)
     try {
       const quotes = JSON.parse(sessionStorage.getItem('ad_quotes') || '[]');
@@ -192,6 +208,20 @@
       });
     } catch (err) { /* backend optional in demo */ }
 
+    if (window.gtag) {
+      window.gtag('event', 'generate_lead', {
+        currency: 'GBP',
+        value: estimatedPrice,
+        service: data.service || 'unknown',
+        tier: data.tier || 'unknown',
+        event_category: 'quote_flow'
+      });
+      window.gtag('event', 'quote_submit', {
+        event_category: 'quote_flow',
+        event_label: `${data.service || 'unknown'}:${data.tier || 'unknown'}`
+      });
+    }
+
     showStep(6);
   });
 
@@ -199,6 +229,8 @@
   if (params.get('step')) {
     const s = parseInt(params.get('step'), 10);
     if (s >= 1 && s <= 5) showStep(s);
+  } else {
+    showStep(1);
   }
 
 })();

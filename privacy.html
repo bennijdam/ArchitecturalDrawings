@@ -2,23 +2,28 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8" />
-<link rel="alternate" hreflang="en-GB" href="https://architecturaldrawings.co.uk/" />
+<link rel="alternate" hreflang="en-GB" href="https://www.architecturaldrawings.uk/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Privacy Policy · Architectural Drawings London</title>
 <meta name="description" content="Privacy policy for Architectural Drawings Ltd. How we collect, use and protect your personal data under UK GDPR. ICO registered ZA847291." />
-<link rel="canonical" href="https://architecturaldrawings.co.uk/privacy.html" />
+<link rel="canonical" href="https://www.architecturaldrawings.uk/privacy.html" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://architecturaldrawings.co.uk/privacy.html" />
+<meta property="og:url" content="https://www.architecturaldrawings.uk/privacy.html" />
 <meta property="og:title" content="Privacy Policy | Architectural Drawings London" />
 <meta property="og:description" content="Privacy policy for Architectural Drawings London. UK GDPR compliant." />
 <meta property="og:locale" content="en_GB" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" /></noscript>
 <style>
 /* ==========================================================================
    ARCHITECTURAL DRAWINGS — London Architectural Technology
    Design system: warm editorial minimalism with architectural precision
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap');
+/* Fonts loaded via non-blocking link tags in the document head */
 
 :root {
   /* Palette */
@@ -1494,6 +1499,58 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
 <link rel="stylesheet" href="assets/css/style.css" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E1116'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' fill='%23FAFAF7' font-family='Georgia,serif' font-weight='500' font-size='17' font-style='italic'%3EA%3C/text%3E%3C/svg%3E" />
   <script defer data-domain="architecturaldrawings.uk" src="https://plausible.io/js/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-77CQ2PWJM4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = window.gtag || gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-77CQ2PWJM4', {
+    anonymize_ip: true,
+    allow_google_signals: false
+  });
+
+  document.addEventListener('click', function (event) {
+    const target = event.target.closest('a, button');
+    if (!target) return;
+
+    const label = (target.textContent || target.getAttribute('aria-label') || '').trim().slice(0, 120) || 'unknown';
+    const href = target.getAttribute('href') || '';
+
+    if (/quote|book|get started|contact|call/i.test(label) || /quote\.html/i.test(href)) {
+      gtag('event', 'cta_click', {
+        event_category: 'engagement',
+        event_label: label,
+        link_url: href || window.location.pathname
+      });
+    }
+
+    if (href.startsWith('tel:')) {
+      gtag('event', 'phone_click', {
+        event_category: 'contact',
+        event_label: href.replace('tel:', '')
+      });
+    }
+
+    if (href.startsWith('mailto:')) {
+      gtag('event', 'email_click', {
+        event_category: 'contact',
+        event_label: href.replace('mailto:', '')
+      });
+    }
+  }, { passive: true });
+
+  document.addEventListener('submit', function (event) {
+    const form = event.target;
+    if (!(form instanceof HTMLFormElement)) return;
+    const formName = form.getAttribute('id') || form.getAttribute('name') || 'form';
+    gtag('event', 'form_submit', {
+      event_category: 'lead',
+      event_label: formName,
+      page_location: window.location.pathname
+    });
+  });
+</script>
 </head>
 <body>
 
@@ -1528,7 +1585,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
     <p>The data controller responsible for your personal data is:</p>
     <p><strong>Architectural Drawings Ltd</strong><br />
     86-90 Paul Street, London EC2A 4NE<br />
-    Email: <a href="mailto:hello@architecturaldrawings.co.uk">hello@architecturaldrawings.co.uk</a><br />
+    Email: <a href="mailto:hello@architecturaldrawings.uk">hello@architecturaldrawings.uk</a><br />
     ICO registration number: <strong>ZA847291</strong></p>
 
     <h2>2. What personal data we collect</h2>
@@ -1539,7 +1596,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
       <li><strong>Project data</strong> — property address, project type, planning history, uploaded drawings, photographs and site survey information</li>
       <li><strong>Account data</strong> — login credentials (email and hashed password) when you register for the client portal</li>
       <li><strong>Transaction data</strong> — payment amounts and dates (card details are processed directly by Stripe and never stored on our systems)</li>
-      <li><strong>Technical data</strong> — anonymised page-view analytics collected via Plausible (no cookies, no personal identifiers)</li>
+      <li><strong>Technical data</strong> — website usage, page-view and lead-conversion analytics collected via Google Analytics 4 and Plausible. This may include pseudonymous identifiers, browser/device data and page interaction data.</li>
     </ul>
     <p>We collect this data when you:</p>
     <ul>
@@ -1576,7 +1633,8 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
       <li><strong>Stripe</strong> (payments) — processes card payments securely. Stripe is PCI DSS Level 1 certified. We never see or store your full card details.</li>
       <li><strong>Postmark</strong> (transactional email) — delivers operational emails such as quote confirmations, project updates and password resets.</li>
       <li><strong>Railway</strong> (hosting) — hosts our website and client portal infrastructure.</li>
-      <li><strong>Plausible Analytics</strong> (anonymous analytics) — provides cookieless, privacy-first website analytics. No personal data is collected or transmitted; all data is aggregated and anonymous.</li>
+      <li><strong>Google Analytics</strong> (website analytics) — helps us understand traffic sources, page performance and quote conversions using aggregated reporting and pseudonymous identifiers.</li>
+      <li><strong>Plausible Analytics</strong> (privacy-first analytics) — provides additional aggregated traffic reporting with minimal data collection.</li>
     </ul>
     <p>We do not sell, rent or trade your personal data to any third party. We do not share your data with marketing companies.</p>
 
@@ -1595,12 +1653,12 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
     <h2>8. Cookies and tracking</h2>
     <p>We take a minimal approach to cookies and tracking:</p>
     <ul>
-      <li><strong>No tracking cookies</strong> — we do not use Google Analytics, Facebook Pixel or any cookie-based tracking technology</li>
-      <li><strong>Plausible Analytics</strong> — our analytics tool is fully cookieless. It collects no personal data and does not track individual visitors across sessions</li>
+      <li><strong>Limited analytics cookies</strong> — Google Analytics 4 may set first-party cookies or similar identifiers to measure traffic, engagement and quote conversions</li>
+      <li><strong>Plausible Analytics</strong> — we also use a privacy-first analytics tool for aggregated reporting with minimal data collection</li>
       <li><strong>sessionStorage for authentication</strong> — when you log into the client portal, we use your browser's sessionStorage (not cookies) to maintain your session. This data is automatically cleared when you close the browser tab</li>
       <li><strong>Stripe</strong> — may set its own strictly necessary cookies during the payment process to prevent fraud</li>
     </ul>
-    <p>Because we do not use non-essential cookies, a cookie consent banner is not required under the Privacy and Electronic Communications Regulations (PECR).</p>
+    <p>Where required, we will provide an appropriate cookie and consent mechanism for non-essential analytics under PECR and applicable data protection law.</p>
 
     <h2>9. Data security</h2>
     <p>We implement appropriate technical and organisational measures to protect your personal data, including:</p>
@@ -1623,7 +1681,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
       <li><strong>Right to object</strong> — object to processing based on legitimate interests</li>
       <li><strong>Right to withdraw consent</strong> — where processing is based on consent, you may withdraw it at any time without affecting the lawfulness of prior processing</li>
     </ul>
-    <p>To exercise any of these rights, please email <a href="mailto:hello@architecturaldrawings.co.uk">hello@architecturaldrawings.co.uk</a>. We will respond within one calendar month.</p>
+    <p>To exercise any of these rights, please email <a href="mailto:hello@architecturaldrawings.uk">hello@architecturaldrawings.uk</a>. We will respond within one calendar month.</p>
 
     <h2>11. Right to complain</h2>
     <p>If you are unhappy with how we have handled your personal data, you have the right to lodge a complaint with the Information Commissioner's Office (ICO):</p>
@@ -1796,6 +1854,11 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   </a>
 </div>
 <!-- STICKY-CTA -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" /></noscript>
 <style>
 /* ===== Sticky CTA Bar ===== */
 .sticky-cta-bar {

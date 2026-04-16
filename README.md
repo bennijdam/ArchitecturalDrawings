@@ -127,9 +127,9 @@ Deploy to Railway, Fly.io, Render, or any Node host:
 
 **Frontend:** Upload the entire `architectural-drawings/` repo (minus `api/`) to any static host — Netlify, Vercel, Cloudflare Pages, S3+CloudFront. Set the SPA fallback so unknown routes return the homepage if needed.
 
-**Backend:** Deploy `architectural-drawings/api/` as a Node service. Set `ALLOWED_ORIGIN` to your frontend origin (e.g. `https://architecturaldrawings.co.uk`).
+**Backend:** Deploy `architectural-drawings/api/` as a Node service. Set `ALLOWED_ORIGIN` to your frontend origin (e.g. `https://www.architecturaldrawings.uk`).
 
-**Update frontend fetch URLs** if different origin — replace `/api/...` with full URL like `https://api.architecturaldrawings.co.uk/api/...` in `assets/js/quote.js`, `portal/login.html`, `portal/register.html`, `portal/dashboard.html`.
+**Update frontend fetch URLs** if different origin — replace `/api/...` with full URL like `https://api.architecturaldrawings.uk/api/...` in `assets/js/quote.js`, `portal/login.html`, `portal/register.html`, `portal/dashboard.html`.
 
 ### Stripe setup
 
@@ -141,8 +141,8 @@ Deploy to Railway, Fly.io, Render, or any Node host:
 
 ### Domain + DNS
 
-- Point apex domain (architecturaldrawings.co.uk) to the host.
-- Also configure `www.architecturaldrawings.co.uk` with a 301 redirect to apex (or vice versa — pick one canonical).
+- Point apex domain (architecturaldrawings.uk) to the host.
+- Also configure `www.architecturaldrawings.uk` with a 301 redirect to apex (or vice versa — pick one canonical).
 - Enable HTTPS (Railway, Fly, Netlify, Cloudflare all do this automatically with Let's Encrypt).
 
 ## SEO post-deploy checklist

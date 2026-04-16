@@ -3,9 +3,23 @@
  * Swap better-sqlite3 for pg (Postgres) in production at scale.
  */
 import Database from 'better-sqlite3';
+import fs from 'node:fs';
 import path from 'node:path';
 
-const DB_PATH = process.env.DATABASE_URL || './data/ad.sqlite';
+function resolveDbPath() {
+  const preferred = process.env.DATABASE_URL || './data/ad.sqlite';
+  try {
+    fs.mkdirSync(path.dirname(preferred), { recursive: true });
+    return preferred;
+  } catch {
+    const fallback = path.join(process.cwd(), 'data', 'ad.sqlite');
+    fs.mkdirSync(path.dirname(fallback), { recursive: true });
+    console.warn(`Database path "${preferred}" is not writable, falling back to "${fallback}"`);
+    return fallback;
+  }
+}
+
+const DB_PATH = resolveDbPath();
 
 let db;
 

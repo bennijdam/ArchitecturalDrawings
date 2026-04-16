@@ -1679,7 +1679,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
 <script>
 (() => {
   'use strict';
-  const API = location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://api.architecturaldrawings.co.uk';
+  const API = location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://api.architecturaldrawings.uk';
   if (!sessionStorage.getItem('ad_token')) { window.location.href = 'login.html'; return; }
 
   // Dynamic date
@@ -1697,6 +1697,20 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
     if (u.phone) document.getElementById('sPhone').value = u.phone;
   }
   fill(usr);
+
+  if ((!usr.name || !usr.email) && sessionStorage.getItem('ad_token')) {
+    fetch(`${API}/api/auth/me`, {
+      headers: { Authorization: `Bearer ${sessionStorage.getItem('ad_token')}` }
+    })
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(data => {
+        if (!data?.user) return;
+        usr = { ...usr, ...data.user };
+        sessionStorage.setItem('ad_user', JSON.stringify(usr));
+        fill(usr);
+      })
+      .catch(() => {});
+  }
 
   // Section nav
   const main = document.querySelector('.portal-main');

@@ -8,7 +8,7 @@ This file is read automatically by Claude Code at the start of each session. It 
 
 **Architectural Drawings London** is a website + portal + payment platform for an MCIAT-chartered architectural technology practice in London. It sells planning permission drawings, building regulations drawings, loft conversions, house extensions, mansard roofs, and adjacent services at fixed fees 30% below typical London architect rates.
 
-- **Public domain (intended):** `architecturaldrawings.co.uk`
+- **Public domain (intended):** `architecturaldrawings.uk`
 - **Stack:** Static HTML/CSS/vanilla JS frontend + Node.js/Express/SQLite backend, Stripe for payments, JWT for auth, multer for file uploads.
 - **Design language:** Warm editorial minimalism. Fraunces (display serif) + Manrope (body sans). Cream/ink/terracotta palette. 20–36px rounded cards. Staggered scroll-triggered reveals.
 - **SEO focus:** Local London (33 boroughs), service × borough keyword permutations, rich schema (LocalBusiness, FAQPage, Service, BreadcrumbList), long-tail service detail pages.
@@ -341,7 +341,7 @@ for f in api/server.js api/routes/*.js api/middleware/*.js; do node --check "$f"
 - **"98% first-time approval rate"** is the outcome claim.
 - **All 33 London boroughs** — phrase exactly this way, never "all London boroughs" (less specific).
 - **Fees:** Essentials from £840, Complete from £1,750, Loft from £1,225, Mansard from £1,575. Never round these without updating schema, pricing table, service cards, quote.js price map, and the README.
-- **Contact:** 86–90 Paul Street, London EC2A 4NE · 020 7946 0000 · hello@architecturaldrawings.co.uk. The phone number and address are placeholders — confirm with the user before shipping production.
+- **Contact:** 86–90 Paul Street, London EC2A 4NE · 020 7946 0000 · hello@architecturaldrawings.uk. The phone number and address are placeholders — confirm with the user before shipping production.
 - **CIAT / ICO / Companies House numbers in `about.html` are placeholders.** Swap for real values before going live.
 
 ---

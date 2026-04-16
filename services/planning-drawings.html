@@ -2,25 +2,30 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8" />
-<link rel="alternate" hreflang="en-GB" href="https://architecturaldrawings.co.uk/" />
+<link rel="alternate" hreflang="en-GB" href="https://www.architecturaldrawings.uk/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Planning Drawings London | From £840 · AD London</title>
 <meta name="description" content="Planning permission drawings and submission in London. Fixed fee from £840. MCIAT chartered, 98% first-time approvals, covering all 33 London boroughs including Article 4 areas and conservation areas." />
 <meta name="keywords" content="planning permission drawings London, planning application drawings London, householder planning London, planning consultant London, planning submission London" />
-<link rel="canonical" href="https://architecturaldrawings.co.uk/services/planning-drawings.html" />
+<link rel="canonical" href="https://www.architecturaldrawings.uk/services/planning-drawings.html" />
 <!-- Open Graph -->
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://architecturaldrawings.co.uk/services/planning-drawings.html" />
+<meta property="og:url" content="https://www.architecturaldrawings.uk/services/planning-drawings.html" />
 <meta property="og:title" content="Planning Drawings London | From £840 Fixed Fee" />
 <meta property="og:description" content="Planning permission drawings in London. Fixed fee from £840. MCIAT chartered, 98% first-time approvals, all 33 London boroughs." />
 <meta property="og:locale" content="en_GB" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" /></noscript>
 <style>
 /* ==========================================================================
    ARCHITECTURAL DRAWINGS — London Architectural Technology
    Design system: warm editorial minimalism with architectural precision
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap');
+/* Fonts loaded via non-blocking link tags in the document head */
 
 :root {
   /* Palette */
@@ -1453,7 +1458,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   "@context": "https://schema.org",
   "@type": "Service",
   "serviceType": "Planning Permission Drawings",
-  "provider": {"@type": "ProfessionalService", "name": "Architectural Drawings London", "@id": "https://architecturaldrawings.co.uk/#business", "url": "https://architecturaldrawings.co.uk/", "telephone": "+44 20 7946 0000", "priceRange": "££"},
+  "provider": {"@type": "ProfessionalService", "name": "Architectural Drawings London", "@id": "https://www.architecturaldrawings.uk/#business", "url": "https://www.architecturaldrawings.uk/", "telephone": "+44 20 7946 0000", "priceRange": "££"},
   "areaServed": {"@type": "City", "name": "London"},
   "offers": {"@type": "Offer", "price": "840", "priceCurrency": "GBP"},
   "description": "Fixed-fee planning permission drawings and submission service for London homeowners and developers, delivered by MCIAT chartered architectural technologists.",
@@ -1465,13 +1470,65 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://architecturaldrawings.co.uk/"},
-    {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://architecturaldrawings.co.uk/services.html"},
-    {"@type": "ListItem", "position": 3, "name": "Planning Drawings", "item": "https://architecturaldrawings.co.uk/services/planning-drawings.html"}
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.architecturaldrawings.uk/"},
+    {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.architecturaldrawings.uk/services.html"},
+    {"@type": "ListItem", "position": 3, "name": "Planning Drawings", "item": "https://www.architecturaldrawings.uk/services/planning-drawings.html"}
   ]
 }
 </script>
   <script defer data-domain="architecturaldrawings.uk" src="https://plausible.io/js/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-77CQ2PWJM4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = window.gtag || gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-77CQ2PWJM4', {
+    anonymize_ip: true,
+    allow_google_signals: false
+  });
+
+  document.addEventListener('click', function (event) {
+    const target = event.target.closest('a, button');
+    if (!target) return;
+
+    const label = (target.textContent || target.getAttribute('aria-label') || '').trim().slice(0, 120) || 'unknown';
+    const href = target.getAttribute('href') || '';
+
+    if (/quote|book|get started|contact|call/i.test(label) || /quote\.html/i.test(href)) {
+      gtag('event', 'cta_click', {
+        event_category: 'engagement',
+        event_label: label,
+        link_url: href || window.location.pathname
+      });
+    }
+
+    if (href.startsWith('tel:')) {
+      gtag('event', 'phone_click', {
+        event_category: 'contact',
+        event_label: href.replace('tel:', '')
+      });
+    }
+
+    if (href.startsWith('mailto:')) {
+      gtag('event', 'email_click', {
+        event_category: 'contact',
+        event_label: href.replace('mailto:', '')
+      });
+    }
+  }, { passive: true });
+
+  document.addEventListener('submit', function (event) {
+    const form = event.target;
+    if (!(form instanceof HTMLFormElement)) return;
+    const formName = form.getAttribute('id') || form.getAttribute('name') || 'form';
+    gtag('event', 'form_submit', {
+      event_category: 'lead',
+      event_label: formName,
+      page_location: window.location.pathname
+    });
+  });
+</script>
 </head>
 <body>
 
@@ -1893,6 +1950,11 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   </a>
 </div>
 <!-- STICKY-CTA -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" /></noscript>
 <style>
 /* ===== Sticky CTA Bar ===== */
 .sticky-cta-bar {

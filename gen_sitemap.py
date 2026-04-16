@@ -7,7 +7,7 @@ sys.path.insert(0, str(SCRIPT_DIR))
 from pseo_boroughs import BOROUGH_SLUGS, BOROUGHS
 from pseo_services import SERVICE_SLUGS
 
-BASE = "https://architecturaldrawings.co.uk"
+BASE = "https://www.architecturaldrawings.uk"
 DATE = "2026-04-16"
 
 urls = []

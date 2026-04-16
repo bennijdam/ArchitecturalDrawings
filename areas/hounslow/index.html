@@ -2,13 +2,13 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8" />
-<link rel="alternate" hreflang="en-GB" href="https://architecturaldrawings.co.uk/" />
+<link rel="alternate" hreflang="en-GB" href="https://www.architecturaldrawings.uk/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Architectural Services in Hounslow | Planning &amp; Building Regs</title>
 <meta name="description" content="Chartered architectural technology in Hounslow. Planning drawings from £840, loft conversions from £1,225, house extensions from £1,225. MCIAT. Covering Hounsl" />
-<link rel="canonical" href="https://architecturaldrawings.co.uk/areas/hounslow/" />
+<link rel="canonical" href="https://www.architecturaldrawings.uk/areas/hounslow/" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://architecturaldrawings.co.uk/areas/hounslow/" />
+<meta property="og:url" content="https://www.architecturaldrawings.uk/areas/hounslow/" />
 <meta property="og:title" content="Architectural Drawings in Hounslow" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E1116'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' fill='%23FAFAF7' font-family='Georgia,serif' font-weight='500' font-size='17' font-style='italic'%3EA%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,9 +19,9 @@
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "Architectural Drawings London — Hounslow",
-  "url": "https://architecturaldrawings.co.uk/areas/hounslow/",
+  "url": "https://www.architecturaldrawings.uk/areas/hounslow/",
   "areaServed": {"@type": "AdministrativeArea", "name": "Hounslow", "containedInPlace": {"@type": "City", "name": "London"}},
-  "provider": {"@type": "ProfessionalService", "@id": "https://architecturaldrawings.co.uk/#business"},
+  "provider": {"@type": "ProfessionalService", "@id": "https://www.architecturaldrawings.uk/#business"},
   "priceRange": "££"
 }
 </script>
@@ -1708,7 +1708,6 @@ if (nav) { const onScroll = () => nav.classList.toggle('scrolled', window.scroll
 </div>
 <!-- STICKY-CTA -->
 <style>
-/* ===== Sticky CTA Bar ===== */
 .sticky-cta-bar {
   position: fixed;
   bottom: 0;
@@ -1778,8 +1777,6 @@ if (nav) { const onScroll = () => nav.classList.toggle('scrolled', window.scroll
   }
   .sticky-cta-bar-text { font-size: 0.88rem; }
 }
-
-/* ===== Exit-Intent Modal ===== */
 .exit-overlay {
   position: fixed;
   inset: 0;
@@ -1896,15 +1893,11 @@ if (nav) { const onScroll = () => nav.classList.toggle('scrolled', window.scroll
   .exit-form { flex-direction: column; }
 }
 </style>
-
-<!-- Sticky CTA Bar -->
 <div class="sticky-cta-bar" id="stickyCta" aria-label="Get a free quote">
   <span class="sticky-cta-bar-text">Free quote in 60 seconds &mdash; From &pound;840 fixed fee</span>
   <a href="/quote.html" class="sticky-cta-bar-btn">Get my free quote &rarr;</a>
   <button class="sticky-cta-bar-close" id="stickyCtaClose" aria-label="Dismiss">&times;</button>
 </div>
-
-<!-- Exit-Intent Modal -->
 <div class="exit-overlay" id="exitOverlay">
   <div class="exit-card">
     <button class="exit-card-close" id="exitClose" aria-label="Close">&times;</button>
@@ -1922,10 +1915,8 @@ if (nav) { const onScroll = () => nav.classList.toggle('scrolled', window.scroll
     </div>
   </div>
 </div>
-
 <script>
 (function() {
-  /* ---- Sticky CTA Bar ---- */
   var bar = document.getElementById('stickyCta');
   var closeBtn = document.getElementById('stickyCtaClose');
   if (bar && closeBtn) {
@@ -1945,23 +1936,18 @@ if (nav) { const onScroll = () => nav.classList.toggle('scrolled', window.scroll
       window.removeEventListener('scroll', onScroll);
     });
   }
-
-  /* ---- Exit-Intent Modal ---- */
   var overlay = document.getElementById('exitOverlay');
   var exitCloseBtn = document.getElementById('exitClose');
   var exitForm = document.getElementById('exitForm');
   var exitContent = document.getElementById('exitContent');
   var exitSuccess = document.getElementById('exitSuccess');
-
   if (overlay && exitCloseBtn) {
     var exitFired = false;
     try { exitFired = sessionStorage.getItem('__ad_exit_fired') === '1'; } catch(e) {}
-
     function closeModal() {
       overlay.classList.remove('active');
       try { sessionStorage.setItem('__ad_exit_fired', '1'); } catch(e) {}
     }
-
     if (!exitFired && window.innerWidth > 768) {
       document.addEventListener('mouseout', function(e) {
         if (e.clientY <= 0 && !exitFired) {
@@ -1971,12 +1957,10 @@ if (nav) { const onScroll = () => nav.classList.toggle('scrolled', window.scroll
         }
       });
     }
-
     exitCloseBtn.addEventListener('click', closeModal);
     overlay.addEventListener('click', function(e) {
       if (e.target === overlay) closeModal();
     });
-
     if (exitForm) {
       exitForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -1989,6 +1973,5 @@ if (nav) { const onScroll = () => nav.classList.toggle('scrolled', window.scroll
 })();
 </script>
 <!-- /STICKY-CTA -->
-
 </body>
 </html>

@@ -314,7 +314,7 @@ These items are called out in CLAUDE.md §9 as placeholders. Replace before laun
 - Audited all `fetch()` calls across 6 files: `index.html`, `quote.html`, `portal/login.html`, `portal/register.html`, `portal/dashboard.html`, `assets/js/quote.js`
 - Portal files and quote.js already had correct `API_BASE` pattern
 - Fixed 2 missing files: added `API_BASE` constant to `index.html` (callback form) and `quote.html` (inline quote submit)
-- All API calls now use: `const API_BASE = location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://api.architecturaldrawings.co.uk'`
+- All API calls now use: `const API_BASE = location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://api.architecturaldrawings.uk'`
 - Zero hardcoded `/api/` fetch calls remain
 
 ### Phase A: pSEO page generation (completed 2026-04-14)
@@ -337,7 +337,7 @@ Follow SETUP.md sections in order. Each section captures credentials that later 
 | # | Service | SETUP.md section | What to capture | Est. cost |
 |---|---------|-----------------|-----------------|-----------|
 | 1 | **GitHub** | §2 | Username, repo URL | Free |
-| 2 | **Domain** (architecturaldrawings.co.uk) | §3 | Registrar login, expiry date | £8-12/yr |
+| 2 | **Domain** (architecturaldrawings.uk) | §3 | Registrar login, expiry date | £8-12/yr |
 | 3 | **Cloudflare** (DNS, CDN, email routing) | §4 | Account email, nameservers | Free |
 | 4 | **Vercel** (frontend hosting) | §5 | Project URL, production URL | Free |
 | 5 | **Railway** (API hosting + SQLite) | §6 | Project URL, API domain | ~£5-10/mo |

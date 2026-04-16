@@ -321,7 +321,7 @@ def render_service_location(borough_slug, service_slug):
     basement_note = "Restricted" if b["basement_policy"] else "Standard"
 
     # Canonical URL
-    canonical = f"https://architecturaldrawings.co.uk/areas/{borough_slug}/{service_slug}.html"
+    canonical = f"https://www.architecturaldrawings.uk/areas/{borough_slug}/{service_slug}.html"
 
     # Inline CSS + any data URI embed is deferred — external ref is fine for these pages (deploy-compatible)
     # But for standalone preview we inline. We'll inline the main CSS with pSEO additions.
@@ -330,7 +330,7 @@ def render_service_location(borough_slug, service_slug):
 <html lang="en-GB">
 <head>
 <meta charset="utf-8" />
-<link rel="alternate" hreflang="en-GB" href="https://architecturaldrawings.co.uk/" />
+<link rel="alternate" hreflang="en-GB" href="https://www.architecturaldrawings.uk/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#FAFAF7" />
 
@@ -359,8 +359,8 @@ def render_service_location(borough_slug, service_slug):
   "provider": {{
     "@type": "ProfessionalService",
     "name": "Architectural Drawings London",
-    "@id": "https://architecturaldrawings.co.uk/#business",
-    "url": "https://architecturaldrawings.co.uk/",
+    "@id": "https://www.architecturaldrawings.uk/#business",
+    "url": "https://www.architecturaldrawings.uk/",
     "telephone": "+44 20 7946 0000",
     "priceRange": "££"
   }},
@@ -385,9 +385,9 @@ def render_service_location(borough_slug, service_slug):
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://architecturaldrawings.co.uk/"}},
-    {{"@type": "ListItem", "position": 2, "name": "Areas", "item": "https://architecturaldrawings.co.uk/areas/"}},
-    {{"@type": "ListItem", "position": 3, "name": "{location}", "item": "https://architecturaldrawings.co.uk/areas/{borough_slug}/"}},
+    {{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.architecturaldrawings.uk/"}},
+    {{"@type": "ListItem", "position": 2, "name": "Areas", "item": "https://www.architecturaldrawings.uk/areas/"}},
+    {{"@type": "ListItem", "position": 3, "name": "{location}", "item": "https://www.architecturaldrawings.uk/areas/{borough_slug}/"}},
     {{"@type": "ListItem", "position": 4, "name": "{s['name']}", "item": "{canonical}"}}
   ]
 }}
@@ -965,7 +965,7 @@ SERVICE_ICON = '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strok
 def render_borough_hub(borough_slug):
     b = BOROUGHS[borough_slug]
     location = b["name"]
-    canonical = f"https://architecturaldrawings.co.uk/areas/{borough_slug}/"
+    canonical = f"https://www.architecturaldrawings.uk/areas/{borough_slug}/"
 
     title = f"Architectural Drawings in {location} | Planning, Loft, Extension — from £556"
     if len(title) > 68:
@@ -990,7 +990,7 @@ def render_borough_hub(borough_slug):
 <html lang="en-GB">
 <head>
 <meta charset="utf-8" />
-<link rel="alternate" hreflang="en-GB" href="https://architecturaldrawings.co.uk/" />
+<link rel="alternate" hreflang="en-GB" href="https://www.architecturaldrawings.uk/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
 <meta name="description" content="{meta_desc}" />
@@ -1009,7 +1009,7 @@ def render_borough_hub(borough_slug):
   "name": "Architectural Drawings London — {location}",
   "url": "{canonical}",
   "areaServed": {{"@type": "AdministrativeArea", "name": "{location}", "containedInPlace": {{"@type": "City", "name": "London"}}}},
-  "provider": {{"@type": "ProfessionalService", "@id": "https://architecturaldrawings.co.uk/#business"}},
+  "provider": {{"@type": "ProfessionalService", "@id": "https://www.architecturaldrawings.uk/#business"}},
   "priceRange": "££"
 }}
 </script>
@@ -1451,7 +1451,7 @@ if (nav) {{ const onScroll = () => nav.classList.toggle('scrolled', window.scrol
 # ============================================================
 
 def render_master_index():
-    canonical = "https://architecturaldrawings.co.uk/areas/"
+    canonical = "https://www.architecturaldrawings.uk/areas/"
     boroughs_html = "".join(
         f'<a href="{slug}/" class="adjacent-card"><strong>{BOROUGHS[slug]["name"]}</strong><span>{BOROUGHS[slug]["planning_authority"].replace("London Borough of ", "").replace("Royal Borough of ", "")} · {BOROUGHS[slug]["conservation_areas"]} conservation areas</span></a>'
         for slug in sorted(BOROUGH_SLUGS, key=lambda s: BOROUGHS[s]["name"])
@@ -1461,7 +1461,7 @@ def render_master_index():
 <html lang="en-GB">
 <head>
 <meta charset="utf-8" />
-<link rel="alternate" hreflang="en-GB" href="https://architecturaldrawings.co.uk/" />
+<link rel="alternate" hreflang="en-GB" href="https://www.architecturaldrawings.uk/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>London Areas We Cover | Architectural Drawings London</title>
 <meta name="description" content="We provide architectural technology services — planning drawings, building regs, loft conversions, extensions — across all 33 London boroughs. Find your area." />

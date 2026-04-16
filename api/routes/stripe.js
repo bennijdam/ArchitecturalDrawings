@@ -33,8 +33,8 @@ router.post('/checkout', requireAuth, async (req, res) => {
         },
         quantity: 1,
       }],
-      success_url: process.env.STRIPE_SUCCESS_URL || 'https://architecturaldrawings.co.uk/portal/dashboard.html?payment=success',
-      cancel_url: process.env.STRIPE_CANCEL_URL || 'https://architecturaldrawings.co.uk/portal/dashboard.html?payment=cancelled',
+      success_url: process.env.STRIPE_SUCCESS_URL || 'https://www.architecturaldrawings.uk/portal/dashboard.html?payment=success',
+      cancel_url: process.env.STRIPE_CANCEL_URL || 'https://www.architecturaldrawings.uk/portal/dashboard.html?payment=cancelled',
       customer_email: req.user.email,
       metadata: {
         user_id: String(req.user.id),

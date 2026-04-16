@@ -12,7 +12,7 @@ Total recurring cost at launch scale: **~£15–45/month**. Optional bolt-ons (G
 
 1. [Prerequisites — tools on your machine](#1-prerequisites)
 2. [GitHub — version control](#2-github)
-3. [Domain registration — architecturaldrawings.co.uk](#3-domain-registration)
+3. [Domain registration — architecturaldrawings.uk](#3-domain-registration)
 4. [Cloudflare — DNS, CDN, email routing](#4-cloudflare)
 5. [Vercel — frontend hosting](#5-vercel)
 6. [Railway — backend API + SQLite](#6-railway)
@@ -60,7 +60,7 @@ stripe --version
 **URL:** https://github.com/signup
 
 ### 2.1 Create account
-If signing up fresh: use the business email (e.g. `ops@architecturaldrawings.co.uk` — set this up later in §9, or use a personal email for now and transfer later).
+If signing up fresh: use the business email (e.g. `ops@architecturaldrawings.uk` — set this up later in §9, or use a personal email for now and transfer later).
 
 Enable two-factor authentication immediately: https://github.com/settings/security
 
@@ -109,7 +109,7 @@ api/uploads/
 
 **URL:** https://www.nominet.uk/lookup/ (authoritative .uk WHOIS — free)
 
-Enter: `architecturaldrawings.co.uk`
+Enter: `architecturaldrawings.uk`
 
 If it shows as available, buy it through a registrar in §3.2. If it's taken, fall back options:
 - `architecturaldrawings.london` (check at https://www.nic.london/)
@@ -131,7 +131,7 @@ If it shows as available, buy it through a registrar in §3.2. If it's taken, fa
 
 **Capture:**
 - Registrar: `________`
-- Domain: `architecturaldrawings.co.uk`
+- Domain: `architecturaldrawings.uk`
 - Expiry date: `________` (set a calendar reminder 60 days before)
 - Registrar login: `________`
 
@@ -143,12 +143,12 @@ If it shows as available, buy it through a registrar in §3.2. If it's taken, fa
 
 **URL:** https://dash.cloudflare.com/sign-up
 
-Cloudflare handles DNS, provides a free CDN, free SSL, and free email routing (forwards `hello@architecturaldrawings.co.uk` to any existing Gmail/Outlook).
+Cloudflare handles DNS, provides a free CDN, free SSL, and free email routing (forwards `hello@architecturaldrawings.uk` to any existing Gmail/Outlook).
 
 ### 4.1 Sign up and add the site
 
 1. Sign up at https://dash.cloudflare.com/sign-up
-2. Click **Add a site** → enter `architecturaldrawings.co.uk` → pick **Free plan** → next.
+2. Click **Add a site** → enter `architecturaldrawings.uk` → pick **Free plan** → next.
 3. Cloudflare scans existing DNS records. If registered today with no DNS yet, there'll be nothing to import.
 4. Cloudflare shows two nameservers like `xxx.ns.cloudflare.com` and `yyy.ns.cloudflare.com`.
 5. **Go back to your registrar** (§3.2). In the domain management → DNS/nameservers section, replace the default nameservers with the two Cloudflare ones. Save.
@@ -163,9 +163,9 @@ In Cloudflare → DNS → Records, you'll add records in §5 (Vercel) and §6 (R
 1. In Cloudflare dashboard → **Email** → **Email Routing** → Enable.
 2. Under **Destination addresses**, add your personal Gmail/Outlook. Verify.
 3. Under **Routes**, create:
-   - `hello@architecturaldrawings.co.uk` → forwards to your personal inbox
-   - `ops@architecturaldrawings.co.uk` → same (or another inbox)
-   - `*@architecturaldrawings.co.uk` (catch-all) → same
+   - `hello@architecturaldrawings.uk` → forwards to your personal inbox
+   - `ops@architecturaldrawings.uk` → same (or another inbox)
+   - `*@architecturaldrawings.uk` (catch-all) → same
 4. Cloudflare auto-adds the required MX records.
 
 For **outbound** email from those addresses, you'll use Postmark (§8) for transactional and Google Workspace (§9) if you want human email with full send/reply at `hello@…`.
@@ -244,7 +244,7 @@ Commit and push — Vercel auto-redeploys.
 ### 5.4 Connect the custom domain
 
 1. Vercel dashboard → Project → **Settings** → **Domains**.
-2. Add `architecturaldrawings.co.uk` and `www.architecturaldrawings.co.uk`.
+2. Add `architecturaldrawings.uk` and `www.architecturaldrawings.uk`.
 3. Vercel displays two DNS records to add. Go to Cloudflare → DNS → Records:
    - Add `CNAME www → cname.vercel-dns.com` (proxy OFF / DNS only)
    - Add `A @ → 76.76.21.21` (Vercel's anycast IP; proxy OFF / DNS only)
@@ -252,7 +252,7 @@ Commit and push — Vercel auto-redeploys.
 
 **Capture:**
 - Vercel project URL: `https://architectural-drawings-london.vercel.app`
-- Production URL: `https://architecturaldrawings.co.uk`
+- Production URL: `https://www.architecturaldrawings.uk`
 
 **Cost:** Free (Hobby plan). Upgrade to Pro at $20/mo only if bandwidth exceeds 100 GB/month.
 
@@ -292,7 +292,7 @@ Railway → Service → **Variables** → add:
 ```
 NODE_ENV=production
 PORT=3001
-ALLOWED_ORIGIN=https://architecturaldrawings.co.uk
+ALLOWED_ORIGIN=https://www.architecturaldrawings.uk
 
 DATABASE_URL=/app/data/ad.sqlite
 UPLOAD_DIR=/app/data/uploads
@@ -303,15 +303,15 @@ JWT_EXPIRES_IN=7d
 # These come from later sections — add now as placeholders, update after
 STRIPE_SECRET_KEY=sk_test_xxx
 STRIPE_WEBHOOK_SECRET=whsec_xxx
-STRIPE_SUCCESS_URL=https://architecturaldrawings.co.uk/portal/dashboard.html?payment=success
-STRIPE_CANCEL_URL=https://architecturaldrawings.co.uk/portal/dashboard.html?payment=cancelled
+STRIPE_SUCCESS_URL=https://www.architecturaldrawings.uk/portal/dashboard.html?payment=success
+STRIPE_CANCEL_URL=https://www.architecturaldrawings.uk/portal/dashboard.html?payment=cancelled
 
 SMTP_HOST=smtp.postmarkapp.com
 SMTP_PORT=587
 SMTP_USER=xxx
 SMTP_PASS=xxx
-EMAIL_FROM="Architectural Drawings London <hello@architecturaldrawings.co.uk>"
-EMAIL_TO_OPS=ops@architecturaldrawings.co.uk
+EMAIL_FROM="Architectural Drawings London <hello@architecturaldrawings.uk>"
+EMAIL_TO_OPS=ops@architecturaldrawings.uk
 
 RATE_LIMIT_WINDOW_MS=900000
 RATE_LIMIT_MAX=100
@@ -320,7 +320,7 @@ MAX_FILE_SIZE_MB=100
 
 ### 6.5 Custom domain for the API
 
-1. Railway → Service → **Networking** → **Custom Domain** → add `api.architecturaldrawings.co.uk`.
+1. Railway → Service → **Networking** → **Custom Domain** → add `api.architecturaldrawings.uk`.
 2. Railway gives you a CNAME target. Go to Cloudflare → DNS → add:
    - `CNAME api → <railway-target>.up.railway.app` (proxy OFF / DNS only — Railway handles SSL)
 
@@ -331,7 +331,7 @@ In `portal/login.html`, `portal/register.html`, `portal/dashboard.html`, `assets
 ```javascript
 const API = location.hostname === 'localhost'
   ? 'http://localhost:3001'
-  : 'https://api.architecturaldrawings.co.uk';
+  : 'https://api.architecturaldrawings.uk';
 
 fetch(`${API}/api/auth/login`, ...)
 ```
@@ -340,7 +340,7 @@ Commit, push, Vercel redeploys.
 
 **Capture:**
 - Railway project URL: `________`
-- API domain: `https://api.architecturaldrawings.co.uk`
+- API domain: `https://api.architecturaldrawings.uk`
 
 **Cost:** $5 Trial credit. Hobby plan from $5/mo, typical usage ~£5–10/month.
 
@@ -376,7 +376,7 @@ STRIPE_SECRET_KEY=sk_test_xxx       (or sk_live_xxx after verification)
 ### 7.3 Configure the webhook
 
 1. **Dashboard → Developers → Webhooks → Add endpoint**.
-2. Endpoint URL: `https://api.architecturaldrawings.co.uk/api/stripe/webhook`
+2. Endpoint URL: `https://api.architecturaldrawings.uk/api/stripe/webhook`
 3. Events to send (select these three):
    - `checkout.session.completed`
    - `checkout.session.expired`
@@ -434,7 +434,7 @@ Postmark handles transactional email — the quote-confirmation emails to `ops@`
 
 ### 8.2 Verify the sender domain
 
-1. Server → **Sender Signatures** → **Add Domain** → enter `architecturaldrawings.co.uk`.
+1. Server → **Sender Signatures** → **Add Domain** → enter `architecturaldrawings.uk`.
 2. Postmark shows DKIM and Return-Path DNS records. Go to Cloudflare → DNS → add all of them as `TXT` and `CNAME` records.
 3. Wait 5–30 min, click **Verify** in Postmark.
 
@@ -466,14 +466,14 @@ If Postmark doesn't fit:
 
 **URL:** https://workspace.google.com/
 
-For a proper `hello@architecturaldrawings.co.uk` mailbox you can send AND receive from (unlike Cloudflare Email Routing which is forward-only).
+For a proper `hello@architecturaldrawings.uk` mailbox you can send AND receive from (unlike Cloudflare Email Routing which is forward-only).
 
 ### 9.1 Sign up
 
 1. https://workspace.google.com/ → **Start free trial**.
 2. Business name: Architectural Drawings Ltd. Employees: 1–5.
-3. Use existing domain → `architecturaldrawings.co.uk`.
-4. Create admin account `hello@architecturaldrawings.co.uk` + password.
+3. Use existing domain → `architecturaldrawings.uk`.
+4. Create admin account `hello@architecturaldrawings.uk` + password.
 
 ### 9.2 Verify domain ownership
 
@@ -503,12 +503,12 @@ Google provides a TXT record. Add to Cloudflare DNS. Verify.
 ### 10.1 Add property
 
 1. Visit https://search.google.com/search-console → **Add property**.
-2. Pick **Domain** (not URL-prefix) → enter `architecturaldrawings.co.uk`.
+2. Pick **Domain** (not URL-prefix) → enter `architecturaldrawings.uk`.
 3. Google provides a TXT record. Add to Cloudflare DNS. Verify.
 
 ### 10.2 Submit the sitemap
 
-Sidebar → **Sitemaps** → submit `https://architecturaldrawings.co.uk/sitemap.xml` → submit.
+Sidebar → **Sitemaps** → submit `https://www.architecturaldrawings.uk/sitemap.xml` → submit.
 
 Google will crawl the 10 URLs. First pages typically indexed within 24–72 hours for a clean new site.
 
@@ -538,7 +538,7 @@ Critical for local London SEO — drives map-pack appearances for queries like "
 4. Address: 86–90 Paul Street, London EC2A 4NE (use the real trading address — it's printed on Companies House and verifiable).
 5. Service area: Greater London (select all 33 boroughs).
 6. Phone: 020 7946 0000 (or real number).
-7. Website: `https://architecturaldrawings.co.uk`.
+7. Website: `https://www.architecturaldrawings.uk`.
 
 ### 11.2 Verification
 
@@ -572,11 +572,11 @@ Privacy-first, GDPR-compliant analytics. No cookie banner needed. Preferred over
 ### Recommended: Plausible
 
 1. Sign up at https://plausible.io/register.
-2. **Add a site** → `architecturaldrawings.co.uk`.
+2. **Add a site** → `architecturaldrawings.uk`.
 3. Copy the snippet:
 
 ```html
-<script defer data-domain="architecturaldrawings.co.uk" src="https://plausible.io/js/script.js"></script>
+<script defer data-domain="architecturaldrawings.uk" src="https://plausible.io/js/script.js"></script>
 ```
 
 4. Paste into the `<head>` of every HTML file (use the rebrand script pattern to insert across all pages).
@@ -663,7 +663,7 @@ These are the **highest-ROI backlinks for local architectural SEO**. Sign up and
 4. Houzz Pro
 5. CheckATrade (if budget permits)
 
-Each listing should link back to `architecturaldrawings.co.uk` with branded anchor text ("Architectural Drawings London") — 6–8 authoritative directory backlinks is enough to kickstart ranking for local keywords.
+Each listing should link back to `architecturaldrawings.uk` with branded anchor text ("Architectural Drawings London") — 6–8 authoritative directory backlinks is enough to kickstart ranking for local keywords.
 
 ---
 
@@ -675,7 +675,7 @@ By the end of this runbook you should have these values. Store them in a passwor
 # ===== Server =====
 NODE_ENV=production
 PORT=3001
-ALLOWED_ORIGIN=https://architecturaldrawings.co.uk
+ALLOWED_ORIGIN=https://www.architecturaldrawings.uk
 
 # ===== Database + storage =====
 DATABASE_URL=/app/data/ad.sqlite
@@ -689,16 +689,16 @@ JWT_EXPIRES_IN=7d
 # ===== Stripe =====
 STRIPE_SECRET_KEY=sk_live_xxx
 STRIPE_WEBHOOK_SECRET=whsec_xxx
-STRIPE_SUCCESS_URL=https://architecturaldrawings.co.uk/portal/dashboard.html?payment=success
-STRIPE_CANCEL_URL=https://architecturaldrawings.co.uk/portal/dashboard.html?payment=cancelled
+STRIPE_SUCCESS_URL=https://www.architecturaldrawings.uk/portal/dashboard.html?payment=success
+STRIPE_CANCEL_URL=https://www.architecturaldrawings.uk/portal/dashboard.html?payment=cancelled
 
 # ===== Email (Postmark) =====
 SMTP_HOST=smtp.postmarkapp.com
 SMTP_PORT=587
 SMTP_USER=<Postmark API token>
 SMTP_PASS=<same as user>
-EMAIL_FROM="Architectural Drawings London <hello@architecturaldrawings.co.uk>"
-EMAIL_TO_OPS=ops@architecturaldrawings.co.uk
+EMAIL_FROM="Architectural Drawings London <hello@architecturaldrawings.uk>"
+EMAIL_TO_OPS=ops@architecturaldrawings.uk
 
 # ===== Rate limiting =====
 RATE_LIMIT_WINDOW_MS=900000
@@ -717,16 +717,16 @@ Do NOT commit `.env` to git. Only commit `.env.example` with placeholder values.
 Run through this before announcing the site:
 
 ### Technical
-- [ ] `architecturaldrawings.co.uk` resolves and shows Vercel-hosted site with valid SSL
-- [ ] `www.architecturaldrawings.co.uk` 301-redirects to the apex
-- [ ] `api.architecturaldrawings.co.uk/api/health` returns `{"ok": true}`
+- [ ] `architecturaldrawings.uk` resolves and shows Vercel-hosted site with valid SSL
+- [ ] `www.architecturaldrawings.uk` 301-redirects to the apex
+- [ ] `api.architecturaldrawings.uk/api/health` returns `{"ok": true}`
 - [ ] Quote form submits and appears in Railway logs (`quotes` table)
 - [ ] Account register/login round-trip works (check sessionStorage has `ad_token`)
 - [ ] Portal dashboard loads with user data
 - [ ] File upload works (check `/app/data/uploads/`)
 - [ ] Stripe Checkout completes a test payment
 - [ ] Stripe webhook updates `payments.status = 'paid'`
-- [ ] Sending `hello@architecturaldrawings.co.uk` from external account arrives in inbox
+- [ ] Sending `hello@architecturaldrawings.uk` from external account arrives in inbox
 - [ ] Ops email fires on quote submission
 
 ### SEO
@@ -770,4 +770,4 @@ Run through this before announcing the site:
 
 ---
 
-**Done.** At the end of this runbook, `architecturaldrawings.co.uk` is live, accepts quotes, processes payments, sends emails, and is indexed by Google. Total setup time for an experienced agent: ~4–6 hours. Total monthly cost: ~£15–45 at launch scale.
+**Done.** At the end of this runbook, `architecturaldrawings.uk` is live, accepts quotes, processes payments, sends emails, and is indexed by Google. Total setup time for an experienced agent: ~4–6 hours. Total monthly cost: ~£15–45 at launch scale.

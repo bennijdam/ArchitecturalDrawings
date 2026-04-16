@@ -7,8 +7,21 @@ import { getDb } from '../models/db.js';
 import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
-const UPLOAD_DIR = process.env.UPLOAD_DIR || './uploads';
-if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+
+function resolveUploadDir() {
+  const preferred = process.env.UPLOAD_DIR || './uploads';
+  try {
+    if (!fs.existsSync(preferred)) fs.mkdirSync(preferred, { recursive: true });
+    return preferred;
+  } catch {
+    const fallback = path.join(process.cwd(), 'uploads');
+    if (!fs.existsSync(fallback)) fs.mkdirSync(fallback, { recursive: true });
+    console.warn(`Upload dir "${preferred}" is not writable, falling back to "${fallback}"`);
+    return fallback;
+  }
+}
+
+const UPLOAD_DIR = resolveUploadDir();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, UPLOAD_DIR),
