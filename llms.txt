@@ -9,7 +9,7 @@
 - **Contact**: hello@architecturaldrawings.uk · 020 7946 0000
 - **Website**: https://www.architecturaldrawings.uk
 - **Credentials**: MCIAT chartered, £2m PI insured, ICO registered
-- **Coverage**: All 33 London boroughs + M25 commuter belt
+- **Coverage**: All 33 London boroughs + 30 M25 commuter belt towns + nationwide remote service to 12+ major UK cities (Manchester, Birmingham, Leeds, Liverpool, Bristol, Edinburgh, Glasgow, Brighton, Cambridge, Oxford, Bath, York)
 - **Founded**: 2020
 - **Team size**: 3-10 chartered technologists + structural engineer
 
@@ -62,6 +62,8 @@
 - [/guides/lofts/](https://www.architecturaldrawings.uk/guides/lofts/): Lofts cornerstone guide
 - [/guides/planning/](https://www.architecturaldrawings.uk/guides/planning/): Planning cornerstone guide
 - [/areas/](https://www.architecturaldrawings.uk/areas/): All 33 London boroughs
+- [/areas/commuter/](https://www.architecturaldrawings.uk/areas/commuter/): M25 commuter belt (30 towns: Guildford, Woking, St Albans, Watford, Reading area, etc.)
+- [/areas/uk/](https://www.architecturaldrawings.uk/areas/uk/): Nationwide remote drawing service (12 UK cities: Manchester, Birmingham, Leeds, Liverpool, Bristol, Edinburgh, Glasgow, Brighton, Cambridge, Oxford, Bath, York)
 - [/calculator/](https://www.architecturaldrawings.uk/calculator/): Interactive cost calculator
 - [/tools/pd-checker/](https://www.architecturaldrawings.uk/tools/pd-checker/): Permitted Development checker
 - [/blog/](https://www.architecturaldrawings.uk/blog/): 135+ guides including 33 borough planning guides

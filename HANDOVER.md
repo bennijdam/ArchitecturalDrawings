@@ -18,7 +18,7 @@
 ---
 
 **Last updated:** 2026-04-16
-**Status:** Site fully built with 665 URLs across 2 sub-sitemaps, SEO/AEO/GEO optimised. 135 blog posts, 10 case studies, 120 neighbourhood pages (80+40 new), 3 cornerstone guide hubs, 5 property-type hubs (Victorian/Edwardian/Georgian/1930s/modern-flat), team hub, FAQ hub, glossary, resources hub, why-us comparison, stats data page, 364 pSEO pages (10 services x 33 boroughs). 5 interactive tools (cost calculator, PD checker, timeline estimator, fee calculator, PD volume calculator). GEO: llms.txt for AI agents, authoritative source citations. PWA: service worker, manifest, offline.html, 404.html, OpenSearch. Conversion: sticky CTA + exit-intent + WhatsApp FABs + chat widget + callback forms + animated counters + testimonials. 100% schema coverage, zero invalid JSON-LD. Ready for deployment.
+**Status:** Site fully built with 710 URLs across 2 sub-sitemaps, SEO/AEO/GEO optimised. UK-wide coverage: 33 London boroughs + 120 London neighbourhoods + 30 M25 commuter belt towns (Guildford, Watford, St Albans, Oxford, etc.) + 12 major UK cities (Manchester, Birmingham, Leeds, Liverpool, Bristol, Edinburgh, Glasgow, Brighton, Cambridge, Oxford, Bath, York). 135 blog posts, 10 case studies, 3 cornerstone guide hubs, 5 property-type hubs, team hub, FAQ hub, glossary, resources hub, why-us, stats, 364 pSEO pages. 5 interactive tools. Real Unsplash stock images on 155+ content pages. GEO: llms.txt for AI agents. PWA: service worker + manifest + offline + 404. Conversion: sticky CTA + exit-intent + WhatsApp FABs + chat widget + callback forms + counters + testimonials. 100% schema coverage, zero invalid JSON-LD.
 
 ---
 
