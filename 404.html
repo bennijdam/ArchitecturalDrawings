@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Page not found | Architectural Drawings London</title>
+<meta name="robots" content="noindex" />
+<link rel="alternate" hreflang="en-GB" href="https://www.architecturaldrawings.uk/" />
+<!-- pwa-enhanced -->
+<link rel="manifest" href="/manifest.webmanifest" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="AD London" />
+<meta name="application-name" content="Architectural Drawings London" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="format-detection" content="telephone=no" />
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Manrope:wght@400;600&display=swap');
+:root{--bg:#FAFAF7;--ink:#0E1116;--ink-soft:#4A5260;--accent:#C8664A;--accent-deep:#9D4A32;--surface:#FFF;--line:rgba(14,17,22,0.08);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:grid;place-items:center;padding:32px;}
+.box{max-width:720px;text-align:center;}
+.code{font-family:'Fraunces',serif;font-size:clamp(6rem,18vw,11rem);font-weight:400;font-style:italic;line-height:1;color:var(--accent);letter-spacing:-0.04em;margin-bottom:8px;}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:400;line-height:1.15;margin-bottom:16px;letter-spacing:-0.02em;}
+p{color:var(--ink-soft);font-size:1.05rem;line-height:1.6;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto;}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:999px;text-decoration:none;font-weight:600;font-size:0.92rem;transition:all 0.2s;}
+.btn-primary{background:var(--ink);color:var(--bg);}
+.btn-primary:hover{background:var(--accent-deep);}
+.btn-outline{background:transparent;color:var(--ink);border:1px solid var(--line);}
+.btn-outline:hover{border-color:var(--ink);}
+.search{display:flex;gap:8px;max-width:420px;margin:0 auto 40px;}
+.search input{flex:1;padding:12px 18px;border:1px solid var(--line);border-radius:999px;font-size:0.95rem;background:var(--surface);}
+.search button{padding:12px 20px;background:var(--accent);color:#fff;border:0;border-radius:999px;font-weight:600;cursor:pointer;}
+.popular{border-top:1px solid var(--line);padding-top:32px;}
+.popular h3{font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px;font-weight:600;}
+.popular-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;max-width:640px;margin:0 auto;}
+.popular a{padding:10px 14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink);font-size:0.88rem;transition:all 0.2s;}
+.popular a:hover{border-color:var(--accent);background:rgba(200,102,74,0.04);}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.architecturaldrawings.uk/"},{"@type":"ListItem","position":2,"name":"404"}]}
+</script>
+<!-- Google Analytics 4 (standardized) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-77CQ2PWJM4"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+window.gtag = window.gtag || gtag;
+gtag('js', new Date());
+gtag('config', 'G-77CQ2PWJM4', {
+  anonymize_ip: true,
+  allow_google_signals: false,
+  page_title: document.title,
+  page_location: window.location.href,
+  send_page_view: true
+});
+
+(() => {
+  const track = (name, params = {}) => {
+    try {
+      gtag('event', name, params);
+    } catch (err) {}
+  };
+
+  const startedForms = new Set();
+  const scrollMilestones = new Set();
+  const scrollTargets = [25, 50, 75, 90];
+
+  let quoteStarted = false;
+  let rafScheduled = false;
+
+  setTimeout(() => {
+    track('session_engaged_30s', {
+      page_path: window.location.pathname,
+      page_title: document.title
+    });
+  }, 30000);
+
+  const handleScroll = () => {
+    rafScheduled = false;
+    const doc = document.documentElement;
+    const maxScroll = Math.max(1, (doc.scrollHeight || 0) - window.innerHeight);
+    const pct = Math.round((window.scrollY / maxScroll) * 100);
+    scrollTargets.forEach((target) => {
+      if (pct >= target && !scrollMilestones.has(target)) {
+        scrollMilestones.add(target);
+        track('scroll_depth', {
+          percent_scrolled: target,
+          page_path: window.location.pathname
+        });
+      }
+    });
+  };
+
+  window.addEventListener('scroll', () => {
+    if (rafScheduled) return;
+    rafScheduled = true;
+    window.requestAnimationFrame(handleScroll);
+  }, { passive: true });
+
+  document.addEventListener('focusin', (e) => {
+    const el = e.target;
+    if (!(el instanceof Element)) return;
+    const form = el.closest('form');
+    if (!form) return;
+
+    const formId = form.id || form.getAttribute('name') || 'form';
+    if (!startedForms.has(formId)) {
+      startedForms.add(formId);
+      track('form_start', {
+        form_id: formId,
+        page_path: window.location.pathname
+      });
+    }
+
+    if (form.id === 'quoteForm' && !quoteStarted) {
+      quoteStarted = true;
+      track('quote_form_start', {
+        form_id: 'quoteForm',
+        page_path: window.location.pathname
+      });
+    }
+  }, true);
+
+  document.addEventListener('submit', (e) => {
+    const form = e.target;
+    if (!(form instanceof HTMLFormElement)) return;
+
+    const pagePath = window.location.pathname;
+    const formId = form.id || form.getAttribute('name') || 'form';
+
+    track('form_submit', { form_id: formId, page_path: pagePath });
+
+    if (formId === 'quoteForm') {
+      const service = form.querySelector('input[name="service"]:checked')?.value || '';
+      const tier = form.querySelector('#q-scope')?.value || form.querySelector('[name="tier"]')?.value || '';
+      track('generate_lead', { form_id: formId, page_path: pagePath, service, tier });
+      track('quote_submit', { form_id: formId, page_path: pagePath, service, tier });
+      return;
+    }
+
+    const queryInput = form.querySelector('input[name="q"], input[type="search"]');
+    if (queryInput && queryInput.value.trim()) {
+      track('search', { search_term: queryInput.value.trim(), page_path: pagePath });
+    }
+
+    if (/login/i.test(pagePath) || /login/i.test(formId)) {
+      track('login', { method: 'email', page_path: pagePath });
+      return;
+    }
+
+    if (/register|signup|sign-up/i.test(pagePath) || /register|signup|sign-up/i.test(formId)) {
+      track('sign_up', { method: 'email', page_path: pagePath });
+    }
+  }, true);
+
+  document.addEventListener('change', (e) => {
+    const el = e.target;
+    if (!(el instanceof Element)) return;
+
+    const inQuoteForm = !!el.closest('#quoteForm');
+    if (!inQuoteForm) return;
+
+    if (el.matches('input[name="property"], input[name="service"], #q-scope, #q-timeline')) {
+      track('quote_option_select', {
+        field: el.getAttribute('name') || el.getAttribute('id') || 'unknown',
+        value: (el.value || '').toString().slice(0, 80),
+        page_path: window.location.pathname
+      });
+    }
+  }, true);
+
+  document.addEventListener('click', (e) => {
+    const el = e.target;
+    if (!(el instanceof Element)) return;
+
+    const trigger = el.closest('a,button');
+    if (!trigger) return;
+
+    const text = (trigger.textContent || trigger.getAttribute('aria-label') || '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 100);
+    const href = trigger.getAttribute('href') || '';
+    const pagePath = window.location.pathname;
+    const combined = `${text} ${href}`.toLowerCase();
+
+    if (combined.includes('quote') || combined.includes('reserve my slot') || combined.includes('free quote')) {
+      track('cta_click', { cta_text: text || 'quote_cta', cta_target: href || pagePath, page_path: pagePath });
+    }
+
+    if (/^mailto:/i.test(href) || /^tel:/i.test(href)) {
+      const contactType = /^tel:/i.test(href) ? 'phone' : 'email';
+      track('contact_click', {
+        contact_type: contactType,
+        page_path: pagePath
+      });
+      track(contactType === 'phone' ? 'phone_click' : 'email_click', {
+        event_category: 'contact',
+        event_label: href.replace(/^mailto:|^tel:/i, ''),
+        page_path: pagePath
+      });
+    }
+
+    if (/\.(pdf|docx?|xlsx?|zip)(\?|#|$)/i.test(href)) {
+      const fileName = href.split('/').pop()?.split('?')[0] || 'download';
+      track('file_download', { file_name: fileName, page_path: pagePath });
+    }
+
+    if (/^https?:\/\//i.test(href)) {
+      try {
+        const url = new URL(href, window.location.href);
+        if (url.hostname !== window.location.hostname) {
+          track('outbound_click', {
+            link_domain: url.hostname,
+            link_url: url.href,
+            page_path: pagePath
+          });
+        }
+      } catch (_err) {}
+    }
+  }, true);
+})();
+</script>
+</head>
+<body>
+<div class="box">
+  <div class="code">404</div>
+  <h1>This page has gone <em style="color:var(--accent);">missing</em>.</h1>
+  <p>We can&rsquo;t find the page you&rsquo;re looking for. It may have moved, or the link might be broken. Try searching, or pick one of the popular pages below.</p>
+  <div class="actions">
+    <a href="/" class="btn btn-primary">Back to home &rarr;</a>
+    <a href="/quote.html" class="btn btn-outline">Get a free quote</a>
+  </div>
+  <form class="search" action="/search.html" method="get">
+    <input type="search" name="q" placeholder="Search the site..." aria-label="Search" />
+    <button type="submit">Search</button>
+  </form>
+  <div class="popular">
+    <h3>Popular pages</h3>
+    <div class="popular-grid">
+      <a href="/services/planning-drawings.html">Planning drawings</a>
+      <a href="/services/building-regulations.html">Building regs</a>
+      <a href="/services/loft-conversions.html">Loft conversions</a>
+      <a href="/services/house-extensions.html">House extensions</a>
+      <a href="/calculator/">Cost calculator</a>
+      <a href="/tools/pd-checker/">PD checker</a>
+      <a href="/areas/">All 33 boroughs</a>
+      <a href="/blog/">Blog &amp; guides</a>
+    </div>
+  </div>
+</div>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
+</body>
+</html>

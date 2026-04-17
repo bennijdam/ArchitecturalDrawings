@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <link rel="alternate" hreflang="en-GB" href="https://www.architecturaldrawings.uk/" />
+<!-- pwa-enhanced -->
+<link rel="manifest" href="/manifest.webmanifest" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="AD London" />
+<meta name="application-name" content="Architectural Drawings London" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="format-detection" content="telephone=no" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Full Planning vs Prior Approval London | AD</title>
 <meta name="description" content="Full planning permission vs prior approval in London: costs, timelines, which projects qualify, and when to use each route. Expert guide from MCIAT chartered technologists." />
@@ -108,6 +116,9 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=window.gtag||gtag;gtag('js',new Date());gtag('config','G-77CQ2PWJM4',{anonymize_ip:true,allow_google_signals:false});document.addEventListener('click',function(event){var target=event.target.closest('a, button');if(!target)return;var label=(target.textContent||target.getAttribute('aria-label')||'').trim().slice(0,120)||'unknown';var href=target.getAttribute('href')||'';if(/quote|book|get started|contact|call/i.test(label)||/quote\.html/i.test(href)){gtag('event','cta_click',{event_category:'engagement',event_label:label,link_url:href||window.location.pathname})}if(href.startsWith('tel:')){gtag('event','phone_click',{event_category:'contact',event_label:href.replace('tel:','')})}if(href.startsWith('mailto:')){gtag('event','email_click',{event_category:'contact',event_label:href.replace('mailto:','')})}},{passive:true});</script>
 </head>
 <body>
+<!-- pillar-link -->
+<div style="background:var(--bg-2);border-bottom:1px solid var(--line);padding:10px 0;"><div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:0.82rem;flex-wrap:wrap;"><span style="color:var(--ink-soft);">Part of our <strong style="color:var(--ink);">Planning guide cluster</strong></span><a href="/guides/planning/" style="color:var(--accent-deep);font-weight:600;text-decoration:none;">View all planning guides &rarr;</a></div></div>
+
 
 <header class="nav" id="nav">
   <div class="container nav-inner">
@@ -615,5 +626,6 @@
 </div>
 <script>(function(){var t=document.getElementById('chatToggle'),p=document.getElementById('chatPanel'),f=document.getElementById('chatForm');if(t&&p){t.addEventListener('click',function(){p.style.display=p.style.display==='none'?'block':'none';});}if(f){f.addEventListener('submit',function(e){e.preventDefault();f.innerHTML='<p style="color:var(--success);font-size:0.9rem;padding:8px;">Thanks! We&rsquo;ll reply shortly.</p>';});}})();</script>
 
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
 </body>
 </html>

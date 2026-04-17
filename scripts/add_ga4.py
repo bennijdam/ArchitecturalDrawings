@@ -4,7 +4,7 @@ import re
 ROOT = Path(r"c:\Users\ASUS\Desktop\ArchitecturalDrawings\architectural-drawings")
 MEASUREMENT_ID = "G-77CQ2PWJM4"
 
-SNIPPET = f'''<!-- Google Analytics 4 -->
+SNIPPET = f'''<!-- Google Analytics 4 (standardized) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={MEASUREMENT_ID}"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -13,8 +13,10 @@ window.gtag = window.gtag || gtag;
 gtag('js', new Date());
 gtag('config', '{MEASUREMENT_ID}', {{
   anonymize_ip: true,
+  allow_google_signals: false,
   page_title: document.title,
-  page_location: window.location.href
+  page_location: window.location.href,
+  send_page_view: true
 }});
 
 (() => {{
@@ -24,13 +26,56 @@ gtag('config', '{MEASUREMENT_ID}', {{
     }} catch (err) {{}}
   }};
 
+  const startedForms = new Set();
+  const scrollMilestones = new Set();
+  const scrollTargets = [25, 50, 75, 90];
+
   let quoteStarted = false;
+  let rafScheduled = false;
+
+  setTimeout(() => {{
+    track('session_engaged_30s', {{
+      page_path: window.location.pathname,
+      page_title: document.title
+    }});
+  }}, 30000);
+
+  const handleScroll = () => {{
+    rafScheduled = false;
+    const doc = document.documentElement;
+    const maxScroll = Math.max(1, (doc.scrollHeight || 0) - window.innerHeight);
+    const pct = Math.round((window.scrollY / maxScroll) * 100);
+    scrollTargets.forEach((target) => {{
+      if (pct >= target && !scrollMilestones.has(target)) {{
+        scrollMilestones.add(target);
+        track('scroll_depth', {{
+          percent_scrolled: target,
+          page_path: window.location.pathname
+        }});
+      }}
+    }});
+  }};
+
+  window.addEventListener('scroll', () => {{
+    if (rafScheduled) return;
+    rafScheduled = true;
+    window.requestAnimationFrame(handleScroll);
+  }}, {{ passive: true }});
 
   document.addEventListener('focusin', (e) => {{
     const el = e.target;
     if (!(el instanceof Element)) return;
     const form = el.closest('form');
     if (!form) return;
+
+    const formId = form.id || form.getAttribute('name') || 'form';
+    if (!startedForms.has(formId)) {{
+      startedForms.add(formId);
+      track('form_start', {{
+        form_id: formId,
+        page_path: window.location.pathname
+      }});
+    }}
 
     if (form.id === 'quoteForm' && !quoteStarted) {{
       quoteStarted = true;
@@ -47,6 +92,8 @@ gtag('config', '{MEASUREMENT_ID}', {{
 
     const pagePath = window.location.pathname;
     const formId = form.id || form.getAttribute('name') || 'form';
+
+    track('form_submit', {{ form_id: formId, page_path: pagePath }});
 
     if (formId === 'quoteForm') {{
       const service = form.querySelector('input[name="service"]:checked')?.value || '';
@@ -71,6 +118,22 @@ gtag('config', '{MEASUREMENT_ID}', {{
     }}
   }}, true);
 
+  document.addEventListener('change', (e) => {{
+    const el = e.target;
+    if (!(el instanceof Element)) return;
+
+    const inQuoteForm = !!el.closest('#quoteForm');
+    if (!inQuoteForm) return;
+
+    if (el.matches('input[name="property"], input[name="service"], #q-scope, #q-timeline')) {{
+      track('quote_option_select', {{
+        field: el.getAttribute('name') || el.getAttribute('id') || 'unknown',
+        value: (el.value || '').toString().slice(0, 80),
+        page_path: window.location.pathname
+      }});
+    }}
+  }}, true);
+
   document.addEventListener('click', (e) => {{
     const el = e.target;
     if (!(el instanceof Element)) return;
@@ -91,8 +154,14 @@ gtag('config', '{MEASUREMENT_ID}', {{
     }}
 
     if (/^mailto:/i.test(href) || /^tel:/i.test(href)) {{
+      const contactType = /^tel:/i.test(href) ? 'phone' : 'email';
       track('contact_click', {{
-        contact_type: /^tel:/i.test(href) ? 'phone' : 'email',
+        contact_type: contactType,
+        page_path: pagePath
+      }});
+      track(contactType === 'phone' ? 'phone_click' : 'email_click', {{
+        event_category: 'contact',
+        event_label: href.replace(/^mailto:|^tel:/i, ''),
         page_path: pagePath
       }});
     }}
@@ -101,28 +170,41 @@ gtag('config', '{MEASUREMENT_ID}', {{
       const fileName = href.split('/').pop()?.split('?')[0] || 'download';
       track('file_download', {{ file_name: fileName, page_path: pagePath }});
     }}
+
+    if (/^https?:\/\//i.test(href)) {{
+      try {{
+        const url = new URL(href, window.location.href);
+        if (url.hostname !== window.location.hostname) {{
+          track('outbound_click', {{
+            link_domain: url.hostname,
+            link_url: url.href,
+            page_path: pagePath
+          }});
+        }}
+      }} catch (_err) {{}}
+    }}
   }}, true);
 }})();
 </script>'''
 
-pattern = re.compile(r'<!-- Google Analytics 4 -->.*?</script>\s*</script>', re.S)
+PAIR_PATTERN = re.compile(
+    r'(?:<!--\s*Google Analytics 4(?: \(standardized\))?\s*-->\s*)?'
+    r'<script[^>]*src=["\']https://www\.googletagmanager\.com/gtag/js\?id=[^"\']+["\'][^>]*></script>\s*'
+    r'<script>.*?</script>',
+    re.S | re.I,
+)
 changed = 0
 checked = 0
 
 for html_file in ROOT.rglob('*.html'):
-    if 'api' in html_file.parts:
+    if 'api' in html_file.parts or 'node_modules' in html_file.parts:
         continue
     checked += 1
     content = html_file.read_text(encoding='utf-8')
     original = content
 
     if 'googletagmanager.com/gtag/js?id=' in content:
-        content = re.sub(
-            r'<!-- Google Analytics 4 -->.*?</script>\s*</script>',
-            SNIPPET,
-            content,
-            flags=re.S,
-        )
+        content = PAIR_PATTERN.sub(SNIPPET, content, count=1)
     elif '</head>' in content:
         content = content.replace('</head>', SNIPPET + '\n</head>', 1)
 

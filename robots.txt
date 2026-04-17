@@ -3,5 +3,26 @@ Allow: /
 Disallow: /portal/
 Disallow: /api/
 Disallow: /quote.html
+Disallow: /404.html
+Disallow: /offline.html
 
+# AI crawlers — allow (we want GEO citations)
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Sitemaps
 Sitemap: https://www.architecturaldrawings.uk/sitemap.xml
+Sitemap: https://www.architecturaldrawings.uk/sitemap-core.xml
+Sitemap: https://www.architecturaldrawings.uk/sitemap-areas.xml
+
+# Host canonical
+Host: https://www.architecturaldrawings.uk

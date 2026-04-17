@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <link rel="alternate" hreflang="en-GB" href="https://www.architecturaldrawings.uk/" />
+<!-- pwa-enhanced -->
+<link rel="manifest" href="/manifest.webmanifest" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="AD London" />
+<meta name="application-name" content="Architectural Drawings London" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="format-detection" content="telephone=no" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Part L Building Regulations Guide 2026 | AD</title>
 <meta name="description" content="Part L Building Regulations explained for London homeowners. U-value requirements, SAP calculations, air testing, MVHR, and how Part L affects extensions, lofts, and conversions in 2026." />
@@ -723,5 +731,6 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor)=>{anchor.addEventList
 </div>
 <script>(function(){var t=document.getElementById('chatToggle'),p=document.getElementById('chatPanel'),f=document.getElementById('chatForm');if(t&&p){t.addEventListener('click',function(){p.style.display=p.style.display==='none'?'block':'none';});}if(f){f.addEventListener('submit',function(e){e.preventDefault();f.innerHTML='<p style="color:var(--success);font-size:0.9rem;padding:8px;">Thanks! We&rsquo;ll reply shortly.</p>';});}})();</script>
 
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
 </body>
 </html>

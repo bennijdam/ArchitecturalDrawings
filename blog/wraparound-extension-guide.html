@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <link rel="alternate" hreflang="en-GB" href="https://www.architecturaldrawings.uk/" />
+<!-- pwa-enhanced -->
+<link rel="manifest" href="/manifest.webmanifest" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="AD London" />
+<meta name="application-name" content="Architectural Drawings London" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="format-detection" content="telephone=no" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Wraparound Extension London Guide 2026 | AD</title>
 <meta name="description" content="Complete guide to wraparound extensions in London. Costs, planning permission vs PD, structural considerations, Party Wall, design ideas, and our fees from £1,925." />
@@ -31,6 +39,9 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=window.gtag||gtag;gtag('js',new Date());gtag('config','G-77CQ2PWJM4',{anonymize_ip:true,allow_google_signals:false});document.addEventListener('click',function(e){var t=e.target.closest('a, button');if(!t)return;var l=(t.textContent||t.getAttribute('aria-label')||'').trim().slice(0,120)||'unknown';var h=t.getAttribute('href')||'';if(/quote|book|get started|contact|call/i.test(l)||/quote\.html/i.test(h)){gtag('event','cta_click',{event_category:'engagement',event_label:l,link_url:h||window.location.pathname})}if(h.startsWith('tel:')){gtag('event','phone_click',{event_category:'contact',event_label:h.replace('tel:','')})}if(h.startsWith('mailto:')){gtag('event','email_click',{event_category:'contact',event_label:h.replace('mailto:','')})}},{passive:true});</script>
 </head>
 <body>
+<!-- pillar-link -->
+<div style="background:var(--bg-2);border-bottom:1px solid var(--line);padding:10px 0;"><div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:0.82rem;flex-wrap:wrap;"><span style="color:var(--ink-soft);">Part of our <strong style="color:var(--ink);">Extensions guide cluster</strong></span><a href="/guides/extensions/" style="color:var(--accent-deep);font-weight:600;text-decoration:none;">View all extensions guides &rarr;</a></div></div>
+
 
 <header class="nav" id="nav"><div class="container nav-inner"><a href="../" class="logo"><span class="logo-mark">A</span><span>Architectural<span style="color:var(--accent);font-style:italic;font-weight:400;"> Drawings</span></span></a><nav><ul class="nav-links"><li><a href="../services.html">Services</a></li><li><a href="../pricing.html">Pricing</a></li><li><a href="../index.html#process">Process</a></li><li><a href="../about.html">About</a></li></ul></nav><div class="nav-cta"><a href="../portal/login.html" class="btn btn-ghost btn-sm">Sign in</a><a href="../quote.html" class="btn btn-primary btn-sm">Free quote</a></div></div></header>
 
@@ -304,5 +315,6 @@
 </div>
 <script>(function(){var t=document.getElementById('chatToggle'),p=document.getElementById('chatPanel'),f=document.getElementById('chatForm');if(t&&p){t.addEventListener('click',function(){p.style.display=p.style.display==='none'?'block':'none';});}if(f){f.addEventListener('submit',function(e){e.preventDefault();f.innerHTML='<p style="color:var(--success);font-size:0.9rem;padding:8px;">Thanks! We&rsquo;ll reply shortly.</p>';});}})();</script>
 
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
 </body>
 </html>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>AD London</ShortName>
+  <LongName>Architectural Drawings London</LongName>
+  <Description>Search planning drawings, building regulations, and architectural guides across 33 London boroughs.</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image height="16" width="16" type="image/svg+xml">https://www.architecturaldrawings.uk/favicon.svg</Image>
+  <Url type="text/html" method="get" template="https://www.architecturaldrawings.uk/search.html?q={searchTerms}"/>
+  <moz:SearchForm xmlns:moz="http://www.mozilla.org/2006/browser/search/">https://www.architecturaldrawings.uk/search.html</moz:SearchForm>
+</OpenSearchDescription>
