@@ -617,6 +617,17 @@ gtag('config', 'G-77CQ2PWJM4', {
     btn.addEventListener('click', () => {
       if (!validateStep(current)) return;
       const next = current + 1;
+
+      // Track step completion
+      const service = form.querySelector('input[name="service"]:checked')?.value || 'unknown';
+      const tier = form.querySelector('#q-scope')?.value || 'unknown';
+      window.gtag('event', 'quote_step_complete', {
+        step: current,
+        service: service,
+        tier: tier,
+        event_category: 'quote_flow'
+      });
+
       if (next === 5) renderSummary();
       showStep(next);
     });

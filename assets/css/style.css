@@ -198,6 +198,25 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   .nav-cta .btn-ghost { display: none; }
 }
 
+/* ============== Breadcrumbs ============== */
+.breadcrumbs {
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+  margin-bottom: 20px;
+}
+.breadcrumbs a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+.breadcrumbs a:hover {
+  color: var(--accent-deep);
+}
+.breadcrumbs span {
+  margin: 0 6px;
+  opacity: 0.5;
+}
+
 /* ============== Buttons ============== */
 .btn {
   display: inline-flex;

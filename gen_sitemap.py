@@ -2,16 +2,32 @@
 """Rebuild sitemap index + 3 sub-sitemaps for better crawl efficiency."""
 import sys
 from pathlib import Path
+from datetime import datetime, timezone
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPT_DIR))
 from pseo_boroughs import BOROUGH_SLUGS, BOROUGHS
 from pseo_services import SERVICE_SLUGS
 
 BASE = "https://www.architecturaldrawings.uk"
-DATE = "2026-04-16"
 
-def make_url(loc, priority, freq):
-    return f"  <url><loc>{BASE}{loc}</loc><lastmod>{DATE}</lastmod><priority>{priority}</priority><changefreq>{freq}</changefreq></url>"
+def get_lastmod(filepath):
+    """Get lastmod date from file's modification time. Falls back to today."""
+    try:
+        mtime = Path(filepath).stat().st_mtime
+        return datetime.fromtimestamp(mtime, tz=timezone.utc).strftime("%Y-%m-%d")
+    except (FileNotFoundError, OSError):
+        return datetime.now(tz=timezone.utc).strftime("%Y-%m-%d")
+
+def make_url(loc, priority, freq, filepath=None):
+    """Build URL entry. If filepath given, use its mtime; otherwise use today."""
+    if filepath:
+        lastmod = get_lastmod(filepath)
+    else:
+        # For generated/derived pages with no filesystem backing, use today's date
+        lastmod = datetime.now(tz=timezone.utc).strftime("%Y-%m-%d")
+
+    return f"  <url><loc>{BASE}{loc}</loc><lastmod>{lastmod}</lastmod><priority>{priority}</priority><changefreq>{freq}</changefreq></url>"
 
 def write_sitemap(filename, urls):
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(urls) + "\n</urlset>\n"
@@ -111,7 +127,15 @@ core_pages = [
     ("/projects/planning-regs-southwark.html", "0.6", "monthly"),
 ]
 for loc, priority, freq in core_pages:
-    core_urls.append(make_url(loc, priority, freq))
+    # Map URL path to filesystem path
+    if loc == "/":
+        filepath = SCRIPT_DIR / "index.html"
+    elif loc.endswith("/"):
+        filepath = SCRIPT_DIR / loc.lstrip("/") / "index.html"
+    else:
+        filepath = SCRIPT_DIR / loc.lstrip("/")
+
+    core_urls.append(make_url(loc, priority, freq, str(filepath)))
 
 # Blog hub + all posts
 core_urls.append(make_url("/blog/", "0.8", "weekly"))
@@ -138,19 +162,23 @@ blog_posts = [
     "flat-roof-extension-guide", "pre-application-advice-london",
 ]
 for slug in blog_posts:
-    core_urls.append(make_url(f"/blog/{slug}.html", "0.8", "monthly"))
+    filepath = SCRIPT_DIR / "blog" / f"{slug}.html"
+    core_urls.append(make_url(f"/blog/{slug}.html", "0.8", "monthly", str(filepath)))
 
 # Borough planning guides
 for borough_slug in BOROUGH_SLUGS:
-    core_urls.append(make_url(f"/blog/planning-{borough_slug}.html", "0.7", "monthly"))
+    filepath = SCRIPT_DIR / "blog" / f"planning-{borough_slug}.html"
+    core_urls.append(make_url(f"/blog/planning-{borough_slug}.html", "0.7", "monthly", str(filepath)))
 
 # Borough extension cost guides
 for borough_slug in BOROUGH_SLUGS:
-    core_urls.append(make_url(f"/blog/extension-cost-{borough_slug}.html", "0.7", "monthly"))
+    filepath = SCRIPT_DIR / "blog" / f"extension-cost-{borough_slug}.html"
+    core_urls.append(make_url(f"/blog/extension-cost-{borough_slug}.html", "0.7", "monthly", str(filepath)))
 
 # Borough loft conversion guides
 for borough_slug in BOROUGH_SLUGS:
-    core_urls.append(make_url(f"/blog/loft-cost-{borough_slug}.html", "0.7", "monthly"))
+    filepath = SCRIPT_DIR / "blog" / f"loft-cost-{borough_slug}.html"
+    core_urls.append(make_url(f"/blog/loft-cost-{borough_slug}.html", "0.7", "monthly", str(filepath)))
 
 # Cornerstone guide hubs
 core_urls.append(make_url("/guides/extensions/", "0.9", "monthly"))
@@ -159,7 +187,8 @@ core_urls.append(make_url("/guides/planning/", "0.9", "monthly"))
 
 # Additional case studies
 for slug in ["garage-conversion-ealing", "basement-dig-kensington", "hmo-conversion-hackney", "rear-dormer-lewisham", "wraparound-extension-wandsworth"]:
-    core_urls.append(make_url(f"/projects/{slug}.html", "0.6", "monthly"))
+    filepath = SCRIPT_DIR / "projects" / f"{slug}.html"
+    core_urls.append(make_url(f"/projects/{slug}.html", "0.6", "monthly", str(filepath)))
 
 count_core = write_sitemap("sitemap-core.xml", core_urls)
 
@@ -173,9 +202,11 @@ area_urls.append(make_url("/areas/", "0.8", "monthly"))
 
 # Borough hubs + services
 for slug in BOROUGH_SLUGS:
-    area_urls.append(make_url(f"/areas/{slug}/", "0.7", "monthly"))
+    filepath = SCRIPT_DIR / "areas" / slug / "index.html"
+    area_urls.append(make_url(f"/areas/{slug}/", "0.7", "monthly", str(filepath)))
     for svc in SERVICE_SLUGS:
-        area_urls.append(make_url(f"/areas/{slug}/{svc}.html", "0.7", "monthly"))
+        filepath = SCRIPT_DIR / "areas" / slug / f"{svc}.html"
+        area_urls.append(make_url(f"/areas/{slug}/{svc}.html", "0.7", "monthly", str(filepath)))
 
 # Neighbourhood pages (discover from filesystem)
 neighbourhoods_dir = SCRIPT_DIR / "areas" / "neighbourhoods"
@@ -189,10 +220,11 @@ count_areas = write_sitemap("sitemap-areas.xml", area_urls)
 # SITEMAP INDEX
 # ============================================================
 total = count_core + count_areas
+today = datetime.now(tz=timezone.utc).strftime("%Y-%m-%d")
 index_xml = f'''<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap><loc>{BASE}/sitemap-core.xml</loc><lastmod>{DATE}</lastmod></sitemap>
-  <sitemap><loc>{BASE}/sitemap-areas.xml</loc><lastmod>{DATE}</lastmod></sitemap>
+  <sitemap><loc>{BASE}/sitemap-core.xml</loc><lastmod>{today}</lastmod></sitemap>
+  <sitemap><loc>{BASE}/sitemap-areas.xml</loc><lastmod>{today}</lastmod></sitemap>
 </sitemapindex>
 '''
 (SCRIPT_DIR / "sitemap.xml").write_text(index_xml, encoding="utf-8")

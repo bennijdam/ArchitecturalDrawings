@@ -18,6 +18,8 @@
 <title>Architectural Drawings London | Planning &amp; Building Regs</title>
 <meta name="description" content="Chartered architectural technology practice in London. Planning drawings, building regs &amp; structural calcs — fixed fees 30% below London architects. MCIAT. 98% first-time approvals. Free quote in 60 seconds." />
 <meta name="keywords" content="architectural technology London, planning permission drawings London, building regulations drawings London, architectural technologist London, loft conversion drawings, house extension plans London, MCIAT London" />
+<!-- TODO: replace content value with your Google Search Console HTML verification token --><!-- <meta name="google-site-verification" content="YOUR_TOKEN_HERE" /> --><!-- GDPR/PECR: GA4 currently loads unconditionally. Add consent check for UK visitors. --><!-- For now: placeholder for consent banner implementation -->
+<!-- CWV: Monitor Core Web Vitals monthly at https://pagespeed.web.dev/ -->
 <meta name="author" content="Architectural Drawings London" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="canonical" href="https://www.architecturaldrawings.uk/" />
@@ -51,7 +53,7 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+  "@type": ["LocalBusiness", "ProfessionalService"],
   "@id": "https://architecturaldrawings.uk/#business",
   "name": "Architectural Drawings London",
   "alternateName": "Architectural Drawings London",
@@ -127,6 +129,7 @@
     "https://www.instagram.com/architecturaldrawingslondon",
     "https://www.linkedin.com/company/architectural-drawings"
   ],
+  "comment": "TODO: add Google Business Profile URL to sameAs once published (e.g., https://g.page/architectural-drawings-london)",
   "dateModified": "2026-04-14"
 }
 </script>
@@ -149,32 +152,38 @@
 
 <!-- Review schema (testimonials) -->
 <script type="application/ld+json">
-[
-  {
-    "@context": "https://schema.org",
-    "@type": "Review",
-    "itemReviewed": {"@type": "ProfessionalService", "@id": "https://architecturaldrawings.uk/#business", "name": "Architectural Drawings London"},
-    "author": {"@type": "Person", "name": "Anna K."},
-    "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
-    "reviewBody": "Passed planning with Hackney first time on a fairly bold mansard proposal. Architectural Drawings's drawings were better than the architect's quote we had been sitting on for six months, at less than half the price."
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Review",
-    "itemReviewed": {"@type": "ProfessionalService", "@id": "https://architecturaldrawings.uk/#business", "name": "Architectural Drawings London"},
-    "author": {"@type": "Person", "name": "James D."},
-    "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
-    "reviewBody": "The portal was the thing. I've done projects where I chased PDFs via email for weeks. Here everything was in one place, including my stage payments. Very calming."
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Review",
-    "itemReviewed": {"@type": "ProfessionalService", "@id": "https://architecturaldrawings.uk/#business", "name": "Architectural Drawings London"},
-    "author": {"@type": "Person", "name": "Marcus R."},
-    "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
-    "reviewBody": "Four properties in our portfolio all approved through Architectural Drawings. The retainer for developers is genuinely how this should work."
-  }
-]
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Review",
+      "@id": "https://architecturaldrawings.uk/#review-anna",
+      "itemReviewed": {"@id": "https://architecturaldrawings.uk/#business"},
+      "author": {"@type": "Person", "name": "Anna K."},
+      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+      "reviewBody": "Passed planning with Hackney first time on a fairly bold mansard proposal. Architectural Drawings's drawings were better than the architect's quote we had been sitting on for six months, at less than half the price.",
+      "datePublished": "2025-10-12"
+    },
+    {
+      "@type": "Review",
+      "@id": "https://architecturaldrawings.uk/#review-james",
+      "itemReviewed": {"@id": "https://architecturaldrawings.uk/#business"},
+      "author": {"@type": "Person", "name": "James D."},
+      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+      "reviewBody": "The portal was the thing. I've done projects where I chased PDFs via email for weeks. Here everything was in one place, including my stage payments. Very calming.",
+      "datePublished": "2025-11-08"
+    },
+    {
+      "@type": "Review",
+      "@id": "https://architecturaldrawings.uk/#review-marcus",
+      "itemReviewed": {"@id": "https://architecturaldrawings.uk/#business"},
+      "author": {"@type": "Person", "name": "Marcus R."},
+      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+      "reviewBody": "Four properties in our portfolio all approved through Architectural Drawings. The retainer for developers is genuinely how this should work.",
+      "datePublished": "2025-12-03"
+    }
+  ]
+}
 </script>
 
 <!-- Breadcrumb -->

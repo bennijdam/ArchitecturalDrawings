@@ -300,7 +300,7 @@ def render_service_location(borough_slug, service_slug):
     # Other services in this location
     other_services = [ss for ss in SERVICE_SLUGS if ss != service_slug]
     related_services_html = "".join(
-        f'<a href="{ss}.html" class="service-card"><h3>{SERVICES[ss]["name"]} in {location}</h3><p>From {SERVICES[ss]["price_display"]}. {SERVICES[ss]["summary"][:120]}...</p><div class="service-card-footer"><span class="service-card-price"><span class="from">from</span>{SERVICES[ss]["price_display"]}</span><span class="service-card-link">View →</span></div></a>'
+        f'<a href="{ss}.html" class="service-card"><h3>{SERVICES[ss]["name"]} in {location}</h3><p>From {SERVICES[ss]["price_display"]}. {fill_placeholders(SERVICES[ss]["summary"], b)[:120]}...</p><div class="service-card-footer"><span class="service-card-price"><span class="from">from</span>{SERVICES[ss]["price_display"]}</span><span class="service-card-link">View →</span></div></a>'
         for ss in other_services
     )
 
@@ -393,6 +393,26 @@ def render_service_location(borough_slug, service_slug):
 }}
 </script>
 
+<!-- Schema: LocalBusiness (area-specific) -->
+<script type="application/ld+json">
+{{
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": "https://www.architecturaldrawings.uk/#business",
+  "url": "https://www.architecturaldrawings.uk/areas/{borough_slug}/{service_slug}.html",
+  "name": "Architectural Drawings London",
+  "areaServed": {{"@type": "AdministrativeArea", "name": "{location}"}},
+  "address": {{
+    "@type": "PostalAddress",
+    "streetAddress": "86–90 Paul Street",
+    "addressLocality": "London",
+    "postalCode": "EC2A 4NE",
+    "addressCountry": "GB"
+  }},
+  "telephone": "+44 20 7946 0000"
+}}
+</script>
+
 <style>
 {CSS}
 {PSEO_CSS}
@@ -429,11 +449,11 @@ def render_service_location(borough_slug, service_slug):
 <section class="hero">
   <div class="container hero-grid">
     <div>
-      <nav aria-label="Breadcrumb" style="font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 20px;">
-        <a href="/" style="color: var(--ink-soft);">Home</a> /
-        <a href="/areas/" style="color: var(--ink-soft);">Areas</a> /
-        <a href="./" style="color: var(--ink-soft);">{location}</a> /
-        <strong style="color: var(--ink);">{s['name']}</strong>
+      <nav aria-label="Breadcrumb" class="breadcrumbs">
+        <a href="/">Home</a><span>/</span>
+        <a href="/areas/">Areas</a><span>/</span>
+        <a href="./">{location}</a><span>/</span>
+        <strong>{s['name']}</strong>
       </nav>
       <span class="eyebrow">{s['name']} · {location}</span>
       <h1 style="margin: 16px 0 24px;">{s['h1_lead']} in <span style="color: var(--accent); font-style: italic; font-weight: 300;">{location}</span></h1>
@@ -560,6 +580,25 @@ def render_service_location(borough_slug, service_slug):
           <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 10 3 3 7-7"/></svg>Committee representation</li>
         </ul>
         <a href="/quote.html?service={service_slug}&amp;location={borough_slug}&amp;tier=bespoke" class="btn btn-outline btn-block">Discuss Bespoke →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CREDENTIALS TRUST SIGNALS ===== -->
+<section style="background: var(--bg-2); padding: 40px 0;">
+  <div class="container">
+    <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between;">
+      <div style="flex:0 0 auto; width:200px; border-radius:var(--r-md); overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&amp;fit=crop&amp;w=400&amp;q=75"
+             alt="Victorian terraced street in London" loading="lazy" width="400" height="267"
+             style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </div>
+      <div class="hero-trust" style="flex:1;">
+        <span class="hero-trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 10 3 3 7-7"/></svg>MCIAT Chartered</span>
+        <span class="hero-trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 10 3 3 7-7"/></svg>98% first-time approval</span>
+        <span class="hero-trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 10 3 3 7-7"/></svg>Fixed fees from £840</span>
+        <span class="hero-trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 10 3 3 7-7"/></svg>All 33 London boroughs</span>
       </div>
     </div>
   </div>
@@ -1028,6 +1067,39 @@ def render_borough_hub(borough_slug):
 }}
 </script>
 
+<!-- Schema: BreadcrumbList (hub) -->
+<script type="application/ld+json">
+{{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.architecturaldrawings.uk/"}},
+    {{"@type": "ListItem", "position": 2, "name": "Areas", "item": "https://www.architecturaldrawings.uk/areas/"}},
+    {{"@type": "ListItem", "position": 3, "name": "{location}", "item": "{canonical}"}}
+  ]
+}}
+</script>
+
+<!-- Schema: LocalBusiness (area-specific) -->
+<script type="application/ld+json">
+{{
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": "https://www.architecturaldrawings.uk/#business",
+  "url": "{canonical}",
+  "name": "Architectural Drawings London",
+  "areaServed": {{"@type": "AdministrativeArea", "name": "{location}"}},
+  "address": {{
+    "@type": "PostalAddress",
+    "streetAddress": "86–90 Paul Street",
+    "addressLocality": "London",
+    "postalCode": "EC2A 4NE",
+    "addressCountry": "GB"
+  }},
+  "telephone": "+44 20 7946 0000"
+}}
+</script>
+
 <style>
 {CSS}
 {PSEO_CSS}
@@ -1056,10 +1128,10 @@ def render_borough_hub(borough_slug):
 
 <section class="hero">
   <div class="container">
-    <nav aria-label="Breadcrumb" style="font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 20px;">
-      <a href="/" style="color: var(--ink-soft);">Home</a> /
-      <a href="/areas/" style="color: var(--ink-soft);">Areas</a> /
-      <strong style="color: var(--ink);">{location}</strong>
+    <nav aria-label="Breadcrumb" class="breadcrumbs">
+      <a href="/">Home</a><span>/</span>
+      <a href="/areas/">Areas</a><span>/</span>
+      <strong>{location}</strong>
     </nav>
     <span class="eyebrow">{b['planning_authority']}</span>
     <h1 style="margin: 16px 0 24px; max-width: 920px;">Architectural technology in <span style="color: var(--accent); font-style: italic; font-weight: 300;">{location}</span></h1>
@@ -1121,6 +1193,38 @@ def render_borough_hub(borough_slug):
     </div>
     <div class="adjacent-grid">
       {adjacent_html}
+    </div>
+  </div>
+</section>
+
+<!-- ===== CREDENTIALS TRUST SIGNALS ===== -->
+<section style="background: var(--bg-2); padding: 40px 0;">
+  <div class="container">
+    <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between;">
+      <div style="flex:0 0 auto; width:200px; border-radius:var(--r-md); overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&amp;fit=crop&amp;w=400&amp;q=75"
+             alt="Victorian terraced street in London" loading="lazy" width="400" height="267"
+             style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </div>
+      <div class="hero-trust" style="flex:1;">
+        <span class="hero-trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 10 3 3 7-7"/></svg>MCIAT Chartered</span>
+        <span class="hero-trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 10 3 3 7-7"/></svg>98% first-time approval</span>
+        <span class="hero-trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 10 3 3 7-7"/></svg>Fixed fees from £840</span>
+        <span class="hero-trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 10 3 3 7-7"/></svg>All 33 London boroughs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OTHER SERVICES IN THIS LOCATION ===== -->
+<section style="padding: 60px 0; background: var(--bg-2);">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">All services in {location}</span>
+      <h2 style="margin-top: 16px;">What we do in <em>{location}</em></h2>
+    </div>
+    <div class="services-grid">
+      {services_html}
     </div>
   </div>
 </section>
