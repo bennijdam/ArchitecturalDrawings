@@ -7,7 +7,9 @@ Usage:
     cd architectural-drawings
     python scripts/gen_neighbourhoods.py
 
-Generates 64 neighbourhood pages (34 original + 30 added in batch 2).
+Generates 104 neighbourhood pages (34 original + 30 batch 2 + 40 batch 3).
+Existing HTML files in the output directory are skipped by default so already-
+generated pages are preserved. Delete a file to force it to regenerate.
 Each page matches the structure of areas/neighbourhoods/hampstead.html exactly.
 """
 
@@ -66,7 +68,7 @@ SERVICE_DESCRIPTIONS = {
 }
 
 # ---------------------------------------------------------------------------
-# 64 neighbourhoods (34 original + 30 batch 2)
+# 104 neighbourhoods (34 original + 30 batch 2 + 40 batch 3)
 # ---------------------------------------------------------------------------
 NEIGHBOURHOODS = [
     {
@@ -3272,6 +3274,2009 @@ NEIGHBOURHOODS = [
             ),
         ],
     },
+    # -----------------------------------------------------------------------
+    # Batch 3 — 40 additional neighbourhoods
+    # -----------------------------------------------------------------------
+    {
+        "name": "Greenwich",
+        "slug": "greenwich",
+        "borough": "Greenwich",
+        "borough_slug": "greenwich",
+        "postcodes": "SE10",
+        "character": "Greenwich is a UNESCO World Heritage neighbourhood defined by Georgian and early Victorian streets around the Royal Park, the Naval College, and the Cutty Sark. Residential projects sit within one of London's most tightly protected heritage settings.",
+        "housing_stock": "Georgian terraces, early Victorian townhouses, Maritime Greenwich listed buildings, converted riverside warehouses",
+        "conservation_notes": "West Greenwich, East Greenwich, Ashburnham Triangle, and Maritime Greenwich Conservation Areas. World Heritage Site buffer zone applies.",
+        "planning_notes": "Royal Borough of Greenwich applies strict heritage controls throughout SE10. Article 4 Directions cover most central streets. Maritime Greenwich World Heritage Site status means all visible alterations require heritage justification.",
+        "nearby": ["blackheath", "deptford", "charlton", "greenwich-peninsula"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, heritage-sensitive extensions, and building regulations for Greenwich's Georgian streets, listed properties, and World Heritage-adjacent homes. MCIAT chartered, fixed fees, conservation expertise built in.",
+        "local_context_title": "Why Greenwich demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Greenwich occupies the southern bank of the Thames in the SE10 postcode within the Royal Borough of Greenwich. The neighbourhood's Georgian terraces, the Royal Park, the Old Royal Naval College, and the Queen's House together form the Maritime Greenwich UNESCO World Heritage Site — one of only four World Heritage Sites in London.",
+            "<strong>World Heritage Site constraints:</strong> Any proposal visible from the World Heritage Site or within its buffer zone must demonstrate that it preserves the Outstanding Universal Value of the site. Greenwich Council requires detailed Heritage Impact Assessments, verified views, and material sample boards. Our MCIAT-chartered team has extensive experience preparing applications in this sensitive context.",
+            "<strong>Georgian and Victorian housing:</strong> The streets of West Greenwich and Ashburnham Triangle contain some of London's finest preserved Georgian and early Victorian terraces. Rear extensions, loft conversions, and basement works are achievable, but every scheme must respect the period character. Sash windows, stock brick facades, and original roof profiles are protected elements.",
+            "<strong>Article 4 coverage:</strong> Most of central Greenwich is covered by Article 4 Directions that remove permitted development rights for external alterations. Planning permission is required for dormers, window replacements, rooflights, front boundary changes, and side extensions. We prepare conservation-sensitive submissions tailored to Greenwich's heritage officers.",
+            "<strong>Listed buildings:</strong> A significant proportion of Greenwich housing stock is listed — Grade II is common, with Grade II* and Grade I on key streets. Listed Building Consent runs in parallel with planning permission. We handle both applications and coordinate with Historic England where required.",
+        ],
+        "stats": [
+            ("Conservation areas", "4 CAs + WHS buffer"),
+            ("Listed buildings", "Hundreds (Grade II to I)"),
+            ("Planning authority", "Royal Borough of Greenwich"),
+            ("Key postcodes", "SE10"),
+        ],
+        "faqs": [
+            (
+                "Can I extend my Georgian house in Greenwich?",
+                "Often yes, but every scheme requires planning permission and Listed Building Consent where applicable. Rear extensions must respect the Georgian proportions and use matching materials. We prepare the heritage-sensitive drawings and manage the full application through Greenwich Council.",
+            ),
+            (
+                "What are the rules within the Maritime Greenwich World Heritage Site?",
+                "Proposals within or visible from the World Heritage Site must demonstrate that Outstanding Universal Value is preserved. Heritage Impact Assessments, verified views, and detailed material specifications are required. We prepare WHS-compliant applications.",
+            ),
+            (
+                "Do I need planning permission for a loft conversion in Greenwich?",
+                "Within the conservation areas and Article 4 zones — yes. Dormers, rooflights, and hip-to-gable alterations all require planning permission. Outside the Article 4 zones, permitted development may still apply. We assess your property early.",
+            ),
+            (
+                "How much do architectural drawings cost in Greenwich?",
+                "Our Essentials package starts from £840. For listed buildings and World Heritage Site projects, the Complete package from £1,750 is typically needed to cover Heritage Statements and coordination with Historic England.",
+            ),
+            (
+                "How long does Greenwich Council take to decide applications?",
+                "Greenwich targets 8 weeks for householder applications and 13 weeks for complex or listed building schemes. Pre-application advice is strongly recommended for WHS-adjacent projects. We manage the full timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Blackfen",
+        "slug": "blackfen",
+        "borough": "Bexley",
+        "borough_slug": "bexley",
+        "postcodes": "DA15",
+        "character": "Blackfen is a suburban residential neighbourhood in the London Borough of Bexley, characterised by 1930s semi-detached houses and bungalows on wide streets. Rear extensions, loft conversions, and side extensions are the dominant project types.",
+        "housing_stock": "1930s semi-detached houses, inter-war bungalows, small post-war developments",
+        "conservation_notes": "No conservation area coverage in Blackfen itself",
+        "planning_notes": "Bexley Council applies standard planning policies. Permitted development rights are intact for most properties, making many extensions and conversions possible without planning permission.",
+        "nearby": ["sidcup", "welling", "bexleyheath", "eltham"],
+        "popular_services": ["house-extensions", "loft-conversions", "building-regulations"],
+        "hero_lede": "Planning permission drawings, rear extensions, and loft conversions for Blackfen's 1930s semis and bungalows. MCIAT chartered, fixed fees, Bexley planning expertise built in.",
+        "local_context_title": "Why Blackfen demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Blackfen sits in the DA15 postcode within the London Borough of Bexley, bordering Sidcup to the south and Welling to the north. The neighbourhood's 1930s housing stock and wide plot sizes make it one of south-east London's most extension-friendly areas.",
+            "<strong>1930s semi-detached stock:</strong> The majority of Blackfen's housing is inter-war semi-detached with generous rear gardens and hipped roofs. These properties are ideal for hip-to-gable loft conversions, rear extensions, and side infills. We design schemes that maximise space while respecting the original character.",
+            "<strong>Permitted development:</strong> Outside conservation areas, most Blackfen properties retain full permitted development rights. Rear extensions up to 6m (detached) or 4m (semi) under prior approval, hip-to-gable loft conversions under Class B, and two-storey side extensions in many cases. We confirm your PD eligibility and prepare the required drawings.",
+            "<strong>Bexley planning standards:</strong> Bexley Council has clear design guidance emphasising subordinate, matching materials and respect for the existing streetscape. Applications that demonstrate compliance with council guidance typically receive straightforward approval.",
+            "<strong>Bungalow conversions:</strong> Blackfen has a notable stock of 1930s bungalows. Converting the loft to create a first floor — or adding a full first-floor extension — is a popular way to increase family space without moving. Structural calculations and careful massing are essential.",
+        ],
+        "stats": [
+            ("Conservation areas", "None in Blackfen"),
+            ("Housing type", "1930s semis, bungalows"),
+            ("Planning authority", "Bexley Council"),
+            ("Key postcodes", "DA15"),
+        ],
+        "faqs": [
+            (
+                "Do I need planning permission for a rear extension in Blackfen?",
+                "In most cases, no. Rear extensions up to 6m (detached) or 4m (semi-detached) from the original rear wall can proceed under permitted development with a prior notification. Larger extensions or those in conservation areas require planning permission. We confirm your position and prepare drawings.",
+            ),
+            (
+                "Can I convert my bungalow loft in Blackfen?",
+                "Yes — bungalow loft conversions are common in Blackfen. A hip-to-gable conversion with a rear dormer is the typical pattern, and often falls within permitted development. Structural calculations are essential. We prepare the full drawing package.",
+            ),
+            (
+                "What are Bexley Council's design requirements?",
+                "Bexley emphasises subordinate extensions, matching materials, and respect for the streetscape. Two-storey side extensions must be set back and down from the main roof. We design to Bexley's published guidance.",
+            ),
+            (
+                "How much do architectural drawings cost in Blackfen?",
+                "Our Essentials package starts from £840 for a single planning or building regulations submission. The Complete package from £1,750 covers both plus structural calculations. Fixed fees throughout.",
+            ),
+            (
+                "How long does Bexley take to decide planning applications?",
+                "Bexley targets 8 weeks for householder applications. Lawful Development Certificates and prior approval notifications are typically faster. We manage the full application timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Welling",
+        "slug": "welling",
+        "borough": "Bexley",
+        "borough_slug": "bexley",
+        "postcodes": "DA16",
+        "character": "Welling is a suburban residential area in the London Borough of Bexley with a mix of 1930s semis, post-war housing, and small pockets of Victorian terraces. The neighbourhood is a steady source of loft, extension, and garage conversion work.",
+        "housing_stock": "1930s semi-detached houses, post-war semis, small Victorian terraces, some 1970s detached",
+        "conservation_notes": "No conservation area coverage in Welling itself",
+        "planning_notes": "Bexley Council applies standard planning policies. Permitted development rights are generally intact outside any small conservation area pockets.",
+        "nearby": ["blackfen", "bexleyheath", "eltham", "plumstead"],
+        "popular_services": ["house-extensions", "loft-conversions", "building-regulations"],
+        "hero_lede": "Planning permission drawings, extensions, loft conversions, and garage conversions for Welling's 1930s and post-war homes. MCIAT chartered, fixed fees, Bexley planning expertise built in.",
+        "local_context_title": "Why Welling demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Welling sits in the DA16 postcode within the London Borough of Bexley, centred on Welling High Street and the surrounding residential streets. The mix of 1930s semis and post-war housing generates consistent demand for extensions and loft conversions.",
+            "<strong>1930s and post-war stock:</strong> Welling's housing stock is dominated by inter-war and post-war semis on standard plots. These properties typically have rear gardens suitable for 4–6m rear extensions and hipped roofs suitable for hip-to-gable loft conversions. We design schemes that add a full bedroom, en-suite, or open-plan kitchen-diner.",
+            "<strong>Garage conversions:</strong> Many Welling properties have attached garages that are no longer used for parking. Converting the garage to habitable space — study, playroom, or extra bedroom — is a cost-effective way to add 12–15 square metres. We prepare the building regulations drawings required for the conversion.",
+            "<strong>Permitted development:</strong> Outside any small conservation area pockets, Welling properties retain full PD rights. Rear extensions under prior approval, loft conversions under Class B, and two-storey side extensions within certain parameters. We confirm your eligibility and prepare the necessary drawings.",
+            "<strong>Bexley's design expectations:</strong> Bexley Council publishes clear guidance on residential extensions. Two-storey side extensions should be set back and down. Roof extensions should match the existing roof profile. We design to these standards.",
+        ],
+        "stats": [
+            ("Conservation areas", "None in Welling"),
+            ("Housing type", "1930s and post-war semis"),
+            ("Planning authority", "Bexley Council"),
+            ("Key postcodes", "DA16"),
+        ],
+        "faqs": [
+            (
+                "Do I need planning permission for a garage conversion in Welling?",
+                "Usually no — garage conversions within the existing footprint typically fall within permitted development. However, Building Regulations approval is always required to address thermal performance, ventilation, and structural changes. We prepare the building regs drawings.",
+            ),
+            (
+                "Can I build a two-storey extension in Welling?",
+                "Often yes. Two-storey rear extensions up to 3m are permitted development in many cases. Two-storey side extensions may require planning permission depending on proportions. We confirm the position and prepare appropriate drawings.",
+            ),
+            (
+                "What about loft conversions in Welling?",
+                "Welling's inter-war semis are ideal for hip-to-gable loft conversions with rear dormers. Most fall within PD. We design schemes that maximise headroom and include the structural calculations.",
+            ),
+            (
+                "How much do architectural drawings cost in Welling?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations. Fixed fees throughout.",
+            ),
+            (
+                "How long does Bexley Council take to decide?",
+                "Bexley targets 8 weeks for householder applications and faster for LDCs and prior approval notifications. We manage the full timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Sidcup",
+        "slug": "sidcup",
+        "borough": "Bexley",
+        "borough_slug": "bexley",
+        "postcodes": "DA14",
+        "character": "Sidcup is a residential town centre in the south of the London Borough of Bexley, with a mix of Edwardian villas, 1930s semis, and some more recent developments. The neighbourhood's larger plots make substantial extensions and full loft conversions possible.",
+        "housing_stock": "Edwardian villas, 1930s semi-detached houses, post-war and 1970s detached, small pockets of modern developments",
+        "conservation_notes": "Sidcup Place Conservation Area; small areas near the High Street",
+        "planning_notes": "Bexley Council applies standard policies outside conservation areas. Within the Sidcup Place CA, heritage considerations apply. Most residential streets retain full permitted development rights.",
+        "nearby": ["blackfen", "welling", "mottingham", "bexleyheath"],
+        "popular_services": ["house-extensions", "loft-conversions", "planning-drawings"],
+        "hero_lede": "Planning permission drawings, extensions, and loft conversions for Sidcup's Edwardian villas and family homes. MCIAT chartered, fixed fees, Bexley planning expertise built in.",
+        "local_context_title": "Why Sidcup demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Sidcup sits in the DA14 postcode in the south of the London Borough of Bexley. The town centre mixes retail and residential, while the surrounding streets contain some of Bexley's most substantial family homes.",
+            "<strong>Edwardian villas:</strong> Sidcup has a stock of handsome Edwardian villas with generous room proportions, bay windows, and good roof voids. These properties are prime candidates for loft conversions and rear extensions. We respect the period character while creating modern family space.",
+            "<strong>1930s semis:</strong> Much of residential Sidcup is 1930s semi-detached on generous plots. Hip-to-gable loft conversions with rear dormers, and 4m rear extensions under PD, are the most common projects. We prepare drawings efficiently using the prior approval route where it applies.",
+            "<strong>Sidcup Place Conservation Area:</strong> This small CA around Sidcup Place requires heritage-sensitive design. Article 4 Directions may apply. We prepare conservation-sensitive applications that meet Bexley's heritage officer expectations.",
+            "<strong>Larger plots:</strong> Sidcup's larger detached plots — particularly in the south — are suitable for substantial side and rear extensions, wraparounds, and even outbuildings used as home offices or studios. We design schemes that take advantage of the available space.",
+        ],
+        "stats": [
+            ("Conservation areas", "Sidcup Place CA"),
+            ("Housing type", "Edwardian villas, 1930s semis"),
+            ("Planning authority", "Bexley Council"),
+            ("Key postcodes", "DA14"),
+        ],
+        "faqs": [
+            (
+                "Can I extend my Edwardian villa in Sidcup?",
+                "Yes — Edwardian villas are well-suited to rear and side-return extensions. Most fall within permitted development outside the conservation area. We design schemes that respect the period character.",
+            ),
+            (
+                "Do I need planning permission for a wraparound extension?",
+                "Wraparound extensions typically need a mix of PD and planning permission. The rear portion may fall within PD; the side portion beyond half the original width requires planning permission. We prepare the applications.",
+            ),
+            (
+                "What's achievable on a Sidcup 1930s semi?",
+                "A lot — hip-to-gable loft conversion, 4m rear extension, and sometimes a two-storey side extension, all potentially within PD. We maximise the achievable footprint.",
+            ),
+            (
+                "How much do architectural drawings cost in Sidcup?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations. Fixed fees throughout.",
+            ),
+            (
+                "How long does Bexley Council take to decide?",
+                "Bexley targets 8 weeks for householder applications. Lawful Development Certificates take approximately 8 weeks. We manage the timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Bromley Town Centre",
+        "slug": "bromley",
+        "borough": "Bromley",
+        "borough_slug": "bromley",
+        "postcodes": "BR1",
+        "character": "Bromley town centre and the surrounding BR1 streets combine Victorian terraces, Edwardian villas, and mid-century family houses. The area sees consistent demand for extensions, loft conversions, and flat conversions.",
+        "housing_stock": "Victorian terraces, Edwardian villas, 1930s semis, post-war detached",
+        "conservation_notes": "Bromley Town Conservation Area; Martins Hill Conservation Area",
+        "planning_notes": "Bromley Council applies standard policies with heritage controls in the town centre conservation area. Most residential streets outside the CA retain full permitted development rights.",
+        "nearby": ["chislehurst", "beckenham", "west-wickham", "orpington"],
+        "popular_services": ["planning-drawings", "house-extensions", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, extensions, loft conversions, and building regulations for Bromley's Victorian terraces, Edwardian villas, and family homes. MCIAT chartered, fixed fees, Bromley planning expertise built in.",
+        "local_context_title": "Why Bromley demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Bromley town centre and its surrounding residential streets occupy the BR1 postcode in the London Borough of Bromley. The mix of Victorian terraces, Edwardian villas, and mid-century houses — combined with one of south-east London's most active town centres — generates consistent residential project demand.",
+            "<strong>Victorian terraces:</strong> The streets around Bromley South and Bromley North stations contain good stocks of Victorian terraces. Rear extensions, side-return infills, and rear dormer loft conversions are the typical patterns. We design schemes that add kitchen-dining space or an extra bedroom.",
+            "<strong>Edwardian villas:</strong> Bromley's Edwardian stock, particularly in the streets east and south of the town centre, offers excellent extension potential. Side-return extensions, loft conversions, and occasionally basement works are the main project types.",
+            "<strong>Bromley Town Conservation Area:</strong> The CA covers the historic core around Market Square and the High Street. Heritage-sensitive design is essential, and Article 4 Directions may apply. We prepare conservation-sensitive submissions for Bromley Council's heritage team.",
+            "<strong>Flat conversions:</strong> Many larger Victorian and Edwardian houses have been converted to flats. Further subdivision requires planning permission and compliance with Bromley's housing standards, including minimum space standards and amenity requirements.",
+        ],
+        "stats": [
+            ("Conservation areas", "Bromley Town CA, Martins Hill CA"),
+            ("Housing type", "Victorian/Edwardian, 1930s"),
+            ("Planning authority", "Bromley Council"),
+            ("Key postcodes", "BR1"),
+        ],
+        "faqs": [
+            (
+                "Can I build a rear extension on my Bromley Victorian terrace?",
+                "Yes — rear extensions up to 3m (terrace) under PD, or 6m under prior approval. Within the conservation area, planning permission is required. We prepare drawings for either route.",
+            ),
+            (
+                "Do I need planning permission for a loft conversion in BR1?",
+                "Outside the conservation area, rear dormers under PD are straightforward. Within the CA, planning permission is required. We confirm your position and prepare the drawings.",
+            ),
+            (
+                "What's required to convert a Bromley house into flats?",
+                "Planning permission from Bromley Council plus full Building Regulations approval. Each flat must meet minimum space standards. Sound insulation and fire separation are critical. We prepare the full drawing package.",
+            ),
+            (
+                "How much do architectural drawings cost in Bromley?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations. Fixed fees throughout.",
+            ),
+            (
+                "How long does Bromley Council take to decide?",
+                "Bromley targets 8 weeks for householder applications and 13 weeks for major schemes. Conservation area applications may take slightly longer. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "West Wickham",
+        "slug": "west-wickham",
+        "borough": "Bromley",
+        "borough_slug": "bromley",
+        "postcodes": "BR4",
+        "character": "West Wickham is a leafy suburban neighbourhood on the southern edge of Greater London, dominated by 1930s semi-detached houses and post-war bungalows on generous plots. Extensions and loft conversions are the staple project types.",
+        "housing_stock": "1930s semi-detached houses, inter-war bungalows, post-war detached, some newer developments",
+        "conservation_notes": "No conservation area coverage in West Wickham itself",
+        "planning_notes": "Bromley Council applies standard policies. Permitted development rights are intact. The council publishes clear guidance on extensions and loft conversions.",
+        "nearby": ["bromley", "beckenham", "sanderstead", "purley"],
+        "popular_services": ["house-extensions", "loft-conversions", "building-regulations"],
+        "hero_lede": "Planning permission drawings, rear extensions, and loft conversions for West Wickham's 1930s semis and bungalows. MCIAT chartered, fixed fees, Bromley planning expertise built in.",
+        "local_context_title": "Why West Wickham demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "West Wickham sits in the BR4 postcode in the south of the London Borough of Bromley, on the border with Croydon. The leafy streets, 1930s semis, and bungalows make this one of south London's most consistent extension markets.",
+            "<strong>1930s semi-detached stock:</strong> The majority of West Wickham's housing is inter-war semi-detached on standard plots. These properties typically have rear gardens suitable for 4m+ extensions and hipped roofs suitable for hip-to-gable loft conversions with rear dormers.",
+            "<strong>Bungalow conversions:</strong> West Wickham has a notable stock of 1930s bungalows. Loft conversions — adding a first floor via a full raise-the-roof or dormer — are popular. Full first-floor extensions are also achievable where the original roof allows.",
+            "<strong>Permitted development:</strong> Outside conservation areas, most West Wickham properties retain full PD rights. Rear extensions under prior approval, loft conversions under Class B, and two-storey side extensions within parameters. We confirm eligibility and prepare drawings.",
+            "<strong>Bromley design guidance:</strong> Bromley Council publishes clear design expectations. Two-storey side extensions must be subordinate and set back. Roof extensions should match existing materials. We design to these standards.",
+        ],
+        "stats": [
+            ("Conservation areas", "None in West Wickham"),
+            ("Housing type", "1930s semis, bungalows"),
+            ("Planning authority", "Bromley Council"),
+            ("Key postcodes", "BR4"),
+        ],
+        "faqs": [
+            (
+                "Can I add a first floor to my bungalow in West Wickham?",
+                "Often yes — it depends on whether the addition falls within PD or requires planning permission. We assess the height, volume, and material constraints of Class A/B permitted development and advise the right route.",
+            ),
+            (
+                "Do I need planning permission for a rear extension?",
+                "In most cases no — rear extensions up to 6m (detached) or 4m (semi) fall within PD with prior approval. Larger schemes need planning permission. We confirm and prepare drawings.",
+            ),
+            (
+                "What about loft conversions in West Wickham?",
+                "Hip-to-gable loft conversions with rear dormers are the standard pattern and usually fall within PD. We prepare the planning notification and full building regs drawings.",
+            ),
+            (
+                "How much do architectural drawings cost in West Wickham?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Bromley take to decide applications?",
+                "Bromley targets 8 weeks for householder applications. Lawful Development Certificates are typically similar. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Chislehurst",
+        "slug": "chislehurst",
+        "borough": "Bromley",
+        "borough_slug": "bromley",
+        "postcodes": "BR7",
+        "character": "Chislehurst is a historic, tightly controlled conservation-area neighbourhood in the London Borough of Bromley, with Georgian and Victorian villas, large detached family homes, and protected common land. Heritage-sensitive drawings are essential.",
+        "housing_stock": "Georgian and Victorian villas, Edwardian family houses, inter-war detached, some substantial modern builds",
+        "conservation_notes": "Chislehurst Conservation Area covers almost the entire neighbourhood; Article 4 Directions apply",
+        "planning_notes": "Bromley Council applies strict heritage controls throughout Chislehurst. Article 4 Directions remove most permitted development rights. Design & Access Statements and Heritage Statements are required for most applications.",
+        "nearby": ["bromley", "mottingham", "orpington", "sidcup"],
+        "popular_services": ["planning-drawings", "house-extensions", "building-regulations"],
+        "hero_lede": "Planning permission drawings, heritage-sensitive extensions, and building regulations for Chislehurst's Georgian villas and period family homes. MCIAT chartered, fixed fees, Bromley conservation expertise built in.",
+        "local_context_title": "Why Chislehurst demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Chislehurst sits in the BR7 postcode within the London Borough of Bromley, around Chislehurst Common and the historic High Street. The neighbourhood's almost complete conservation area coverage and protected commons make it one of the most tightly controlled suburban planning environments in south London.",
+            "<strong>Chislehurst Conservation Area:</strong> The CA covers almost the entire neighbourhood. Article 4 Directions remove permitted development rights for most external alterations — extensions, roof changes, window replacements, and boundary treatments all typically require full planning permission. Our MCIAT-chartered team prepares conservation-grade applications that meet Bromley's heritage officer expectations.",
+            "<strong>Georgian and Victorian stock:</strong> Chislehurst contains some of south London's most substantial period houses. These properties often have heritage features — sash windows, original joinery, and stock brick facades — that must be preserved. Our drawings include detailed material specifications.",
+            "<strong>Protected common land:</strong> Properties backing onto or near Chislehurst Common face additional scrutiny. Views into and out of the common are protected. We prepare verified views and streetscape drawings where required.",
+            "<strong>Tree Preservation Orders:</strong> Chislehurst has extensive TPO coverage. Any works affecting protected trees require separate consent from the council. We coordinate with arboricultural consultants where the site involves mature trees.",
+        ],
+        "stats": [
+            ("Conservation areas", "Chislehurst CA (near-complete)"),
+            ("Article 4", "Yes"),
+            ("Planning authority", "Bromley Council"),
+            ("Key postcodes", "BR7"),
+        ],
+        "faqs": [
+            (
+                "Do I need planning permission for an extension in Chislehurst?",
+                "Almost certainly yes. Article 4 Directions remove permitted development rights throughout the conservation area. Even modest extensions, window replacements, and boundary changes typically need full planning permission. We prepare heritage-sensitive applications.",
+            ),
+            (
+                "Can I do a loft conversion in Chislehurst?",
+                "Loft conversions are possible but usually require full planning permission. Dormer design must be subordinate to the original roof and sympathetic to the streetscape. Rooflights are often preferred. We design appropriate schemes.",
+            ),
+            (
+                "What's required for a Chislehurst planning application?",
+                "Most applications require full planning drawings, Design & Access Statement, Heritage Statement, and often accurate streetscape and site context drawings. Our Complete package from £1,750 includes all this.",
+            ),
+            (
+                "How much do architectural drawings cost in Chislehurst?",
+                "For conservation-area projects, the Complete package from £1,750 is typically required to cover the Heritage Statement and detailed drawings. Essentials from £840 may suffice for very minor schemes.",
+            ),
+            (
+                "How long does Bromley Council take to decide in Chislehurst?",
+                "Chislehurst applications typically take 8–13 weeks. Heritage consultation adds time. Pre-application advice is recommended. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Orpington",
+        "slug": "orpington",
+        "borough": "Bromley",
+        "borough_slug": "bromley",
+        "postcodes": "BR6",
+        "character": "Orpington is an outer London suburban town in the south of the London Borough of Bromley, dominated by 1930s and post-war semi-detached houses, detached family homes, and larger modern plots. Extensions and loft conversions are the mainstream project types.",
+        "housing_stock": "1930s semis, post-war detached, inter-war bungalows, some Victorian pockets",
+        "conservation_notes": "Orpington High Street has small conservation pockets; residential streets are largely unprotected",
+        "planning_notes": "Bromley Council applies standard policies. Permitted development rights are intact for the vast majority of Orpington properties.",
+        "nearby": ["bromley", "chislehurst", "west-wickham", "sidcup"],
+        "popular_services": ["house-extensions", "loft-conversions", "building-regulations"],
+        "hero_lede": "Planning permission drawings, rear extensions, and loft conversions for Orpington's 1930s semis and family homes. MCIAT chartered, fixed fees, Bromley planning expertise built in.",
+        "local_context_title": "Why Orpington demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Orpington sits in the BR6 postcode in the south of the London Borough of Bromley, at the edge of the Greater London boundary. The town's extensive 1930s and post-war housing stock makes it one of south-east London's most consistent extension markets.",
+            "<strong>1930s semi-detached stock:</strong> Much of Orpington is inter-war semi-detached on generous plots. Hip-to-gable loft conversions, 4–6m rear extensions, and two-storey side extensions are the core project mix. Most fall within permitted development.",
+            "<strong>Detached family homes:</strong> Orpington's detached stock — particularly in the streets south and east of the town centre — offers substantial extension potential. Wraparounds, double-storey rear extensions, and garage conversions are all common.",
+            "<strong>Bungalow upgrades:</strong> Orpington has a significant bungalow stock. Adding a first floor — via raise-the-roof loft conversion or full first-floor extension — is a popular way to create family homes from smaller bungalows. Structural calculations are critical.",
+            "<strong>Permitted development:</strong> Outside the small town centre conservation pockets, Orpington properties retain full PD rights. We maximise the achievable scheme under PD where possible, saving time and cost.",
+        ],
+        "stats": [
+            ("Conservation areas", "Small pockets"),
+            ("Housing type", "1930s semis, post-war detached"),
+            ("Planning authority", "Bromley Council"),
+            ("Key postcodes", "BR6"),
+        ],
+        "faqs": [
+            (
+                "Can I build a two-storey extension in Orpington?",
+                "Often yes. Two-storey rear extensions up to 3m are PD in many cases. Two-storey side extensions need planning permission once they exceed half the original width. We confirm and prepare drawings.",
+            ),
+            (
+                "Do I need planning permission for a loft conversion?",
+                "For most Orpington properties outside the small conservation pockets — no. Rear dormers and hip-to-gable conversions typically fall within PD. We prepare the Lawful Development Certificate and building regs drawings.",
+            ),
+            (
+                "What about bungalow first-floor additions?",
+                "These can fall within PD depending on height and volume, or may require planning permission. We assess early and prepare either submission.",
+            ),
+            (
+                "How much do architectural drawings cost in Orpington?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Bromley Council take to decide?",
+                "Bromley targets 8 weeks for householder applications. Most Orpington applications are straightforward. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Sanderstead",
+        "slug": "sanderstead",
+        "borough": "Croydon",
+        "borough_slug": "croydon",
+        "postcodes": "CR2",
+        "character": "Sanderstead is a leafy residential neighbourhood in the south of the London Borough of Croydon, characterised by inter-war detached houses and 1930s semis on generous plots. Extensions, loft conversions, and outbuildings are the common project types.",
+        "housing_stock": "1930s detached houses, inter-war semis, post-war detached, some 1970s developments",
+        "conservation_notes": "Sanderstead Conservation Area covers a small central area",
+        "planning_notes": "Croydon Council applies standard policies outside the conservation area. The council has been responsive to well-designed householder applications and supports outbuildings, extensions, and loft conversions on standard PD terms.",
+        "nearby": ["purley", "west-wickham", "thornton-heath", "south-norwood"],
+        "popular_services": ["house-extensions", "loft-conversions", "building-regulations"],
+        "hero_lede": "Planning permission drawings, extensions, and loft conversions for Sanderstead's 1930s family homes and detached houses. MCIAT chartered, fixed fees, Croydon planning expertise built in.",
+        "local_context_title": "Why Sanderstead demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Sanderstead sits in the CR2 postcode in the south of the London Borough of Croydon, on the border with Surrey. The leafy streets, generous plots, and 1930s family housing make it one of south Croydon's most extension-friendly neighbourhoods.",
+            "<strong>1930s detached stock:</strong> Sanderstead has a significant stock of inter-war detached houses on generous plots. These properties can often accommodate substantial rear extensions, side extensions, and loft conversions — frequently within permitted development.",
+            "<strong>Loft conversions:</strong> The typical 1930s hipped roof in Sanderstead is ideal for a hip-to-gable conversion with a rear dormer. We design schemes that add a bedroom suite or home office.",
+            "<strong>Outbuildings:</strong> Larger Sanderstead gardens are well-suited to substantial outbuildings — garden offices, gym studios, annexes. Most fall within PD under Class E if the height and coverage rules are met. We prepare the building regs drawings where required.",
+            "<strong>Sanderstead Conservation Area:</strong> A small CA covers the central historic core. Within the CA, planning permission is required for most external works. Outside the CA, PD rights are intact.",
+        ],
+        "stats": [
+            ("Conservation areas", "Sanderstead CA (small)"),
+            ("Housing type", "1930s detached, semis"),
+            ("Planning authority", "Croydon Council"),
+            ("Key postcodes", "CR2"),
+        ],
+        "faqs": [
+            (
+                "Can I build a garden office in Sanderstead?",
+                "Usually yes — outbuildings under Class E permitted development are achievable on most Sanderstead plots. Height, position, and use restrictions apply. We prepare drawings and confirm PD eligibility.",
+            ),
+            (
+                "Do I need planning permission for a rear extension?",
+                "For most Sanderstead properties outside the CA — no. Rear extensions up to 6m (detached) under prior approval. We prepare the notification and drawings.",
+            ),
+            (
+                "What about loft conversions?",
+                "Hip-to-gable loft conversions with rear dormers are the standard pattern and typically fall within PD outside the CA. We handle the full drawing package.",
+            ),
+            (
+                "How much do architectural drawings cost in Sanderstead?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Croydon take to decide applications?",
+                "Croydon targets 8 weeks for householder applications. We manage the timeline and respond to council requests.",
+            ),
+        ],
+    },
+    {
+        "name": "Purley",
+        "slug": "purley",
+        "borough": "Croydon",
+        "borough_slug": "croydon",
+        "postcodes": "CR8",
+        "character": "Purley is a south Croydon residential neighbourhood with a mix of Edwardian villas, 1930s semis, and substantial detached houses. The neighbourhood sees steady demand for extensions, loft conversions, and some substantial new-build projects on larger plots.",
+        "housing_stock": "Edwardian villas, 1930s semis and detached, post-war detached, some new-build on larger plots",
+        "conservation_notes": "Webb Estate and Upper Woodcote Conservation Areas cover some of the premium residential streets",
+        "planning_notes": "Croydon Council applies standard policies outside conservation areas. Within Webb Estate and Upper Woodcote CAs, heritage controls apply. Article 4 Directions may affect some streets.",
+        "nearby": ["sanderstead", "south-norwood", "thornton-heath", "norbury"],
+        "popular_services": ["planning-drawings", "house-extensions", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, extensions, and loft conversions for Purley's Edwardian villas, 1930s homes, and larger detached properties. MCIAT chartered, fixed fees, Croydon planning expertise built in.",
+        "local_context_title": "Why Purley demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Purley sits in the CR8 postcode in the south of the London Borough of Croydon. The neighbourhood's mix of Edwardian villas, 1930s houses, and substantial detached plots — together with the Webb Estate's Arts & Crafts heritage — generates a varied residential project pipeline.",
+            "<strong>Edwardian villas:</strong> Purley has a stock of substantial Edwardian villas suitable for rear extensions, side-returns, and loft conversions. Many have been sensitively extended already; further alterations require careful design.",
+            "<strong>Webb Estate Conservation Area:</strong> The Webb Estate is a celebrated early 20th-century garden suburb. Within the CA, Article 4 Directions restrict permitted development rights for most external alterations. Heritage Statements accompany applications. Our team prepares conservation-appropriate designs.",
+            "<strong>Larger plots:</strong> Purley's larger detached plots — especially in Upper Woodcote and Webb Estate — can accommodate substantial extensions, outbuildings, or occasionally replacement dwellings. We advise on the full range of options.",
+            "<strong>Tree constraints:</strong> Much of Purley has mature tree cover and extensive TPO coverage. Applications must address root protection zones and the impact on mature trees. We coordinate with arboricultural consultants where needed.",
+        ],
+        "stats": [
+            ("Conservation areas", "Webb Estate, Upper Woodcote"),
+            ("Housing type", "Edwardian, 1930s, detached"),
+            ("Planning authority", "Croydon Council"),
+            ("Key postcodes", "CR8"),
+        ],
+        "faqs": [
+            (
+                "Can I extend my Webb Estate house?",
+                "Extensions are possible but all require planning permission under the Article 4 Directions. Heritage Statements and detailed material specifications are essential. We prepare conservation-sensitive applications.",
+            ),
+            (
+                "Do I need planning permission for a loft conversion in Purley?",
+                "Outside the CAs, rear dormers and hip-to-gable conversions usually fall within PD. Within the CAs, planning permission is required. We assess and prepare the right application.",
+            ),
+            (
+                "What about replacement dwellings on larger plots?",
+                "Possible but require full planning permission. Croydon will assess bulk, density, streetscape impact, and ecology. We prepare detailed schemes with all supporting documents.",
+            ),
+            (
+                "How much do architectural drawings cost in Purley?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations. Conservation-area projects typically need Complete.",
+            ),
+            (
+                "How long does Croydon take to decide?",
+                "Croydon targets 8 weeks for householder applications and 13 weeks for majors. Conservation area applications may take longer. We manage the timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Thornton Heath",
+        "slug": "thornton-heath",
+        "borough": "Croydon",
+        "borough_slug": "croydon",
+        "postcodes": "CR7",
+        "character": "Thornton Heath is a dense residential neighbourhood in north Croydon, dominated by Victorian and Edwardian terraces, with pockets of inter-war housing. The area generates steady demand for rear extensions, loft conversions, and flat conversions.",
+        "housing_stock": "Victorian terraces, Edwardian houses, inter-war semis, converted flats",
+        "conservation_notes": "Small conservation pockets; most residential streets are unprotected",
+        "planning_notes": "Croydon Council applies standard policies. Permitted development rights are generally intact. Flat conversion applications require compliance with Croydon's space standards.",
+        "nearby": ["south-norwood", "norbury", "purley", "west-norwood"],
+        "popular_services": ["loft-conversions", "house-extensions", "planning-drawings"],
+        "hero_lede": "Planning permission drawings, loft conversions, rear extensions, and flat conversions for Thornton Heath's Victorian and Edwardian terraces. MCIAT chartered, fixed fees, Croydon planning expertise built in.",
+        "local_context_title": "Why Thornton Heath demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Thornton Heath sits in the CR7 postcode in the north of the London Borough of Croydon. The dense streets of Victorian and Edwardian terraces — many already subdivided into flats — make it one of south London's most active residential conversion markets.",
+            "<strong>Victorian terraces:</strong> The streets around Thornton Heath Pond and the railway station contain extensive Victorian terrace stock. Rear extensions, side-return infills, and rear dormer loft conversions are the main project types. Most fall within PD.",
+            "<strong>Flat conversions:</strong> Many Thornton Heath houses have been converted to flats. Further subdivision requires planning permission and must meet Croydon's minimum space standards. Fire separation and sound insulation under Part E of the Building Regulations are critical.",
+            "<strong>Edwardian stock:</strong> Pockets of larger Edwardian houses are suitable for substantial rear extensions and loft conversions. Some have potential for basement conversions where ground conditions allow.",
+            "<strong>Croydon policies:</strong> Croydon Council has been active in addressing housing supply through householder extensions and subdivisions. Applications that meet design guidance typically receive straightforward approval.",
+        ],
+        "stats": [
+            ("Conservation areas", "Small pockets"),
+            ("Housing type", "Victorian/Edwardian terraces"),
+            ("Planning authority", "Croydon Council"),
+            ("Key postcodes", "CR7"),
+        ],
+        "faqs": [
+            (
+                "Can I convert my Thornton Heath house into flats?",
+                "Planning permission from Croydon Council is required, plus full Building Regulations approval. Each flat must meet minimum space standards (37sqm for a studio, 50sqm for 1-bed, etc.). We prepare the full package.",
+            ),
+            (
+                "Do I need planning permission for a loft conversion?",
+                "For most Thornton Heath terraces — no. Rear dormers up to 50 cubic metres (terrace) fall within PD. We prepare the Lawful Development Certificate and building regs drawings.",
+            ),
+            (
+                "What size rear extension can I build?",
+                "Under PD, terraced houses can extend up to 3m rear (or 6m with prior approval). Semi-detached can go to 4m (or 6m). We confirm PD eligibility.",
+            ),
+            (
+                "How much do architectural drawings cost in Thornton Heath?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Croydon take to decide?",
+                "Croydon targets 8 weeks for householder applications. Flat conversion applications may take 13 weeks. We manage the timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "South Norwood",
+        "slug": "south-norwood",
+        "borough": "Croydon",
+        "borough_slug": "croydon",
+        "postcodes": "SE25",
+        "character": "South Norwood is a residential neighbourhood straddling Croydon and bordering Lambeth and Bromley, with a mix of Victorian terraces, Edwardian villas, and pockets of inter-war housing. The area generates steady demand for extensions, loft conversions, and subdivisions.",
+        "housing_stock": "Victorian terraces, Edwardian villas, inter-war semis, converted flats",
+        "conservation_notes": "South Norwood and Croydon Road Conservation Areas cover central portions",
+        "planning_notes": "Croydon Council applies standard policies with heritage controls in the conservation areas. Outside, PD rights are intact.",
+        "nearby": ["thornton-heath", "crystal-palace", "west-norwood", "norbury"],
+        "popular_services": ["loft-conversions", "house-extensions", "planning-drawings"],
+        "hero_lede": "Planning permission drawings, loft conversions, and rear extensions for South Norwood's Victorian terraces and Edwardian family homes. MCIAT chartered, fixed fees, Croydon planning expertise built in.",
+        "local_context_title": "Why South Norwood demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "South Norwood sits in the SE25 postcode in the north of the London Borough of Croydon. The mix of Victorian terraces, Edwardian villas, and converted flats — along with pockets of conservation — creates a varied residential project market.",
+            "<strong>Victorian terraces:</strong> The dense streets around Norwood Junction station contain Victorian terraces on standard plots. Rear extensions, side-return infills, and rear dormer loft conversions are the main project types.",
+            "<strong>Edwardian villas:</strong> South Norwood has a stock of Edwardian villas, particularly on streets south of the station. These properties suit substantial rear extensions and loft conversions. We design to respect the period character.",
+            "<strong>Conservation areas:</strong> South Norwood and Croydon Road CAs cover central portions. Within the CAs, planning permission is required for most external works. We prepare heritage-sensitive applications.",
+            "<strong>Flat conversions:</strong> Many houses have been subdivided. Further subdivision requires planning permission and compliance with space standards. We handle the full application package.",
+        ],
+        "stats": [
+            ("Conservation areas", "South Norwood CA"),
+            ("Housing type", "Victorian/Edwardian"),
+            ("Planning authority", "Croydon Council"),
+            ("Key postcodes", "SE25"),
+        ],
+        "faqs": [
+            (
+                "Do I need planning permission in South Norwood CA?",
+                "For most external works — yes. Dormers, window replacements, and front alterations require planning permission within the CA. Heritage Statements are required. We prepare conservation-appropriate applications.",
+            ),
+            (
+                "Can I build a side-return extension?",
+                "Yes — side-return infills are popular and typically fall within PD outside the CA. Within the CA, planning permission is required. We prepare either submission.",
+            ),
+            (
+                "What about loft conversions?",
+                "Outside the CAs, rear dormers under PD are straightforward. Within the CAs, planning permission is required. We assess your property and prepare drawings.",
+            ),
+            (
+                "How much do architectural drawings cost in South Norwood?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Croydon take to decide?",
+                "Croydon targets 8 weeks for householder applications. Conservation area applications may take slightly longer. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "West Norwood",
+        "slug": "west-norwood",
+        "borough": "Lambeth",
+        "borough_slug": "lambeth",
+        "postcodes": "SE27",
+        "character": "West Norwood is a residential neighbourhood in the south of the London Borough of Lambeth, with Victorian and Edwardian houses on hilly streets, the West Norwood Cemetery, and strong local heritage character. Extensions and loft conversions are the main project types.",
+        "housing_stock": "Victorian terraces, Edwardian villas, inter-war semis, some Victorian detached",
+        "conservation_notes": "West Norwood Cemetery Conservation Area; residential Article 4 pockets",
+        "planning_notes": "Lambeth Council applies relatively strict policies with strong heritage protection around the cemetery. Most residential streets retain PD rights; Article 4 pockets require planning permission for alterations.",
+        "nearby": ["tulse-hill", "herne-hill", "streatham", "south-norwood"],
+        "popular_services": ["loft-conversions", "house-extensions", "planning-drawings"],
+        "hero_lede": "Planning permission drawings, loft conversions, and extensions for West Norwood's Victorian and Edwardian homes. MCIAT chartered, fixed fees, Lambeth planning expertise built in.",
+        "local_context_title": "Why West Norwood demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "West Norwood sits in the SE27 postcode in the south of the London Borough of Lambeth. The neighbourhood's hilly streets of Victorian and Edwardian houses, along with the West Norwood Cemetery and its conservation area, create a layered planning context.",
+            "<strong>Victorian terraces and villas:</strong> West Norwood has excellent Victorian and Edwardian housing stock. Rear extensions, side-return infills, and rear dormer loft conversions are the core projects. The hilly topography means rear gardens often step down, creating opportunities for split-level extensions.",
+            "<strong>Cemetery Conservation Area:</strong> West Norwood Cemetery is one of the 'Magnificent Seven' Victorian cemeteries. The surrounding conservation area protects views and setting. Properties facing or near the cemetery face additional heritage considerations.",
+            "<strong>Article 4 pockets:</strong> Lambeth has designated Article 4 Directions in some residential areas of West Norwood, removing PD rights. Within these pockets, planning permission is required for dormers, rooflights, and front alterations. We confirm your property's status.",
+            "<strong>Lambeth policies:</strong> Lambeth applies relatively high design standards. Heritage Statements, Design & Access Statements, and detailed materials are often required. Our drawings meet Lambeth's expectations.",
+        ],
+        "stats": [
+            ("Conservation areas", "West Norwood Cemetery CA"),
+            ("Housing type", "Victorian/Edwardian"),
+            ("Planning authority", "Lambeth Council"),
+            ("Key postcodes", "SE27"),
+        ],
+        "faqs": [
+            (
+                "Is my West Norwood property in an Article 4 zone?",
+                "Possibly — Lambeth has designated several Article 4 pockets in West Norwood. We check your property's planning status early and advise on the required application route.",
+            ),
+            (
+                "Can I build a rear extension?",
+                "Outside Article 4 zones, rear extensions under PD are straightforward. Within Article 4 or the CA, planning permission is required. We prepare either route.",
+            ),
+            (
+                "Do I need planning permission for a loft conversion?",
+                "Outside Article 4 zones, rear dormers under PD are usually achievable. Within Article 4 or CA — planning permission required. We assess and prepare.",
+            ),
+            (
+                "How much do architectural drawings cost in West Norwood?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Lambeth take to decide?",
+                "Lambeth targets 8 weeks for householder applications. Conservation area and Article 4 applications may take longer. We manage the timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Tulse Hill",
+        "slug": "tulse-hill",
+        "borough": "Lambeth",
+        "borough_slug": "lambeth",
+        "postcodes": "SE27",
+        "character": "Tulse Hill is a south Lambeth neighbourhood of Victorian terraces, Edwardian villas, and some large detached houses on the elevated ridge. The area sees steady demand for extensions, loft conversions, and flat subdivisions.",
+        "housing_stock": "Victorian terraces, Edwardian villas, large Victorian detached, some inter-war",
+        "conservation_notes": "Tulse Hill and Roupell Park Conservation Areas cover premium streets",
+        "planning_notes": "Lambeth Council applies strict policies with heritage protection in the conservation areas. Article 4 Directions may apply in conservation zones.",
+        "nearby": ["west-norwood", "herne-hill", "streatham", "brixton"],
+        "popular_services": ["loft-conversions", "house-extensions", "planning-drawings"],
+        "hero_lede": "Planning permission drawings, extensions, and loft conversions for Tulse Hill's Victorian terraces and Edwardian villas. MCIAT chartered, fixed fees, Lambeth planning expertise built in.",
+        "local_context_title": "Why Tulse Hill demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Tulse Hill sits in the SE27 postcode in the south of the London Borough of Lambeth, on the elevated ridge above Brixton. The neighbourhood's mix of Victorian terraces and substantial Edwardian villas — together with the Roupell Park and Tulse Hill conservation areas — generates a varied project mix.",
+            "<strong>Victorian terraces:</strong> Tulse Hill's Victorian terraces are dense and street-facing. Rear extensions, side-return infills, and rear dormer loft conversions are the standard projects.",
+            "<strong>Edwardian villas and larger detached:</strong> Tulse Hill has a stock of substantial Edwardian villas and some large Victorian detached. These properties suit extensive rear extensions, loft conversions, and sometimes basement conversions where ground conditions allow.",
+            "<strong>Roupell Park Conservation Area:</strong> This tightly protected CA covers some of Tulse Hill's most handsome streets. Article 4 Directions restrict PD rights. Heritage Statements are required.",
+            "<strong>Lambeth design standards:</strong> Lambeth Council has high expectations for householder applications, particularly in conservation areas. Materials, proportions, and streetscape impact all matter. Our drawings meet these standards.",
+        ],
+        "stats": [
+            ("Conservation areas", "Tulse Hill, Roupell Park"),
+            ("Housing type", "Victorian/Edwardian"),
+            ("Planning authority", "Lambeth Council"),
+            ("Key postcodes", "SE27"),
+        ],
+        "faqs": [
+            (
+                "Can I build a rear extension in Tulse Hill?",
+                "Outside the CAs, rear extensions under PD are straightforward. Within Roupell Park or Tulse Hill CAs, planning permission is required. We prepare either submission.",
+            ),
+            (
+                "Do I need planning permission for a loft conversion?",
+                "Outside the CAs, rear dormers under PD usually work. Within the CAs, planning permission is required and dormer design must be sympathetic. We design appropriate schemes.",
+            ),
+            (
+                "What about basement conversions?",
+                "Possible for larger properties with suitable ground conditions. Lambeth has specific basement policy with clear tests. Structural engineer input is essential. We coordinate the full package.",
+            ),
+            (
+                "How much do architectural drawings cost in Tulse Hill?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Lambeth take to decide?",
+                "Lambeth targets 8 weeks for householder applications and 13 weeks for majors. Conservation area applications may take longer. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "West Hampstead",
+        "slug": "west-hampstead",
+        "borough": "Camden",
+        "borough_slug": "camden",
+        "postcodes": "NW6",
+        "character": "West Hampstead is a dense, cosmopolitan Camden neighbourhood of Victorian mansion blocks, Edwardian terraces, and post-war flats. Flat conversions, loft conversions, and mansion block reconfigurations dominate the project pipeline.",
+        "housing_stock": "Victorian mansion blocks, Edwardian terraces, post-war flats, Victorian villas",
+        "conservation_notes": "West End Green and Fortune Green Conservation Areas cover significant portions",
+        "planning_notes": "Camden Council applies strict heritage and design controls. Article 4 Directions are extensive across NW6 conservation areas. Basement conversions are tightly controlled under Camden's basement policy.",
+        "nearby": ["kilburn", "swiss-cottage", "queens-park", "hampstead"],
+        "popular_services": ["planning-drawings", "loft-conversions", "house-extensions"],
+        "hero_lede": "Planning permission drawings, mansion block reconfigurations, loft conversions, and flat conversions for West Hampstead's Victorian and Edwardian housing. MCIAT chartered, fixed fees, Camden planning expertise built in.",
+        "local_context_title": "Why West Hampstead demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "West Hampstead sits in the NW6 postcode within the London Borough of Camden. The neighbourhood's dense mix of Victorian mansion blocks, Edwardian terraces, and post-war flats — together with extensive conservation area coverage — makes it one of north-west London's most tightly controlled planning environments.",
+            "<strong>Mansion blocks:</strong> West Hampstead has a significant stock of Victorian and Edwardian mansion blocks. Internal reconfigurations, window replacements, and balcony additions require freeholder consent alongside any Camden planning permission. Our drawings are prepared to meet Camden's requirements and typical freeholder expectations.",
+            "<strong>Victorian and Edwardian terraces:</strong> The streets around West End Lane contain period terraces suitable for rear extensions, side-return infills, and loft conversions. Within the conservation areas, planning permission is usually required.",
+            "<strong>Basement conversions:</strong> Camden has one of London's strictest basement policies. Lightwells, rear extensions of basements, and any subterranean works face tight controls. Our team understands Camden's basement requirements and prepares compliant schemes.",
+            "<strong>Conservation and Article 4:</strong> West End Green and Fortune Green CAs cover significant portions of NW6. Article 4 Directions apply. Heritage Statements are required. We prepare conservation-grade applications.",
+        ],
+        "stats": [
+            ("Conservation areas", "West End Green, Fortune Green"),
+            ("Article 4", "Yes (extensive)"),
+            ("Planning authority", "Camden Council"),
+            ("Key postcodes", "NW6"),
+        ],
+        "faqs": [
+            (
+                "Can I extend my West Hampstead flat?",
+                "Flat extensions are unusual but possible — rear additions, balcony additions, or mansion block reconfigurations. Freeholder consent is essential. We prepare the drawings and liaise with the freeholder's architects.",
+            ),
+            (
+                "Do I need planning permission in NW6 conservation areas?",
+                "For most external works — yes. Article 4 Directions remove PD rights. Heritage Statements are required. We prepare conservation-appropriate applications.",
+            ),
+            (
+                "What about basement conversions?",
+                "Camden's basement policy is strict. Lightwells are often allowed; rear basement extensions and second basement levels are tightly controlled. We prepare compliant schemes with structural engineer input.",
+            ),
+            (
+                "How much do architectural drawings cost in West Hampstead?",
+                "For conservation-area projects, the Complete package from £1,750 is typically required. Essentials from £840 may suffice for very minor work.",
+            ),
+            (
+                "How long does Camden take to decide?",
+                "Camden targets 8 weeks for householder applications and 13 weeks for majors. Conservation area applications may take longer. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Swiss Cottage",
+        "slug": "swiss-cottage",
+        "borough": "Camden",
+        "borough_slug": "camden",
+        "postcodes": "NW3",
+        "character": "Swiss Cottage is a dense central Camden neighbourhood dominated by large mansion blocks, Edwardian villas, and substantial Victorian terraces. High-value residential reconfigurations and mansion block alterations are the core project types.",
+        "housing_stock": "Large Edwardian mansion blocks, Victorian terraces, substantial detached villas, post-war apartments",
+        "conservation_notes": "Fitzjohns/Netherhall Conservation Area; Swiss Cottage CA nearby",
+        "planning_notes": "Camden Council applies strict heritage controls. Article 4 Directions are extensive in NW3. Basement policy is tight. Mansion block alterations require freeholder consent.",
+        "nearby": ["hampstead", "belsize-park", "primrose-hill", "west-hampstead"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, mansion block reconfigurations, heritage-sensitive extensions, and building regulations for Swiss Cottage's Edwardian and Victorian housing. MCIAT chartered, fixed fees, Camden conservation expertise built in.",
+        "local_context_title": "Why Swiss Cottage demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Swiss Cottage sits in the NW3 postcode within the London Borough of Camden, south of Hampstead and west of Primrose Hill. The neighbourhood's substantial Edwardian mansion blocks, Victorian villas, and high-value terraces make it one of London's most valuable — and tightly controlled — residential markets.",
+            "<strong>Mansion blocks:</strong> Much of central Swiss Cottage is mansion block. Flat reconfigurations, new bathrooms, open-plan kitchen-living rooms, and balcony additions require planning permission, freeholder consent, and Building Regulations approval. Our drawings meet Camden's standards and typical freeholder requirements.",
+            "<strong>Fitzjohns/Netherhall Conservation Area:</strong> This CA covers the handsome Victorian and Edwardian streets around Swiss Cottage. Article 4 Directions restrict PD rights. Heritage Statements are required for most applications. Our team prepares conservation-grade submissions.",
+            "<strong>Basement works:</strong> Camden's basement policy is among the strictest in London. Subterranean developments must meet specific tests on hydrology, structural impact, and size. We prepare compliant schemes with full structural and hydrological input.",
+            "<strong>Victorian and Edwardian villas:</strong> Swiss Cottage has substantial detached villas suitable for extensions and loft conversions. All require planning permission in the CA. We design heritage-sensitive schemes.",
+        ],
+        "stats": [
+            ("Conservation areas", "Fitzjohns/Netherhall CA"),
+            ("Article 4", "Yes"),
+            ("Planning authority", "Camden Council"),
+            ("Key postcodes", "NW3"),
+        ],
+        "faqs": [
+            (
+                "Can I reconfigure my Swiss Cottage mansion flat?",
+                "Yes, but planning permission and freeholder consent are typically required. Removing internal walls, creating open-plan spaces, and adding ensuites all need careful coordination. We prepare the drawings and liaise.",
+            ),
+            (
+                "Do I need planning permission for external works in NW3?",
+                "In the conservation area — almost always. Article 4 Directions remove PD rights. Heritage Statements are required. We prepare conservation-grade applications.",
+            ),
+            (
+                "What about basement conversions?",
+                "Camden's basement policy is tight. Ground conditions, hydrology, and impact on neighbours all matter. We prepare compliant schemes where the site allows.",
+            ),
+            (
+                "How much do architectural drawings cost in Swiss Cottage?",
+                "The Complete package from £1,750 is typically required for conservation-area and mansion-block projects. Essentials from £840 for minor interior works.",
+            ),
+            (
+                "How long does Camden take to decide?",
+                "Camden targets 8 weeks for householder applications and 13 weeks for majors. Pre-application advice is recommended for complex schemes. We manage the full timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Primrose Hill",
+        "slug": "primrose-hill",
+        "borough": "Camden",
+        "borough_slug": "camden",
+        "postcodes": "NW1",
+        "character": "Primrose Hill is one of London's most desirable neighbourhoods — pastel-painted Victorian terraces, elegant Regency villas, and a tight conservation area covering the whole area. Every project requires conservation-sensitive drawings.",
+        "housing_stock": "Victorian terraces, Regency villas, Georgian townhouses, mews houses",
+        "conservation_notes": "Primrose Hill Conservation Area covers the whole neighbourhood; Article 4 Directions are extensive",
+        "planning_notes": "Camden Council applies its strictest heritage controls in Primrose Hill. Article 4 Directions remove PD rights. Basement policy is among the tightest in London. Pre-application advice is strongly recommended.",
+        "nearby": ["camden-town", "swiss-cottage", "belsize-park", "maida-vale"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, heritage-sensitive extensions, and conservation-grade building regulations for Primrose Hill's Victorian and Regency housing. MCIAT chartered, fixed fees, Camden heritage expertise built in.",
+        "local_context_title": "Why Primrose Hill demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Primrose Hill sits in the NW1 postcode within the London Borough of Camden, centred on Primrose Hill Park. The entire neighbourhood is a conservation area, with exceptionally high property values and correspondingly rigorous planning standards.",
+            "<strong>Primrose Hill Conservation Area:</strong> Covers the whole neighbourhood. Article 4 Directions remove PD rights for virtually all external alterations. Heritage Statements are required for even minor works. Our MCIAT-chartered team has extensive experience preparing Primrose Hill submissions.",
+            "<strong>Victorian terraces:</strong> The iconic pastel-painted Victorian terraces are protected both as heritage assets and for their contribution to the streetscape. Colour choices, window details, and roof alterations all require careful justification.",
+            "<strong>Basement conversions:</strong> Camden's basement policy and Primrose Hill's conservation context combine to make basement works exceptionally tightly controlled. The scheme must pass the basement policy tests and avoid harm to the conservation area. We prepare compliant schemes only where feasible.",
+            "<strong>Mews and rear properties:</strong> Primrose Hill has pockets of mews houses behind the main streets. These are often listed or within the CA. Any alterations require heritage justification. We handle mews projects with care.",
+        ],
+        "stats": [
+            ("Conservation areas", "Primrose Hill CA (whole)"),
+            ("Article 4", "Yes (extensive)"),
+            ("Planning authority", "Camden Council"),
+            ("Key postcodes", "NW1"),
+        ],
+        "faqs": [
+            (
+                "Can I extend my Primrose Hill house?",
+                "Possibly, but every scheme requires planning permission, Heritage Statement, and often pre-application advice. Rear extensions must respect the period character and materials. We design heritage-sensitive schemes.",
+            ),
+            (
+                "Do I need planning permission for any external work?",
+                "Almost certainly yes. Article 4 Directions remove PD rights. Window changes, colour changes, rooflights, and boundary changes all typically need planning permission.",
+            ),
+            (
+                "What about basement conversions?",
+                "Camden's strictest basement policy applies. Schemes are possible but must pass hydrological, structural, and heritage tests. We advise on feasibility early.",
+            ),
+            (
+                "How much do architectural drawings cost in Primrose Hill?",
+                "The Complete package from £1,750 is essential for Primrose Hill projects. Conservation-grade drawings, Heritage Statements, and detailed materials are all included.",
+            ),
+            (
+                "How long does Camden take to decide in Primrose Hill?",
+                "Primrose Hill applications typically take 8–13 weeks, sometimes longer with heritage consultation. Pre-application advice adds 4–6 weeks but is strongly recommended. We manage the full timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Marylebone",
+        "slug": "marylebone",
+        "borough": "Westminster",
+        "borough_slug": "westminster",
+        "postcodes": "W1",
+        "character": "Marylebone is a central Westminster neighbourhood of Georgian and Regency terraces, mansion blocks, and mews streets. Every project sits within one of London's most protected conservation contexts.",
+        "housing_stock": "Georgian and Regency terraces, Victorian mansion blocks, mews houses, Edwardian flats",
+        "conservation_notes": "Harley Street, Portman Estate, and Marylebone Conservation Areas cover the neighbourhood; many listed buildings",
+        "planning_notes": "Westminster City Council applies its strictest heritage controls in W1. Article 4 Directions are extensive. Listed Building Consent is frequently required alongside planning permission.",
+        "nearby": ["mayfair", "maida-vale", "primrose-hill", "victoria"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, Listed Building Consent, heritage-sensitive extensions, and building regulations for Marylebone's Georgian terraces and mansion flats. MCIAT chartered, fixed fees, Westminster heritage expertise built in.",
+        "local_context_title": "Why Marylebone demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Marylebone sits in the W1 postcode within the City of Westminster. The neighbourhood's Georgian and Regency townhouses, Victorian mansion blocks, and mews streets — combined with near-complete conservation area coverage and extensive listing — make it one of London's most heritage-dense residential markets.",
+            "<strong>Conservation areas:</strong> Harley Street, Portman Estate, and Marylebone CAs cover the neighbourhood. Article 4 Directions remove PD rights throughout. Heritage Statements and Design & Access Statements accompany every application.",
+            "<strong>Listed buildings:</strong> A significant proportion of Marylebone housing is listed. Listed Building Consent runs in parallel with planning permission. Works to protected interiors — staircases, fireplaces, panelling — require particular care. We coordinate with Historic England where required.",
+            "<strong>Mansion blocks:</strong> Marylebone has substantial Victorian and Edwardian mansion blocks. Flat reconfigurations, window replacements, and balcony additions require planning permission and freeholder consent. Our drawings meet Westminster's strict standards.",
+            "<strong>Mews houses:</strong> The protected mews streets — Devonshire Mews, Queen Anne Mews, etc. — have their own design requirements. Rear additions, rooflights, and garage conversions all need planning permission.",
+        ],
+        "stats": [
+            ("Conservation areas", "Multiple in W1"),
+            ("Listed buildings", "Extensive"),
+            ("Planning authority", "Westminster City Council"),
+            ("Key postcodes", "W1"),
+        ],
+        "faqs": [
+            (
+                "Do I need Listed Building Consent for my Marylebone house?",
+                "If your property is listed — yes, for virtually all internal and external works affecting character. Our team prepares the Listed Building Consent application alongside planning permission.",
+            ),
+            (
+                "Can I extend my Marylebone townhouse?",
+                "Possibly — rear extensions, roof alterations, and basement works may be achievable subject to heritage constraints. Every scheme requires planning permission. We prepare heritage-sensitive applications.",
+            ),
+            (
+                "What about mansion flat reconfigurations?",
+                "Internal reconfigurations usually need freeholder consent plus planning permission in listed buildings. Building Regulations approval is always required. We prepare the full package.",
+            ),
+            (
+                "How much do architectural drawings cost in Marylebone?",
+                "The Complete package from £1,750 is essential for Marylebone. Listed Building Consent projects may require bespoke pricing reflecting the heritage scope.",
+            ),
+            (
+                "How long does Westminster take to decide?",
+                "Westminster targets 8–13 weeks depending on scale. Listed Building Consent runs in parallel. Pre-application advice is strongly recommended. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Mayfair",
+        "slug": "mayfair",
+        "borough": "Westminster",
+        "borough_slug": "westminster",
+        "postcodes": "W1",
+        "character": "Mayfair is central London's most prestigious residential neighbourhood — Georgian mansions, Regency townhouses, mews streets, and private squares. Every project is a heritage-led, high-value commission.",
+        "housing_stock": "Georgian mansions, Regency townhouses, mews houses, private gated squares, luxury mansion blocks",
+        "conservation_notes": "Mayfair Conservation Area covers the whole neighbourhood; extensive listed buildings; private estates (Grosvenor, Portland) apply additional controls",
+        "planning_notes": "Westminster City Council applies its strictest heritage controls. Article 4 Directions are comprehensive. Listed Building Consent is routine. Private estate consent is also typically required.",
+        "nearby": ["marylebone", "pimlico", "victoria", "mayfair"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, Listed Building Consent, and heritage-grade building regulations for Mayfair's Georgian townhouses, mews, and mansion flats. MCIAT chartered, fixed fees, Westminster heritage expertise built in.",
+        "local_context_title": "Why Mayfair demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Mayfair sits in the W1 postcode at the centre of the City of Westminster. The neighbourhood is London's most prestigious residential address — Georgian mansions, Regency townhouses, and private squares all sitting within near-complete conservation area coverage and extensive listing.",
+            "<strong>Mayfair Conservation Area:</strong> Covers the whole neighbourhood. Article 4 Directions remove PD rights. Heritage Statements are required for every application. Our MCIAT-chartered team prepares Mayfair-grade submissions with appropriate level of detail.",
+            "<strong>Private estates:</strong> Mayfair includes the Grosvenor Estate, the Portland Estate, and other private freehold estates. These estates apply their own design codes alongside Westminster's planning controls. We prepare schemes that satisfy both.",
+            "<strong>Listed buildings:</strong> A majority of Mayfair housing is listed — Grade II common, Grade II* and Grade I on premier streets. Listed Building Consent is routine. We coordinate with Historic England for higher-grade listings.",
+            "<strong>Mews houses:</strong> Mayfair's mews streets — Adams Row, Charles Mews, Mount Row — have particular design codes. Garage conversions, rooflights, and rear alterations all require planning permission and often estate consent.",
+        ],
+        "stats": [
+            ("Conservation areas", "Mayfair CA (whole)"),
+            ("Listed buildings", "Extensive"),
+            ("Planning authority", "Westminster + private estates"),
+            ("Key postcodes", "W1"),
+        ],
+        "faqs": [
+            (
+                "Can I alter my Mayfair townhouse?",
+                "Yes, but every scheme requires planning permission, Listed Building Consent where applicable, and estate consent. We prepare the full package.",
+            ),
+            (
+                "What is the Grosvenor Estate's design code?",
+                "The Grosvenor Estate has its own design guidance for properties it owns or controls. Applications to the estate are separate from Westminster planning. We prepare both in parallel.",
+            ),
+            (
+                "Can I do a basement conversion in Mayfair?",
+                "Very tightly controlled. Ground conditions, heritage impact, and estate consent all matter. We advise on feasibility early and prepare schemes only where achievable.",
+            ),
+            (
+                "How much do architectural drawings cost in Mayfair?",
+                "Mayfair projects are typically Complete package from £1,750 or bespoke pricing for listed buildings and larger schemes. We quote transparently at the outset.",
+            ),
+            (
+                "How long does Westminster take to decide?",
+                "Mayfair applications take 8–13 weeks, often longer with heritage consultation. Pre-application advice is strongly recommended. We manage the full timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Pimlico",
+        "slug": "pimlico",
+        "borough": "Westminster",
+        "borough_slug": "westminster",
+        "postcodes": "SW1",
+        "character": "Pimlico is a central Westminster residential neighbourhood of white stucco Regency and early Victorian terraces, mansion blocks, and Churchill Gardens. Heritage-sensitive drawings are standard; stucco facade rules are strict.",
+        "housing_stock": "White stucco Regency terraces, early Victorian terraces, mansion blocks, post-war Churchill Gardens estate",
+        "conservation_notes": "Pimlico Conservation Area covers most of the neighbourhood; some buildings are listed",
+        "planning_notes": "Westminster City Council applies strict heritage controls. Article 4 Directions remove PD rights. Stucco facade maintenance and colour controls are specific to Pimlico.",
+        "nearby": ["victoria", "battersea-park", "vauxhall", "mayfair"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, heritage-sensitive extensions, and building regulations for Pimlico's Regency stucco terraces and mansion flats. MCIAT chartered, fixed fees, Westminster heritage expertise built in.",
+        "local_context_title": "Why Pimlico demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Pimlico sits in the SW1 postcode within the City of Westminster, south of Victoria and north of the Thames. The neighbourhood's iconic white stucco Regency and Victorian terraces — largely the work of Thomas Cubitt — sit within near-complete conservation area coverage.",
+            "<strong>Pimlico Conservation Area:</strong> Covers the historic core. Article 4 Directions remove PD rights. Stucco facades are particularly protected — colour, detail, and maintenance regimes are all controlled. Heritage Statements accompany every application.",
+            "<strong>Regency terraces:</strong> Thomas Cubitt's white stucco terraces are the defining built form. Rear extensions, loft conversions, and basement works are possible but all require planning permission. Rear elevations are typically brick; alterations must respect this distinction.",
+            "<strong>Mansion blocks:</strong> Pimlico has a significant mansion block stock. Flat reconfigurations, window replacements, and balcony additions require planning permission and freeholder consent.",
+            "<strong>Churchill Gardens estate:</strong> This post-war estate has its own planning considerations as a recognised example of mid-century housing.",
+        ],
+        "stats": [
+            ("Conservation areas", "Pimlico CA"),
+            ("Article 4", "Yes"),
+            ("Planning authority", "Westminster City Council"),
+            ("Key postcodes", "SW1"),
+        ],
+        "faqs": [
+            (
+                "Can I change the colour of my Pimlico stucco?",
+                "No — the white-stucco colour scheme is strictly controlled. Painting in a different colour typically requires planning permission and is usually refused. Maintenance must use the approved lime-based regime.",
+            ),
+            (
+                "Can I extend my Pimlico townhouse?",
+                "Rear extensions, loft conversions, and basement works are all possible subject to heritage constraints. Every scheme requires planning permission. We prepare heritage-sensitive applications.",
+            ),
+            (
+                "What about window replacements?",
+                "Sash window replacements usually need planning permission within the CA. Materials, glazing bar profiles, and proportions all matter. We prepare detailed schedules.",
+            ),
+            (
+                "How much do architectural drawings cost in Pimlico?",
+                "The Complete package from £1,750 is typical for Pimlico projects. Listed buildings may require bespoke pricing.",
+            ),
+            (
+                "How long does Westminster take to decide?",
+                "Westminster targets 8 weeks for householders and 13 for majors. Conservation area applications may take longer. We manage the timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Victoria",
+        "slug": "victoria",
+        "borough": "Westminster",
+        "borough_slug": "westminster",
+        "postcodes": "SW1",
+        "character": "Victoria is a mixed central Westminster neighbourhood around the mainline station, with Regency and Victorian mansion blocks, post-war residential towers, and some period terraces. Mansion block reconfigurations and flat conversions are common.",
+        "housing_stock": "Victorian and Edwardian mansion blocks, Regency terraces, post-war flats, modern developments",
+        "conservation_notes": "Victoria Conservation Area covers central portions; multiple smaller CAs",
+        "planning_notes": "Westminster applies strict controls. Article 4 Directions apply widely. Listed Building Consent needed for many properties. Mansion block alterations require freeholder consent.",
+        "nearby": ["pimlico", "mayfair", "vauxhall", "marylebone"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, mansion block reconfigurations, and building regulations for Victoria's period and modern housing stock. MCIAT chartered, fixed fees, Westminster planning expertise built in.",
+        "local_context_title": "Why Victoria demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Victoria sits in the SW1 postcode within the City of Westminster, around Victoria Station. The neighbourhood is a working hub with period residential side streets, substantial mansion blocks, and post-war developments.",
+            "<strong>Mansion blocks:</strong> Victoria has a significant Victorian and Edwardian mansion block stock. Flat reconfigurations, new kitchens and bathrooms, and open-plan conversions are standard. Planning permission, freeholder consent, and Building Regulations approval are all typically required.",
+            "<strong>Conservation areas:</strong> Victoria CA and surrounding heritage designations cover substantial portions. Article 4 Directions apply widely. Heritage Statements accompany most applications.",
+            "<strong>Period terraces:</strong> Some streets retain period terraces — Regency and early Victorian. These require heritage-sensitive design for any alterations.",
+            "<strong>Modern developments:</strong> New-build blocks require alignment with estate management and often freeholder consent for internal works.",
+        ],
+        "stats": [
+            ("Conservation areas", "Victoria CA"),
+            ("Housing type", "Mansion blocks, modern flats"),
+            ("Planning authority", "Westminster City Council"),
+            ("Key postcodes", "SW1"),
+        ],
+        "faqs": [
+            (
+                "Can I reconfigure my Victoria mansion flat?",
+                "Yes — internal reconfigurations typically need planning permission for listed buildings, freeholder consent, and Building Regulations approval. We prepare the full package.",
+            ),
+            (
+                "Do I need planning permission for window replacement?",
+                "Usually yes in the conservation areas. Materials and proportions matter. We prepare appropriate specifications.",
+            ),
+            (
+                "What about adding a balcony?",
+                "Possible but typically needs planning permission and freeholder consent. Structural input is essential. We prepare the full scheme.",
+            ),
+            (
+                "How much do architectural drawings cost in Victoria?",
+                "Our Complete package from £1,750 is typical for Victoria projects. Essentials from £840 for minor interior works.",
+            ),
+            (
+                "How long does Westminster take to decide?",
+                "Westminster targets 8–13 weeks. Conservation area and listed building applications may take longer. We manage the process.",
+            ),
+        ],
+    },
+    {
+        "name": "Battersea Park",
+        "slug": "battersea-park",
+        "borough": "Wandsworth",
+        "borough_slug": "wandsworth",
+        "postcodes": "SW11",
+        "character": "Battersea Park is the prestigious residential corridor along the park, with Victorian and Edwardian mansion blocks, period townhouses, and new-build luxury developments at Battersea Power Station and Prince of Wales Drive.",
+        "housing_stock": "Victorian and Edwardian mansion blocks, period townhouses, Victorian terraces, new-build luxury apartments",
+        "conservation_notes": "Battersea Park Conservation Area; some streets have Article 4 Directions",
+        "planning_notes": "Wandsworth Council applies strict heritage controls near the park. New-build developments have specific estate management rules. Basement policy applies under Wandsworth.",
+        "nearby": ["nine-elms", "vauxhall", "fulham", "clapham"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, mansion block reconfigurations, and heritage-sensitive extensions for Battersea Park's period and luxury new-build properties. MCIAT chartered, fixed fees, Wandsworth planning expertise built in.",
+        "local_context_title": "Why Battersea Park demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Battersea Park sits in the SW11 postcode within the London Borough of Wandsworth, along the south bank of the Thames opposite Chelsea. The neighbourhood combines historic mansion blocks and period townhouses facing the park with substantial new-build developments at Battersea Power Station and Prince of Wales Drive.",
+            "<strong>Mansion blocks:</strong> The streets facing Battersea Park — Prince of Wales Drive, Albert Bridge Road — contain substantial Victorian and Edwardian mansion blocks. Flat reconfigurations and external alterations require planning permission, freeholder consent, and sometimes Heritage Statements.",
+            "<strong>Period townhouses:</strong> The streets south of the park contain Victorian townhouses suitable for rear extensions, loft conversions, and basement works. Wandsworth's basement policy applies.",
+            "<strong>New-build developments:</strong> Battersea Power Station and Prince of Wales Drive include substantial new-build residential. Internal alterations in new-build flats often have design codes from the estate management company alongside Wandsworth planning.",
+            "<strong>Battersea Park Conservation Area:</strong> The CA protects the park setting and the handsome mansion terraces facing it. Heritage Statements are required for most alterations.",
+        ],
+        "stats": [
+            ("Conservation areas", "Battersea Park CA"),
+            ("Housing type", "Mansion blocks, townhouses, new-build"),
+            ("Planning authority", "Wandsworth Council"),
+            ("Key postcodes", "SW11"),
+        ],
+        "faqs": [
+            (
+                "Can I reconfigure my Battersea Park mansion flat?",
+                "Yes — internal reconfigurations are common. Planning permission may be needed for listed buildings; freeholder consent and Building Regulations approval are essential. We prepare the full package.",
+            ),
+            (
+                "Do I need planning permission for a rear extension?",
+                "Most period townhouses need planning permission within the CA. Wandsworth also has basement policy. We advise on feasibility early.",
+            ),
+            (
+                "What about alterations in the new-build developments?",
+                "Internal alterations in new-build flats typically need estate management consent alongside Building Regulations approval. Some works may need planning. We prepare the right submissions.",
+            ),
+            (
+                "How much do architectural drawings cost in Battersea Park?",
+                "Our Complete package from £1,750 is typical for conservation-area and mansion-block projects. Essentials from £840 for minor interior works.",
+            ),
+            (
+                "How long does Wandsworth take to decide?",
+                "Wandsworth targets 8 weeks for householders and 13 for majors. Conservation area applications may take longer. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Nine Elms",
+        "slug": "nine-elms",
+        "borough": "Wandsworth",
+        "borough_slug": "wandsworth",
+        "postcodes": "SW8",
+        "character": "Nine Elms is a rapidly developing riverside area of Wandsworth dominated by new-build luxury apartment towers around Battersea Power Station and the US Embassy. Internal reconfigurations, balcony additions, and new-build interior works dominate.",
+        "housing_stock": "New-build apartment towers, Battersea Power Station conversion, some period terraces on the edges",
+        "conservation_notes": "Edges border Battersea Park CA; core is new-build",
+        "planning_notes": "Wandsworth Council applies site-specific planning frameworks for Nine Elms. Estate management consent is typical. Internal reconfigurations in new-build require freeholder agreement.",
+        "nearby": ["battersea-park", "vauxhall", "kennington", "fulham"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, internal reconfigurations, and building regulations for Nine Elms' new-build apartments and the wider regeneration area. MCIAT chartered, fixed fees, Wandsworth planning expertise built in.",
+        "local_context_title": "Why Nine Elms demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Nine Elms sits in the SW8 postcode within the London Borough of Wandsworth. The area has been transformed over the past decade by the Nine Elms Vauxhall Opportunity Area — Battersea Power Station conversion, the US Embassy, and multiple high-rise residential developments.",
+            "<strong>New-build apartments:</strong> The majority of Nine Elms residential stock is new-build. Internal reconfigurations — removing walls, adding ensuites, creating open-plan spaces — require freeholder consent and Building Regulations approval. Some works may need planning permission.",
+            "<strong>Battersea Power Station:</strong> The converted Power Station and surrounding Circus West Village include substantial residential. Apartments within the Grade II* listed Power Station building have particular Listed Building Consent requirements.",
+            "<strong>Estate management:</strong> Most Nine Elms developments have active estate management companies with their own design codes. Internal works typically need estate consent alongside any statutory applications.",
+            "<strong>Wandsworth basement policy:</strong> Ground floor apartments with garden terraces may have scope for basement works; subject to Wandsworth's basement policy and structural constraints.",
+        ],
+        "stats": [
+            ("Conservation areas", "Borders only"),
+            ("Housing type", "New-build apartments"),
+            ("Planning authority", "Wandsworth Council"),
+            ("Key postcodes", "SW8"),
+        ],
+        "faqs": [
+            (
+                "Can I reconfigure my Nine Elms new-build apartment?",
+                "Yes — internal reconfigurations are common. Freeholder and estate management consent are essential. Building Regulations approval is required. Some works may need planning. We prepare the full package.",
+            ),
+            (
+                "Do I need Listed Building Consent in the Power Station?",
+                "For apartments within the Grade II* listed Battersea Power Station — yes, for works affecting heritage fabric. We prepare Listed Building Consent applications.",
+            ),
+            (
+                "Can I add a balcony or terrace?",
+                "Typically requires planning permission, estate consent, and structural input. Possible on suitable apartments. We advise and prepare the full scheme.",
+            ),
+            (
+                "How much do architectural drawings cost in Nine Elms?",
+                "Our Essentials package starts from £840 for minor interior works. Complete from £1,750 for more substantial reconfigurations.",
+            ),
+            (
+                "How long does Wandsworth take to decide?",
+                "Wandsworth targets 8 weeks for householder and 13 for major applications. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Vauxhall",
+        "slug": "vauxhall",
+        "borough": "Lambeth",
+        "borough_slug": "lambeth",
+        "postcodes": "SE11",
+        "character": "Vauxhall is a central Lambeth neighbourhood transformed by the Nine Elms Opportunity Area — new-build towers along the river, with period terraces and estates on the inland streets. Mixed new-build and period residential projects.",
+        "housing_stock": "New-build towers, Victorian terraces, post-war estates, Victorian mansion blocks",
+        "conservation_notes": "Vauxhall Gardens Conservation Area; Lambeth Walk CA nearby",
+        "planning_notes": "Lambeth Council applies the Nine Elms Vauxhall Opportunity Area framework to new-build areas. Period residential streets face standard Lambeth policies with heritage controls in CAs.",
+        "nearby": ["nine-elms", "kennington", "walworth", "pimlico"],
+        "popular_services": ["planning-drawings", "building-regulations", "house-extensions"],
+        "hero_lede": "Planning permission drawings, extensions, and building regulations for Vauxhall's period terraces and new-build developments. MCIAT chartered, fixed fees, Lambeth planning expertise built in.",
+        "local_context_title": "Why Vauxhall demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Vauxhall sits in the SE11 postcode within the London Borough of Lambeth, along the south bank of the Thames. The neighbourhood combines substantial new-build regeneration — part of the Nine Elms Vauxhall Opportunity Area — with period residential streets inland.",
+            "<strong>New-build tower apartments:</strong> The recent regeneration has added substantial high-rise residential stock. Internal reconfigurations, balcony additions, and internal layout changes are the typical projects.",
+            "<strong>Period terraces:</strong> Inland streets retain Victorian terraces and Edwardian houses. These are suitable for rear extensions, loft conversions, and side-return infills. Most fall within PD outside the CAs.",
+            "<strong>Vauxhall Gardens Conservation Area:</strong> The CA protects the historic core around Vauxhall Pleasure Gardens. Within the CA, planning permission is required for most works.",
+            "<strong>Lambeth design standards:</strong> Lambeth applies high design standards. Heritage Statements and Design & Access Statements are required for most applications.",
+        ],
+        "stats": [
+            ("Conservation areas", "Vauxhall Gardens CA"),
+            ("Housing type", "New-build, Victorian terraces"),
+            ("Planning authority", "Lambeth Council"),
+            ("Key postcodes", "SE11"),
+        ],
+        "faqs": [
+            (
+                "Can I extend my Vauxhall terrace?",
+                "Rear extensions and loft conversions are common. Outside the CA, most fall within PD. Within the CA, planning permission is required. We prepare either submission.",
+            ),
+            (
+                "What about new-build apartment alterations?",
+                "Internal reconfigurations need freeholder consent and Building Regulations approval. Some alterations may need planning. We prepare the right package.",
+            ),
+            (
+                "Do I need planning permission in the CA?",
+                "For most external works — yes. Heritage Statements accompany applications. We prepare conservation-sensitive drawings.",
+            ),
+            (
+                "How much do architectural drawings cost in Vauxhall?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Lambeth take to decide?",
+                "Lambeth targets 8 weeks for householder and 13 for major applications. We manage the timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Kennington",
+        "slug": "kennington",
+        "borough": "Lambeth",
+        "borough_slug": "lambeth",
+        "postcodes": "SE11",
+        "character": "Kennington is a central Lambeth neighbourhood of Georgian and Victorian terraces, handsome squares, and some post-war estates. Heritage-sensitive extensions, loft conversions, and flat conversions are the main project types.",
+        "housing_stock": "Georgian terraces, Victorian terraces, post-war estates, some Edwardian mansion blocks",
+        "conservation_notes": "Kennington Conservation Area; Cleaver Square CA; Walcot Estate CA",
+        "planning_notes": "Lambeth Council applies strict heritage controls in the Kennington CAs. Article 4 Directions apply widely. Heritage Statements are routine.",
+        "nearby": ["vauxhall", "walworth", "camberwell", "nine-elms"],
+        "popular_services": ["planning-drawings", "loft-conversions", "house-extensions"],
+        "hero_lede": "Planning permission drawings, heritage-sensitive extensions, and loft conversions for Kennington's Georgian and Victorian terraces. MCIAT chartered, fixed fees, Lambeth heritage expertise built in.",
+        "local_context_title": "Why Kennington demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Kennington sits in the SE11 postcode within the London Borough of Lambeth. The neighbourhood's Georgian terraces, handsome squares (Cleaver Square, Kennington Park), and Victorian streets are among south London's best-preserved period residential stock.",
+            "<strong>Georgian terraces:</strong> Kennington has some of south London's finest Georgian terraces. Rear extensions and loft conversions are achievable but all require planning permission within the CAs. We design heritage-sensitive schemes.",
+            "<strong>Victorian stock:</strong> The wider neighbourhood has extensive Victorian terraces suitable for standard rear extensions, side-return infills, and rear dormer loft conversions. Most fall within Article 4 zones requiring planning permission.",
+            "<strong>Cleaver Square Conservation Area:</strong> Cleaver Square is a tightly protected Georgian square. Article 4 Directions remove PD rights. Heritage Statements are required. Our team prepares Cleaver Square-grade submissions.",
+            "<strong>Lambeth basement policy:</strong> Kennington properties with suitable ground conditions may have basement conversion potential. Lambeth's basement policy applies.",
+        ],
+        "stats": [
+            ("Conservation areas", "Kennington, Cleaver Square, Walcot"),
+            ("Article 4", "Yes"),
+            ("Planning authority", "Lambeth Council"),
+            ("Key postcodes", "SE11"),
+        ],
+        "faqs": [
+            (
+                "Can I extend my Kennington Georgian house?",
+                "Possibly — rear extensions and basement works may be achievable. Every scheme requires planning permission. Heritage Statements are essential. We prepare heritage-sensitive designs.",
+            ),
+            (
+                "Do I need planning permission for a loft conversion?",
+                "Within the Article 4 zones — yes. Dormer design must be sympathetic. Rooflights often preferred. We design appropriate schemes.",
+            ),
+            (
+                "What about Cleaver Square?",
+                "Cleaver Square is one of Lambeth's most tightly controlled CAs. Every external alteration typically needs planning permission. Pre-application advice is recommended.",
+            ),
+            (
+                "How much do architectural drawings cost in Kennington?",
+                "The Complete package from £1,750 is typically required for CA projects. Essentials from £840 for minor interior works.",
+            ),
+            (
+                "How long does Lambeth take to decide?",
+                "Lambeth targets 8 weeks for householder and 13 for major applications. Conservation area applications may take longer. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Walworth",
+        "slug": "walworth",
+        "borough": "Southwark",
+        "borough_slug": "southwark",
+        "postcodes": "SE17",
+        "character": "Walworth is a central Southwark neighbourhood of Victorian terraces, Georgian survivals, and substantial post-war estates. Rear extensions, loft conversions, and flat conversions are the typical project types.",
+        "housing_stock": "Victorian terraces, Georgian survivals, post-war estates (Heygate/Elephant legacy), converted flats",
+        "conservation_notes": "Walworth Conservation Area; Liverpool Grove CA; Pullens Estate CA",
+        "planning_notes": "Southwark Council applies heritage controls in the CAs. Article 4 Directions apply. Outside CAs, standard Southwark policies with PD rights.",
+        "nearby": ["kennington", "camberwell", "bermondsey", "peckham"],
+        "popular_services": ["loft-conversions", "house-extensions", "planning-drawings"],
+        "hero_lede": "Planning permission drawings, loft conversions, rear extensions, and flat conversions for Walworth's Victorian terraces and period properties. MCIAT chartered, fixed fees, Southwark planning expertise built in.",
+        "local_context_title": "Why Walworth demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Walworth sits in the SE17 postcode within the London Borough of Southwark. The neighbourhood's Victorian terraces, Georgian survivals, and the Pullens Estate — a rare preserved Victorian artisan estate — sit within a rapidly regenerating wider context around Elephant & Castle.",
+            "<strong>Victorian terraces:</strong> Walworth has extensive Victorian terrace stock. Rear extensions, side-return infills, and rear dormer loft conversions are the main projects. Outside the CAs, most fall within PD.",
+            "<strong>Pullens Estate Conservation Area:</strong> The Pullens Estate is an exceptional preserved Victorian artisan yard and housing estate. Within the CA, Article 4 Directions apply and Heritage Statements are required.",
+            "<strong>Flat conversions:</strong> Many Walworth houses have been subdivided. Further subdivision requires planning permission and must meet Southwark's space standards. We prepare the full package.",
+            "<strong>Regeneration context:</strong> Walworth sits next to the major regeneration around Elephant & Castle. The wider policy context is shifting; Southwark has published updated guidance on densification and design.",
+        ],
+        "stats": [
+            ("Conservation areas", "Walworth, Liverpool Grove, Pullens"),
+            ("Housing type", "Victorian terraces"),
+            ("Planning authority", "Southwark Council"),
+            ("Key postcodes", "SE17"),
+        ],
+        "faqs": [
+            (
+                "Can I convert my Walworth house into flats?",
+                "Yes, with planning permission from Southwark. Each flat must meet minimum space standards. Sound insulation and fire separation are critical. We prepare the full package.",
+            ),
+            (
+                "Do I need planning permission in Pullens Estate?",
+                "Almost always — Pullens is tightly controlled. Article 4 Directions remove PD rights. Heritage Statements are essential. We prepare conservation-grade applications.",
+            ),
+            (
+                "What about rear extensions elsewhere in Walworth?",
+                "Outside the CAs, rear extensions under PD or prior approval are straightforward. Within the CAs, planning permission is required.",
+            ),
+            (
+                "How much do architectural drawings cost in Walworth?",
+                "Our Essentials package starts from £840. Complete from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Southwark take to decide?",
+                "Southwark targets 8 weeks for householders and 13 for majors. Conservation area applications may take longer. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Camberwell",
+        "slug": "camberwell",
+        "borough": "Southwark",
+        "borough_slug": "southwark",
+        "postcodes": "SE5",
+        "character": "Camberwell is a south Southwark neighbourhood of Victorian and Edwardian terraces, Georgian survivals around Camberwell Green, and Edwardian mansion blocks. Loft conversions, rear extensions, and flat reconfigurations dominate.",
+        "housing_stock": "Victorian terraces, Edwardian villas, Georgian survivals, Edwardian mansion blocks, post-war estates",
+        "conservation_notes": "Camberwell Grove CA; Camberwell Green CA; Addington Square CA",
+        "planning_notes": "Southwark Council applies heritage controls in the multiple Camberwell CAs. Article 4 Directions apply. Most streets outside CAs retain PD rights.",
+        "nearby": ["peckham", "walworth", "east-dulwich", "herne-hill"],
+        "popular_services": ["loft-conversions", "house-extensions", "planning-drawings"],
+        "hero_lede": "Planning permission drawings, loft conversions, and extensions for Camberwell's Victorian and Edwardian terraces. MCIAT chartered, fixed fees, Southwark planning expertise built in.",
+        "local_context_title": "Why Camberwell demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Camberwell sits in the SE5 postcode within the London Borough of Southwark. The neighbourhood's mix of Victorian terraces, Edwardian villas, Georgian survivals around Camberwell Green, and multiple conservation areas generates a varied residential project market.",
+            "<strong>Camberwell Grove CA:</strong> One of south London's finest Georgian streets. Tightly controlled — Article 4 Directions remove PD rights. Heritage Statements are essential. We prepare Grove-grade applications.",
+            "<strong>Victorian terraces:</strong> Extensive Victorian terrace stock outside the CAs is suitable for standard rear extensions, side-return infills, and rear dormer loft conversions. Most fall within PD.",
+            "<strong>Edwardian villas:</strong> Pockets of substantial Edwardian villas, particularly south of Camberwell Green, suit larger extensions and loft conversions.",
+            "<strong>Flat conversions:</strong> Many larger Camberwell houses have been subdivided. Further subdivision requires planning permission and compliance with Southwark's space standards.",
+        ],
+        "stats": [
+            ("Conservation areas", "Camberwell Grove, Camberwell Green"),
+            ("Housing type", "Victorian/Edwardian"),
+            ("Planning authority", "Southwark Council"),
+            ("Key postcodes", "SE5"),
+        ],
+        "faqs": [
+            (
+                "Can I extend my Camberwell Grove house?",
+                "Possibly, but every scheme requires planning permission. Camberwell Grove is tightly controlled. Heritage Statements are essential. We prepare Grove-grade applications.",
+            ),
+            (
+                "Do I need planning permission for a loft conversion?",
+                "Outside the CAs, rear dormers under PD are usually straightforward. Within the CAs, planning permission is required. We assess and prepare.",
+            ),
+            (
+                "What about rear extensions?",
+                "Outside the CAs, most rear extensions fall within PD. Within the CAs, planning permission is required with heritage considerations.",
+            ),
+            (
+                "How much do architectural drawings cost in Camberwell?",
+                "Our Essentials package starts from £840. The Complete package from £1,750 covers planning and building regulations plus structural calculations. Conservation-grade projects typically need Complete.",
+            ),
+            (
+                "How long does Southwark take to decide?",
+                "Southwark targets 8 weeks for householders and 13 for majors. Camberwell Grove applications may take longer. We manage the timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Nunhead",
+        "slug": "nunhead",
+        "borough": "Southwark",
+        "borough_slug": "southwark",
+        "postcodes": "SE15",
+        "character": "Nunhead is a south Southwark residential neighbourhood of Victorian terraces and Edwardian houses, centred on the picturesque Nunhead Cemetery. Rear extensions, loft conversions, and flat conversions dominate.",
+        "housing_stock": "Victorian terraces, Edwardian houses, inter-war pockets, some converted flats",
+        "conservation_notes": "Nunhead Cemetery Conservation Area; Telegraph Hill nearby",
+        "planning_notes": "Southwark Council applies heritage controls near the cemetery. Most streets retain PD rights. Flat conversions require compliance with space standards.",
+        "nearby": ["peckham", "brockley", "east-dulwich", "camberwell"],
+        "popular_services": ["loft-conversions", "house-extensions", "planning-drawings"],
+        "hero_lede": "Planning permission drawings, loft conversions, rear extensions, and flat conversions for Nunhead's Victorian and Edwardian housing. MCIAT chartered, fixed fees, Southwark planning expertise built in.",
+        "local_context_title": "Why Nunhead demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Nunhead sits in the SE15 postcode within the London Borough of Southwark. The neighbourhood's Victorian and Edwardian terraces — arranged around the picturesque Nunhead Cemetery — are increasingly popular as Peckham prices push buyers further south.",
+            "<strong>Victorian terraces:</strong> Nunhead's Victorian terraces are the dominant stock. Rear extensions, side-return infills, and rear dormer loft conversions are the core projects. Most fall within PD outside the small CA.",
+            "<strong>Nunhead Cemetery Conservation Area:</strong> The cemetery is one of the 'Magnificent Seven' Victorian cemeteries. The surrounding CA protects views. Properties facing or adjacent require heritage-sensitive design.",
+            "<strong>Edwardian stock:</strong> Some streets have larger Edwardian houses suitable for more substantial extensions.",
+            "<strong>Flat conversions:</strong> Subdivided houses are common. Further subdivision requires planning permission and compliance with Southwark's space standards.",
+        ],
+        "stats": [
+            ("Conservation areas", "Nunhead Cemetery CA"),
+            ("Housing type", "Victorian terraces"),
+            ("Planning authority", "Southwark Council"),
+            ("Key postcodes", "SE15"),
+        ],
+        "faqs": [
+            (
+                "Can I build a rear extension in Nunhead?",
+                "Yes — most fall within PD. Up to 3m for terraces or 6m with prior approval. We prepare drawings and notification.",
+            ),
+            (
+                "Do I need planning permission near the cemetery?",
+                "Within the Nunhead Cemetery CA — yes for most works. Heritage Statements are required. We prepare conservation-sensitive applications.",
+            ),
+            (
+                "What about loft conversions?",
+                "Rear dormers under PD are usually straightforward on Victorian terraces outside the CA. We prepare the LDC and building regs drawings.",
+            ),
+            (
+                "How much do architectural drawings cost in Nunhead?",
+                "Our Essentials package starts from £840. Complete from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Southwark take to decide?",
+                "Southwark targets 8 weeks for householders and 13 for majors. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Brockley",
+        "slug": "brockley",
+        "borough": "Lewisham",
+        "borough_slug": "lewisham",
+        "postcodes": "SE4",
+        "character": "Brockley is a Lewisham neighbourhood of handsome Victorian villas on tree-lined streets, with substantial period housing stock and strong conservation area coverage across much of the neighbourhood.",
+        "housing_stock": "Victorian villas, Victorian terraces, Edwardian houses, some Victorian detached",
+        "conservation_notes": "Brockley Conservation Area covers much of the neighbourhood; Article 4 Directions apply",
+        "planning_notes": "Lewisham Council applies strict heritage controls in the Brockley CA. Article 4 Directions remove PD rights. Heritage Statements are routine.",
+        "nearby": ["new-cross", "lewisham", "nunhead", "forest-hill"],
+        "popular_services": ["planning-drawings", "loft-conversions", "house-extensions"],
+        "hero_lede": "Planning permission drawings, heritage-sensitive extensions, and loft conversions for Brockley's Victorian villas and conservation-area terraces. MCIAT chartered, fixed fees, Lewisham planning expertise built in.",
+        "local_context_title": "Why Brockley demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Brockley sits in the SE4 postcode within the London Borough of Lewisham. The neighbourhood's handsome Victorian villas on tree-lined streets — within the extensive Brockley Conservation Area — make it one of south-east London's most sought-after period housing markets.",
+            "<strong>Brockley Conservation Area:</strong> Covers much of the neighbourhood. Article 4 Directions remove PD rights for most external alterations. Heritage Statements accompany every application. Our team prepares conservation-grade submissions.",
+            "<strong>Victorian villas:</strong> Brockley's double-fronted and semi-detached Victorian villas are among south-east London's finest. Substantial rear extensions, side-return infills, and loft conversions are achievable but all require planning permission within the CA.",
+            "<strong>Victorian terraces:</strong> The tighter terraced streets suit standard rear extensions and rear dormer loft conversions, all with planning permission required.",
+            "<strong>Lewisham design standards:</strong> Lewisham applies clear design guidance emphasising subordinate extensions, matching materials, and respect for the Victorian streetscape.",
+        ],
+        "stats": [
+            ("Conservation areas", "Brockley CA"),
+            ("Article 4", "Yes"),
+            ("Planning authority", "Lewisham Council"),
+            ("Key postcodes", "SE4"),
+        ],
+        "faqs": [
+            (
+                "Can I extend my Brockley Victorian villa?",
+                "Yes — substantial rear extensions and side-return infills are achievable. Every scheme requires planning permission. Heritage Statements are essential. We prepare conservation-sensitive designs.",
+            ),
+            (
+                "Do I need planning permission for a loft conversion?",
+                "Within the Brockley CA — yes. Dormer design must be subordinate and sympathetic. Rooflights are often preferred on front elevations. We design appropriate schemes.",
+            ),
+            (
+                "What about window replacements?",
+                "Sash window replacements within the CA typically need planning permission. Materials and glazing bar profiles matter. We prepare detailed schedules.",
+            ),
+            (
+                "How much do architectural drawings cost in Brockley?",
+                "The Complete package from £1,750 is typically required for Brockley CA projects. Essentials from £840 for minor interior works.",
+            ),
+            (
+                "How long does Lewisham take to decide?",
+                "Lewisham targets 8 weeks for householder and 13 for major applications. Conservation area applications may take longer. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "New Cross",
+        "slug": "new-cross",
+        "borough": "Lewisham",
+        "borough_slug": "lewisham",
+        "postcodes": "SE14",
+        "character": "New Cross is a Lewisham neighbourhood around Goldsmiths University, with Victorian terraces, post-war estates, and a dense student/young professional population. Flat conversions, rear extensions, and loft conversions are common.",
+        "housing_stock": "Victorian terraces, Edwardian houses, post-war estates, converted HMOs",
+        "conservation_notes": "Telegraph Hill Conservation Area nearby; small pockets in New Cross",
+        "planning_notes": "Lewisham applies standard policies. HMO licensing and Article 4 Directions affect some streets. Flat conversions require compliance with space standards.",
+        "nearby": ["brockley", "deptford", "peckham", "nunhead"],
+        "popular_services": ["loft-conversions", "house-extensions", "planning-drawings"],
+        "hero_lede": "Planning permission drawings, loft conversions, flat conversions, and extensions for New Cross' Victorian terraces and HMO properties. MCIAT chartered, fixed fees, Lewisham planning expertise built in.",
+        "local_context_title": "Why New Cross demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "New Cross sits in the SE14 postcode within the London Borough of Lewisham, centred on New Cross Gate and Goldsmiths University. The neighbourhood's Victorian terraces, HMO stock, and post-war estates generate a specific project pipeline around conversions and extensions.",
+            "<strong>Victorian terraces:</strong> New Cross has extensive Victorian terrace stock. Rear extensions and rear dormer loft conversions are the core projects. Most fall within PD outside conservation pockets.",
+            "<strong>HMO conversions:</strong> Many New Cross properties are HMOs serving Goldsmiths students and young professionals. HMO licensing is mandatory under Lewisham's Additional Licensing scheme. Conversion to or from HMO use may require planning permission. We prepare the drawings and licensing documentation.",
+            "<strong>Article 4 pockets:</strong> Lewisham has designated some Article 4 Directions affecting PD rights in New Cross. We check your property's status early.",
+            "<strong>Flat conversions:</strong> Conversion of larger houses into flats requires planning permission and compliance with Lewisham's space standards.",
+        ],
+        "stats": [
+            ("Conservation areas", "Small pockets"),
+            ("Housing type", "Victorian terraces, HMOs"),
+            ("Planning authority", "Lewisham Council"),
+            ("Key postcodes", "SE14"),
+        ],
+        "faqs": [
+            (
+                "Can I convert my New Cross house to an HMO?",
+                "Converting to an HMO typically requires planning permission from Lewisham (under Article 4 where it applies) plus an HMO licence. We prepare the drawings and advise on licensing.",
+            ),
+            (
+                "Do I need planning permission for a loft conversion?",
+                "Outside any Article 4 zones, rear dormers under PD are straightforward. Within Article 4 — planning permission required. We check your property's status.",
+            ),
+            (
+                "What about rear extensions?",
+                "Rear extensions under PD are typically straightforward for Victorian terraces outside Article 4 zones. We prepare drawings and notifications.",
+            ),
+            (
+                "How much do architectural drawings cost in New Cross?",
+                "Our Essentials package starts from £840. Complete from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Lewisham take to decide?",
+                "Lewisham targets 8 weeks for householders and 13 for majors. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Greenwich Peninsula",
+        "slug": "greenwich-peninsula",
+        "borough": "Greenwich",
+        "borough_slug": "greenwich",
+        "postcodes": "SE10",
+        "character": "Greenwich Peninsula is a regenerating riverside area of the Royal Borough of Greenwich, dominated by new-build apartment towers around the O2 Arena, Design District, and the Greenwich Millennium Village. New-build residential interior works dominate.",
+        "housing_stock": "New-build apartment towers, Millennium Village townhouses, Design District residential",
+        "conservation_notes": "Core is new-build; no significant conservation coverage on the peninsula itself",
+        "planning_notes": "Royal Borough of Greenwich applies the Peninsula-specific planning framework. Internal alterations in new-build require estate management and freeholder consent.",
+        "nearby": ["greenwich", "charlton", "isle-of-dogs", "canary-wharf"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, internal reconfigurations, and building regulations for Greenwich Peninsula's new-build apartments and Millennium Village. MCIAT chartered, fixed fees, Greenwich planning expertise built in.",
+        "local_context_title": "Why Greenwich Peninsula demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Greenwich Peninsula sits in the SE10 postcode within the Royal Borough of Greenwich, at the northern tip of the peninsula jutting into the Thames. The area is a regeneration zone — new-build apartment towers, the O2 Arena, Design District, and Millennium Village.",
+            "<strong>New-build apartments:</strong> The majority of Peninsula residential stock is new-build. Internal reconfigurations need freeholder and estate management consent. Some works may require planning. Building Regulations approval is essential for all structural or service changes.",
+            "<strong>Greenwich Millennium Village:</strong> The Millennium Village at the north of the Peninsula includes townhouses and low-rise apartments with specific design codes. Alterations must respect the village character.",
+            "<strong>Design District:</strong> The Design District mixes residential with creative workspace. Residential alterations follow the standard Peninsula framework.",
+            "<strong>Peninsula-specific planning:</strong> Greenwich has published site-specific guidance for the Peninsula. Major alterations require consultation with the masterplan team.",
+        ],
+        "stats": [
+            ("Conservation areas", "None on peninsula"),
+            ("Housing type", "New-build apartments"),
+            ("Planning authority", "Royal Borough of Greenwich"),
+            ("Key postcodes", "SE10"),
+        ],
+        "faqs": [
+            (
+                "Can I reconfigure my Greenwich Peninsula apartment?",
+                "Yes — internal reconfigurations are common. Freeholder and estate management consent are essential. Building Regulations approval is required. Some works may need planning. We prepare the full package.",
+            ),
+            (
+                "What about Millennium Village townhouses?",
+                "The Village has specific design codes. Extensions and external alterations require planning permission and consultation with the estate. We prepare compliant schemes.",
+            ),
+            (
+                "Do I need planning for balcony enclosures?",
+                "Usually yes — enclosing a balcony changes the external appearance and typically needs planning permission. We prepare the drawings and application.",
+            ),
+            (
+                "How much do architectural drawings cost in Greenwich Peninsula?",
+                "Our Essentials package starts from £840 for minor interior works. Complete from £1,750 for more substantial reconfigurations.",
+            ),
+            (
+                "How long does Greenwich take to decide?",
+                "Greenwich targets 8 weeks for householder and 13 for major applications. Peninsula applications may have additional consultation. We manage the timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Plumstead",
+        "slug": "plumstead",
+        "borough": "Greenwich",
+        "borough_slug": "greenwich",
+        "postcodes": "SE18",
+        "character": "Plumstead is a residential neighbourhood of the Royal Borough of Greenwich with Victorian terraces on hilly streets, Edwardian houses, and post-war estates. Extensions, loft conversions, and flat conversions are the mainstream project types.",
+        "housing_stock": "Victorian terraces, Edwardian houses, post-war estates, 1930s semis in some pockets",
+        "conservation_notes": "Plumstead Common CA; small additional pockets",
+        "planning_notes": "Royal Borough of Greenwich applies standard policies with heritage controls in the small CAs. Outside CAs, PD rights are intact.",
+        "nearby": ["woolwich", "welling", "eltham", "charlton"],
+        "popular_services": ["loft-conversions", "house-extensions", "building-regulations"],
+        "hero_lede": "Planning permission drawings, loft conversions, and extensions for Plumstead's Victorian terraces and Edwardian homes. MCIAT chartered, fixed fees, Greenwich planning expertise built in.",
+        "local_context_title": "Why Plumstead demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Plumstead sits in the SE18 postcode within the Royal Borough of Greenwich, east of Woolwich. The hilly streets of Victorian and Edwardian terraces — stepping up from the Thames — create a specific residential market.",
+            "<strong>Victorian terraces:</strong> Plumstead's Victorian terraces are dense and street-facing. Rear extensions, side-return infills, and rear dormer loft conversions are the main projects. Most fall within PD outside the small CAs.",
+            "<strong>Edwardian stock:</strong> Pockets of larger Edwardian houses suit more substantial extensions.",
+            "<strong>Plumstead Common CA:</strong> Covers the handsome streets facing Plumstead Common. Article 4 Directions may apply. Heritage Statements are required within the CA.",
+            "<strong>Hilly topography:</strong> The sloping streets create specific challenges for rear extensions — stepped sections, retaining walls, and terracing are often necessary. We design accordingly.",
+        ],
+        "stats": [
+            ("Conservation areas", "Plumstead Common CA"),
+            ("Housing type", "Victorian/Edwardian"),
+            ("Planning authority", "Royal Borough of Greenwich"),
+            ("Key postcodes", "SE18"),
+        ],
+        "faqs": [
+            (
+                "Can I build a rear extension on sloping ground?",
+                "Yes — sloping rear gardens often benefit from stepped or split-level extensions. Structural engineering is essential. We design schemes that work with the topography.",
+            ),
+            (
+                "Do I need planning permission in Plumstead Common CA?",
+                "Yes for most external works. Heritage Statements are required. We prepare conservation-sensitive applications.",
+            ),
+            (
+                "What about loft conversions?",
+                "Outside the CAs, rear dormers under PD are straightforward. Within the CA — planning permission is required. We assess and prepare.",
+            ),
+            (
+                "How much do architectural drawings cost in Plumstead?",
+                "Our Essentials package starts from £840. Complete from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Greenwich take to decide?",
+                "Greenwich targets 8 weeks for householders and 13 for majors. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Mottingham",
+        "slug": "mottingham",
+        "borough": "Greenwich",
+        "borough_slug": "greenwich",
+        "postcodes": "SE9",
+        "character": "Mottingham is a suburban neighbourhood straddling Greenwich and Bromley, with inter-war semis, bungalows, and some post-war developments. Extensions, loft conversions, and outbuildings are the staple projects.",
+        "housing_stock": "1930s semi-detached houses, inter-war bungalows, post-war developments, some Edwardian",
+        "conservation_notes": "Mottingham Conservation Area covers a small historic core",
+        "planning_notes": "Royal Borough of Greenwich applies standard policies. Outside the small CA, PD rights are intact. Bromley Council covers properties on the Bromley side.",
+        "nearby": ["eltham", "chislehurst", "sidcup", "plumstead"],
+        "popular_services": ["house-extensions", "loft-conversions", "building-regulations"],
+        "hero_lede": "Planning permission drawings, extensions, and loft conversions for Mottingham's 1930s semis and bungalows. MCIAT chartered, fixed fees, Greenwich and Bromley planning expertise built in.",
+        "local_context_title": "Why Mottingham demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Mottingham sits in the SE9 postcode, straddling the borough boundary between the Royal Borough of Greenwich and the London Borough of Bromley. The neighbourhood's inter-war housing stock makes it one of south-east London's consistent extension markets.",
+            "<strong>1930s semi-detached stock:</strong> Mottingham's inter-war semis typically have hipped roofs and generous rear gardens. Hip-to-gable loft conversions, 4–6m rear extensions, and two-storey side extensions are all common. Most fall within PD.",
+            "<strong>Bungalows:</strong> Mottingham has a stock of 1930s bungalows. Loft conversions to add a first floor are popular, as are garage conversions.",
+            "<strong>Cross-borough awareness:</strong> Properties on the Bromley side of Mottingham fall under Bromley Council; Greenwich side under the Royal Borough. We check your address early to ensure the application goes to the right authority.",
+            "<strong>Small CA:</strong> The Mottingham Conservation Area covers a small historic core. Within the CA, Article 4 Directions may apply.",
+        ],
+        "stats": [
+            ("Conservation areas", "Mottingham CA (small)"),
+            ("Housing type", "1930s semis, bungalows"),
+            ("Planning authority", "Greenwich / Bromley"),
+            ("Key postcodes", "SE9"),
+        ],
+        "faqs": [
+            (
+                "Which council handles my Mottingham application?",
+                "It depends on which side of the borough boundary your property sits. Greenwich Council covers the north; Bromley Council the south. We check the boundary early.",
+            ),
+            (
+                "Can I add a first floor to my Mottingham bungalow?",
+                "Often yes under PD subject to height, volume, and material rules. Alternatively, planning permission may be required. We assess and prepare.",
+            ),
+            (
+                "What about rear extensions?",
+                "Outside the small CA, rear extensions under PD or prior approval are straightforward. We prepare drawings and notifications.",
+            ),
+            (
+                "How much do architectural drawings cost in Mottingham?",
+                "Our Essentials package starts from £840. Complete from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long do the councils take to decide?",
+                "Both councils target 8 weeks for householders and 13 for majors. We manage the full process for either authority.",
+            ),
+        ],
+    },
+    {
+        "name": "Hither Green",
+        "slug": "hither-green",
+        "borough": "Lewisham",
+        "borough_slug": "lewisham",
+        "postcodes": "SE13",
+        "character": "Hither Green is a Lewisham neighbourhood of Victorian and Edwardian terraces, inter-war pockets, and some Victorian villas. A steady extension and loft-conversion market with increasing gentrification.",
+        "housing_stock": "Victorian terraces, Edwardian houses, inter-war semis, pockets of Victorian villas",
+        "conservation_notes": "Ennersdale CA; Corbett Estate CA",
+        "planning_notes": "Lewisham Council applies heritage controls in the CAs. Article 4 Directions apply. Outside CAs, standard Lewisham policies with PD rights.",
+        "nearby": ["lewisham", "catford", "blackheath", "brockley"],
+        "popular_services": ["loft-conversions", "house-extensions", "planning-drawings"],
+        "hero_lede": "Planning permission drawings, loft conversions, and extensions for Hither Green's Victorian and Edwardian terraces. MCIAT chartered, fixed fees, Lewisham planning expertise built in.",
+        "local_context_title": "Why Hither Green demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Hither Green sits in the SE13 postcode within the London Borough of Lewisham, east of Lewisham itself. The neighbourhood's Victorian and Edwardian terraces — with pockets of the Corbett Estate's distinctive Victorian planning — create a varied residential market.",
+            "<strong>Victorian terraces:</strong> Hither Green's Victorian terraces are the dominant stock. Rear extensions, side-return infills, and rear dormer loft conversions are the core projects.",
+            "<strong>Corbett Estate CA:</strong> This large Victorian estate is a designated conservation area. Article 4 Directions apply. Heritage Statements are required for most external works.",
+            "<strong>Ennersdale CA:</strong> Covers a smaller pocket. Heritage-sensitive design is required.",
+            "<strong>Lewisham design standards:</strong> Lewisham publishes clear design guidance. Extensions must be subordinate and match materials. We design to these standards.",
+        ],
+        "stats": [
+            ("Conservation areas", "Corbett Estate, Ennersdale"),
+            ("Housing type", "Victorian terraces"),
+            ("Planning authority", "Lewisham Council"),
+            ("Key postcodes", "SE13"),
+        ],
+        "faqs": [
+            (
+                "Do I need planning permission in the Corbett Estate?",
+                "Yes for most external works. Article 4 Directions apply. Heritage Statements are required. We prepare conservation-sensitive applications.",
+            ),
+            (
+                "Can I build a rear extension outside the CA?",
+                "Yes — most fall within PD or prior approval. We prepare drawings and notifications.",
+            ),
+            (
+                "What about loft conversions?",
+                "Outside the CAs, rear dormers under PD are straightforward. Within the CAs, planning permission is required.",
+            ),
+            (
+                "How much do architectural drawings cost in Hither Green?",
+                "Our Essentials package starts from £840. Complete from £1,750 covers planning and building regulations plus structural calculations.",
+            ),
+            (
+                "How long does Lewisham take to decide?",
+                "Lewisham targets 8 weeks for householders and 13 for majors. CA applications may take longer. We manage the timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Rotherhithe",
+        "slug": "rotherhithe",
+        "borough": "Southwark",
+        "borough_slug": "southwark",
+        "postcodes": "SE16",
+        "character": "Rotherhithe is a riverside Southwark neighbourhood of Georgian and Victorian maritime heritage buildings, converted warehouses, and substantial new-build developments. Mixed period and new-build residential with heritage complexity.",
+        "housing_stock": "Georgian maritime houses, converted warehouses, Victorian terraces, substantial new-build",
+        "conservation_notes": "Rotherhithe Conservation Area covers much of the historic riverside; Rotherhithe Village CA",
+        "planning_notes": "Southwark Council applies strict heritage controls in the Rotherhithe CAs. Article 4 Directions apply. Some buildings are listed. New-build estates have estate management.",
+        "nearby": ["surrey-quays", "bermondsey", "isle-of-dogs", "wapping"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, warehouse conversions, heritage-sensitive extensions, and building regulations for Rotherhithe's maritime and new-build housing. MCIAT chartered, fixed fees, Southwark heritage expertise built in.",
+        "local_context_title": "Why Rotherhithe demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Rotherhithe sits in the SE16 postcode within the London Borough of Southwark, on the south bank of the Thames opposite Wapping and Canary Wharf. The neighbourhood's Georgian and Victorian maritime heritage — warehouses, shipbuilding yards, and the Thames Tunnel's southern portal — sits alongside substantial new-build residential.",
+            "<strong>Rotherhithe Conservation Area:</strong> Protects the historic riverside. Article 4 Directions remove PD rights. Heritage Statements are essential. Our MCIAT-chartered team prepares Rotherhithe-grade submissions.",
+            "<strong>Warehouse conversions:</strong> Rotherhithe has a stock of converted warehouses and some remaining industrial stock awaiting conversion. Change-of-use applications combined with Building Regulations for fire, sound, and energy are typical.",
+            "<strong>Georgian maritime houses:</strong> Some of London's most atmospheric Georgian houses line the riverside. Many are listed. Listed Building Consent runs in parallel with planning permission.",
+            "<strong>New-build developments:</strong> Surrey Quays and the surrounding regeneration have added substantial new-build. Internal alterations need estate management and Building Regulations approval.",
+        ],
+        "stats": [
+            ("Conservation areas", "Rotherhithe CA"),
+            ("Article 4", "Yes"),
+            ("Planning authority", "Southwark Council"),
+            ("Key postcodes", "SE16"),
+        ],
+        "faqs": [
+            (
+                "Can I convert a Rotherhithe warehouse?",
+                "Yes — warehouse conversions are a core Rotherhithe project type. Change-of-use planning permission, Heritage Statements (if in a CA), and full Building Regulations approval are all required. We handle the full package.",
+            ),
+            (
+                "Do I need Listed Building Consent for my Georgian house?",
+                "If your property is listed — yes. Internal and external works affecting character need LBC. We prepare the parallel applications.",
+            ),
+            (
+                "What about new-build apartment reconfigurations?",
+                "Internal reconfigurations need freeholder and estate consent plus Building Regulations. Some works may need planning. We prepare the right package.",
+            ),
+            (
+                "How much do architectural drawings cost in Rotherhithe?",
+                "For heritage and warehouse projects, the Complete package from £1,750 is typical. Essentials from £840 for minor new-build interior works.",
+            ),
+            (
+                "How long does Southwark take to decide?",
+                "Southwark targets 8–13 weeks. Listed buildings and CAs may take longer. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Surrey Quays",
+        "slug": "surrey-quays",
+        "borough": "Southwark",
+        "borough_slug": "southwark",
+        "postcodes": "SE16",
+        "character": "Surrey Quays is a regenerating Southwark neighbourhood around the former docks, dominated by late 20th-century and new-build apartment developments, with ongoing major regeneration. New-build interior works and some period adjacent streets.",
+        "housing_stock": "Late 20th-century and new-build apartments, some period terraces on the edges, dockland housing",
+        "conservation_notes": "Rotherhithe CA nearby; core is new-build",
+        "planning_notes": "Southwark Council applies the Canada Water masterplan and wider regeneration framework. Internal alterations in new-build require estate management consent.",
+        "nearby": ["rotherhithe", "bermondsey", "isle-of-dogs", "canary-wharf"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, internal reconfigurations, and building regulations for Surrey Quays' new-build and dockland apartments. MCIAT chartered, fixed fees, Southwark planning expertise built in.",
+        "local_context_title": "Why Surrey Quays demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Surrey Quays sits in the SE16 postcode within the London Borough of Southwark, on the former dock basin south of Rotherhithe. The neighbourhood has been redeveloped since the 1980s with dockland housing and is currently subject to the Canada Water masterplan — one of central London's largest live regeneration schemes.",
+            "<strong>New-build apartments:</strong> The majority of Surrey Quays residential is new-build or late 20th-century. Internal reconfigurations need freeholder and estate consent. Building Regulations approval is essential.",
+            "<strong>Canada Water masterplan:</strong> The ongoing redevelopment will add thousands of new homes. Southwark has published detailed policy guidance. Major alterations require consultation with the masterplan team.",
+            "<strong>Dockland housing:</strong> Some 1980s/90s dockland housing has distinctive architectural character. Alterations should respect the original design.",
+            "<strong>Period edges:</strong> Streets at the edges towards Rotherhithe include period terraces with heritage considerations.",
+        ],
+        "stats": [
+            ("Conservation areas", "Edges only"),
+            ("Housing type", "New-build apartments, dockland"),
+            ("Planning authority", "Southwark Council"),
+            ("Key postcodes", "SE16"),
+        ],
+        "faqs": [
+            (
+                "Can I reconfigure my Surrey Quays apartment?",
+                "Yes — internal reconfigurations are common. Freeholder and estate management consent are essential. Building Regulations approval is required. We prepare the full package.",
+            ),
+            (
+                "What about balcony enclosures?",
+                "Usually require planning permission. Structural input is essential. We prepare the drawings and application.",
+            ),
+            (
+                "Do I need to consult the Canada Water masterplan?",
+                "For major alterations or new-build proposals on adjoining sites — yes. Southwark's masterplan team coordinates. We prepare appropriate supporting documentation.",
+            ),
+            (
+                "How much do architectural drawings cost in Surrey Quays?",
+                "Our Essentials package starts from £840 for minor interior works. Complete from £1,750 for more substantial projects.",
+            ),
+            (
+                "How long does Southwark take to decide?",
+                "Southwark targets 8–13 weeks. Masterplan consultations may add time. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Isle of Dogs",
+        "slug": "isle-of-dogs",
+        "borough": "Tower Hamlets",
+        "borough_slug": "tower-hamlets",
+        "postcodes": "E14",
+        "character": "Isle of Dogs is the Tower Hamlets neighbourhood centred on Canary Wharf and the surrounding Docklands residential developments. New-build apartment towers dominate alongside some period pockets at the southern tip.",
+        "housing_stock": "New-build apartment towers, Canary Wharf residential, late 20th-century dockland, Victorian pockets at Cubitt Town",
+        "conservation_notes": "Coldharbour CA; some isolated heritage pockets",
+        "planning_notes": "Tower Hamlets applies the Canary Wharf and Isle of Dogs planning frameworks. Internal alterations in new-build require estate management consent alongside Building Regulations.",
+        "nearby": ["canary-wharf", "limehouse", "greenwich-peninsula", "rotherhithe"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, internal reconfigurations, and building regulations for Isle of Dogs' Canary Wharf and Docklands apartments. MCIAT chartered, fixed fees, Tower Hamlets planning expertise built in.",
+        "local_context_title": "Why Isle of Dogs demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Isle of Dogs sits in the E14 postcode within the London Borough of Tower Hamlets, in the loop of the Thames containing Canary Wharf and the southern Docklands. The neighbourhood is dominated by new-build apartment towers with substantial regeneration continuing.",
+            "<strong>Canary Wharf residential:</strong> The Canary Wharf estate includes substantial high-rise residential. Internal reconfigurations require Canary Wharf Group consent alongside Tower Hamlets planning and Building Regulations.",
+            "<strong>Docklands apartments:</strong> The wider Isle of Dogs has extensive late 20th-century and new-build residential. Estate management consent is routine for internal works.",
+            "<strong>Coldharbour and Cubitt Town:</strong> Pockets of Victorian and Georgian heritage remain at the southern tip. Coldharbour CA protects historic dock cottages. Heritage-sensitive design is essential for any CA works.",
+            "<strong>Tower Hamlets policy:</strong> Tower Hamlets has published detailed policy for the Isle of Dogs emphasising high-density, high-quality design.",
+        ],
+        "stats": [
+            ("Conservation areas", "Coldharbour CA"),
+            ("Housing type", "New-build apartments"),
+            ("Planning authority", "Tower Hamlets Council"),
+            ("Key postcodes", "E14"),
+        ],
+        "faqs": [
+            (
+                "Can I reconfigure my Canary Wharf apartment?",
+                "Yes — internal reconfigurations are common. Canary Wharf Group and freeholder consent are essential. Building Regulations approval is required. Some works may need planning. We prepare the full package.",
+            ),
+            (
+                "What about Coldharbour heritage properties?",
+                "Coldharbour is tightly controlled. Every external work needs planning permission and Heritage Statement. Many buildings are listed. We prepare conservation-grade submissions.",
+            ),
+            (
+                "Can I add a mezzanine in my double-height apartment?",
+                "Possibly — subject to freeholder consent, structural checks, and Building Regulations (fire escape, headroom). Planning permission may or may not be needed. We advise.",
+            ),
+            (
+                "How much do architectural drawings cost in Isle of Dogs?",
+                "Our Essentials package starts from £840 for minor interior works. Complete from £1,750 for reconfigurations. Canary Wharf projects may require bespoke pricing.",
+            ),
+            (
+                "How long does Tower Hamlets take to decide?",
+                "Tower Hamlets targets 8 weeks for householder and 13 for majors. Canary Wharf consultations may add time. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Limehouse",
+        "slug": "limehouse",
+        "borough": "Tower Hamlets",
+        "borough_slug": "tower-hamlets",
+        "postcodes": "E14",
+        "character": "Limehouse is an east London Tower Hamlets neighbourhood of converted warehouses, Georgian maritime heritage, and new-build apartments along the Limehouse Basin. Heritage-sensitive warehouse conversions and new-build interior works dominate.",
+        "housing_stock": "Converted warehouses, Georgian maritime houses, Victorian terraces, new-build apartments around Limehouse Basin",
+        "conservation_notes": "Narrow Street Conservation Area; Limehouse Cut CA; multiple listed buildings",
+        "planning_notes": "Tower Hamlets applies strict heritage controls in the Limehouse CAs. Article 4 Directions apply. Listed Building Consent common. New-build estates have estate management.",
+        "nearby": ["wapping", "isle-of-dogs", "mile-end", "canary-wharf"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, warehouse conversions, heritage-sensitive extensions, and building regulations for Limehouse's maritime and new-build housing. MCIAT chartered, fixed fees, Tower Hamlets heritage expertise built in.",
+        "local_context_title": "Why Limehouse demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Limehouse sits in the E14 postcode within the London Borough of Tower Hamlets, east of Wapping along the Thames. The neighbourhood's Georgian maritime heritage, converted warehouses, and new-build apartments around Limehouse Basin make it one of east London's most architecturally varied residential markets.",
+            "<strong>Warehouse conversions:</strong> Limehouse has a significant stock of converted and convertible warehouses. Change-of-use planning permission combined with full Building Regulations approval is typical. Our team handles the full package.",
+            "<strong>Georgian Narrow Street:</strong> Narrow Street is one of London's most atmospheric Georgian riverside streets. Conservation area protection is strong. Many buildings are listed. Listed Building Consent is routine.",
+            "<strong>Limehouse Basin:</strong> The marina development includes substantial new-build residential. Internal reconfigurations need estate management consent and Building Regulations approval.",
+            "<strong>Tower Hamlets design standards:</strong> Tower Hamlets applies high design standards in Limehouse reflecting the heritage context.",
+        ],
+        "stats": [
+            ("Conservation areas", "Narrow Street, Limehouse Cut"),
+            ("Listed buildings", "Multiple"),
+            ("Planning authority", "Tower Hamlets Council"),
+            ("Key postcodes", "E14"),
+        ],
+        "faqs": [
+            (
+                "Can I convert a Limehouse warehouse?",
+                "Yes — change-of-use planning permission, Heritage Statement (if in CA), Listed Building Consent (if listed), and full Building Regulations approval are all typically required. We handle the full package.",
+            ),
+            (
+                "Do I need Listed Building Consent on Narrow Street?",
+                "Many Narrow Street properties are listed. LBC is required for most works affecting character. We prepare LBC alongside planning.",
+            ),
+            (
+                "Can I alter my Limehouse Basin apartment?",
+                "Internal reconfigurations need freeholder and estate consent plus Building Regulations. We prepare the full package.",
+            ),
+            (
+                "How much do architectural drawings cost in Limehouse?",
+                "For heritage and warehouse projects, Complete from £1,750 is typical. Essentials from £840 for minor new-build interior works.",
+            ),
+            (
+                "How long does Tower Hamlets take to decide?",
+                "Tower Hamlets targets 8–13 weeks. Listed buildings and CAs may take longer. We manage the full process.",
+            ),
+        ],
+    },
+    {
+        "name": "Wapping",
+        "slug": "wapping",
+        "borough": "Tower Hamlets",
+        "borough_slug": "tower-hamlets",
+        "postcodes": "E1W",
+        "character": "Wapping is a riverside Tower Hamlets neighbourhood of converted Georgian and Victorian warehouses, historic maritime infrastructure, and some new-build. Heritage-sensitive warehouse conversions and listed building works dominate.",
+        "housing_stock": "Converted warehouses, Georgian maritime houses, Victorian terraces, some new-build apartments",
+        "conservation_notes": "Wapping Wall CA; St Katharine Docks CA; many listed buildings",
+        "planning_notes": "Tower Hamlets applies strict heritage controls throughout Wapping. Article 4 Directions apply. Listed Building Consent routine. World Heritage Site (Tower of London) buffer extends close.",
+        "nearby": ["limehouse", "whitechapel", "isle-of-dogs", "bermondsey"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, warehouse conversions, Listed Building Consent, and heritage-sensitive building regulations for Wapping's maritime and Georgian housing. MCIAT chartered, fixed fees, Tower Hamlets heritage expertise built in.",
+        "local_context_title": "Why Wapping demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Wapping sits in the E1W postcode within the London Borough of Tower Hamlets, on the north bank of the Thames east of the Tower of London. The neighbourhood's Georgian maritime heritage — docks, warehouses, and riverside cottages — is among the most complete in London.",
+            "<strong>Warehouse conversions:</strong> Wapping has extensive converted warehouse stock. Further conversions face strict heritage controls. Every scheme requires planning permission, Heritage Statement, and often Listed Building Consent. Our team handles the full package.",
+            "<strong>Wapping Wall CA:</strong> Covers the historic riverside. Article 4 Directions remove PD rights. Heritage Statements essential.",
+            "<strong>Listed buildings:</strong> A high proportion of Wapping housing is listed — many Grade II, some Grade II*. Listed Building Consent is routine. We coordinate with Historic England where needed.",
+            "<strong>Tower of London WHS buffer:</strong> Parts of Wapping sit within the Tower of London World Heritage Site buffer zone. Proposals visible from the Tower need additional heritage justification.",
+        ],
+        "stats": [
+            ("Conservation areas", "Wapping Wall, St Katharine's"),
+            ("Listed buildings", "Extensive"),
+            ("Planning authority", "Tower Hamlets Council"),
+            ("Key postcodes", "E1W"),
+        ],
+        "faqs": [
+            (
+                "Can I alter my Wapping warehouse apartment?",
+                "Internal alterations in listed warehouses need Listed Building Consent. External alterations also need planning permission. We prepare both.",
+            ),
+            (
+                "Do I need a Heritage Impact Assessment?",
+                "For major works or works in the Tower of London WHS buffer — yes. We prepare detailed HIAs including verified views.",
+            ),
+            (
+                "Can I add a rooflight in a listed building?",
+                "Possibly — subject to design, position, and LBC. Conservation officers typically prefer concealed or minimally visible rooflights. We prepare appropriate schemes.",
+            ),
+            (
+                "How much do architectural drawings cost in Wapping?",
+                "Listed and heritage projects typically require Complete from £1,750 or bespoke pricing for major listed buildings. Essentials from £840 for minor new-build works.",
+            ),
+            (
+                "How long does Tower Hamlets take to decide?",
+                "Wapping applications typically take 8–13 weeks. Listed Building Consent runs in parallel. Historic England consultation may add time for higher-grade listings. We manage the full timeline.",
+            ),
+        ],
+    },
+    {
+        "name": "Whitechapel",
+        "slug": "whitechapel",
+        "borough": "Tower Hamlets",
+        "borough_slug": "tower-hamlets",
+        "postcodes": "E1",
+        "character": "Whitechapel is a Tower Hamlets neighbourhood of Victorian terraces, Georgian survivals, post-war estates, and major new-build regeneration. Mixed heritage-sensitive and new-build residential work with major regeneration around Whitechapel station.",
+        "housing_stock": "Victorian terraces, Georgian survivals, Victorian warehouses, post-war estates, substantial new-build",
+        "conservation_notes": "Whitechapel High Street CA; Fournier Street CA (Spitalfields edges)",
+        "planning_notes": "Tower Hamlets applies heritage controls in the CAs. Article 4 Directions apply. Major Elizabeth line regeneration around Whitechapel station has its own planning framework.",
+        "nearby": ["wapping", "shoreditch", "mile-end", "limehouse"],
+        "popular_services": ["planning-drawings", "building-regulations", "loft-conversions"],
+        "hero_lede": "Planning permission drawings, heritage-sensitive extensions, warehouse conversions, and building regulations for Whitechapel's Victorian and new-build housing. MCIAT chartered, fixed fees, Tower Hamlets planning expertise built in.",
+        "local_context_title": "Why Whitechapel demands specialist architectural drawings",
+        "local_context_paragraphs": [
+            "Whitechapel sits in the E1 postcode within the London Borough of Tower Hamlets, east of the City. The neighbourhood's Victorian terraces, Georgian survivals, and ongoing regeneration around Whitechapel Elizabeth line station create a mixed planning environment.",
+            "<strong>Victorian terraces:</strong> Whitechapel's Victorian terraces are dense. Rear extensions, loft conversions, and flat conversions are common. Article 4 Directions affect some streets.",
+            "<strong>Georgian survivals:</strong> Some streets retain Georgian and early Victorian stock of significant heritage value, particularly near Fournier Street at the Spitalfields edge. Many are listed.",
+            "<strong>Whitechapel High Street CA:</strong> Covers the historic core. Article 4 Directions apply. Heritage Statements required.",
+            "<strong>Regeneration context:</strong> The Whitechapel Elizabeth line station has catalysed substantial redevelopment. Major new-build schemes are underway or complete. Policy context is actively shifting.",
+        ],
+        "stats": [
+            ("Conservation areas", "Whitechapel High Street CA"),
+            ("Housing type", "Victorian, new-build"),
+            ("Planning authority", "Tower Hamlets Council"),
+            ("Key postcodes", "E1"),
+        ],
+        "faqs": [
+            (
+                "Can I convert my Whitechapel Victorian house into flats?",
+                "With planning permission from Tower Hamlets and compliance with space and amenity standards. HMO licensing may also apply. We prepare the full package.",
+            ),
+            (
+                "Do I need planning permission for a loft conversion?",
+                "Outside Article 4 zones, rear dormers under PD are straightforward. Within the CA or Article 4 — planning permission required. We check your property.",
+            ),
+            (
+                "What about warehouse conversions?",
+                "Change-of-use planning, Heritage Statement, and full Building Regulations approval are typically required. We handle the full package.",
+            ),
+            (
+                "How much do architectural drawings cost in Whitechapel?",
+                "Our Essentials package starts from £840. Complete from £1,750 covers planning and building regulations plus structural calculations. Conservation-grade projects typically need Complete.",
+            ),
+            (
+                "How long does Tower Hamlets take to decide?",
+                "Tower Hamlets targets 8–13 weeks. Conservation area and listed building applications may take longer. We manage the full process.",
+            ),
+        ],
+    },
 ]
 
 
@@ -3842,17 +5847,23 @@ def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     generated = []
+    skipped = []
     for n in NEIGHBOURHOODS:
-        page_html = generate_page(n)
         out_path = OUT_DIR / f"{n['slug']}.html"
+        if out_path.exists():
+            skipped.append(n["slug"])
+            continue
+        page_html = generate_page(n)
         out_path.write_text(page_html, encoding="utf-8")
         size_kb = len(page_html.encode("utf-8")) / 1024
         generated.append((n["slug"], n["name"], size_kb))
         print(f"  + {out_path.name} ({size_kb:.1f} KB)")
 
-    print(f"\nGenerated {len(generated)} neighbourhood pages in {OUT_DIR}")
-    total_kb = sum(s for _, _, s in generated)
-    print(f"Total: {total_kb:.0f} KB ({total_kb/1024:.1f} MB)")
+    print(f"\nGenerated {len(generated)} new neighbourhood pages in {OUT_DIR}")
+    print(f"Skipped {len(skipped)} existing pages (already on disk)")
+    if generated:
+        total_kb = sum(s for _, _, s in generated)
+        print(f"Total new: {total_kb:.0f} KB ({total_kb/1024:.1f} MB)")
 
 
 if __name__ == "__main__":

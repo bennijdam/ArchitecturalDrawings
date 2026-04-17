@@ -204,7 +204,7 @@ for html_file in ROOT.rglob('*.html'):
     original = content
 
     if 'googletagmanager.com/gtag/js?id=' in content:
-        content = PAIR_PATTERN.sub(SNIPPET, content, count=1)
+      content = PAIR_PATTERN.sub(lambda _m: SNIPPET, content, count=1)
     elif '</head>' in content:
         content = content.replace('</head>', SNIPPET + '\n</head>', 1)
 
@@ -212,4 +212,4 @@ for html_file in ROOT.rglob('*.html'):
         html_file.write_text(content, encoding='utf-8')
         changed += 1
 
-print(f'Checked {{checked}} HTML files; updated {{changed}} files.')
+print(f'Checked {checked} HTML files; updated {changed} files.')

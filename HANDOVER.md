@@ -1,7 +1,24 @@
 # HANDOVER.md — Architectural Drawings London
 
+> **Handover protocol (mandatory):** every agent, at the end of every task, appends a new entry at the TOP of the "Agent handover log" section below. UTC timestamp, self-identify as `Author:`, use the template in `.codex/GUARDRAILS.md` §6. No entry = the work didn't happen. Full rules in [.codex/GUARDRAILS.md](.codex/GUARDRAILS.md#6-handovermd--mandatory-post-task-update).
+
+---
+
+## Agent handover log
+
+## 2026-04-17 — Codex setup author
+
+**Author:** Codex Setup (initial scaffolding, performed by Claude Opus 4.7)
+**Task:** Scaffold the Codex/Paperclip agent framework for Architectural Drawings London as a new company, isolated from Tradematch.
+**Scope touched:** AGENTS.md (new), .codex/GUARDRAILS.md (new), .codex/PAPERCLIP_SETUP.md (new), .codex/SKILLS.md (new), .codex/agents/README.md (new), .codex/agents/seo-strategist.md (new), .codex/agents/backlink-hunter.md (new), .codex/agents/content-writer.md (new), .codex/agents/outreach-specialist.md (new), .codex/agents/social-media-manager.md (new), .codex/agents/local-seo-auditor.md (new), .codex/agents/pseo-optimiser.md (new), HANDOVER.md (appended protocol header + this entry).
+**Result:** shipped. Seven agent specs in place, skills catalogue written, Paperclip workspace runbook drafted, guardrails locked (100% visual parity, no stack changes, full Tradematch isolation). No design, framework, or copy changes to existing site — additive only.
+**Next action for the next agent:** Operator to execute `.codex/PAPERCLIP_SETUP.md` §1–§7 (workspace creation, repo link, secrets, domain/GA4/GSC/GBP setup, social handle claiming, agent provisioning, isolation smoke test). Once live, SEO Strategist runs the v1 topical map as described in PAPERCLIP_SETUP.md §8 kickoff.
+**Links:** AGENTS.md, .codex/PAPERCLIP_SETUP.md, .codex/agents/README.md
+
+---
+
 **Last updated:** 2026-04-16
-**Status:** Site fully built with 616 URLs across 2 sub-sitemaps, SEO/AEO/GEO optimised, 135 blog posts, 10 case studies, 80 neighbourhood pages, 3 cornerstone guide hubs, team hub, FAQ hub, glossary, resources hub, why-us comparison, cost calculator, PD checker, 364 pSEO pages (10 services x 33 boroughs). Conversion: sticky CTA + exit-intent + WhatsApp FABs + live chat widget on every page, callback forms on service/pSEO pages, animated counters, testimonials. PWA: service worker + manifest + offline fallback + 404 page + OpenSearch. 288 pages linked to pillar hubs via topic cluster bar. All 616 pages have BreadcrumbList schema. Zero invalid JSON-LD. Ready for deployment.
+**Status:** Site fully built with 665 URLs across 2 sub-sitemaps, SEO/AEO/GEO optimised. 135 blog posts, 10 case studies, 120 neighbourhood pages (80+40 new), 3 cornerstone guide hubs, 5 property-type hubs (Victorian/Edwardian/Georgian/1930s/modern-flat), team hub, FAQ hub, glossary, resources hub, why-us comparison, stats data page, 364 pSEO pages (10 services x 33 boroughs). 5 interactive tools (cost calculator, PD checker, timeline estimator, fee calculator, PD volume calculator). GEO: llms.txt for AI agents, authoritative source citations. PWA: service worker, manifest, offline.html, 404.html, OpenSearch. Conversion: sticky CTA + exit-intent + WhatsApp FABs + chat widget + callback forms + animated counters + testimonials. 100% schema coverage, zero invalid JSON-LD. Ready for deployment.
 
 ---
 

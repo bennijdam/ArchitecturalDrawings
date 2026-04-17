@@ -1776,6 +1776,272 @@ section {{ padding: clamp(60px, 9vw, 120px) 0; position: relative; }}
 .reveal { animation: __ad_safety_in 0.01s linear 1.5s forwards; }
 .reveal.in { animation: none; opacity: 1; transform: none; }
 </style>
+<!-- Google Analytics 4 (standardized) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-77CQ2PWJM4"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+window.gtag = window.gtag || gtag;
+gtag('js', new Date());
+gtag('config', 'G-77CQ2PWJM4', {
+  anonymize_ip: true,
+  allow_google_signals: false,
+  page_title: document.title,
+  page_location: window.location.href,
+  send_page_view: true
+});
+
+(() => {
+  const track = (name, params = {}) => {
+    try {
+      gtag('event', name, params);
+    } catch (err) {}
+  };
+
+  const startedForms = new Set();
+  const scrollMilestones = new Set();
+  const scrollTargets = [25, 50, 75, 90];
+
+  let quoteStarted = false;
+  let rafScheduled = false;
+
+  setTimeout(() => {
+    track('session_engaged_30s', {
+      page_path: window.location.pathname,
+      page_title: document.title
+    });
+  }, 30000);
+
+  const handleScroll = () => {
+    rafScheduled = false;
+    const doc = document.documentElement;
+    const maxScroll = Math.max(1, (doc.scrollHeight || 0) - window.innerHeight);
+    const pct = Math.round((window.scrollY / maxScroll) * 100);
+    scrollTargets.forEach((target) => {
+      if (pct >= target && !scrollMilestones.has(target)) {
+        scrollMilestones.add(target);
+        track('scroll_depth', {
+          percent_scrolled: target,
+          page_path: window.location.pathname
+        });
+      }
+    });
+  };
+
+  window.addEventListener('scroll', () => {
+    if (rafScheduled) return;
+    rafScheduled = true;
+    window.requestAnimationFrame(handleScroll);
+  }, { passive: true });
+
+  document.addEventListener('focusin', (e) => {
+    const el = e.target;
+    if (!(el instanceof Element)) return;
+    const form = el.closest('form');
+    if (!form) return;
+
+    const formId = form.id || form.getAttribute('name') || 'form';
+    if (!startedForms.has(formId)) {
+      startedForms.add(formId);
+      track('form_start', {
+        form_id: formId,
+        page_path: window.location.pathname
+      });
+    }
+
+    if (form.id === 'quoteForm' && !quoteStarted) {
+      quoteStarted = true;
+      track('quote_form_start', {
+        form_id: 'quoteForm',
+        page_path: window.location.pathname
+      });
+    }
+  }, true);
+
+  document.addEventListener('submit', (e) => {
+    const form = e.target;
+    if (!(form instanceof HTMLFormElement)) return;
+
+    const pagePath = window.location.pathname;
+    const formId = form.id || form.getAttribute('name') || 'form';
+
+    track('form_submit', { form_id: formId, page_path: pagePath });
+
+    if (formId === 'quoteForm') {
+      const service = form.querySelector('input[name="service"]:checked')?.value || '';
+      const tier = form.querySelector('#q-scope')?.value || form.querySelector('[name="tier"]')?.value || '';
+      track('generate_lead', { form_id: formId, page_path: pagePath, service, tier });
+      track('quote_submit', { form_id: formId, page_path: pagePath, service, tier });
+      return;
+    }
+
+    const queryInput = form.querySelector('input[name="q"], input[type="search"]');
+    if (queryInput && queryInput.value.trim()) {
+      track('search', { search_term: queryInput.value.trim(), page_path: pagePath });
+    }
+
+    if (/login/i.test(pagePath) || /login/i.test(formId)) {
+      track('login', { method: 'email', page_path: pagePath });
+      return;
+    }
+
+    if (/register|signup|sign-up/i.test(pagePath) || /register|signup|sign-up/i.test(formId)) {
+      track('sign_up', { method: 'email', page_path: pagePath });
+    }
+  }, true);
+
+  document.addEventListener('change', (e) => {
+    const el = e.target;
+    if (!(el instanceof Element)) return;
+
+    const inQuoteForm = !!el.closest('#quoteForm');
+    if (!inQuoteForm) return;
+
+    if (el.matches('input[name="property"], input[name="service"], #q-scope, #q-timeline')) {
+      track('quote_option_select', {
+        field: el.getAttribute('name') || el.getAttribute('id') || 'unknown',
+        value: (el.value || '').toString().slice(0, 80),
+        page_path: window.location.pathname
+      });
+    }
+  }, true);
+
+  document.addEventListener('click', (e) => {
+    const el = e.target;
+    if (!(el instanceof Element)) return;
+
+    const trigger = el.closest('a,button');
+    if (!trigger) return;
+
+    const text = (trigger.textContent || trigger.getAttribute('aria-label') || '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 100);
+    const href = trigger.getAttribute('href') || '';
+    const pagePath = window.location.pathname;
+    const combined = `${text} ${href}`.toLowerCase();
+
+    if (combined.includes('quote') || combined.includes('reserve my slot') || combined.includes('free quote')) {
+      track('cta_click', { cta_text: text || 'quote_cta', cta_target: href || pagePath, page_path: pagePath });
+    }
+
+    if (/^mailto:/i.test(href) || /^tel:/i.test(href)) {
+      const contactType = /^tel:/i.test(href) ? 'phone' : 'email';
+      track('contact_click', {
+        contact_type: contactType,
+        page_path: pagePath
+      });
+      track(contactType === 'phone' ? 'phone_click' : 'email_click', {
+        event_category: 'contact',
+        event_label: href.replace(/^mailto:|^tel:/i, ''),
+        page_path: pagePath
+      });
+    }
+
+    if (/\.(pdf|docx?|xlsx?|zip)(\?|#|$)/i.test(href)) {
+      const fileName = href.split('/').pop()?.split('?')[0] || 'download';
+      track('file_download', { file_name: fileName, page_path: pagePath });
+    }
+
+    if (/^https?:\/\//i.test(href)) {
+      try {
+        const url = new URL(href, window.location.href);
+        if (url.hostname !== window.location.hostname) {
+          track('outbound_click', {
+            link_domain: url.hostname,
+            link_url: url.href,
+            page_path: pagePath
+          });
+        }
+      } catch (_err) {}
+    }
+  }, true);
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "QAPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does a loft conversion cost in Barnet?",
+      "answerCount": 1,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Loft conversion costs in Barnet vary by type. A rear dormer loft conversion typically costs £40,000 to £60,000. A mansard conversion costs £60,000 to £95,000. A Velux (rooflight only) conversion costs £25,000 to £40,000. These are build costs only. On top you need architectural drawings (from £1,225 with us) and a council planning fee of £258 if planning permission is required.",
+        "upvoteCount": 0,
+        "url": "https://www.architecturaldrawings.uk/blog/loft-cost-barnet.html",
+        "author": {
+          "@type": "Organization",
+          "name": "Architectural Drawings London"
+        }
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need planning permission for a loft conversion in Barnet?",
+      "answerCount": 1,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most rear dormer and Velux loft conversions in Barnet fall under Permitted Development and do not require planning permission, provided they meet the size and design conditions. However, mansard conversions always need planning permission. Properties in Barnet's 20 conservation areas have more restricted PD rights, and front-facing or side-facing dormers may require a planning application. We recommend applying for a Lawful Development Certificate (£129) to formally confirm PD eligibility.",
+        "upvoteCount": 0,
+        "url": "https://www.architecturaldrawings.uk/blog/loft-cost-barnet.html",
+        "author": {
+          "@type": "Organization",
+          "name": "Architectural Drawings London"
+        }
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the minimum head height for a loft conversion in Barnet?",
+      "answerCount": 1,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The minimum usable head height for a loft conversion is generally considered to be 2.2 metres at the highest point of the existing loft space (measured from the top of the ceiling joists to the underside of the ridge beam). If your existing head height is below this, a dormer or mansard conversion can increase it. We carry out a feasibility check as part of our initial survey to confirm whether your Barnet property is suitable for a loft conversion.",
+        "upvoteCount": 0,
+        "url": "https://www.architecturaldrawings.uk/blog/loft-cost-barnet.html",
+        "author": {
+          "@type": "Organization",
+          "name": "Architectural Drawings London"
+        }
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need a Party Wall Agreement for a loft conversion in Barnet?",
+      "answerCount": 1,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If your loft conversion in Barnet involves work on a shared party wall (common with terraced and semi-detached properties), you will need a Party Wall Agreement under the Party Wall etc. Act 1996. This applies to work such as cutting into a party wall to insert steel beams, raising the party wall for a mansard, or building on top of a party wall. A Party Wall surveyor typically costs £700-1,500 per neighbour. We can recommend Party Wall surveyors who work in Barnet.",
+        "upvoteCount": 0,
+        "url": "https://www.architecturaldrawings.uk/blog/loft-cost-barnet.html",
+        "author": {
+          "@type": "Organization",
+          "name": "Architectural Drawings London"
+        }
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I get a mansard loft conversion approved in Barnet?",
+      "answerCount": 1,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Barnet assesses mansard applications on a case-by-case basis. Barnet Council will consider the impact on the streetscene, conservation area status, design quality, and any existing precedents on your street. We prepare mansard drawings from £1,575 and have a 98% first-time approval rate across all 33 London boroughs.",
+        "upvoteCount": 0,
+        "url": "https://www.architecturaldrawings.uk/blog/loft-cost-barnet.html",
+        "author": {
+          "@type": "Organization",
+          "name": "Architectural Drawings London"
+        }
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <!-- pillar-link -->
@@ -2030,6 +2296,20 @@ section {{ padding: clamp(60px, 9vw, 120px) 0; position: relative; }}
       Last updated: April 2026
     </div>
 
+  </div>
+</section>
+
+<!-- sources-references -->
+<section style="background: var(--bg-2); padding: 48px 0;">
+  <div class="container" style="max-width: 800px;">
+    <div style="border-left: 4px solid var(--accent); padding-left: 24px;">
+      <h3 style="font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-deep); font-family: var(--font-body); font-weight: 700; margin-bottom: 16px;">Sources &amp; references</h3>
+      <p style="color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 16px;">Factual claims in this article are based on the following authoritative UK sources. All data verified against current legislation and guidance as of April 2026.</p>
+      <ul style="font-size: 0.9rem; color: var(--ink-soft); line-height: 1.8; padding-left: 20px;">
+        <li><a href="https://www.planningportal.co.uk/permission/common-projects/loft-conversion" rel="noopener nofollow external" target="_blank" style="color:var(--accent-deep);text-decoration:underline;">Planning Portal — Loft Conversions</a></li><li><a href="https://www.legislation.gov.uk/uksi/2015/596/schedule/2/part/1/crossheading/class-b-additions-etc-to-the-roof-of-a-dwellinghouse" rel="noopener nofollow external" target="_blank" style="color:var(--accent-deep);text-decoration:underline;">Class B GPDO 2015 (loft additions)</a></li><li><a href="https://ciat.global/" rel="noopener nofollow external" target="_blank" style="color:var(--accent-deep);text-decoration:underline;">Chartered Institute of Architectural Technologists (CIAT)</a></li><li><a href="https://www.planningportal.co.uk/" rel="noopener nofollow external" target="_blank" style="color:var(--accent-deep);text-decoration:underline;">Planning Portal (UK Government)</a></li>
+      </ul>
+      <p style="font-size: 0.82rem; color: var(--ink-softer); margin-top: 20px; font-style: italic;">This article is informational only and does not constitute legal or planning advice. Always consult a qualified architectural technologist for your specific project. &mdash; <span style="color:var(--accent-deep);font-weight:600;">Architectural Drawings London</span>, MCIAT chartered.</p>
+    </div>
   </div>
 </section>
 
