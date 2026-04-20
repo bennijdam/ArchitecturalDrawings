@@ -2078,6 +2078,11 @@ gtag('config', 'G-77CQ2PWJM4', {
     });
   });
 
+  const initialSection = (location.hash || '#overview').replace('#', '');
+  const initialLink = document.querySelector('.portal-nav a[href="#' + initialSection + '"]')
+    || document.querySelector('.portal-nav a[href="#overview"]');
+  if (initialLink) initialLink.click();
+
   refreshCallbacks.addEventListener('click', () => loadCallbacks(true));
 
   // Sign out
