@@ -3,7 +3,6 @@
   "trailingSlash": false,
   "buildCommand": null,
   "outputDirectory": ".",
-  "ignoreCommand": "exit 0",
   "headers": [
     {
       "source": "/assets/(.*)",
