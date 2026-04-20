@@ -2040,6 +2040,26 @@ gtag('config', 'G-77CQ2PWJM4', {
   fill(usr);
   syncAdminUi();
 
+  function activateSection(id, triggerLink) {
+    document.querySelectorAll('.portal-nav a').forEach((link) => link.classList.remove('active'));
+    if (triggerLink) triggerLink.classList.add('active');
+    main.querySelectorAll('[data-section]').forEach((section) => section.classList.remove('active'));
+    if (id === 'overview' || id === 'projects' || id === 'files' || id === 'payments') {
+      main.classList.remove('hide-overview');
+      if (id !== 'overview') {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      main.classList.add('hide-overview');
+      const panel = main.querySelector('[data-section="' + id + '"]');
+      if (panel) panel.classList.add('active');
+      if (id === 'callbacks') loadCallbacks();
+    }
+    document.querySelector('.portal-sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').style.display = 'none';
+  }
+
   if ((!usr.name || !usr.email) && sessionStorage.getItem('ad_token')) {
     fetch(`${API}/api/auth/me`, {
       headers: { Authorization: `Bearer ${sessionStorage.getItem('ad_token')}` }
@@ -2061,27 +2081,14 @@ gtag('config', 'G-77CQ2PWJM4', {
     a.addEventListener('click', e => {
       e.preventDefault();
       const id = a.getAttribute('href').replace('#','');
-      document.querySelectorAll('.portal-nav a').forEach(l => l.classList.remove('active'));
-      a.classList.add('active');
-      main.querySelectorAll('[data-section]').forEach(s => s.classList.remove('active'));
-      if (id === 'overview' || id === 'projects' || id === 'files' || id === 'payments') {
-        main.classList.remove('hide-overview');
-        if (id !== 'overview') { const el = document.getElementById(id); if (el) el.scrollIntoView({behavior:'smooth',block:'start'}); }
-      } else {
-        main.classList.add('hide-overview');
-        const p = main.querySelector('[data-section="'+id+'"]');
-        if (p) p.classList.add('active');
-        if (id === 'callbacks') loadCallbacks();
-      }
-      document.querySelector('.portal-sidebar').classList.remove('open');
-      document.getElementById('sidebarOverlay').style.display = 'none';
+      activateSection(id, a);
     });
   });
 
   const initialSection = (location.hash || '#overview').replace('#', '');
   const initialLink = document.querySelector('.portal-nav a[href="#' + initialSection + '"]')
     || document.querySelector('.portal-nav a[href="#overview"]');
-  if (initialLink) initialLink.click();
+  if (initialLink) activateSection(initialSection, initialLink);
 
   refreshCallbacks.addEventListener('click', () => loadCallbacks(true));
 
