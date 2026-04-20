@@ -1350,6 +1350,48 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
 @media (max-width: 720px) {
   .project-item { grid-template-columns: 1fr; gap: 8px; }
 }
+.callback-item {
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) auto auto;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+.callback-item:last-child { border-bottom: 0; }
+.callback-item:hover { background: var(--bg-2); }
+.callback-main { min-width: 0; }
+.callback-phone {
+  font-weight: 600;
+  color: var(--ink);
+}
+.callback-topic {
+  margin-top: 8px;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+}
+.callback-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+  text-align: right;
+}
+.callback-empty {
+  text-align: center;
+  padding: 40px 24px;
+  color: var(--ink-soft);
+}
+@media (max-width: 860px) {
+  .callback-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .callback-meta {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
 .project-title { font-weight: 600; font-size: 1.02rem; }
 .project-meta { font-size: 0.84rem; color: var(--ink-soft); margin-top: 4px; }
 .badge {
@@ -1664,6 +1706,7 @@ gtag('config', 'G-77CQ2PWJM4', {
         <li><a href="#overview" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="5"/><rect x="13" y="10" width="8" height="11"/><rect x="3" y="13" width="8" height="8"/></svg>Overview</a></li>
         <li><a href="#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>Projects</a></li>
         <li><a href="#files"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/></svg>Files &amp; drawings</a></li>
+        <li id="callbackNavItem" class="hidden"><a href="#callbacks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4z"/><path d="M8 10h8M8 14h5"/></svg>Callbacks</a></li>
         <li><a href="#messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a8 8 0 0 1-12 7l-5 2 2-5A8 8 0 1 1 21 12z"/></svg>Messages</a></li>
         <li><a href="#payments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h3"/></svg>Payments</a></li>
         <li><a href="#settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .4 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.4 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.4l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .4-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.4-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.4h.1a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.4l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.4 1.8v.1a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings</a></li>
@@ -1809,6 +1852,21 @@ gtag('config', 'G-77CQ2PWJM4', {
       </div>
     </div>
 
+    <!-- ====== CALLBACKS (admin only) ====== -->
+    <div data-section="callbacks" id="callbacksSection">
+      <div class="portal-header">
+        <div>
+          <span class="eyebrow">Leads</span>
+          <h1 style="margin-top: 8px;">Callback requests</h1>
+          <p class="muted" id="callbacksSummary" style="margin-top:12px;max-width:720px;">Recent callback requests from the public site.</p>
+        </div>
+        <button class="btn btn-outline btn-sm" id="refreshCallbacks">Refresh</button>
+      </div>
+      <div class="project-list" id="callbacksList">
+        <div class="callback-empty">Loading callback requests…</div>
+      </div>
+    </div>
+
     <!-- ====== SETTINGS (hidden by default) ====== -->
     <div data-section="settings">
       <div class="portal-header">
@@ -1872,13 +1930,115 @@ gtag('config', 'G-77CQ2PWJM4', {
 
   // User
   let usr = {};
+  let callbacksLoaded = false;
   try { usr = JSON.parse(sessionStorage.getItem('ad_user') || '{}'); } catch(e) {}
+  const callbackNavItem = document.getElementById('callbackNavItem');
+  const callbacksList = document.getElementById('callbacksList');
+  const callbacksSummary = document.getElementById('callbacksSummary');
+  const refreshCallbacks = document.getElementById('refreshCallbacks');
   function fill(u) {
     if (u.name) { document.getElementById('userName').textContent = u.name; document.getElementById('userFirstName').textContent = u.name.split(' ')[0]; document.getElementById('userAvatar').textContent = u.name.charAt(0).toUpperCase(); document.getElementById('sName').value = u.name; }
     if (u.email) { document.getElementById('userEmail').textContent = u.email; document.getElementById('sEmail').value = u.email; }
     if (u.phone) document.getElementById('sPhone').value = u.phone;
   }
+  function isAdmin() {
+    return usr.role === 'admin';
+  }
+  function syncAdminUi() {
+    callbackNavItem.classList.toggle('hidden', !isAdmin());
+  }
+  function formatCallbackWhen(value) {
+    const map = {
+      asap: 'As soon as possible',
+      morning: 'This morning',
+      afternoon: 'This afternoon',
+      evening: 'This evening',
+      tomorrow: 'Tomorrow'
+    };
+    return map[value] || value || 'As soon as possible';
+  }
+  function formatCallbackDate(value) {
+    if (!value) return 'Just now';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+    return date.getDate() + ' ' + M[date.getMonth()] + ' ' + date.getFullYear() + ' · ' + date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  }
+  function renderCallbacks(rows) {
+    callbacksSummary.textContent = rows.length
+      ? `Showing the latest ${rows.length} callback request${rows.length === 1 ? '' : 's'} from the public site.`
+      : 'No callback requests have been submitted yet.';
+
+    callbacksList.innerHTML = '';
+    if (!rows.length) {
+      const empty = document.createElement('div');
+      empty.className = 'callback-empty';
+      empty.textContent = 'No callback requests yet.';
+      callbacksList.appendChild(empty);
+      return;
+    }
+
+    rows.forEach((row) => {
+      const item = document.createElement('div');
+      item.className = 'callback-item';
+
+      const mainCol = document.createElement('div');
+      mainCol.className = 'callback-main';
+      const title = document.createElement('div');
+      title.className = 'project-title';
+      title.textContent = row.name || 'Unknown caller';
+      const meta = document.createElement('div');
+      meta.className = 'project-meta';
+      meta.textContent = row.phone || 'No phone provided';
+      mainCol.appendChild(title);
+      mainCol.appendChild(meta);
+      if (row.topic) {
+        const topic = document.createElement('div');
+        topic.className = 'callback-topic';
+        topic.textContent = row.topic;
+        mainCol.appendChild(topic);
+      }
+
+      const whenBadge = document.createElement('span');
+      whenBadge.className = 'badge badge-review';
+      whenBadge.textContent = formatCallbackWhen(row.call_when);
+
+      const metaCol = document.createElement('div');
+      metaCol.className = 'callback-meta';
+      const phoneLink = document.createElement('a');
+      phoneLink.className = 'callback-phone';
+      phoneLink.href = `tel:${row.phone || ''}`;
+      phoneLink.textContent = row.phone || 'No phone';
+      const received = document.createElement('div');
+      received.className = 'tiny muted';
+      received.textContent = formatCallbackDate(row.created_at);
+      metaCol.appendChild(phoneLink);
+      metaCol.appendChild(received);
+
+      item.appendChild(mainCol);
+      item.appendChild(whenBadge);
+      item.appendChild(metaCol);
+      callbacksList.appendChild(item);
+    });
+  }
+  async function loadCallbacks(force = false) {
+    if (!isAdmin()) return;
+    if (callbacksLoaded && !force) return;
+    callbacksList.innerHTML = '<div class="callback-empty">Loading callback requests…</div>';
+    try {
+      const response = await fetch(`${API}/api/callbacks`, {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem('ad_token')}` }
+      });
+      if (!response.ok) throw new Error('Unable to load callbacks');
+      const data = await response.json();
+      renderCallbacks(Array.isArray(data.callbacks) ? data.callbacks : []);
+      callbacksLoaded = true;
+    } catch (err) {
+      callbacksList.innerHTML = '<div class="callback-empty">Unable to load callback requests right now.</div>';
+      callbacksSummary.textContent = 'The callback feed could not be loaded.';
+    }
+  }
   fill(usr);
+  syncAdminUi();
 
   if ((!usr.name || !usr.email) && sessionStorage.getItem('ad_token')) {
     fetch(`${API}/api/auth/me`, {
@@ -1890,6 +2050,7 @@ gtag('config', 'G-77CQ2PWJM4', {
         usr = { ...usr, ...data.user };
         sessionStorage.setItem('ad_user', JSON.stringify(usr));
         fill(usr);
+        syncAdminUi();
       })
       .catch(() => {});
   }
@@ -1910,11 +2071,14 @@ gtag('config', 'G-77CQ2PWJM4', {
         main.classList.add('hide-overview');
         const p = main.querySelector('[data-section="'+id+'"]');
         if (p) p.classList.add('active');
+        if (id === 'callbacks') loadCallbacks();
       }
       document.querySelector('.portal-sidebar').classList.remove('open');
       document.getElementById('sidebarOverlay').style.display = 'none';
     });
   });
+
+  refreshCallbacks.addEventListener('click', () => loadCallbacks(true));
 
   // Sign out
   document.getElementById('signOut').addEventListener('click', () => { sessionStorage.clear(); window.location.href = 'login.html'; });
