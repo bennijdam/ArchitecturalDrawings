@@ -517,3 +517,42 @@ def borough_name(slug):
 def adjacent_names(slug):
     """Return display names of adjacent boroughs."""
     return [BOROUGHS[a]["name"] for a in BOROUGHS[slug]["adjacent"] if a in BOROUGHS]
+
+# Per-borough street photograph (Unsplash IDs).
+# Each entry matches the area's actual housing character so the trust-signal
+# thumbnail on every pSEO page is contextually accurate rather than generic.
+BOROUGH_STREET_PHOTOS = {
+    "camden": ("1513635269975-59663e0ac1ad", "Victorian terraced street in Camden NW1"),
+    "islington": ("605146768851-eda79da39897", "Victorian conservation area terrace in Islington N1"),
+    "hackney": ("513694203232-719a280e022f", "Victorian terraced houses in Hackney E8"),
+    "westminster": ("551038247-3d9af20df552", "Georgian listed townhouses in Westminster SW1"),
+    "kensington-and-chelsea": ("520986606214-8b456906c813", "Stucco Georgian townhouses in Kensington W8"),
+    "hammersmith-and-fulham": ("605146768851-eda79da39897", "Victorian bay-fronted terrace in Fulham SW6"),
+    "wandsworth": ("1513635269975-59663e0ac1ad", "Victorian terraced street in Clapham SW11"),
+    "lambeth": ("592595896616-c37162298647", "Victorian terraced street in Brixton SW9"),
+    "southwark": ("568454537842-d933259bb258", "Georgian and Victorian terraces in Bermondsey SE1"),
+    "lewisham": ("1513635269975-59663e0ac1ad", "Victorian terraced street in Forest Hill SE23"),
+    "greenwich": ("605146768851-eda79da39897", "Georgian conservation area street in Greenwich SE10"),
+    "tower-hamlets": ("551038247-3d9af20df552", "Georgian terraces in Spitalfields E1"),
+    "newham": ("592595896616-c37162298647", "Victorian terraced street in Forest Gate E7"),
+    "waltham-forest": ("1513635269975-59663e0ac1ad", "Victorian terraced street in Walthamstow E17"),
+    "redbridge": ("568454537842-d933259bb258", "1930s semi-detached houses in Wanstead E11"),
+    "barking-and-dagenham": ("1513635269975-59663e0ac1ad", "1920s terraced housing in Becontree Estate Dagenham"),
+    "havering": ("568454537842-d933259bb258", "1930s semi-detached houses in Hornchurch RM11"),
+    "haringey": ("513694203232-719a280e022f", "Edwardian terraced houses in Crouch End N8"),
+    "barnet": ("568454537842-d933259bb258", "1930s semi-detached houses in Finchley N3"),
+    "enfield": ("605146768851-eda79da39897", "Edwardian villas in Winchmore Hill N21"),
+    "ealing": ("605146768851-eda79da39897", "Edwardian villas in Ealing W5"),
+    "hounslow": ("513694203232-719a280e022f", "Edwardian terraced houses in Chiswick W4"),
+    "brent": ("513694203232-719a280e022f", "Edwardian villas in Queens Park NW6"),
+    "hillingdon": ("592595896616-c37162298647", "1930s semi-detached street in Ruislip HA4"),
+    "harrow": ("568454537842-d933259bb258", "1930s semi-detached houses in Harrow HA1"),
+    "richmond-upon-thames": ("520986606214-8b456906c813", "Georgian houses on Richmond Green TW9"),
+    "kingston-upon-thames": ("592595896616-c37162298647", "Edwardian terraced street in Surbiton KT6"),
+    "merton": ("568454537842-d933259bb258", "Victorian villas in Wimbledon SW19"),
+    "sutton": ("592595896616-c37162298647", "1930s semi-detached houses in Sutton SM1"),
+    "croydon": ("1513635269975-59663e0ac1ad", "Victorian villas in Crystal Palace SE19"),
+    "bromley": ("568454537842-d933259bb258", "1930s detached houses in Chislehurst BR7"),
+    "bexley": ("592595896616-c37162298647", "1930s semi-detached street in Bexleyheath DA6"),
+    "city-of-london": ("551038247-3d9af20df552", "Georgian listed buildings in the City of London EC2"),
+}

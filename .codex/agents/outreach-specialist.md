@@ -49,7 +49,7 @@ Turn prospects into placed, indexed, dofollow backlinks. Own the conversations.
 - Scan queries within 1 hour of release.
 - Respond only where the MCIAT + London-planning expertise is a genuine fit (aim for quality > quantity).
 - ≤150 words. Quotable sentence in the first two lines. Byline format:
-  > **{Operator name}, MCIAT, Chartered Architectural Technologist at [Architectural Drawings London](https://architecturaldrawings.co.uk)**
+  > **{Operator name}, MCIAT, Chartered Architectural Technologist at [Architectural Drawings London](https://architecturaldrawings.uk)**
 
 ## Handover template
 ```markdown

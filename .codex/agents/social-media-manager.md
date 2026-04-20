@@ -73,7 +73,7 @@ This feeds GA4 so the SEO Strategist can attribute social-sourced conversions.
 Every Friday, log:
 - Impressions / reach per platform
 - Engagement rate per platform
-- Referral sessions to `architecturaldrawings.co.uk` (GA4, UTM-filtered)
+- Referral sessions to `architecturaldrawings.uk` (GA4, UTM-filtered)
 - Top-performing post + why (for next week's calendar)
 - Any DMs that became quote enquiries (routed to operator)
 

@@ -20,7 +20,7 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPT_DIR))
-from pseo_boroughs import BOROUGHS, BOROUGH_SLUGS, adjacent_names
+from pseo_boroughs import BOROUGHS, BOROUGH_SLUGS, adjacent_names, BOROUGH_STREET_PHOTOS
 from pseo_services import SERVICES, SERVICE_SLUGS
 
 # Output
@@ -315,6 +315,8 @@ def render_service_location(borough_slug, service_slug):
 
     # Image
     hero = s["hero_img"]
+    borough_photo_id, borough_photo_alt = BOROUGH_STREET_PHOTOS.get(
+        borough_slug, ("1513635269975-59663e0ac1ad", "London residential street"))
 
     # Quick facts box values
     article_4_short = "Yes" if b["article_4"] else "No"
@@ -590,8 +592,8 @@ def render_service_location(borough_slug, service_slug):
   <div class="container">
     <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between;">
       <div style="flex:0 0 auto; width:200px; border-radius:var(--r-md); overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&amp;fit=crop&amp;w=400&amp;q=75"
-             alt="Victorian terraced street in London" loading="lazy" width="400" height="267"
+        <img src="https://images.unsplash.com/photo-{borough_photo_id}?auto=format&amp;fit=crop&amp;w=400&amp;q=75"
+             alt="{borough_photo_alt}" loading="lazy" width="400" height="267"
              style="width:100%;height:100%;object-fit:cover;display:block;" />
       </div>
       <div class="hero-trust" style="flex:1;">
@@ -1018,6 +1020,8 @@ SERVICE_ICON = '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strok
 def render_borough_hub(borough_slug):
     b = BOROUGHS[borough_slug]
     location = b["name"]
+    borough_photo_id, borough_photo_alt = BOROUGH_STREET_PHOTOS.get(
+        borough_slug, ("1513635269975-59663e0ac1ad", "London residential street"))
     canonical = f"https://www.architecturaldrawings.uk/areas/{borough_slug}/"
 
     title = f"Architectural Drawings in {location} | Planning, Loft, Extension — from £556"
@@ -1202,8 +1206,8 @@ def render_borough_hub(borough_slug):
   <div class="container">
     <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between;">
       <div style="flex:0 0 auto; width:200px; border-radius:var(--r-md); overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&amp;fit=crop&amp;w=400&amp;q=75"
-             alt="Victorian terraced street in London" loading="lazy" width="400" height="267"
+        <img src="https://images.unsplash.com/photo-{borough_photo_id}?auto=format&amp;fit=crop&amp;w=400&amp;q=75"
+             alt="{borough_photo_alt}" loading="lazy" width="400" height="267"
              style="width:100%;height:100%;object-fit:cover;display:block;" />
       </div>
       <div class="hero-trust" style="flex:1;">
