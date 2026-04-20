@@ -1,6 +1,7 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
 import { Resend } from 'resend';
+import { requireAuth, requireRole } from '../middleware/auth.js';
 import { getDb } from '../models/db.js';
 
 const router = express.Router();
@@ -12,6 +13,19 @@ function getResend() {
   }
   return resend;
 }
+
+/* GET /api/callbacks — admin only */
+router.get('/', requireAuth, requireRole('admin'), (req, res) => {
+  const db = getDb();
+  const rows = db.prepare(`
+    SELECT id, name, phone, call_when, topic, created_at
+    FROM callbacks
+    ORDER BY created_at DESC
+    LIMIT 100
+  `).all();
+
+  res.json({ callbacks: rows });
+});
 
 /* POST /api/callbacks — public (from landing page callback widget) */
 router.post('/',
