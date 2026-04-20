@@ -27,6 +27,22 @@ router.get('/', requireAuth, requireRole('admin'), (req, res) => {
   res.json({ callbacks: rows });
 });
 
+/* DELETE /api/callbacks/:id — admin only */
+router.delete('/:id', requireAuth, requireRole('admin'), (req, res) => {
+  const callbackId = Number.parseInt(req.params.id, 10);
+  if (!Number.isInteger(callbackId) || callbackId <= 0) {
+    return res.status(400).json({ error: 'Invalid callback id' });
+  }
+
+  const db = getDb();
+  const result = db.prepare('DELETE FROM callbacks WHERE id = ?').run(callbackId);
+  if (!result.changes) {
+    return res.status(404).json({ error: 'Callback not found' });
+  }
+
+  res.json({ ok: true });
+});
+
 /* POST /api/callbacks — public (from landing page callback widget) */
 router.post('/',
   body('name').isLength({ min: 1, max: 120 }).trim().escape(),

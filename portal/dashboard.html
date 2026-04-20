@@ -1370,6 +1370,14 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   color: var(--ink-soft);
   font-size: 0.88rem;
 }
+.callback-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-start;
+}
+.callback-delete {
+  min-width: 88px;
+}
 .callback-meta {
   display: flex;
   flex-direction: column;
@@ -1980,6 +1988,7 @@ gtag('config', 'G-77CQ2PWJM4', {
     rows.forEach((row) => {
       const item = document.createElement('div');
       item.className = 'callback-item';
+      item.dataset.callbackId = String(row.id || '');
 
       const mainCol = document.createElement('div');
       mainCol.className = 'callback-main';
@@ -1997,6 +2006,33 @@ gtag('config', 'G-77CQ2PWJM4', {
         topic.textContent = row.topic;
         mainCol.appendChild(topic);
       }
+
+      const actions = document.createElement('div');
+      actions.className = 'callback-actions';
+      const deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.className = 'btn btn-outline btn-sm callback-delete';
+      deleteButton.textContent = 'Delete';
+      deleteButton.addEventListener('click', async () => {
+        if (!window.confirm(`Delete callback request from ${row.name || 'this caller'}?`)) return;
+        deleteButton.disabled = true;
+        deleteButton.textContent = 'Deleting…';
+        try {
+          const response = await fetch(`${API}/api/callbacks/${row.id}`, {
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${sessionStorage.getItem('ad_token')}` }
+          });
+          if (!response.ok) throw new Error('Unable to delete callback');
+          callbacksLoaded = false;
+          await loadCallbacks(true);
+        } catch (_err) {
+          deleteButton.disabled = false;
+          deleteButton.textContent = 'Delete';
+          window.alert('Unable to delete callback request right now.');
+        }
+      });
+      actions.appendChild(deleteButton);
+      mainCol.appendChild(actions);
 
       const whenBadge = document.createElement('span');
       whenBadge.className = 'badge badge-review';
