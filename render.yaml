@@ -41,7 +41,7 @@ services:
       - key: STRIPE_CANCEL_URL
         value: https://www.architecturaldrawings.uk/portal/dashboard.html?payment=cancelled
       - key: EMAIL_FROM
-        value: Architectural Drawings London <hello@architecturaldrawings.uk>
+        value: Architectural Drawings <noreply@send.architecturaldrawings.uk>
       - key: EMAIL_TO_OPS
         value: hello@architecturaldrawings.uk
       - key: SENTRY_DSN

@@ -35,7 +35,7 @@ router.post('/',
     if (client) {
       try {
         await client.emails.send({
-          from: process.env.EMAIL_FROM || 'Architectural Drawings <noreply@architecturaldrawings.uk>',
+          from: process.env.EMAIL_FROM || 'Architectural Drawings <noreply@send.architecturaldrawings.uk>',
           to: 'hello@architecturaldrawings.uk',
           subject: `[Callback request] ${name} — ${callWhen || 'ASAP'}`,
           html: `
