@@ -117,6 +117,15 @@ export function initDb() {
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     );
     CREATE INDEX IF NOT EXISTS idx_payments_session ON payments(stripe_session_id);
+
+    CREATE TABLE IF NOT EXISTS callbacks (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      call_when TEXT,
+      topic TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
   console.log('✓ Database initialised');
 }

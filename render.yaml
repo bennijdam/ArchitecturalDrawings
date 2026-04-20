@@ -1,0 +1,62 @@
+services:
+  - type: web
+    name: architecturaldrawings-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    rootDir: api
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    domains:
+      - api.architecturaldrawings.uk
+    disk:
+      name: data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ALLOWED_ORIGIN
+        value: https://www.architecturaldrawings.uk
+      - key: DATABASE_URL
+        value: /var/data/ad.sqlite
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MAX_FILE_SIZE_MB
+        value: 100
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX
+        value: 100
+      - key: SENTRY_TRACES_SAMPLE_RATE
+        value: 0.2
+      - key: STRIPE_SUCCESS_URL
+        value: https://www.architecturaldrawings.uk/portal/dashboard.html?payment=success
+      - key: STRIPE_CANCEL_URL
+        value: https://www.architecturaldrawings.uk/portal/dashboard.html?payment=cancelled
+      - key: EMAIL_FROM
+        value: Architectural Drawings London <hello@architecturaldrawings.uk>
+      - key: EMAIL_TO_OPS
+        value: hello@architecturaldrawings.uk
+      - key: SENTRY_DSN
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false

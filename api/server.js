@@ -20,6 +20,7 @@ import quotesRouter from './routes/quotes.js';
 import projectsRouter from './routes/projects.js';
 import filesRouter from './routes/files.js';
 import stripeRouter, { stripeWebhookHandler } from './routes/stripe.js';
+import callbacksRouter from './routes/callbacks.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -77,6 +78,7 @@ app.use('/api/quotes', quotesRouter);
 app.use('/api/projects', projectsRouter);
 app.use('/api/files', filesRouter);
 app.use('/api/stripe', stripeRouter);
+app.use('/api/callbacks', callbacksRouter);
 
 // Static uploaded files (auth-gated — see files.js for secure route)
 app.use('/uploads', express.static(process.env.UPLOAD_DIR || './uploads'));
