@@ -66,6 +66,38 @@ export function getDb() {
   return isPostgres ? getPgPool() : getSqliteDb();
 }
 
+export async function dbGet(sql, params = []) {
+  if (!isPostgres) return getSqliteDb().prepare(sql).get(...params);
+  const result = await getPgPool().query(toPgSql(sql), params);
+  return result.rows[0];
+}
+
+export async function dbAll(sql, params = []) {
+  if (!isPostgres) return getSqliteDb().prepare(sql).all(...params);
+  const result = await getPgPool().query(toPgSql(sql), params);
+  return result.rows;
+}
+
+export async function dbRun(sql, params = []) {
+  if (!isPostgres) return getSqliteDb().prepare(sql).run(...params);
+  const result = await getPgPool().query(toPgSql(sql), params);
+  return {
+    changes: result.rowCount,
+    rows: result.rows,
+  };
+}
+
+export async function dbInsert(sql, params = []) {
+  if (!isPostgres) {
+    const info = getSqliteDb().prepare(sql).run(...params);
+    return { id: Number(info.lastInsertRowid) };
+  }
+
+  const text = /returning\s+/i.test(sql) ? sql : `${sql} RETURNING id`;
+  const result = await getPgPool().query(toPgSql(text), params);
+  return result.rows[0] || { id: null };
+}
+
 async function initPostgres() {
   const pool = getPgPool();
   const statements = [
