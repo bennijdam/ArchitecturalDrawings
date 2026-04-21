@@ -6,6 +6,15 @@
 
 ## Agent handover log
 
+## 2026-04-21 — Inline password reset status shipped
+
+**Author:** Codex
+**Task:** Replace the dashboard password-reset success alert with an inline non-blocking status message and verify the refined UX on production.
+**Scope touched:** portal/dashboard.html, HANDOVER.md.
+**Result:** shipped and verified live. The Settings password action still uses the real `/api/auth/reset-password` request path, but success and error feedback now render inline under the password row instead of using blocking browser alerts. Production verification on `architecturaldrawings.uk` confirmed the success message appears inline in the Security section after clicking `Change`.
+**Next action for the next agent:** Optional polish only: mirror the same inline pattern for profile-save feedback if the portal should avoid browser alerts entirely.
+**Links:** portal/dashboard.html, HANDOVER.md
+
 ## 2026-04-21 — Dashboard password action wired to live reset flow
 
 **Author:** Codex

@@ -1875,7 +1875,7 @@ gtag('config', 'G-77CQ2PWJM4', {
       </div>
       <div class="settings-group">
         <h3>Security</h3>
-        <div class="settings-row"><div><div class="settings-label">Password</div><div class="settings-value">Email yourself a secure reset link</div></div><button class="btn btn-outline btn-sm" id="sendResetLink">Change</button></div>
+        <div class="settings-row"><div><div class="settings-label">Password</div><div class="settings-value">Email yourself a secure reset link</div><div id="resetLinkStatus" class="tiny muted" style="margin-top:8px;display:none;"></div></div><button class="btn btn-outline btn-sm" id="sendResetLink">Change</button></div>
         <div class="settings-row"><div><div class="settings-label">Two-factor authentication</div><div class="settings-value">Not enabled</div></div><button class="btn btn-outline btn-sm" disabled>Coming soon</button></div>
       </div>
       <div class="settings-group">
@@ -2379,15 +2379,25 @@ gtag('config', 'G-77CQ2PWJM4', {
 
   document.getElementById('sendResetLink').addEventListener('click', async () => {
     const button = document.getElementById('sendResetLink');
+    const status = document.getElementById('resetLinkStatus');
     const email = (document.getElementById('sEmail').value || usr.email || '').trim();
 
+    function setResetStatus(message, tone) {
+      status.textContent = message;
+      status.style.display = message ? 'block' : 'none';
+      status.style.color = tone === 'error' ? 'var(--warn)' : tone === 'success' ? 'var(--success)' : 'var(--ink-soft)';
+    }
+
+    setResetStatus('', 'default');
+
     if (!email) {
-      alert('Add an email address to your profile before requesting a reset link.');
+      setResetStatus('Add an email address to your profile before requesting a reset link.', 'error');
       return;
     }
 
     button.disabled = true;
     button.textContent = 'Sending…';
+    setResetStatus('Sending a reset link to ' + email + '…', 'default');
 
     try {
       const response = await fetch(`${API}/api/auth/reset-password`, {
@@ -2398,13 +2408,13 @@ gtag('config', 'G-77CQ2PWJM4', {
 
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
-        alert(data.error || 'Unable to send a reset link right now.');
+        setResetStatus(data.error || 'Unable to send a reset link right now.', 'error');
         return;
       }
 
-      alert('If that email address exists, a reset link has been sent.');
+      setResetStatus('If that email address exists, a reset link has been sent.', 'success');
     } catch (_error) {
-      alert('Unable to send a reset link right now.');
+      setResetStatus('Unable to send a reset link right now.', 'error');
     } finally {
       button.disabled = false;
       button.textContent = 'Change';
