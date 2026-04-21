@@ -1,7 +1,7 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
 import nodemailer from 'nodemailer';
-import { getDb } from '../models/db.js';
+import { dbAll, dbInsert } from '../models/db.js';
 import { requireAuth, requireRole } from '../middleware/auth.js';
 
 const router = express.Router();
@@ -35,12 +35,11 @@ router.post('/',
     if (!errors.isEmpty()) return res.status(400).json({ error: 'Validation failed', details: errors.array() });
 
     const { property, service, tier, timeline, postcode, name, email, phone, notes } = req.body;
-    const db = getDb();
 
-    const info = db.prepare(`
+    const info = await dbInsert(`
       INSERT INTO quotes (property, service, tier, timeline, postcode, name, email, phone, notes)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(property, service, tier, timeline, postcode, name, email, phone || null, notes || null);
+    `, [property, service, tier, timeline, postcode, name, email, phone || null, notes || null]);
 
     // Notify ops team (best-effort)
     const mailer = getMailer();
@@ -55,14 +54,13 @@ router.post('/',
       } catch (err) { console.error('Mail error:', err.message); }
     }
 
-    res.status(201).json({ ok: true, id: info.lastInsertRowid });
+    res.status(201).json({ ok: true, id: info.id });
   }
 );
 
 /* GET /api/quotes — admin only */
-router.get('/', requireAuth, requireRole('admin'), (req, res) => {
-  const db = getDb();
-  const rows = db.prepare('SELECT * FROM quotes ORDER BY created_at DESC LIMIT 100').all();
+router.get('/', requireAuth, requireRole('admin'), async (req, res) => {
+  const rows = await dbAll('SELECT * FROM quotes ORDER BY created_at DESC LIMIT 100');
   res.json({ quotes: rows });
 });
 

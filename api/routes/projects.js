@@ -1,23 +1,21 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
-import { getDb } from '../models/db.js';
+import { dbAll, dbGet, dbInsert, dbRun } from '../models/db.js';
 import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
 /* GET /api/projects — list current user's projects */
-router.get('/', requireAuth, (req, res) => {
-  const db = getDb();
-  const rows = db.prepare(
+router.get('/', requireAuth, async (req, res) => {
+  const rows = await dbAll(
     'SELECT id, title, service, postcode, status, value_pence, created_at FROM projects WHERE user_id = ? ORDER BY created_at DESC'
-  ).all(req.user.id);
+  , [req.user.id]);
   res.json({ projects: rows });
 });
 
 /* GET /api/projects/:id */
-router.get('/:id', requireAuth, (req, res) => {
-  const db = getDb();
-  const row = db.prepare('SELECT * FROM projects WHERE id = ? AND user_id = ?').get(req.params.id, req.user.id);
+router.get('/:id', requireAuth, async (req, res) => {
+  const row = await dbGet('SELECT * FROM projects WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
   if (!row) return res.status(404).json({ error: 'Project not found' });
   res.json({ project: row });
 });
@@ -29,24 +27,22 @@ router.post('/',
   body('service').optional().isString(),
   body('postcode').optional().isLength({ max: 12 }).trim(),
   body('value_pence').optional().isInt({ min: 0 }),
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ error: 'Validation failed' });
 
     const { title, service, postcode, value_pence } = req.body;
-    const db = getDb();
-    const info = db.prepare(
+    const info = await dbInsert(
       'INSERT INTO projects (user_id, title, service, postcode, value_pence) VALUES (?, ?, ?, ?, ?)'
-    ).run(req.user.id, title, service || null, postcode || null, value_pence || 0);
+    , [req.user.id, title, service || null, postcode || null, value_pence || 0]);
 
-    res.status(201).json({ id: info.lastInsertRowid });
+    res.status(201).json({ id: info.id });
   }
 );
 
 /* PATCH /api/projects/:id */
-router.patch('/:id', requireAuth, (req, res) => {
-  const db = getDb();
-  const existing = db.prepare('SELECT id FROM projects WHERE id = ? AND user_id = ?').get(req.params.id, req.user.id);
+router.patch('/:id', requireAuth, async (req, res) => {
+  const existing = await dbGet('SELECT id FROM projects WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
   if (!existing) return res.status(404).json({ error: 'Project not found' });
 
   const allowed = ['title', 'service', 'postcode', 'status', 'value_pence'];
@@ -58,7 +54,7 @@ router.patch('/:id', requireAuth, (req, res) => {
   if (!sets.length) return res.status(400).json({ error: 'No fields to update' });
   vals.push(req.params.id, req.user.id);
 
-  db.prepare(`UPDATE projects SET ${sets.join(', ')} WHERE id = ? AND user_id = ?`).run(...vals);
+  await dbRun(`UPDATE projects SET ${sets.join(', ')} WHERE id = ? AND user_id = ?`, vals);
   res.json({ ok: true });
 });
 

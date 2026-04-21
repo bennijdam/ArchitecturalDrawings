@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reset password · Architectural Drawings London</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Manrope:wght@300;400;500;600;700;800&display=swap" />
+<style>
+:root {
+  --bg: #FAFAF7;
+  --bg-2: #F2EFE8;
+  --surface: #FFFFFF;
+  --ink: #0E1116;
+  --ink-soft: #4A5260;
+  --line: rgba(14, 17, 22, 0.08);
+  --line-strong: rgba(14, 17, 22, 0.14);
+  --accent: #C8664A;
+  --accent-deep: #9D4A32;
+  --accent-soft: #F5E6DD;
+  --success: #47845A;
+  --error: #B44F43;
+  --font-display: 'Fraunces', 'Times New Roman', serif;
+  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 36px;
+  --r-full: 999px;
+  --shadow-sm: 0 1px 2px rgba(14, 17, 22, 0.04), 0 2px 6px rgba(14, 17, 22, 0.04);
+  --shadow-md: 0 4px 12px rgba(14, 17, 22, 0.06), 0 12px 32px rgba(14, 17, 22, 0.05);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  background:
+    radial-gradient(circle at top left, rgba(200, 102, 74, 0.10), transparent 32%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  color: var(--ink);
+}
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+button { border: 0; cursor: pointer; }
+.shell {
+  width: min(100%, 1160px);
+  margin: 0 auto;
+  padding: 24px;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0 24px;
+}
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+}
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 540px) minmax(0, 1fr);
+  gap: 32px;
+  align-items: center;
+  min-height: calc(100vh - 96px);
+}
+.panel {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(14, 17, 22, 0.08);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(20px);
+  padding: clamp(28px, 4vw, 40px);
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-deep);
+}
+.eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+h1 {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.intro {
+  margin-top: 18px;
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+}
+.field {
+  margin-top: 18px;
+}
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.field input {
+  width: 100%;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  background: var(--surface);
+}
+.field input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.meta {
+  margin-top: 12px;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: var(--r-full);
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+.btn-primary:hover { background: var(--accent-deep); transform: translateY(-1px); }
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+.btn-secondary:hover { background: rgba(14, 17, 22, 0.05); }
+.notice {
+  display: none;
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  font-size: 0.94rem;
+}
+.notice.show { display: block; }
+.notice.error { background: rgba(180, 79, 67, 0.10); color: var(--error); }
+.notice.success { background: rgba(71, 132, 90, 0.12); color: var(--success); }
+.aside {
+  padding: clamp(12px, 2vw, 24px);
+}
+.aside-card {
+  background: rgba(245, 230, 221, 0.65);
+  border: 1px solid rgba(200, 102, 74, 0.16);
+  border-radius: var(--r-xl);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+.aside-card h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.08;
+}
+.aside-card p,
+.aside-card li {
+  margin-top: 14px;
+  color: var(--ink-soft);
+}
+.aside-card ul {
+  padding-left: 18px;
+}
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .aside { padding: 0; }
+}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <a class="logo" href="/">
+        <span class="logo-mark">A</span>
+        <span>Architectural Drawings</span>
+      </a>
+      <a class="btn btn-secondary" href="login.html">Back to sign in</a>
+    </div>
+
+    <main class="hero">
+      <section class="panel">
+        <span class="eyebrow">Secure reset</span>
+        <h1>Choose a new password.</h1>
+        <p class="intro">Use a strong password with at least 8 characters. Once updated, you can sign back into the portal immediately.</p>
+
+        <form id="resetForm">
+          <div class="field">
+            <label for="password">New password</label>
+            <input id="password" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters" />
+          </div>
+          <div class="field">
+            <label for="confirmPassword">Confirm password</label>
+            <input id="confirmPassword" type="password" autocomplete="new-password" required minlength="8" placeholder="Repeat your new password" />
+          </div>
+          <p class="meta" id="tokenStatus"></p>
+          <div id="errorNotice" class="notice error"></div>
+          <div id="successNotice" class="notice success"></div>
+          <div class="actions">
+            <button id="resetSubmit" class="btn btn-primary" type="submit">Reset password</button>
+            <a class="btn btn-secondary" href="login.html">Return to sign in</a>
+          </div>
+        </form>
+      </section>
+
+      <aside class="aside">
+        <div class="aside-card">
+          <h2>Portal access for ongoing projects.</h2>
+          <p>Your client portal is where you can review project progress, upload files, and track next steps with the team.</p>
+          <ul>
+            <li>Planning and building regulations progress</li>
+            <li>Secure document upload and download</li>
+            <li>Quote, payment, and callback visibility</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+<script>
+(() => {
+  'use strict';
+
+  const API_BASE = location.hostname === 'localhost'
+    ? 'http://localhost:3001'
+    : 'https://api.architecturaldrawings.uk';
+
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token') || '';
+  const form = document.getElementById('resetForm');
+  const submitButton = document.getElementById('resetSubmit');
+  const errorNotice = document.getElementById('errorNotice');
+  const successNotice = document.getElementById('successNotice');
+  const tokenStatus = document.getElementById('tokenStatus');
+
+  function showNotice(element, message) {
+    element.textContent = message;
+    element.classList.add('show');
+  }
+
+  function clearNotices() {
+    errorNotice.textContent = '';
+    successNotice.textContent = '';
+    errorNotice.classList.remove('show');
+    successNotice.classList.remove('show');
+  }
+
+  if (!token) {
+    submitButton.disabled = true;
+    tokenStatus.textContent = 'This reset link is missing its token. Request a fresh reset link from the sign-in page.';
+    showNotice(errorNotice, 'Reset link is invalid. Please request a new password reset email.');
+    return;
+  }
+
+  tokenStatus.textContent = 'Your reset link is ready. Enter and confirm your new password below.';
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    clearNotices();
+
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (password.length < 8) {
+      showNotice(errorNotice, 'Password must be at least 8 characters long.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      showNotice(errorNotice, 'Passwords do not match.');
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Updating...';
+
+    try {
+      const response = await fetch(`${API_BASE}/api/auth/reset-password/confirm`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, password })
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        showNotice(errorNotice, data.error || 'Unable to reset your password. Please request a fresh reset link.');
+        submitButton.disabled = false;
+        submitButton.textContent = 'Reset password';
+        return;
+      }
+
+      form.reset();
+      showNotice(successNotice, 'Password updated successfully. You can now return to the sign-in page.');
+      tokenStatus.textContent = 'Password reset complete.';
+      submitButton.textContent = 'Password updated';
+    } catch (error) {
+      showNotice(errorNotice, 'Unable to reset your password right now. Please try again in a moment.');
+      submitButton.disabled = false;
+      submitButton.textContent = 'Reset password';
+    }
+  });
+})();
+</script>
+</body>
+</html>

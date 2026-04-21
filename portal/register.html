@@ -1690,12 +1690,11 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
       window.location.href = 'dashboard.html';
       return;
     }
-  } catch (err) { /* fallback */ }
-
-  // Demo fallback
-  sessionStorage.setItem('ad_token', 'demo-token');
-  sessionStorage.setItem('ad_user', JSON.stringify({ name, email, phone }));
-  window.location.href = 'dashboard.html';
+    const err = await res.json().catch(() => ({}));
+    alert(err.error || 'Unable to create your account right now.');
+  } catch (err) {
+    alert('Unable to create your account right now. Please try again in a moment.');
+  }
 });
 </script>
 

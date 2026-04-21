@@ -39,7 +39,6 @@ app.set('trust proxy', 1);
     console.warn(`Skipping unwritable directory during startup: ${dir}`);
   }
 });
-initDb();
 
 /* ---------- Middleware ---------- */
 app.use(helmet({
@@ -80,9 +79,6 @@ app.use('/api/files', filesRouter);
 app.use('/api/stripe', stripeRouter);
 app.use('/api/callbacks', callbacksRouter);
 
-// Static uploaded files (auth-gated — see files.js for secure route)
-app.use('/uploads', express.static(process.env.UPLOAD_DIR || './uploads'));
-
 /* ---------- Static frontend (optional — for single-server deploy) ---------- */
 // Comment this block if frontend is served separately (CDN, Nginx, etc.)
 const FRONTEND_DIR = path.join(__dirname, '..');
@@ -103,6 +99,8 @@ app.use((err, req, res, next) => {
 });
 
 /* ---------- Start ---------- */
+await initDb();
+
 app.listen(PORT, () => {
   console.log(`🏛  Architectural Drawings API listening on :${PORT}`);
   console.log(`   ENV: ${process.env.NODE_ENV || 'development'}`);

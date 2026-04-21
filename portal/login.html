@@ -1750,13 +1750,9 @@ gtag('config', 'G-77CQ2PWJM4', {
       const err = await res.json().catch(() => ({}));
       alert(err.error || 'Invalid email or password.');
       return;
-    } catch (err) { /* fall through to demo */ }
-
-    // Demo fallback
-    const name = email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-    sessionStorage.setItem('ad_token', 'demo-token');
-    sessionStorage.setItem('ad_user', JSON.stringify({ name, email }));
-    window.location.href = 'dashboard.html';
+    } catch (err) {
+      alert('Unable to sign in right now. Please try again in a moment.');
+    }
   });
 
   // ====== SSO buttons — graceful handling ======

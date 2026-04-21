@@ -3,7 +3,7 @@ import multer from 'multer';
 import path from 'node:path';
 import fs from 'node:fs';
 import { v4 as uuidv4 } from 'uuid';
-import { getDb } from '../models/db.js';
+import { dbAll, dbGet, dbInsert } from '../models/db.js';
 import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
@@ -43,27 +43,30 @@ const upload = multer({
 });
 
 /* POST /api/files/upload */
-router.post('/upload', requireAuth, upload.array('file', 10), (req, res) => {
+router.post('/upload', requireAuth, upload.array('file', 10), async (req, res) => {
   if (!req.files?.length) return res.status(400).json({ error: 'No files uploaded' });
 
-  const db = getDb();
-  const stmt = db.prepare(
-    'INSERT INTO files (project_id, user_id, filename, original_name, mimetype, size_bytes, direction) VALUES (?, ?, ?, ?, ?, ?, ?)'
-  );
-
   const projectId = req.body.project_id ? parseInt(req.body.project_id, 10) : null;
-  const records = req.files.map((f) => {
-    const info = stmt.run(projectId, req.user.id, f.filename, f.originalname, f.mimetype, f.size, 'upload');
-    return { id: info.lastInsertRowid, name: f.originalname, size: f.size };
-  });
+  if (projectId) {
+    const project = await dbGet('SELECT id FROM projects WHERE id = ? AND user_id = ?', [projectId, req.user.id]);
+    if (!project) return res.status(404).json({ error: 'Project not found' });
+  }
+
+  const records = [];
+  for (const file of req.files) {
+    const info = await dbInsert(
+      'INSERT INTO files (project_id, user_id, filename, original_name, mimetype, size_bytes, direction) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [projectId, req.user.id, file.filename, file.originalname, file.mimetype, file.size, 'upload']
+    );
+    records.push({ id: info.id, name: file.originalname, size: file.size });
+  }
 
   res.status(201).json({ ok: true, files: records });
 });
 
 /* GET /api/files/:id — secure download (auth-checked) */
-router.get('/:id', requireAuth, (req, res) => {
-  const db = getDb();
-  const row = db.prepare('SELECT * FROM files WHERE id = ?').get(req.params.id);
+router.get('/:id', requireAuth, async (req, res) => {
+  const row = await dbGet('SELECT * FROM files WHERE id = ?', [req.params.id]);
   if (!row) return res.status(404).json({ error: 'File not found' });
 
   // Client can only access their own files, unless admin
@@ -78,12 +81,11 @@ router.get('/:id', requireAuth, (req, res) => {
 });
 
 /* GET /api/files — list for current user or a specific project */
-router.get('/', requireAuth, (req, res) => {
-  const db = getDb();
+router.get('/', requireAuth, async (req, res) => {
   const { project_id } = req.query;
   const rows = project_id
-    ? db.prepare('SELECT id, original_name, size_bytes, direction, created_at FROM files WHERE user_id = ? AND project_id = ? ORDER BY created_at DESC').all(req.user.id, project_id)
-    : db.prepare('SELECT id, original_name, size_bytes, direction, created_at FROM files WHERE user_id = ? ORDER BY created_at DESC LIMIT 50').all(req.user.id);
+    ? await dbAll('SELECT id, original_name, size_bytes, direction, created_at FROM files WHERE user_id = ? AND project_id = ? ORDER BY created_at DESC', [req.user.id, project_id])
+    : await dbAll('SELECT id, original_name, size_bytes, direction, created_at FROM files WHERE user_id = ? ORDER BY created_at DESC LIMIT 50', [req.user.id]);
   res.json({ files: rows });
 });
 

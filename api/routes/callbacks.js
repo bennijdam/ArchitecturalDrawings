@@ -2,7 +2,7 @@ import express from 'express';
 import { body, validationResult } from 'express-validator';
 import { Resend } from 'resend';
 import { requireAuth, requireRole } from '../middleware/auth.js';
-import { getDb } from '../models/db.js';
+import { dbAll, dbGet, dbRun } from '../models/db.js';
 
 const router = express.Router();
 
@@ -15,30 +15,30 @@ function getResend() {
 }
 
 /* GET /api/callbacks — admin only */
-router.get('/', requireAuth, requireRole('admin'), (req, res) => {
-  const db = getDb();
-  const rows = db.prepare(`
+router.get('/', requireAuth, requireRole('admin'), async (req, res) => {
+  const rows = await dbAll(`
     SELECT id, name, phone, call_when, topic, created_at
     FROM callbacks
     ORDER BY created_at DESC
     LIMIT 100
-  `).all();
+  `);
 
   res.json({ callbacks: rows });
 });
 
 /* DELETE /api/callbacks/:id — admin only */
-router.delete('/:id', requireAuth, requireRole('admin'), (req, res) => {
+router.delete('/:id', requireAuth, requireRole('admin'), async (req, res) => {
   const callbackId = Number.parseInt(req.params.id, 10);
   if (!Number.isInteger(callbackId) || callbackId <= 0) {
     return res.status(400).json({ error: 'Invalid callback id' });
   }
 
-  const db = getDb();
-  const result = db.prepare('DELETE FROM callbacks WHERE id = ?').run(callbackId);
-  if (!result.changes) {
+  const existing = await dbGet('SELECT id FROM callbacks WHERE id = ?', [callbackId]);
+  if (!existing) {
     return res.status(404).json({ error: 'Callback not found' });
   }
+
+  await dbRun('DELETE FROM callbacks WHERE id = ?', [callbackId]);
 
   res.json({ ok: true });
 });
@@ -54,12 +54,10 @@ router.post('/',
     if (!errors.isEmpty()) return res.status(400).json({ error: 'Validation failed', details: errors.array() });
 
     const { name, phone, when: callWhen, topic, createdAt } = req.body;
-    const db = getDb();
-
-    db.prepare(`
+    await dbRun(`
       INSERT INTO callbacks (name, phone, call_when, topic)
       VALUES (?, ?, ?, ?)
-    `).run(name, phone, callWhen || null, topic || null);
+    `, [name, phone, callWhen || null, topic || null]);
 
     const client = getResend();
     if (client) {

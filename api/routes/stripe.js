@@ -1,6 +1,6 @@
 import express from 'express';
 import Stripe from 'stripe';
-import { getDb } from '../models/db.js';
+import { dbRun } from '../models/db.js';
 import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
@@ -43,10 +43,9 @@ router.post('/checkout', requireAuth, async (req, res) => {
       },
     });
 
-    const db = getDb();
-    db.prepare(
+    await dbRun(
       'INSERT INTO payments (project_id, user_id, amount_pence, currency, description, stripe_session_id) VALUES (?, ?, ?, ?, ?, ?)'
-    ).run(project_id || null, req.user.id, amount, currency, description, session.id);
+    , [project_id || null, req.user.id, amount, currency, description, session.id]);
 
     res.json({ sessionUrl: session.url, sessionId: session.id });
   } catch (err) {
@@ -72,21 +71,19 @@ export async function stripeWebhookHandler(req, res) {
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  const db = getDb();
-
   switch (event.type) {
     case 'checkout.session.completed': {
       const session = event.data.object;
-      db.prepare(
+      await dbRun(
         'UPDATE payments SET status = ?, stripe_payment_intent = ? WHERE stripe_session_id = ?'
-      ).run('paid', session.payment_intent, session.id);
+      , ['paid', session.payment_intent, session.id]);
       console.log('✓ Payment succeeded:', session.id);
       break;
     }
     case 'checkout.session.expired':
     case 'checkout.session.async_payment_failed': {
       const session = event.data.object;
-      db.prepare('UPDATE payments SET status = ? WHERE stripe_session_id = ?').run('failed', session.id);
+      await dbRun('UPDATE payments SET status = ? WHERE stripe_session_id = ?', ['failed', session.id]);
       break;
     }
     default:

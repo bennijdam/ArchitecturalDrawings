@@ -3,7 +3,7 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
 import { body, validationResult } from 'express-validator';
-import { getDb } from '../models/db.js';
+import { dbGet, dbInsert, dbRun } from '../models/db.js';
 import { requireAuth, signToken } from '../middleware/auth.js';
 
 let transporter;
@@ -27,22 +27,20 @@ router.post('/register',
   body('password').isLength({ min: 8 }),
   body('name').isLength({ min: 1, max: 120 }).trim().escape(),
   body('phone').optional().trim(),
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ error: 'Validation failed', details: errors.array() });
 
     const { email, password, name, phone } = req.body;
-    const db = getDb();
-
-    const existing = db.prepare('SELECT id FROM users WHERE email = ?').get(email);
+    const existing = await dbGet('SELECT id FROM users WHERE email = ?', [email]);
     if (existing) return res.status(409).json({ error: 'An account with this email already exists.' });
 
     const hash = bcrypt.hashSync(password, 10);
-    const info = db.prepare(
+    const info = await dbInsert(
       'INSERT INTO users (email, password_hash, name, phone) VALUES (?, ?, ?, ?)'
-    ).run(email, hash, name, phone || null);
+      , [email, hash, name, phone || null]);
 
-    const user = { id: info.lastInsertRowid, email, name, role: 'client' };
+    const user = { id: info.id, email, name, role: 'client' };
     const token = signToken(user);
     res.status(201).json({ token, user });
   }
@@ -52,14 +50,12 @@ router.post('/register',
 router.post('/login',
   body('email').isEmail().normalizeEmail(),
   body('password').isLength({ min: 1 }),
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ error: 'Validation failed' });
 
     const { email, password } = req.body;
-    const db = getDb();
-
-    const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+    const user = await dbGet('SELECT * FROM users WHERE email = ?', [email]);
     if (!user) return res.status(401).json({ error: 'Invalid email or password.' });
 
     if (!bcrypt.compareSync(password, user.password_hash)) {
@@ -80,23 +76,22 @@ router.get('/me', requireAuth, (req, res) => {
 /* POST /api/auth/reset-password — request a reset link */
 router.post('/reset-password',
   body('email').isEmail().normalizeEmail(),
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ error: 'Valid email required.' });
 
     const { email } = req.body;
-    const db = getDb();
 
     // Always return 200 to prevent email enumeration
-    const user = db.prepare('SELECT id, name FROM users WHERE email = ?').get(email);
+    const user = await dbGet('SELECT id, name FROM users WHERE email = ?', [email]);
     if (!user) return res.json({ ok: true });
 
     const token = crypto.randomBytes(32).toString('hex');
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString(); // 1 hour
 
-    db.prepare(
+    await dbRun(
       'INSERT INTO password_resets (user_id, token, expires_at) VALUES (?, ?, ?)'
-    ).run(user.id, token, expiresAt);
+      , [user.id, token, expiresAt]);
 
     const resetUrl = `${process.env.ALLOWED_ORIGIN || 'http://localhost:8080'}/portal/reset.html?token=${token}`;
 
@@ -121,22 +116,21 @@ router.post('/reset-password',
 router.post('/reset-password/confirm',
   body('token').isLength({ min: 64, max: 64 }).isHexadecimal(),
   body('password').isLength({ min: 8 }),
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ error: 'Invalid token or password too short.' });
 
     const { token, password } = req.body;
-    const db = getDb();
-
-    const reset = db.prepare(
-      'SELECT * FROM password_resets WHERE token = ? AND used = 0 AND expires_at > datetime(\'now\')'
-    ).get(token);
+    const reset = await dbGet(
+      'SELECT * FROM password_resets WHERE token = ? AND used = ? AND expires_at > CURRENT_TIMESTAMP',
+      [token, false]
+    );
 
     if (!reset) return res.status(400).json({ error: 'Reset link is invalid or has expired.' });
 
     const hash = bcrypt.hashSync(password, 10);
-    db.prepare('UPDATE users SET password_hash = ? WHERE id = ?').run(hash, reset.user_id);
-    db.prepare('UPDATE password_resets SET used = 1 WHERE id = ?').run(reset.id);
+    await dbRun('UPDATE users SET password_hash = ? WHERE id = ?', [hash, reset.user_id]);
+    await dbRun('UPDATE password_resets SET used = ? WHERE id = ?', [true, reset.id]);
 
     res.json({ ok: true });
   }
