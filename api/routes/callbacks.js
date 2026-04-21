@@ -3,6 +3,7 @@ import { body, validationResult } from 'express-validator';
 import { Resend } from 'resend';
 import { requireAuth, requireRole } from '../middleware/auth.js';
 import { dbAll, dbGet, dbInsert, dbRun } from '../models/db.js';
+import { callbackOpsEmail } from './emailTemplates.js';
 
 const router = express.Router();
 
@@ -102,24 +103,13 @@ router.post('/',
     const client = getResend();
     if (client) {
       try {
+        const tpl = callbackOpsEmail({ name, phone, callWhen, topic, sourceIp, referrer, requestPath, userAgent });
         const resendResult = await client.emails.send({
           from: process.env.EMAIL_FROM || 'Architectural Drawings <noreply@send.architecturaldrawings.uk>',
           to: 'hello@architecturaldrawings.uk',
-          subject: `[Callback request] ${name} — ${callWhen || 'ASAP'}`,
-          html: `
-            <h2 style="font-family:sans-serif;margin:0 0 16px">New callback request</h2>
-            <table style="font-family:sans-serif;border-collapse:collapse;width:100%;max-width:480px">
-              <tr><td style="padding:8px 0;color:#666;width:120px">Name</td><td style="padding:8px 0;font-weight:600">${name}</td></tr>
-              <tr><td style="padding:8px 0;color:#666">Phone</td><td style="padding:8px 0;font-weight:600">${phone}</td></tr>
-              <tr><td style="padding:8px 0;color:#666">When</td><td style="padding:8px 0">${callWhen || 'As soon as possible'}</td></tr>
-              <tr><td style="padding:8px 0;color:#666">Topic</td><td style="padding:8px 0">${topic || '—'}</td></tr>
-              <tr><td style="padding:8px 0;color:#666">Received</td><td style="padding:8px 0">${new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' })}</td></tr>
-              <tr><td style="padding:8px 0;color:#666">Source IP</td><td style="padding:8px 0">${sourceIp || 'Unknown'}</td></tr>
-              <tr><td style="padding:8px 0;color:#666">Referrer</td><td style="padding:8px 0">${referrer || 'Direct / unavailable'}</td></tr>
-              <tr><td style="padding:8px 0;color:#666">Path</td><td style="padding:8px 0">${requestPath || 'Unknown'}</td></tr>
-              <tr><td style="padding:8px 0;color:#666">User agent</td><td style="padding:8px 0">${userAgent || 'Unknown'}</td></tr>
-            </table>
-          `,
+          subject: tpl.subject,
+          html: tpl.html,
+          text: tpl.text,
         });
 
         const emailMessageId = resendResult?.data?.id || resendResult?.id || null;

@@ -5,6 +5,7 @@ import { body, validationResult } from 'express-validator';
 import { Resend } from 'resend';
 import { dbGet, dbInsert, dbRun } from '../models/db.js';
 import { requireAuth, signToken } from '../middleware/auth.js';
+import { passwordResetEmail, passwordChangedEmail, welcomeEmail } from './emailTemplates.js';
 
 let resend;
 function getResend() {
@@ -37,6 +38,20 @@ router.post('/register',
 
     const user = { id: info.id, email, name, phone: phone || null, role: 'client' };
     const token = signToken(user);
+
+    // Send welcome email (best-effort)
+    const welcomeClient = getResend();
+    if (welcomeClient) {
+      const tpl = welcomeEmail({ name, email });
+      welcomeClient.emails.send({
+        from: process.env.EMAIL_FROM || 'Architectural Drawings <noreply@send.architecturaldrawings.uk>',
+        to: email,
+        subject: tpl.subject,
+        html: tpl.html,
+        text: tpl.text,
+      }).catch(err => console.error('Welcome email failed:', err));
+    }
+
     res.status(201).json({ token, user });
   }
 );
@@ -136,13 +151,13 @@ router.post('/reset-password',
     const client = getResend();
     if (client) {
       try {
-        const recipientName = user.name || 'there';
+        const tpl = passwordResetEmail({ name: user.name, resetUrl });
         await client.emails.send({
           from: process.env.EMAIL_FROM || 'Architectural Drawings <noreply@send.architecturaldrawings.uk>',
           to: email,
-          subject: 'Reset your password — Architectural Drawings',
-          text: `Hi ${recipientName},\n\nYou requested a password reset. Click the link below within 1 hour:\n\n${resetUrl}\n\nIf you didn't request this, ignore this email.\n\nArchitectural Drawings London`,
-          html: `<p>Hi ${recipientName},</p><p>You requested a password reset. Click the link below within 1 hour:</p><p><a href="${resetUrl}">${resetUrl}</a></p><p>If you didn't request this, ignore this email.</p><p>Architectural Drawings London</p>`,
+          subject: tpl.subject,
+          html: tpl.html,
+          text: tpl.text,
         });
       } catch (err) {
         console.error('Reset email failed:', err);
@@ -174,6 +189,20 @@ router.post('/reset-password/confirm',
     const hash = bcrypt.hashSync(password, 10);
     await dbRun('UPDATE users SET password_hash = ? WHERE id = ?', [hash, reset.user_id]);
     await dbRun('UPDATE password_resets SET used = ? WHERE id = ?', [true, reset.id]);
+
+    // Send password-changed confirmation (best-effort)
+    const changedUser = await dbGet('SELECT email, name FROM users WHERE id = ?', [reset.user_id]);
+    const changedClient = getResend();
+    if (changedClient && changedUser) {
+      const tpl = passwordChangedEmail({ name: changedUser.name });
+      changedClient.emails.send({
+        from: process.env.EMAIL_FROM || 'Architectural Drawings <noreply@send.architecturaldrawings.uk>',
+        to: changedUser.email,
+        subject: tpl.subject,
+        html: tpl.html,
+        text: tpl.text,
+      }).catch(err => console.error('Password changed email failed:', err));
+    }
 
     res.json({ ok: true });
   }
