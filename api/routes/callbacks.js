@@ -104,9 +104,10 @@ router.post('/',
     if (client) {
       try {
         const tpl = callbackOpsEmail({ name, phone, callWhen, topic, sourceIp, referrer, requestPath, userAgent });
+        const opsEmail = process.env.EMAIL_TO_OPS || 'hello@architecturaldrawings.uk';
         const resendResult = await client.emails.send({
           from: process.env.EMAIL_FROM || 'Architectural Drawings <noreply@send.architecturaldrawings.uk>',
-          to: 'hello@architecturaldrawings.uk',
+          to: opsEmail,
           subject: tpl.subject,
           html: tpl.html,
           text: tpl.text,
