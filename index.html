@@ -1293,6 +1293,8 @@ gtag('config', 'G-77CQ2PWJM4', {
           <input type="text" id="cb-website" name="website" tabindex="-1" autocomplete="off" />
         </div>
 
+        <p id="callbackError" class="tiny" style="display: none; margin-top: 12px; text-align: center; color: #b42318;" role="alert"></p>
+
         <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 8px;">
           Request callback
           <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12m-4-4 4 4-4 4"/></svg>
@@ -1330,6 +1332,18 @@ gtag('config', 'G-77CQ2PWJM4', {
   const form = document.getElementById('callbackForm');
   const formContent = document.getElementById('callbackFormContent');
   const success = document.getElementById('callbackSuccess');
+  const error = document.getElementById('callbackError');
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  function clearError() {
+    error.textContent = '';
+    error.style.display = 'none';
+  }
+
+  function showError(message) {
+    error.textContent = message;
+    error.style.display = 'block';
+  }
 
   function open() {
     modal.classList.add('active');
@@ -1341,6 +1355,8 @@ gtag('config', 'G-77CQ2PWJM4', {
     document.body.style.overflow = '';
     // Reset to form view for next time
     setTimeout(() => {
+      clearError();
+      submitButton.disabled = false;
       formContent.style.display = '';
       success.style.display = 'none';
       form.reset();
@@ -1366,16 +1382,27 @@ gtag('config', 'G-77CQ2PWJM4', {
       return;
     }
 
+    clearError();
+    submitButton.disabled = true;
+
     try {
-      await fetch(`${API_BASE}/api/callbacks`, {
+      const response = await fetch(`${API_BASE}/api/callbacks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, phone, when, topic, website })
       });
-    } catch (err) { /* demo fallback */ }
 
-    formContent.style.display = 'none';
-    success.style.display = 'block';
+      if (!response.ok) {
+        throw new Error(`Callback request failed with status ${response.status}`);
+      }
+
+      formContent.style.display = 'none';
+      success.style.display = 'block';
+    } catch (err) {
+      showError('We could not submit your callback request right now. Please try again or WhatsApp us directly.');
+    } finally {
+      submitButton.disabled = false;
+    }
   });
 })();
 </script>
