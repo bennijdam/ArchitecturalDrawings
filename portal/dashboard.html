@@ -1390,6 +1390,49 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   padding: 40px 24px;
   color: var(--ink-soft);
 }
+.audit-item {
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) auto auto;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+.audit-item:last-child { border-bottom: 0; }
+.audit-item:hover { background: var(--bg-2); }
+.audit-main { min-width: 0; }
+.audit-main .project-title { margin-bottom: 2px; }
+.audit-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.audit-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+  text-align: right;
+}
+.audit-empty {
+  text-align: center;
+  padding: 40px 24px;
+  color: var(--ink-soft);
+}
+.admin-status-card {
+  margin-bottom: 24px;
+  padding: 18px 20px;
+}
+.admin-status-card strong {
+  display: block;
+  margin-bottom: 6px;
+}
+.admin-section-note {
+  margin-top: 10px;
+  max-width: 760px;
+}
 @media (max-width: 860px) {
   .callback-item {
     grid-template-columns: 1fr;
@@ -1397,6 +1440,16 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   }
   .callback-meta {
     align-items: flex-start;
+    text-align: left;
+  }
+  .audit-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .audit-meta,
+  .audit-actions {
+    align-items: flex-start;
+    justify-content: flex-start;
     text-align: left;
   }
 }
@@ -1738,10 +1791,12 @@ gtag('config', 'G-77CQ2PWJM4', {
       <ul class="portal-nav">
         <li><a href="#overview" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="5"/><rect x="13" y="10" width="8" height="11"/><rect x="3" y="13" width="8" height="8"/></svg>Overview</a></li>
         <li><a href="#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>Projects</a></li>
-        <li><a href="#files"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/></svg>Files &amp; drawings</a></li>
+        <li id="filesNavItem"><a href="#files"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/></svg>Files &amp; drawings</a></li>
         <li id="callbackNavItem" class="hidden"><a href="#callbacks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4z"/><path d="M8 10h8M8 14h5"/></svg>Callbacks</a></li>
-        <li><a href="#messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a8 8 0 0 1-12 7l-5 2 2-5A8 8 0 1 1 21 12z"/></svg>Messages</a></li>
+        <li id="quotesNavItem" class="hidden"><a href="#quotes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg>Quotes</a></li>
+        <li id="messagesNavItem"><a href="#messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a8 8 0 0 1-12 7l-5 2 2-5A8 8 0 1 1 21 12z"/></svg>Messages</a></li>
         <li><a href="#payments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h3"/></svg>Payments</a></li>
+        <li id="resetsNavItem" class="hidden"><a href="#resets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v3l4-4-4-4v3C6.5 3 2 7.5 2 13s4.5 10 10 10 10-4.5 10-10"/></svg>Reset audits</a></li>
         <li><a href="#settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .4 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.4 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.4l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .4-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.4-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.4h.1a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.4l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.4 1.8v.1a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings</a></li>
       </ul>
     </nav>
@@ -1765,33 +1820,39 @@ gtag('config', 'G-77CQ2PWJM4', {
     <div class="portal-header overview-el">
       <div>
         <span class="eyebrow" id="portalDate"></span>
-        <h1 style="margin-top: 8px;">Welcome back, <em id="userFirstName" style="color: var(--accent);"></em>.</h1>
+        <h1 style="margin-top: 8px;"><span id="portalHeadingPrefix">Welcome back,</span> <em id="userFirstName" style="color: var(--accent);"></em><span id="portalHeadingSuffix">.</span></h1>
+        <p class="muted" id="portalSubheading" style="margin-top:12px;max-width:720px;display:none;"></p>
       </div>
-      <a href="../quote.html" class="btn btn-primary">
+      <a href="../quote.html" class="btn btn-primary" id="newProjectButton">
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg>
         New project
       </a>
+      <button type="button" class="btn btn-primary hidden" id="refreshAdminButton">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 10a7 7 0 1 1-2.05-4.95L17 7"/><path d="M17 3v4h-4"/></svg>
+        Refresh dashboard
+      </button>
     </div>
+    <div id="adminStatusNotice" class="stat-card admin-status-card hidden"></div>
 
     <!-- Stats -->
     <div class="stats-grid overview-el">
       <div class="stat-card">
-        <div class="stat-card-label">Active projects</div>
+        <div class="stat-card-label" id="statActiveProjectsLabel">Active projects</div>
         <div class="stat-card-value" id="statActiveProjects">0</div>
         <div class="stat-card-trend" id="statActiveProjectsTrend">No active projects yet</div>
       </div>
       <div class="stat-card">
-        <div class="stat-card-label">Drawings delivered</div>
+        <div class="stat-card-label" id="statDeliveredLabel">Drawings delivered</div>
         <div class="stat-card-value" id="statDelivered">0</div>
         <div class="stat-card-trend" id="statDeliveredTrend">No completed deliveries yet</div>
       </div>
       <div class="stat-card">
-        <div class="stat-card-label">Pending approvals</div>
+        <div class="stat-card-label" id="statPendingApprovalsLabel">Pending approvals</div>
         <div class="stat-card-value" id="statPendingApprovals">0</div>
         <div class="stat-card-trend" id="statPendingApprovalsTrend" style="color: var(--warn);">Nothing awaiting approval</div>
       </div>
       <div class="stat-card">
-        <div class="stat-card-label">Outstanding balance</div>
+        <div class="stat-card-label" id="statOutstandingBalanceLabel">Outstanding balance</div>
         <div class="stat-card-value" id="statOutstandingBalance">£0</div>
         <div class="stat-card-trend" id="statOutstandingBalanceTrend">Up to date</div>
       </div>
@@ -1800,7 +1861,7 @@ gtag('config', 'G-77CQ2PWJM4', {
     <!-- Projects -->
     <section id="projects" class="overview-el" style="margin-bottom: 40px;padding:0;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-        <h2 style="font-size:1.8rem;">Your projects</h2>
+        <h2 style="font-size:1.8rem;" id="projectsHeading">Your projects</h2>
         <span id="projectsCountLabel" style="font-size:0.9rem;color:var(--accent-deep);font-weight:600;">Syncing live data…</span>
       </div>
 
@@ -1818,9 +1879,9 @@ gtag('config', 'G-77CQ2PWJM4', {
     </section>
 
     <!-- File upload + Payment grid -->
-    <div class="overview-el" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+    <div class="overview-el" id="overviewSecondaryGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
 
-      <section id="files">
+      <section id="filesSection">
         <h2 style="font-size:1.4rem;margin-bottom:16px;">Upload files</h2>
         <div class="file-drop" id="fileDrop">
           <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 28V12m0 0-6 6m6-6 6 6"/><path d="M8 32h24"/></svg>
@@ -1832,9 +1893,9 @@ gtag('config', 'G-77CQ2PWJM4', {
       </section>
 
       <section id="payments">
-        <h2 style="font-size:1.4rem;margin-bottom:16px;">Upcoming payment</h2>
+        <h2 style="font-size:1.4rem;margin-bottom:16px;" id="paymentsHeading">Upcoming payment</h2>
         <div id="paymentStatus" class="stat-card" style="display:none;padding:18px 20px;margin-bottom:16px;"></div>
-        <div class="stat-card" style="padding: 28px;">
+        <div class="stat-card" style="padding: 28px;" id="userPaymentPanel">
           <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:20px;">
             <div>
               <div class="stat-card-label" id="paymentDescription">Checking your latest payment…</div>
@@ -1848,6 +1909,9 @@ gtag('config', 'G-77CQ2PWJM4', {
             Open Stripe Checkout
           </button>
           <p class="tiny muted" id="paymentHelpText" style="margin-top:12px;text-align:center;">Secure payment · Powered by Stripe · Card, Apple Pay, Google Pay</p>
+        </div>
+        <div class="project-list hidden" id="adminPaymentsPanel">
+          <div class="audit-empty">Loading payment audit…</div>
         </div>
       </section>
 
@@ -1880,6 +1944,34 @@ gtag('config', 'G-77CQ2PWJM4', {
       </div>
       <div class="project-list" id="callbacksList">
         <div class="callback-empty">Loading callback requests…</div>
+      </div>
+    </div>
+
+    <!-- ====== QUOTES (admin only) ====== -->
+    <div data-section="quotes" id="quotesSection" class="hidden">
+      <div class="portal-header">
+        <div>
+          <span class="eyebrow">Sales</span>
+          <h1 style="margin-top: 8px;">Quote requests</h1>
+          <p class="muted admin-section-note" id="quotesSummary">Latest website quote submissions and email audit status.</p>
+        </div>
+      </div>
+      <div class="project-list" id="quotesList">
+        <div class="audit-empty">Loading quote requests…</div>
+      </div>
+    </div>
+
+    <!-- ====== RESETS (admin only) ====== -->
+    <div data-section="resets" id="resetsSection" class="hidden">
+      <div class="portal-header">
+        <div>
+          <span class="eyebrow">Security</span>
+          <h1 style="margin-top: 8px;">Password reset audits</h1>
+          <p class="muted admin-section-note" id="resetsSummary">Recent reset requests with expiry and message-id tracking.</p>
+        </div>
+      </div>
+      <div class="project-list" id="resetsList">
+        <div class="audit-empty">Loading password reset audits…</div>
       </div>
     </div>
 
@@ -1920,10 +2012,7 @@ gtag('config', 'G-77CQ2PWJM4', {
     <h3 id="modalTitle" style="margin-bottom:4px;"></h3>
     <p class="muted tiny" id="modalMeta" style="margin-bottom:24px;"></p>
     <div id="modalDetails"></div>
-    <div style="margin-top:24px;display:flex;gap:10px;">
-      <a href="../quote.html" class="btn btn-primary btn-sm" style="flex:1;justify-content:center;">Request amendment</a>
-      <button class="btn btn-outline btn-sm" onclick="document.getElementById('projectModal').classList.remove('active')" style="flex:1;justify-content:center;">Close</button>
-    </div>
+    <div id="modalActions" style="margin-top:24px;display:flex;gap:10px;"></div>
   </div>
 </div>
 
@@ -1947,21 +2036,113 @@ gtag('config', 'G-77CQ2PWJM4', {
   // User
   let usr = {};
   let callbacksLoaded = false;
+  let adminProjects = [];
   try { usr = JSON.parse(sessionStorage.getItem('ad_user') || '{}'); } catch(e) {}
   const callbackNavItem = document.getElementById('callbackNavItem');
+  const quotesNavItem = document.getElementById('quotesNavItem');
+  const resetsNavItem = document.getElementById('resetsNavItem');
+  const filesNavItem = document.getElementById('filesNavItem');
+  const messagesNavItem = document.getElementById('messagesNavItem');
   const callbacksList = document.getElementById('callbacksList');
   const callbacksSummary = document.getElementById('callbacksSummary');
+  const quotesList = document.getElementById('quotesList');
+  const quotesSummary = document.getElementById('quotesSummary');
+  const resetsList = document.getElementById('resetsList');
+  const resetsSummary = document.getElementById('resetsSummary');
   const refreshCallbacks = document.getElementById('refreshCallbacks');
+  const portalHeadingPrefix = document.getElementById('portalHeadingPrefix');
+  const portalHeadingSuffix = document.getElementById('portalHeadingSuffix');
+  const portalSubheading = document.getElementById('portalSubheading');
+  const newProjectButton = document.getElementById('newProjectButton');
+  const refreshAdminButton = document.getElementById('refreshAdminButton');
+  const adminStatusNotice = document.getElementById('adminStatusNotice');
+  const statActiveProjectsLabel = document.getElementById('statActiveProjectsLabel');
+  const statDeliveredLabel = document.getElementById('statDeliveredLabel');
+  const statPendingApprovalsLabel = document.getElementById('statPendingApprovalsLabel');
+  const statOutstandingBalanceLabel = document.getElementById('statOutstandingBalanceLabel');
+  const projectsHeading = document.getElementById('projectsHeading');
+  const paymentsHeading = document.getElementById('paymentsHeading');
+  const overviewSecondaryGrid = document.getElementById('overviewSecondaryGrid');
+  const filesSection = document.getElementById('filesSection');
+  const callbacksSection = document.getElementById('callbacksSection');
+  const quotesSection = document.getElementById('quotesSection');
+  const resetsSection = document.getElementById('resetsSection');
+  const userPaymentPanel = document.getElementById('userPaymentPanel');
+  const adminPaymentsPanel = document.getElementById('adminPaymentsPanel');
+  const paymentStatus = document.getElementById('paymentStatus');
   function fill(u) {
-    if (u.name) { document.getElementById('userName').textContent = u.name; document.getElementById('userFirstName').textContent = u.name.split(' ')[0]; document.getElementById('userAvatar').textContent = u.name.charAt(0).toUpperCase(); document.getElementById('sName').value = u.name; }
+    if (u.name) { document.getElementById('userName').textContent = u.name; document.getElementById('userAvatar').textContent = u.name.charAt(0).toUpperCase(); document.getElementById('sName').value = u.name; }
     if (u.email) { document.getElementById('userEmail').textContent = u.email; document.getElementById('sEmail').value = u.email; }
     if (u.phone) document.getElementById('sPhone').value = u.phone;
+    syncPortalHeading();
   }
   function isAdmin() {
     return usr.role === 'admin';
   }
+  function syncPortalHeading() {
+    const firstName = (usr.name || '').split(' ')[0] || 'there';
+    if (isAdmin()) {
+      portalHeadingPrefix.textContent = 'Admin';
+      document.getElementById('userFirstName').textContent = 'dashboard';
+      portalHeadingSuffix.textContent = '.';
+      portalSubheading.textContent = 'Monitor live quotes, callbacks, payments, projects, and delivery emails from the same editorial portal used by clients.';
+      portalSubheading.style.display = 'block';
+      return;
+    }
+
+    portalHeadingPrefix.textContent = 'Welcome back,';
+    document.getElementById('userFirstName').textContent = firstName;
+    portalHeadingSuffix.textContent = '.';
+    portalSubheading.style.display = 'none';
+    portalSubheading.textContent = '';
+  }
+  function setAdminNotice(message, tone = 'default') {
+    if (!message) {
+      adminStatusNotice.classList.add('hidden');
+      adminStatusNotice.innerHTML = '';
+      return;
+    }
+
+    let background = 'var(--surface)';
+    let border = '1px solid var(--line)';
+    if (tone === 'success') {
+      background = 'rgba(71, 132, 90, 0.12)';
+      border = '1px solid rgba(71, 132, 90, 0.22)';
+    } else if (tone === 'error') {
+      background = 'rgba(212, 165, 71, 0.16)';
+      border = '1px solid rgba(212, 165, 71, 0.28)';
+    }
+
+    adminStatusNotice.classList.remove('hidden');
+    adminStatusNotice.style.background = background;
+    adminStatusNotice.style.border = border;
+    adminStatusNotice.innerHTML = '<strong>Admin status</strong><span class="muted">' + message + '</span>';
+  }
   function syncAdminUi() {
-    callbackNavItem.classList.toggle('hidden', !isAdmin());
+    const adminMode = isAdmin();
+    callbackNavItem.classList.toggle('hidden', !adminMode);
+    quotesNavItem.classList.toggle('hidden', !adminMode);
+    resetsNavItem.classList.toggle('hidden', !adminMode);
+    filesNavItem.classList.toggle('hidden', adminMode);
+    messagesNavItem.classList.toggle('hidden', adminMode);
+    filesSection.classList.toggle('hidden', adminMode);
+    userPaymentPanel.classList.toggle('hidden', adminMode);
+    adminPaymentsPanel.classList.toggle('hidden', !adminMode);
+    paymentStatus.style.display = adminMode ? 'none' : paymentStatus.style.display;
+    newProjectButton.classList.toggle('hidden', adminMode);
+    refreshAdminButton.classList.toggle('hidden', !adminMode);
+    callbacksSection.classList.toggle('hidden', !adminMode);
+    quotesSection.classList.toggle('hidden', !adminMode);
+    resetsSection.classList.toggle('hidden', !adminMode);
+    overviewSecondaryGrid.style.gridTemplateColumns = adminMode ? '1fr' : '1fr 1fr';
+    statActiveProjectsLabel.textContent = adminMode ? 'Live projects' : 'Active projects';
+    statDeliveredLabel.textContent = adminMode ? 'Quotes this cycle' : 'Drawings delivered';
+    statPendingApprovalsLabel.textContent = adminMode ? 'Callback requests' : 'Pending approvals';
+    statOutstandingBalanceLabel.textContent = adminMode ? 'Pending payments' : 'Outstanding balance';
+    projectsHeading.textContent = adminMode ? 'Project operations' : 'Your projects';
+    paymentsHeading.textContent = adminMode ? 'Payment audit' : 'Upcoming payment';
+    if (!adminMode) setAdminNotice('');
+    syncPortalHeading();
   }
   function formatCallbackWhen(value) {
     const map = {
@@ -2169,10 +2350,63 @@ gtag('config', 'G-77CQ2PWJM4', {
     setStat('statOutstandingBalance', formatMoney(outstandingPence, payments[0]?.currency || 'gbp'), outstandingPence ? 'Awaiting payment confirmation' : 'Up to date');
   }
 
+  function updateAdminStats(projects, quotes, callbacks, payments) {
+    const liveProjects = projects.filter((project) => !['approved', 'completed'].includes(String(project.status || '').toLowerCase()));
+    const pendingPayments = payments.filter((payment) => String(payment.status || '').toLowerCase() === 'pending');
+    const quoteCount = quotes.length;
+    const callbackCount = callbacks.length;
+
+    setStat('statActiveProjects', String(liveProjects.length), liveProjects.length ? 'Across all active client accounts' : 'No projects tracked yet');
+    setStat('statDelivered', String(quoteCount), quoteCount ? 'Recent quote submissions from the website' : 'No quote submissions yet');
+    setStat('statPendingApprovals', String(callbackCount), callbackCount ? 'Callback requests awaiting follow-up' : 'No callback requests yet', callbackCount ? 'var(--warn)' : '');
+    setStat('statOutstandingBalance', String(pendingPayments.length), pendingPayments.length ? 'Pending Stripe sessions awaiting payment' : 'No pending payments');
+  }
+
+  function renderAuditEmpty(container, message) {
+    container.innerHTML = '<div class="audit-empty">' + message + '</div>';
+  }
+
+  async function triggerDrawingReady(projectId, button) {
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = 'Sending…';
+    setAdminNotice('Sending the drawings-ready email for project #' + projectId + '…');
+
+    try {
+      const response = await fetch(`${API}/api/projects/${projectId}/drawings-ready`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${sessionStorage.getItem('ad_token')}` }
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (response.status === 401) {
+        sessionStorage.removeItem('ad_token');
+        sessionStorage.removeItem('ad_user');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      if (!response.ok) {
+        setAdminNotice(data.error || 'Unable to send the drawings-ready email right now.', 'error');
+        button.disabled = false;
+        button.textContent = originalText;
+        return;
+      }
+
+      setAdminNotice('Drawing-ready email sent successfully. Message ID: ' + (data.emailMessageId || 'not returned') + '.', 'success');
+      await loadDashboardData();
+      modal.classList.remove('active');
+    } catch (_error) {
+      setAdminNotice('Unable to send the drawings-ready email right now.', 'error');
+      button.disabled = false;
+      button.textContent = originalText;
+    }
+  }
+
   function renderProjectDetails(project) {
     const [statusLabel, statusClass] = projectStatusMeta(project.status);
-    const fee = formatMoney(project.value_pence, 'gbp');
-    const started = formatDateLabel(project.created_at, 'Started');
+    const fee = formatMoney(project.value_pence ?? project.valuePence, 'gbp');
+    const started = formatDateLabel(project.created_at || project.createdAt, 'Started');
     document.getElementById('modalBadge').innerHTML = '<span class="badge ' + statusClass + '">' + statusLabel + '</span>';
     document.getElementById('modalTitle').textContent = project.title || 'Project';
     document.getElementById('modalMeta').textContent = (project.service || 'Architectural service') + ' · ' + started;
@@ -2181,7 +2415,29 @@ gtag('config', 'G-77CQ2PWJM4', {
       '<div class="modal-detail-row"><span class="modal-detail-label">Postcode</span><strong>' + (project.postcode || 'Not provided') + '</strong></div>' +
       '<div class="modal-detail-row"><span class="modal-detail-label">Fee</span><strong>' + fee + '</strong></div>' +
       '<div class="modal-detail-row"><span class="modal-detail-label">Status</span><span class="badge ' + statusClass + '">' + statusLabel + '</span></div>' +
-      '<div class="modal-detail-row"><span class="modal-detail-label">Created</span><strong>' + formatDateLabel(project.created_at) + '</strong></div>';
+      '<div class="modal-detail-row"><span class="modal-detail-label">Created</span><strong>' + formatDateLabel(project.created_at || project.createdAt) + '</strong></div>';
+
+    const modalActions = document.getElementById('modalActions');
+    if (isAdmin()) {
+      const deliverySent = Boolean(project.drawingReadyEmailMessageId || project.drawing_ready_email_message_id);
+      document.getElementById('modalDetails').innerHTML +=
+        '<div class="modal-detail-row"><span class="modal-detail-label">Client</span><strong>' + (project.userName || project.user_name || 'Unknown') + '</strong></div>' +
+        '<div class="modal-detail-row"><span class="modal-detail-label">Client email</span><strong>' + (project.userEmail || project.user_email || 'Unavailable') + '</strong></div>' +
+        '<div class="modal-detail-row"><span class="modal-detail-label">Delivery audit</span><strong>' + (project.drawingReadyEmailMessageId || project.drawing_ready_email_message_id || 'Not sent yet') + '</strong></div>';
+
+      modalActions.innerHTML =
+        '<button type="button" class="btn btn-primary btn-sm" id="modalDrawingsReadyButton" style="flex:1;justify-content:center;"' + (deliverySent ? ' disabled' : '') + '>' + (deliverySent ? 'Delivery email sent' : 'Send drawings-ready') + '</button>' +
+        '<button class="btn btn-outline btn-sm" onclick="document.getElementById(\'projectModal\').classList.remove(\'active\')" style="flex:1;justify-content:center;">Close</button>';
+
+      if (!deliverySent) {
+        document.getElementById('modalDrawingsReadyButton').addEventListener('click', () => triggerDrawingReady(project.id, document.getElementById('modalDrawingsReadyButton')));
+      }
+    } else {
+      modalActions.innerHTML =
+        '<a href="../quote.html" class="btn btn-primary btn-sm" style="flex:1;justify-content:center;">Request amendment</a>' +
+        '<button class="btn btn-outline btn-sm" onclick="document.getElementById(\'projectModal\').classList.remove(\'active\')" style="flex:1;justify-content:center;">Close</button>';
+    }
+
     modal.classList.add('active');
   }
 
@@ -2217,6 +2473,181 @@ gtag('config', 'G-77CQ2PWJM4', {
       item.querySelector('button').addEventListener('click', () => renderProjectDetails(project));
 
       projectList.appendChild(item);
+    });
+  }
+
+  function renderAdminProjects(projects) {
+    const projectList = document.getElementById('projectList');
+    const projectsCountLabel = document.getElementById('projectsCountLabel');
+    adminProjects = projects;
+    projectList.innerHTML = '';
+
+    if (!projects.length) {
+      renderAuditEmpty(projectList, 'No projects have been created yet.');
+      projectsCountLabel.textContent = 'No projects in production yet';
+      return;
+    }
+
+    projectsCountLabel.textContent = projects.length === 1 ? '1 project tracked' : projects.length + ' projects tracked';
+
+    projects.forEach((project) => {
+      const [statusLabel, statusClass] = projectStatusMeta(project.status);
+      const item = document.createElement('div');
+      item.className = 'project-item';
+      item.innerHTML =
+        '<div><div class="project-title"></div><div class="project-meta"></div></div>' +
+        '<span class="badge"></span>' +
+        '<span class="muted tiny"></span>' +
+        '<div class="audit-actions"></div>';
+
+      item.querySelector('.project-title').textContent = project.title || 'Untitled project';
+      item.querySelector('.project-meta').textContent = [
+        project.userName || 'Unknown client',
+        project.userEmail || 'No email',
+        project.postcode || 'Postcode pending',
+        project.service || 'Service pending'
+      ].join(' · ');
+
+      const badge = item.querySelector('.badge');
+      badge.className = 'badge ' + statusClass;
+      badge.textContent = statusLabel;
+
+      item.querySelector('.muted').textContent = formatMoney(project.valuePence, 'gbp') + (project.drawingReadyEmailMessageId ? ' · Email logged' : ' · Awaiting delivery email');
+
+      const actions = item.querySelector('.audit-actions');
+      const openButton = document.createElement('button');
+      openButton.type = 'button';
+      openButton.className = 'btn btn-outline btn-sm';
+      openButton.textContent = 'Open';
+      openButton.addEventListener('click', () => renderProjectDetails(project));
+      actions.appendChild(openButton);
+
+      const deliveryButton = document.createElement('button');
+      deliveryButton.type = 'button';
+      deliveryButton.className = project.drawingReadyEmailMessageId ? 'btn btn-outline btn-sm' : 'btn btn-primary btn-sm';
+      deliveryButton.textContent = project.drawingReadyEmailMessageId ? 'Delivery email sent' : 'Send drawings-ready';
+      deliveryButton.disabled = Boolean(project.drawingReadyEmailMessageId);
+      if (!project.drawingReadyEmailMessageId) {
+        deliveryButton.addEventListener('click', () => triggerDrawingReady(project.id, deliveryButton));
+      }
+      actions.appendChild(deliveryButton);
+
+      projectList.appendChild(item);
+    });
+  }
+
+  function renderQuotes(rows) {
+    quotesSummary.textContent = rows.length
+      ? `Showing the latest ${rows.length} quote request${rows.length === 1 ? '' : 's'} from the website.`
+      : 'No quote requests have been submitted yet.';
+    quotesList.innerHTML = '';
+
+    if (!rows.length) {
+      renderAuditEmpty(quotesList, 'No quote requests yet.');
+      return;
+    }
+
+    rows.forEach((row) => {
+      const item = document.createElement('div');
+      item.className = 'audit-item';
+
+      const main = document.createElement('div');
+      main.className = 'audit-main';
+      main.innerHTML =
+        '<div class="project-title"></div>' +
+        '<div class="project-meta"></div>';
+      main.querySelector('.project-title').textContent = row.name || 'Quote request';
+      main.querySelector('.project-meta').textContent = [
+        row.email || 'No email',
+        row.phone || 'No phone',
+        row.service || 'Service pending',
+        row.tier || 'Tier pending',
+        row.postcode || 'Postcode pending'
+      ].join(' · ');
+
+      const badge = document.createElement('span');
+      const [statusLabel, statusClass] = projectStatusMeta(row.status || 'new');
+      badge.className = 'badge ' + statusClass;
+      badge.textContent = statusLabel;
+
+      const meta = document.createElement('div');
+      meta.className = 'audit-meta';
+      const auditState = document.createElement('div');
+      auditState.className = 'tiny muted';
+      auditState.textContent = row.customer_email_message_id && row.ops_email_message_id
+        ? 'Customer and ops emails logged'
+        : 'Email audit incomplete';
+      const created = document.createElement('div');
+      created.className = 'tiny muted';
+      created.textContent = formatDateLabel(row.created_at || row.createdAt);
+      meta.appendChild(auditState);
+      meta.appendChild(created);
+
+      item.appendChild(main);
+      item.appendChild(badge);
+      item.appendChild(meta);
+      quotesList.appendChild(item);
+    });
+  }
+
+  function renderAdminPayments(payments) {
+    adminPaymentsPanel.innerHTML = '';
+    if (!payments.length) {
+      renderAuditEmpty(adminPaymentsPanel, 'No payments have been created yet.');
+      return;
+    }
+
+    payments.forEach((payment) => {
+      const [statusLabel, statusClass] = paymentStatusMeta(payment.status);
+      const item = document.createElement('div');
+      item.className = 'audit-item';
+      item.innerHTML =
+        '<div class="audit-main"><div class="project-title"></div><div class="project-meta"></div></div>' +
+        '<span class="badge"></span>' +
+        '<div class="audit-meta"><div class="tiny muted"></div><div class="tiny muted"></div></div>';
+
+      item.querySelector('.project-title').textContent = payment.description || 'Project payment';
+      item.querySelector('.project-meta').textContent = [
+        payment.userName || 'Unknown client',
+        payment.userEmail || 'No email',
+        payment.projectTitle || 'No linked project'
+      ].join(' · ');
+      const badge = item.querySelector('.badge');
+      badge.className = 'badge ' + statusClass;
+      badge.textContent = statusLabel;
+      item.querySelectorAll('.tiny')[0].textContent = formatMoney(payment.amountPence, payment.currency) + (payment.emailMessageId ? ' · Email logged' : ' · No email logged');
+      item.querySelectorAll('.tiny')[1].textContent = formatDateLabel(payment.createdAt || payment.created_at);
+      adminPaymentsPanel.appendChild(item);
+    });
+  }
+
+  function renderResetAudits(rows) {
+    resetsSummary.textContent = rows.length
+      ? `Showing the latest ${rows.length} password reset request${rows.length === 1 ? '' : 's'}.`
+      : 'No password reset requests have been recorded yet.';
+    resetsList.innerHTML = '';
+
+    if (!rows.length) {
+      renderAuditEmpty(resetsList, 'No password reset audits yet.');
+      return;
+    }
+
+    rows.forEach((row) => {
+      const item = document.createElement('div');
+      item.className = 'audit-item';
+      item.innerHTML =
+        '<div class="audit-main"><div class="project-title"></div><div class="project-meta"></div></div>' +
+        '<span class="badge"></span>' +
+        '<div class="audit-meta"><div class="tiny muted"></div><div class="tiny muted"></div></div>';
+
+      item.querySelector('.project-title').textContent = row.user_name || 'User';
+      item.querySelector('.project-meta').textContent = (row.user_email || 'No email') + ' · Expires ' + formatDateLabel(row.expires_at || row.expiresAt).toLowerCase();
+      const badge = item.querySelector('.badge');
+      badge.className = 'badge ' + (row.used ? 'badge-done' : 'badge-review');
+      badge.textContent = row.used ? 'Used' : 'Open';
+      item.querySelectorAll('.tiny')[0].textContent = row.email_message_id ? 'Message ID logged' : 'No message ID';
+      item.querySelectorAll('.tiny')[1].textContent = formatDateLabel(row.created_at || row.createdAt);
+      resetsList.appendChild(item);
     });
   }
 
@@ -2259,6 +2690,44 @@ gtag('config', 'G-77CQ2PWJM4', {
   async function loadDashboardData() {
     const authHeader = { Authorization: 'Bearer ' + sessionStorage.getItem('ad_token') };
     try {
+      if (isAdmin()) {
+        const [projectsResponse, quotesResponse, callbacksResponse, paymentsResponse, resetsResponse] = await Promise.all([
+          fetch(`${API}/api/projects/admin?limit=50`, { headers: authHeader }),
+          fetch(`${API}/api/quotes`, { headers: authHeader }),
+          fetch(`${API}/api/callbacks`, { headers: authHeader }),
+          fetch(`${API}/api/stripe/payments?limit=20`, { headers: authHeader }),
+          fetch(`${API}/api/auth/password-resets?limit=20`, { headers: authHeader }),
+        ]);
+
+        if ([projectsResponse, quotesResponse, callbacksResponse, paymentsResponse, resetsResponse].some((response) => response.status === 401)) {
+          sessionStorage.removeItem('ad_token');
+          sessionStorage.removeItem('ad_user');
+          window.location.href = 'login.html';
+          return;
+        }
+
+        const projectsData = projectsResponse.ok ? await projectsResponse.json() : { projects: [] };
+        const quotesData = quotesResponse.ok ? await quotesResponse.json() : { quotes: [] };
+        const callbacksData = callbacksResponse.ok ? await callbacksResponse.json() : { callbacks: [] };
+        const paymentsData = paymentsResponse.ok ? await paymentsResponse.json() : { payments: [] };
+        const resetsData = resetsResponse.ok ? await resetsResponse.json() : { resets: [] };
+
+        const projects = Array.isArray(projectsData.projects) ? projectsData.projects : [];
+        const quotes = Array.isArray(quotesData.quotes) ? quotesData.quotes : [];
+        const callbacks = Array.isArray(callbacksData.callbacks) ? callbacksData.callbacks : [];
+        const payments = Array.isArray(paymentsData.payments) ? paymentsData.payments : [];
+        const resets = Array.isArray(resetsData.resets) ? resetsData.resets : [];
+
+        renderAdminProjects(projects);
+        renderQuotes(quotes);
+        renderCallbacks(callbacks);
+        renderAdminPayments(payments);
+        renderResetAudits(resets);
+        updateAdminStats(projects, quotes, callbacks, payments);
+        callbacksLoaded = true;
+        return;
+      }
+
       const [projectsResponse, paymentsResponse] = await Promise.all([
         fetch(`${API}/api/projects`, { headers: authHeader }),
         fetch(`${API}/api/stripe/payments/mine?limit=10`, { headers: authHeader }),
@@ -2313,13 +2782,13 @@ gtag('config', 'G-77CQ2PWJM4', {
   });
 
   const initialSection = (location.hash || '#overview').replace('#', '');
-  const initialLink = document.querySelector('.portal-nav a[href="#' + initialSection + '"]')
+  const allowedInitialSection = isAdmin() && ['files', 'messages'].includes(initialSection) ? 'overview' : initialSection;
+  const initialLink = document.querySelector('.portal-nav a[href="#' + allowedInitialSection + '"]')
     || document.querySelector('.portal-nav a[href="#overview"]');
-  if (initialLink) activateSection(initialSection, initialLink);
+  if (initialLink) activateSection(allowedInitialSection, initialLink);
 
-  const paymentStatus = document.getElementById('paymentStatus');
   const paymentParam = new URLSearchParams(window.location.search).get('payment');
-  if (paymentParam === 'success' || paymentParam === 'cancelled') {
+  if (!isAdmin() && (paymentParam === 'success' || paymentParam === 'cancelled')) {
     const isSuccess = paymentParam === 'success';
     paymentStatus.style.display = 'block';
     paymentStatus.style.background = isSuccess ? 'rgba(71, 132, 90, 0.12)' : 'var(--accent-soft)';
@@ -2334,6 +2803,7 @@ gtag('config', 'G-77CQ2PWJM4', {
   }
 
   refreshCallbacks.addEventListener('click', () => loadCallbacks(true));
+  refreshAdminButton.addEventListener('click', () => loadDashboardData());
 
   // Sign out
   document.getElementById('signOut').addEventListener('click', () => { sessionStorage.clear(); window.location.href = 'login.html'; });

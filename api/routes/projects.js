@@ -16,6 +16,64 @@ function getResend() {
   return resend;
 }
 
+function normaliseLimit(rawLimit, fallback = 20, max = 100) {
+  const parsed = Number.parseInt(rawLimit, 10);
+  if (!Number.isInteger(parsed) || parsed <= 0) return fallback;
+  return Math.min(parsed, max);
+}
+
+function mapProjectRow(row) {
+  if (!row) return null;
+  return {
+    id: row.id,
+    userId: row.user_id,
+    userEmail: row.user_email,
+    userName: row.user_name,
+    title: row.title,
+    service: row.service,
+    postcode: row.postcode,
+    status: row.status,
+    valuePence: row.value_pence,
+    drawingReadyEmailMessageId: row.drawing_ready_email_message_id,
+    createdAt: row.created_at,
+  };
+}
+
+/* GET /api/projects/admin — admin-only project operations view */
+router.get('/admin', requireAuth, requireRole('admin'), async (req, res) => {
+  const limit = normaliseLimit(req.query.limit, 20, 100);
+  const status = typeof req.query.status === 'string' ? req.query.status.trim().toLowerCase() : '';
+
+  let sql = `
+    SELECT
+      p.id,
+      p.user_id,
+      u.email AS user_email,
+      u.name AS user_name,
+      p.title,
+      p.service,
+      p.postcode,
+      p.status,
+      p.value_pence,
+      p.drawing_ready_email_message_id,
+      p.created_at
+    FROM projects p
+    JOIN users u ON u.id = p.user_id
+  `;
+  const params = [];
+
+  if (status) {
+    sql += ' WHERE LOWER(p.status) = ?';
+    params.push(status);
+  }
+
+  sql += ' ORDER BY p.created_at DESC LIMIT ?';
+  params.push(limit);
+
+  const rows = await dbAll(sql, params);
+  res.json({ projects: rows.map(mapProjectRow) });
+});
+
 /* GET /api/projects — list current user's projects */
 router.get('/', requireAuth, async (req, res) => {
   const rows = await dbAll(
