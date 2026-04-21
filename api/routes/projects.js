@@ -24,6 +24,15 @@ function normaliseLimit(rawLimit, fallback = 20, max = 100) {
 
 function mapProjectRow(row) {
   if (!row) return null;
+  const paymentCount = Number(row.payment_count || 0);
+  const fileCount = Number(row.file_count || 0);
+  const deleteBlockedReasons = [];
+  if (paymentCount > 0) {
+    deleteBlockedReasons.push(paymentCount === 1 ? '1 payment record linked' : `${paymentCount} payment records linked`);
+  }
+  if (fileCount > 0) {
+    deleteBlockedReasons.push(fileCount === 1 ? '1 uploaded file linked' : `${fileCount} uploaded files linked`);
+  }
   return {
     id: row.id,
     userId: row.user_id,
@@ -35,6 +44,9 @@ function mapProjectRow(row) {
     status: row.status,
     valuePence: row.value_pence,
     drawingReadyEmailMessageId: row.drawing_ready_email_message_id,
+    paymentCount,
+    fileCount,
+    deleteBlockedReasons,
     createdAt: row.created_at,
   };
 }
@@ -49,6 +61,7 @@ function mapProjectAuditRow(row) {
     projectId: row.project_id,
     projectTitle: row.project_title,
     clientEmail: row.client_email,
+    details: row.details,
     createdAt: row.created_at,
   };
 }
@@ -66,6 +79,8 @@ async function getAdminProjectRow(projectId) {
       p.status,
       p.value_pence,
       p.drawing_ready_email_message_id,
+      (SELECT COUNT(*) FROM payments pay WHERE pay.project_id = p.id) AS payment_count,
+      (SELECT COUNT(*) FROM files f WHERE f.project_id = p.id) AS file_count,
       p.created_at
     FROM projects p
     JOIN users u ON u.id = p.user_id
@@ -91,6 +106,8 @@ router.get('/admin', requireAuth, requireRole('admin'), async (req, res) => {
       p.status,
       p.value_pence,
       p.drawing_ready_email_message_id,
+      (SELECT COUNT(*) FROM payments pay WHERE pay.project_id = p.id) AS payment_count,
+      (SELECT COUNT(*) FROM files f WHERE f.project_id = p.id) AS file_count,
       p.created_at
     FROM projects p
     JOIN users u ON u.id = p.user_id
@@ -109,11 +126,11 @@ router.get('/admin', requireAuth, requireRole('admin'), async (req, res) => {
   res.json({ projects: rows.map(mapProjectRow) });
 });
 
-/* GET /api/projects/admin/audit — admin-only project deletion audit trail */
+/* GET /api/projects/admin/audit — admin-only project audit trail */
 router.get('/admin/audit', requireAuth, requireRole('admin'), async (req, res) => {
   const limit = normaliseLimit(req.query.limit, 20, 100);
   const rows = await dbAll(`
-    SELECT id, action, admin_user_id, admin_email, project_id, project_title, client_email, created_at
+    SELECT id, action, admin_user_id, admin_email, project_id, project_title, client_email, details, created_at
     FROM project_admin_audits
     ORDER BY created_at DESC
     LIMIT ?
@@ -168,7 +185,19 @@ router.patch('/admin/:id',
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ error: 'Validation failed', details: errors.array() });
 
-    const existing = await dbGet('SELECT id FROM projects WHERE id = ?', [projectId]);
+    const existing = await dbGet(`
+      SELECT
+        p.id,
+        p.title,
+        p.service,
+        p.postcode,
+        p.status,
+        p.value_pence,
+        u.email AS user_email
+      FROM projects p
+      JOIN users u ON u.id = p.user_id
+      WHERE p.id = ?
+    `, [projectId]);
     if (!existing) {
       return res.status(404).json({ error: 'Project not found' });
     }
@@ -176,8 +205,28 @@ router.patch('/admin/:id',
     const allowed = ['title', 'service', 'postcode', 'status', 'value_pence'];
     const sets = [];
     const vals = [];
+    const changes = [];
+    const fieldLabels = {
+      title: 'Title',
+      service: 'Service',
+      postcode: 'Postcode',
+      status: 'Status',
+      value_pence: 'Fee',
+    };
     for (const key of allowed) {
       if (Object.prototype.hasOwnProperty.call(req.body, key)) {
+        const currentValue = key === 'value_pence'
+          ? Number(existing[key] || 0)
+          : (existing[key] ?? null);
+        const nextValue = key === 'value_pence'
+          ? Number(req.body[key] || 0)
+          : (req.body[key] || null);
+
+        if (currentValue !== nextValue) {
+          const beforeLabel = key === 'value_pence' ? `£${Math.round(currentValue / 100)}` : (currentValue || 'blank');
+          const afterLabel = key === 'value_pence' ? `£${Math.round(nextValue / 100)}` : (nextValue || 'blank');
+          changes.push(`${fieldLabels[key]}: ${beforeLabel} -> ${afterLabel}`);
+        }
         sets.push(`${key} = ?`);
         vals.push(req.body[key] || (key === 'value_pence' ? 0 : null));
       }
@@ -188,6 +237,22 @@ router.patch('/admin/:id',
     vals.push(projectId);
     await dbRun(`UPDATE projects SET ${sets.join(', ')} WHERE id = ?`, vals);
     const project = await getAdminProjectRow(projectId);
+
+    if (changes.length) {
+      await dbInsert(
+        'INSERT INTO project_admin_audits (action, admin_user_id, admin_email, project_id, project_title, client_email, details) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [
+          'project_updated',
+          req.user.id,
+          req.user.email || null,
+          projectId,
+          project?.title || existing.title || null,
+          existing.user_email || null,
+          changes.join(' | '),
+        ]
+      );
+    }
+
     res.json({ project });
   }
 );
@@ -223,8 +288,8 @@ router.delete('/admin/:id', requireAuth, requireRole('admin'), async (req, res) 
   }
 
   const audit = await dbInsert(
-    'INSERT INTO project_admin_audits (action, admin_user_id, admin_email, project_id, project_title, client_email) VALUES (?, ?, ?, ?, ?, ?)',
-    ['project_deleted', req.user.id, req.user.email || null, projectId, existing.title || null, existing.user_email || null]
+    'INSERT INTO project_admin_audits (action, admin_user_id, admin_email, project_id, project_title, client_email, details) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    ['project_deleted', req.user.id, req.user.email || null, projectId, existing.title || null, existing.user_email || null, 'Project removed from admin dashboard']
   );
 
   await dbRun('DELETE FROM projects WHERE id = ?', [projectId]);

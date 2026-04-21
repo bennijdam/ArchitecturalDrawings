@@ -198,6 +198,7 @@ async function initPostgres() {
       project_id BIGINT,
       project_title TEXT,
       client_email TEXT,
+      details TEXT,
       created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
     )`,
   ];
@@ -217,6 +218,7 @@ async function initPostgres() {
   await pool.query('ALTER TABLE quotes ADD COLUMN IF NOT EXISTS ops_email_message_id TEXT');
   await pool.query('ALTER TABLE payments ADD COLUMN IF NOT EXISTS email_message_id TEXT');
   await pool.query('ALTER TABLE projects ADD COLUMN IF NOT EXISTS drawing_ready_email_message_id TEXT');
+  await pool.query('ALTER TABLE project_admin_audits ADD COLUMN IF NOT EXISTS details TEXT');
 }
 
 function initSqlite() {
@@ -333,6 +335,7 @@ function initSqlite() {
       project_id INTEGER,
       project_title TEXT,
       client_email TEXT,
+      details TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);
@@ -348,6 +351,7 @@ function initSqlite() {
   ensureSqliteColumn('quotes', 'ops_email_message_id', 'TEXT');
   ensureSqliteColumn('payments', 'email_message_id', 'TEXT');
   ensureSqliteColumn('projects', 'drawing_ready_email_message_id', 'TEXT');
+  ensureSqliteColumn('project_admin_audits', 'details', 'TEXT');
 }
 
 export async function initDb() {

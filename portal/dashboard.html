@@ -1797,7 +1797,7 @@ gtag('config', 'G-77CQ2PWJM4', {
         <li id="messagesNavItem"><a href="#messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a8 8 0 0 1-12 7l-5 2 2-5A8 8 0 1 1 21 12z"/></svg>Messages</a></li>
         <li><a href="#payments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h3"/></svg>Payments</a></li>
         <li id="resetsNavItem" class="hidden"><a href="#resets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v3l4-4-4-4v3C6.5 3 2 7.5 2 13s4.5 10 10 10 10-4.5 10-10"/></svg>Reset audits</a></li>
-        <li id="deletionsNavItem" class="hidden"><a href="#deletions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13"/><path d="M9 7V4h6v3"/></svg>Deletion audits</a></li>
+        <li id="deletionsNavItem" class="hidden"><a href="#deletions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13"/><path d="M9 7V4h6v3"/></svg>Project audits</a></li>
         <li><a href="#settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .4 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.4 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.4l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .4-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.4-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.4h.1a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.4l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.4 1.8v.1a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings</a></li>
       </ul>
     </nav>
@@ -1995,12 +1995,12 @@ gtag('config', 'G-77CQ2PWJM4', {
       <div class="portal-header">
         <div>
           <span class="eyebrow">Operations</span>
-          <h1 style="margin-top: 8px;">Project deletion audits</h1>
-          <p class="muted admin-section-note" id="deletionsSummary">Recent project deletions from the admin dashboard.</p>
+          <h1 style="margin-top: 8px;">Project audits</h1>
+          <p class="muted admin-section-note" id="deletionsSummary">Recent project updates and deletions from the admin dashboard.</p>
         </div>
       </div>
       <div class="project-list" id="deletionsList">
-        <div class="audit-empty">Loading project deletion audits…</div>
+        <div class="audit-empty">Loading project audits…</div>
       </div>
     </div>
 
@@ -2532,11 +2532,17 @@ gtag('config', 'G-77CQ2PWJM4', {
   }
 
   async function deleteAdminProject(projectId) {
+    const deleteButton = document.getElementById('modalDeleteProjectButton');
+    const blockerText = document.getElementById('modalDeleteGuardReason')?.textContent || '';
+    if (deleteButton && deleteButton.disabled && blockerText) {
+      setAdminNotice(blockerText, 'error');
+      return;
+    }
+
     if (!window.confirm('Delete this project? This cannot be undone.')) {
       return;
     }
 
-    const deleteButton = document.getElementById('modalDeleteProjectButton');
     if (deleteButton) {
       deleteButton.disabled = true;
       deleteButton.textContent = 'Deleting…';
@@ -2634,10 +2640,17 @@ gtag('config', 'G-77CQ2PWJM4', {
     const modalActions = document.getElementById('modalActions');
     if (isAdmin()) {
       const deliverySent = Boolean(project.drawingReadyEmailMessageId || project.drawing_ready_email_message_id);
+      const deleteBlockedReasons = Array.isArray(project.deleteBlockedReasons)
+        ? project.deleteBlockedReasons
+        : [];
+      const deleteGuardLabel = deleteBlockedReasons.length
+        ? 'Blocked: ' + deleteBlockedReasons.join(' · ')
+        : 'Ready to delete if this project was created in error';
       document.getElementById('modalDetails').innerHTML +=
         '<div class="modal-detail-row"><span class="modal-detail-label">Client</span><strong>' + (project.userName || project.user_name || 'Unknown') + '</strong></div>' +
         '<div class="modal-detail-row"><span class="modal-detail-label">Client email</span><strong>' + (project.userEmail || project.user_email || 'Unavailable') + '</strong></div>' +
         '<div class="modal-detail-row"><span class="modal-detail-label">Delivery audit</span><strong>' + (project.drawingReadyEmailMessageId || project.drawing_ready_email_message_id || 'Not sent yet') + '</strong></div>' +
+        '<div class="modal-detail-row"><span class="modal-detail-label">Delete availability</span><strong id="modalDeleteGuardReason">' + deleteGuardLabel + '</strong></div>' +
         '<div class="settings-group" style="margin-top:20px;margin-bottom:0;"><h3>Edit project</h3><div class="settings-field"><label for="modalProjectTitleInput">Project title</label><input type="text" id="modalProjectTitleInput" /></div><div class="settings-field"><label for="modalProjectServiceInput">Service</label><input type="text" id="modalProjectServiceInput" /></div><div class="settings-field"><label for="modalProjectPostcodeInput">Postcode</label><input type="text" id="modalProjectPostcodeInput" /></div><div class="settings-row" style="padding:0;border:0;align-items:flex-end;"><div class="settings-field" style="flex:1;margin:0;"><label for="modalProjectFeeInput">Fee</label><input type="number" id="modalProjectFeeInput" min="0" step="1" /></div><div class="settings-field" style="flex:1;margin:0;"><label for="modalProjectStatusInput">Status</label><select id="modalProjectStatusInput"><option value="pending">Pending</option><option value="new">New</option><option value="active">Active</option><option value="review">Review</option><option value="approved">Approved</option><option value="completed">Completed</option></select></div></div></div>';
 
       document.getElementById('modalProjectTitleInput').value = project.title || '';
@@ -2647,7 +2660,7 @@ gtag('config', 'G-77CQ2PWJM4', {
       document.getElementById('modalProjectStatusInput').value = String(project.status || 'pending').toLowerCase();
 
       modalActions.innerHTML =
-        '<button type="button" class="btn btn-outline btn-sm" id="modalDeleteProjectButton" style="flex:1;justify-content:center;">Delete project</button>' +
+        '<button type="button" class="btn btn-outline btn-sm" id="modalDeleteProjectButton" style="flex:1;justify-content:center;"' + (deleteBlockedReasons.length ? ' disabled' : '') + '>' + (deleteBlockedReasons.length ? 'Delete blocked' : 'Delete project') + '</button>' +
         '<button type="button" class="btn btn-outline btn-sm" id="modalSaveProjectButton" style="flex:1;justify-content:center;">Save changes</button>' +
         '<button type="button" class="btn btn-primary btn-sm" id="modalDrawingsReadyButton" style="flex:1;justify-content:center;"' + (deliverySent ? ' disabled' : '') + '>' + (deliverySent ? 'Delivery email sent' : 'Send drawings-ready') + '</button>' +
         '<button class="btn btn-outline btn-sm" onclick="document.getElementById(\'projectModal\').classList.remove(\'active\')" style="flex:1;justify-content:center;">Close</button>';
@@ -2879,12 +2892,12 @@ gtag('config', 'G-77CQ2PWJM4', {
 
   function renderDeletionAudits(rows) {
     deletionsSummary.textContent = rows.length
-      ? `Showing the latest ${rows.length} project deletion audit${rows.length === 1 ? '' : 's'}.`
-      : 'No project deletions have been recorded yet.';
+      ? `Showing the latest ${rows.length} project audit entr${rows.length === 1 ? 'y' : 'ies'}.`
+      : 'No project admin actions have been recorded yet.';
     deletionsList.innerHTML = '';
 
     if (!rows.length) {
-      renderAuditEmpty(deletionsList, 'No project deletion audits yet.');
+      renderAuditEmpty(deletionsList, 'No project admin audits yet.');
       return;
     }
 
@@ -2896,13 +2909,13 @@ gtag('config', 'G-77CQ2PWJM4', {
         '<span class="badge badge-review"></span>' +
         '<div class="audit-meta"><div class="tiny muted"></div><div class="tiny muted"></div></div>';
 
-      item.querySelector('.project-title').textContent = row.projectTitle || 'Deleted project';
+      item.querySelector('.project-title').textContent = row.projectTitle || 'Project audit';
       item.querySelector('.project-meta').textContent = [
         row.clientEmail || 'No client email',
         row.adminEmail || 'Unknown admin'
       ].join(' · ');
-      item.querySelector('.badge').textContent = row.action === 'project_deleted' ? 'Deleted' : 'Logged';
-      item.querySelectorAll('.tiny')[0].textContent = 'Project #' + (row.projectId || '—');
+      item.querySelector('.badge').textContent = row.action === 'project_deleted' ? 'Deleted' : 'Updated';
+      item.querySelectorAll('.tiny')[0].textContent = row.details || ('Project #' + (row.projectId || '—'));
       item.querySelectorAll('.tiny')[1].textContent = formatDateLabel(row.createdAt || row.created_at);
       deletionsList.appendChild(item);
     });
