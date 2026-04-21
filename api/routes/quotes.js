@@ -1,23 +1,17 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import { dbAll, dbInsert } from '../models/db.js';
 import { requireAuth, requireRole } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Lazily built transporter
-let transporter;
-function getMailer() {
-  if (!transporter && process.env.SMTP_HOST) {
-    transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || '587', 10),
-      secure: process.env.SMTP_PORT === '465',
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
-    });
+let resend;
+function getResend() {
+  if (!resend && process.env.RESEND_API_KEY) {
+    resend = new Resend(process.env.RESEND_API_KEY);
   }
-  return transporter;
+  return resend;
 }
 
 /* POST /api/quotes — public (from the quote flow) */
@@ -42,16 +36,16 @@ router.post('/',
     `, [property, service, tier, timeline, postcode, name, email, phone || null, notes || null]);
 
     // Notify ops team (best-effort)
-    const mailer = getMailer();
-    if (mailer && process.env.EMAIL_TO_OPS) {
+    const client = getResend();
+    if (client && process.env.EMAIL_TO_OPS) {
       try {
-        await mailer.sendMail({
-          from: process.env.EMAIL_FROM,
+        await client.emails.send({
+          from: process.env.EMAIL_FROM || 'Architectural Drawings <noreply@send.architecturaldrawings.uk>',
           to: process.env.EMAIL_TO_OPS,
           subject: `[Quote] ${name} · ${service || '—'} · ${postcode}`,
           text: `New quote request:\n\n${JSON.stringify(req.body, null, 2)}`,
         });
-      } catch (err) { console.error('Mail error:', err.message); }
+      } catch (err) { console.error('Quote email failed:', err); }
     }
 
     res.status(201).json({ ok: true, id: info.id });
