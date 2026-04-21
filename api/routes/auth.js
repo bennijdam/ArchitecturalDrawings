@@ -1,22 +1,17 @@
 import express from 'express';
 import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
-import nodemailer from 'nodemailer';
 import { body, validationResult } from 'express-validator';
+import { Resend } from 'resend';
 import { dbGet, dbInsert, dbRun } from '../models/db.js';
 import { requireAuth, signToken } from '../middleware/auth.js';
 
-let transporter;
-function getMailer() {
-  if (!transporter && process.env.SMTP_HOST) {
-    transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || '587', 10),
-      secure: process.env.SMTP_PORT === '465',
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
-    });
+let resend;
+function getResend() {
+  if (!resend && process.env.RESEND_API_KEY) {
+    resend = new Resend(process.env.RESEND_API_KEY);
   }
-  return transporter;
+  return resend;
 }
 
 const router = express.Router();
@@ -138,15 +133,20 @@ router.post('/reset-password',
 
     const resetUrl = `${process.env.ALLOWED_ORIGIN || 'http://localhost:8080'}/portal/reset.html?token=${token}`;
 
-    const mailer = getMailer();
-    if (mailer) {
-      mailer.sendMail({
-        from: process.env.EMAIL_FROM || 'hello@architecturaldrawings.uk',
-        to: email,
-        subject: 'Reset your password — Architectural Drawings',
-        text: `Hi ${user.name},\n\nYou requested a password reset. Click the link below within 1 hour:\n\n${resetUrl}\n\nIf you didn't request this, ignore this email.\n\nArchitectural Drawings London`,
-        html: `<p>Hi ${user.name},</p><p>You requested a password reset. Click the link below within 1 hour:</p><p><a href="${resetUrl}">${resetUrl}</a></p><p>If you didn't request this, ignore this email.</p><p>Architectural Drawings London</p>`,
-      }).catch((err) => console.error('Reset email failed:', err));
+    const client = getResend();
+    if (client) {
+      try {
+        const recipientName = user.name || 'there';
+        await client.emails.send({
+          from: process.env.EMAIL_FROM || 'Architectural Drawings <noreply@send.architecturaldrawings.uk>',
+          to: email,
+          subject: 'Reset your password — Architectural Drawings',
+          text: `Hi ${recipientName},\n\nYou requested a password reset. Click the link below within 1 hour:\n\n${resetUrl}\n\nIf you didn't request this, ignore this email.\n\nArchitectural Drawings London`,
+          html: `<p>Hi ${recipientName},</p><p>You requested a password reset. Click the link below within 1 hour:</p><p><a href="${resetUrl}">${resetUrl}</a></p><p>If you didn't request this, ignore this email.</p><p>Architectural Drawings London</p>`,
+        });
+      } catch (err) {
+        console.error('Reset email failed:', err);
+      }
     } else {
       console.log(`[DEV] Password reset link for ${email}: ${resetUrl}`);
     }
