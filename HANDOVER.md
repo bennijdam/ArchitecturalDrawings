@@ -6,6 +6,15 @@
 
 ## Agent handover log
 
+## 2026-04-21 — Stripe observability and payment verification endpoints
+
+**Author:** Codex
+**Task:** Raise Stripe verification to a production-grade standard by adding safer payment inspection and stronger checkout/webhook audit logging.
+**Scope touched:** api/routes/stripe.js, HANDOVER.md.
+**Result:** shipped locally. Added read-only payment verification endpoints under `/api/stripe/payments`, including a current-user view at `/api/stripe/payments/mine` for self-service confirmation and admin-only audit lookups for broader investigation. Strengthened Stripe logs so checkout creation, webhook receipt, payment status transitions, and unmatched webhook updates now emit structured, correlation-friendly server logs keyed by session and user identifiers rather than vague one-line failures.
+**Next action for the next agent:** Push and deploy this change, then verify live that `/api/stripe/payments/mine` reflects recent checkout attempts and use the stronger logs to confirm webhook completion or identify any delivery gap. Stripe dashboard access is only needed if direct Stripe-side event delivery inspection is required.
+**Links:** api/routes/stripe.js, api/server.js
+
 ## 2026-04-21 — Stale JWT payment failure fixed
 
 **Author:** Codex
