@@ -1,9 +1,20 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
+import { Resend } from 'resend';
 import { dbAll, dbGet, dbInsert, dbRun } from '../models/db.js';
-import { requireAuth } from '../middleware/auth.js';
+import { requireAuth, requireRole } from '../middleware/auth.js';
+import { logEmailSent } from './emailAudit.js';
+import { drawingReadyEmail } from './emailTemplates.js';
 
 const router = express.Router();
+
+let resend;
+function getResend() {
+  if (!resend && process.env.RESEND_API_KEY) {
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resend;
+}
 
 /* GET /api/projects — list current user's projects */
 router.get('/', requireAuth, async (req, res) => {
@@ -39,6 +50,91 @@ router.post('/',
     res.status(201).json({ id: info.id });
   }
 );
+
+/* POST /api/projects/:id/drawings-ready — admin-only project transition + email */
+router.post('/:id/drawings-ready', requireAuth, requireRole('admin'), async (req, res) => {
+  const projectId = Number.parseInt(req.params.id, 10);
+  if (!Number.isInteger(projectId) || projectId <= 0) {
+    return res.status(400).json({ error: 'Invalid project id' });
+  }
+
+  const project = await dbGet(`
+    SELECT
+      p.id,
+      p.title,
+      p.status,
+      p.drawing_ready_email_message_id,
+      u.id AS user_id,
+      u.email AS user_email,
+      u.name AS user_name
+    FROM projects p
+    JOIN users u ON u.id = p.user_id
+    WHERE p.id = ?
+  `, [projectId]);
+
+  if (!project) {
+    return res.status(404).json({ error: 'Project not found' });
+  }
+
+  if (project.drawing_ready_email_message_id) {
+    return res.status(409).json({
+      error: 'Drawing-ready email already sent for this project',
+      emailMessageId: project.drawing_ready_email_message_id,
+    });
+  }
+
+  if (!project.user_email) {
+    return res.status(400).json({ error: 'Project owner has no email address' });
+  }
+
+  const client = getResend();
+  if (!client) {
+    return res.status(503).json({ error: 'Email not configured' });
+  }
+
+  const portalUrl = `${process.env.ALLOWED_ORIGIN || 'https://www.architecturaldrawings.uk'}/portal/dashboard.html`;
+
+  try {
+    const tpl = drawingReadyEmail({
+      name: project.user_name,
+      projectTitle: project.title,
+      portalUrl,
+    });
+
+    const sendResult = await client.emails.send({
+      from: process.env.EMAIL_FROM || 'Architectural Drawings <noreply@send.architecturaldrawings.uk>',
+      to: project.user_email,
+      subject: tpl.subject,
+      html: tpl.html,
+      text: tpl.text,
+    });
+
+    const emailMessageId = logEmailSent('drawing_ready_email_sent', {
+      projectId: project.id,
+      userId: project.user_id,
+      email: project.user_email,
+    }, sendResult);
+
+    await dbRun(
+      'UPDATE projects SET status = ?, drawing_ready_email_message_id = ? WHERE id = ?'
+      , ['review', emailMessageId, project.id]
+    );
+
+    res.json({
+      ok: true,
+      projectId: project.id,
+      status: 'review',
+      emailMessageId,
+    });
+  } catch (err) {
+    console.error('[projects] drawing ready email failed', {
+      projectId: project.id,
+      userId: project.user_id,
+      error: err.message,
+    });
+    res.status(502).json({ error: 'Could not send drawing-ready email' });
+  }
+});
 
 /* PATCH /api/projects/:id */
 router.patch('/:id', requireAuth, async (req, res) => {
