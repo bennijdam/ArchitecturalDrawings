@@ -23,6 +23,45 @@ sys.path.insert(0, str(SCRIPT_DIR))
 from pseo_boroughs import BOROUGHS, BOROUGH_SLUGS, adjacent_names, BOROUGH_STREET_PHOTOS
 from pseo_services import SERVICES, SERVICE_SLUGS
 
+# Local image stem for borough trust-signal thumbnail.
+# Inner/central London: london-house-exterior (period Georgian/Victorian, good quality)
+# Outer/suburban London: london-victorian-terrace (Victorian/Edwardian terrace)
+BOROUGH_LOCAL_PHOTO: dict[str, tuple[str, str]] = {
+    "camden":                 ("london-house-exterior",    "Period Victorian terraced houses in Camden NW1"),
+    "islington":              ("london-house-exterior",    "Victorian conservation area terrace in Islington N1"),
+    "hackney":                ("london-victorian-terrace", "Victorian terraced houses in Hackney E8"),
+    "westminster":            ("london-house-exterior",    "Georgian listed townhouses in Westminster SW1"),
+    "kensington-and-chelsea": ("london-house-exterior",    "Stucco Georgian townhouses in Kensington W8"),
+    "hammersmith-and-fulham": ("london-victorian-terrace", "Victorian bay-fronted terrace in Fulham SW6"),
+    "wandsworth":             ("london-victorian-terrace", "Victorian terraced street in Clapham SW11"),
+    "lambeth":                ("london-victorian-terrace", "Victorian terraced street in Brixton SW9"),
+    "southwark":              ("london-house-exterior",    "Georgian and Victorian terraces in Bermondsey SE1"),
+    "lewisham":               ("london-victorian-terrace", "Victorian terraced street in Forest Hill SE23"),
+    "greenwich":              ("london-house-exterior",    "Georgian conservation area street in Greenwich SE10"),
+    "tower-hamlets":          ("london-house-exterior",    "Georgian terraces in Spitalfields E1"),
+    "newham":                 ("london-victorian-terrace", "Victorian terraced street in Forest Gate E7"),
+    "waltham-forest":         ("london-victorian-terrace", "Victorian terraced street in Walthamstow E17"),
+    "redbridge":              ("london-victorian-terrace", "1930s semi-detached houses in Wanstead E11"),
+    "barking-and-dagenham":   ("london-victorian-terrace", "1920s terraced housing in Becontree Dagenham"),
+    "havering":               ("london-victorian-terrace", "1930s semi-detached houses in Hornchurch RM11"),
+    "haringey":               ("london-victorian-terrace", "Edwardian terraced houses in Crouch End N8"),
+    "barnet":                 ("london-victorian-terrace", "1930s semi-detached houses in Finchley N3"),
+    "enfield":                ("london-victorian-terrace", "Edwardian villas in Winchmore Hill N21"),
+    "ealing":                 ("london-victorian-terrace", "Edwardian villas in Ealing W5"),
+    "hounslow":               ("london-victorian-terrace", "Edwardian terraced houses in Chiswick W4"),
+    "brent":                  ("london-victorian-terrace", "Edwardian villas in Queens Park NW6"),
+    "hillingdon":             ("london-victorian-terrace", "1930s semi-detached street in Ruislip HA4"),
+    "harrow":                 ("london-victorian-terrace", "1930s semi-detached houses in Harrow HA1"),
+    "richmond-upon-thames":   ("london-house-exterior",    "Georgian houses on Richmond Green TW9"),
+    "kingston-upon-thames":   ("london-victorian-terrace", "Edwardian terraced street in Surbiton KT6"),
+    "merton":                 ("london-victorian-terrace", "Victorian villas in Wimbledon SW19"),
+    "sutton":                 ("london-victorian-terrace", "1930s semi-detached houses in Sutton SM1"),
+    "croydon":                ("london-victorian-terrace", "Victorian villas in Crystal Palace SE19"),
+    "bromley":                ("london-victorian-terrace", "1930s detached houses in Chislehurst BR7"),
+    "bexley":                 ("london-victorian-terrace", "1930s semi-detached street in Bexleyheath DA6"),
+    "city-of-london":         ("london-house-exterior",    "Georgian listed buildings in the City of London EC2"),
+}
+
 # Output
 PROJECT = SCRIPT_DIR
 AREAS_DIR = PROJECT / "areas"
@@ -317,6 +356,8 @@ def render_service_location(borough_slug, service_slug):
     hero = s["hero_img"]
     borough_photo_id, borough_photo_alt = BOROUGH_STREET_PHOTOS.get(
         borough_slug, ("1513635269975-59663e0ac1ad", "London residential street"))
+    borough_local_img, borough_local_alt = BOROUGH_LOCAL_PHOTO.get(
+        borough_slug, ("london-house-exterior", f"London residential street in {location}"))
 
     # Quick facts box values
     article_4_short = "Yes" if b["article_4"] else "No"
@@ -592,9 +633,13 @@ def render_service_location(borough_slug, service_slug):
   <div class="container">
     <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between;">
       <div style="flex:0 0 auto; width:200px; border-radius:var(--r-md); overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-{borough_photo_id}?auto=format&amp;fit=crop&amp;w=400&amp;q=75"
-             alt="{borough_photo_alt}" loading="lazy" width="400" height="267"
-             style="width:100%;height:100%;object-fit:cover;display:block;" />
+        <picture>
+          <source type="image/avif" srcset="/assets/img/{borough_local_img}-640.avif" />
+          <source type="image/webp" srcset="/assets/img/{borough_local_img}-640.webp" />
+          <img src="/assets/img/{borough_local_img}-640.jpg" alt="{borough_local_alt}"
+               loading="lazy" width="640" height="427"
+               style="width:100%;height:100%;object-fit:cover;display:block;" />
+        </picture>
       </div>
       <div class="hero-trust" style="flex:1;">
         <span class="hero-trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 10 3 3 7-7"/></svg>MCIAT Chartered</span>
@@ -1022,6 +1067,8 @@ def render_borough_hub(borough_slug):
     location = b["name"]
     borough_photo_id, borough_photo_alt = BOROUGH_STREET_PHOTOS.get(
         borough_slug, ("1513635269975-59663e0ac1ad", "London residential street"))
+    borough_local_img, borough_local_alt = BOROUGH_LOCAL_PHOTO.get(
+        borough_slug, ("london-house-exterior", f"London residential street in {location}"))
     canonical = f"https://www.architecturaldrawings.uk/areas/{borough_slug}/"
 
     title = f"Architectural Drawings in {location} | Planning, Loft, Extension — from £556"
@@ -1206,9 +1253,13 @@ def render_borough_hub(borough_slug):
   <div class="container">
     <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between;">
       <div style="flex:0 0 auto; width:200px; border-radius:var(--r-md); overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-{borough_photo_id}?auto=format&amp;fit=crop&amp;w=400&amp;q=75"
-             alt="{borough_photo_alt}" loading="lazy" width="400" height="267"
-             style="width:100%;height:100%;object-fit:cover;display:block;" />
+        <picture>
+          <source type="image/avif" srcset="/assets/img/{borough_local_img}-640.avif" />
+          <source type="image/webp" srcset="/assets/img/{borough_local_img}-640.webp" />
+          <img src="/assets/img/{borough_local_img}-640.jpg" alt="{borough_local_alt}"
+               loading="lazy" width="640" height="427"
+               style="width:100%;height:100%;object-fit:cover;display:block;" />
+        </picture>
       </div>
       <div class="hero-trust" style="flex:1;">
         <span class="hero-trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 10 3 3 7-7"/></svg>MCIAT Chartered</span>

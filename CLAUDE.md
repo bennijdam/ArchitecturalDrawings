@@ -135,15 +135,15 @@ When adding features, sections, or modals to any existing page, the existing lay
 ### Palette (CSS variables in `assets/css/style.css`)
 
 ```
---bg:         #FAFAF7    (warm cream)
---bg-2:       #F2EFE8    (slightly darker paper)
+--bg:         #F5F8FF    (cool white, barely blue-tinted)
+--bg-2:       #EBF0FB    (light blue-grey paper)
 --surface:    #FFFFFF
---ink:        #0E1116    (near-black)
---ink-soft:   #4A5260
---line:       rgba(14, 17, 22, 0.08)
---accent:     #C8664A    (terracotta — the brand colour)
---accent-deep:#9D4A32
---accent-soft:#F5E6DD
+--ink:        #0B1222    (deep navy-black)
+--ink-soft:   #3B4F72
+--line:       rgba(11, 18, 34, 0.08)
+--accent:     #2563EB    (blueprint blue — the brand colour)
+--accent-deep:#1D4ED8
+--accent-soft:#EBF0FF
 --success:    #47845A
 ```
 

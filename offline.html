@@ -16,17 +16,17 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Manrope:wght@400;600&display=swap');
-:root{--bg:#FAFAF7;--ink:#0E1116;--ink-soft:#4A5260;--accent:#C8664A;--accent-deep:#9D4A32;}
+:root{--bg:#F5F8FF;--ink:#0B1222;--ink-soft:#3B4F72;--accent:#2563EB;--accent-deep:#1D4ED8;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:grid;place-items:center;padding:32px;}
 .box{max-width:520px;text-align:center;}
 h1{font-family:'Fraunces',serif;font-size:clamp(2.4rem,5vw,3.6rem);font-weight:400;font-style:italic;line-height:1.1;margin-bottom:16px;letter-spacing:-0.02em;}
 h1 em{color:var(--accent);}
 p{color:var(--ink-soft);font-size:1.05rem;line-height:1.6;margin-bottom:24px;}
-.icon{width:80px;height:80px;margin:0 auto 24px;border-radius:50%;background:rgba(200,102,74,0.08);color:var(--accent);display:grid;place-items:center;}
+.icon{width:80px;height:80px;margin:0 auto 24px;border-radius:50%;background:rgba(37,99,235,0.08);color:var(--accent);display:grid;place-items:center;}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--ink);color:var(--bg);border-radius:999px;text-decoration:none;font-weight:600;font-size:0.95rem;transition:background 0.2s;}
 .btn:hover{background:var(--accent-deep);}
-.contact{margin-top:40px;padding-top:32px;border-top:1px solid rgba(14,17,22,0.08);font-size:0.88rem;color:var(--ink-soft);}
+.contact{margin-top:40px;padding-top:32px;border-top:1px solid rgba(11,18,34,0.08);font-size:0.88rem;color:var(--ink-soft);}
 .contact a{color:var(--accent);text-decoration:none;font-weight:600;}
 </style>
 <script type="application/ld+json">
@@ -236,8 +236,8 @@ gtag('config', 'G-77CQ2PWJM4', {
   left: 0;
   right: 0;
   z-index: 80;
-  background: rgba(14, 17, 22, 0.95);
-  border-top: 2px solid var(--accent, #C8664A);
+  background: rgba(11, 18, 34, 0.95);
+  border-top: 2px solid var(--accent, #2563EB);
   padding: 14px 24px;
   display: flex;
   align-items: center;
@@ -258,7 +258,7 @@ gtag('config', 'G-77CQ2PWJM4', {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--accent, #C8664A);
+  background: var(--accent, #2563EB);
   color: #fff;
   font-family: 'Manrope', sans-serif;
   font-size: 0.88rem;
@@ -272,7 +272,7 @@ gtag('config', 'G-77CQ2PWJM4', {
   transition: background 0.2s, transform 0.2s;
 }
 .sticky-cta-bar-btn:hover {
-  background: var(--accent-deep, #9D4A32);
+  background: var(--accent-deep, #1D4ED8);
   transform: translateY(-1px);
 }
 .sticky-cta-bar-close {
@@ -305,7 +305,7 @@ gtag('config', 'G-77CQ2PWJM4', {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(14, 17, 22, 0.6);
+  background: rgba(11, 18, 34, 0.6);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   display: flex;
@@ -328,7 +328,7 @@ gtag('config', 'G-77CQ2PWJM4', {
   position: relative;
   transform: scale(0.95);
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow: 0 24px 60px rgba(14, 17, 22, 0.25), 0 8px 20px rgba(14, 17, 22, 0.12);
+  box-shadow: 0 24px 60px rgba(11, 18, 34, 0.25), 0 8px 20px rgba(11, 18, 34, 0.12);
 }
 .exit-overlay.active .exit-card { transform: scale(1); }
 .exit-card-close {
@@ -337,14 +337,14 @@ gtag('config', 'G-77CQ2PWJM4', {
   right: 14px;
   background: none;
   border: none;
-  color: var(--ink-soft, #4A5260);
+  color: var(--ink-soft, #3B4F72);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 4px 8px;
   line-height: 1;
   transition: color 0.2s;
 }
-.exit-card-close:hover { color: var(--ink, #0E1116); }
+.exit-card-close:hover { color: var(--ink, #0B1222); }
 .exit-card h3 {
   font-family: 'Fraunces', Georgia, serif;
   font-size: 1.65rem;
@@ -352,13 +352,13 @@ gtag('config', 'G-77CQ2PWJM4', {
   font-style: italic;
   font-variation-settings: "opsz" 72, "SOFT" 60;
   letter-spacing: -0.02em;
-  color: var(--ink, #0E1116);
+  color: var(--ink, #0B1222);
   margin: 0 0 10px;
 }
 .exit-card p {
   font-family: 'Manrope', sans-serif;
   font-size: 0.95rem;
-  color: var(--ink-soft, #4A5260);
+  color: var(--ink-soft, #3B4F72);
   line-height: 1.6;
   margin: 0 0 22px;
 }
@@ -369,20 +369,20 @@ gtag('config', 'G-77CQ2PWJM4', {
 .exit-form input[type="email"] {
   flex: 1;
   padding: 12px 16px;
-  border: 1px solid var(--line, rgba(14,17,22,0.08));
+  border: 1px solid var(--line, rgba(11,18,34,0.08));
   border-radius: var(--r-md, 16px);
   font-family: 'Manrope', sans-serif;
   font-size: 0.9rem;
-  color: var(--ink, #0E1116);
-  background: var(--bg, #FAFAF7);
+  color: var(--ink, #0B1222);
+  background: var(--bg, #F5F8FF);
   outline: none;
   transition: border-color 0.2s;
 }
 .exit-form input[type="email"]:focus {
-  border-color: var(--accent, #C8664A);
+  border-color: var(--accent, #2563EB);
 }
 .exit-form button {
-  background: var(--accent, #C8664A);
+  background: var(--accent, #2563EB);
   color: #fff;
   font-family: 'Manrope', sans-serif;
   font-size: 0.85rem;
@@ -394,11 +394,11 @@ gtag('config', 'G-77CQ2PWJM4', {
   white-space: nowrap;
   transition: background 0.2s;
 }
-.exit-form button:hover { background: var(--accent-deep, #9D4A32); }
+.exit-form button:hover { background: var(--accent-deep, #1D4ED8); }
 .exit-trust {
   font-family: 'Manrope', sans-serif;
   font-size: 0.78rem;
-  color: var(--ink-soft, #4A5260);
+  color: var(--ink-soft, #3B4F72);
   margin-top: 14px;
   text-align: center;
   opacity: 0.7;
@@ -409,7 +409,7 @@ gtag('config', 'G-77CQ2PWJM4', {
 }
 .exit-success p {
   font-size: 1.05rem;
-  color: var(--ink, #0E1116);
+  color: var(--ink, #0B1222);
   font-weight: 600;
 }
 @media (max-width: 480px) {
@@ -513,7 +513,7 @@ gtag('config', 'G-77CQ2PWJM4', {
 
 <!-- chat-widget -->
 <div id="chatWidget" style="position:fixed;left:1.25rem;bottom:1.25rem;z-index:85;">
-  <button id="chatToggle" aria-label="Chat with us" style="width:52px;height:52px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;box-shadow:0 14px 30px -8px rgba(14,17,22,0.25);border:0;cursor:pointer;transition:transform 0.3s var(--ease);">
+  <button id="chatToggle" aria-label="Chat with us" style="width:52px;height:52px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;box-shadow:0 14px 30px -8px rgba(11,18,34,0.25);border:0;cursor:pointer;transition:transform 0.3s var(--ease);">
     <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
   </button>
   <div id="chatPanel" style="display:none;position:absolute;bottom:64px;left:0;width:320px;background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-lg);overflow:hidden;">
