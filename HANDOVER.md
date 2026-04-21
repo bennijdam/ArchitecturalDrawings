@@ -6,6 +6,15 @@
 
 ## Agent handover log
 
+## 2026-04-21 — Stripe return handling verified and patched
+
+**Author:** Codex
+**Task:** Verify live Stripe Checkout return URLs and close the missing dashboard return-state handling.
+**Scope touched:** portal/dashboard.html, HANDOVER.md.
+**Result:** partially shipped locally. Live Stripe Checkout exposes the correct return targets: `dashboard.html?payment=success` and `dashboard.html?payment=cancelled`. Browser verification confirmed the cancel path lands on the dashboard route, but the dashboard had no logic to read the `payment` query param. Added a native-status banner in the payments section so successful or cancelled returns now surface clear feedback and then clean the URL. During the same verification pass, a fresh live checkout-session creation attempt intermittently returned HTTP 500 `Could not create checkout session`, so the redirect targets are now understood but the session-creation instability still needs Render-side investigation.
+**Next action for the next agent:** Commit and push the dashboard return-state fix, then inspect Render logs/env for the intermittent Stripe checkout 500.
+**Links:** portal/dashboard.html, api/routes/stripe.js
+
 ## 2026-04-21 — Auth hardening deployed and reverified
 
 **Author:** GitHub Copilot

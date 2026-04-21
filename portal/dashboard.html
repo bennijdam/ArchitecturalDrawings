@@ -1826,6 +1826,7 @@ gtag('config', 'G-77CQ2PWJM4', {
 
       <section id="payments">
         <h2 style="font-size:1.4rem;margin-bottom:16px;">Upcoming payment</h2>
+        <div id="paymentStatus" class="stat-card" style="display:none;padding:18px 20px;margin-bottom:16px;"></div>
         <div class="stat-card" style="padding: 28px;">
           <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:20px;">
             <div>
@@ -2125,6 +2126,22 @@ gtag('config', 'G-77CQ2PWJM4', {
   const initialLink = document.querySelector('.portal-nav a[href="#' + initialSection + '"]')
     || document.querySelector('.portal-nav a[href="#overview"]');
   if (initialLink) activateSection(initialSection, initialLink);
+
+  const paymentStatus = document.getElementById('paymentStatus');
+  const paymentParam = new URLSearchParams(window.location.search).get('payment');
+  if (paymentParam === 'success' || paymentParam === 'cancelled') {
+    const isSuccess = paymentParam === 'success';
+    paymentStatus.style.display = 'block';
+    paymentStatus.style.background = isSuccess ? 'rgba(71, 132, 90, 0.12)' : 'var(--accent-soft)';
+    paymentStatus.style.border = isSuccess ? '1px solid rgba(71, 132, 90, 0.22)' : '1px solid rgba(200, 102, 74, 0.18)';
+    paymentStatus.innerHTML = isSuccess
+      ? '<strong style="display:block;margin-bottom:6px;">Payment received</strong><span class="muted">Your payment was successful. We will confirm the next project step in your dashboard.</span>'
+      : '<strong style="display:block;margin-bottom:6px;">Payment cancelled</strong><span class="muted">No payment was taken. You can return to this section whenever you are ready.</span>';
+    const paymentsLink = document.querySelector('.portal-nav a[href="#payments"]');
+    if (paymentsLink) activateSection('payments', paymentsLink);
+    const cleanUrl = window.location.pathname + window.location.hash;
+    window.history.replaceState({}, document.title, cleanUrl || 'dashboard.html');
+  }
 
   refreshCallbacks.addEventListener('click', () => loadCallbacks(true));
 
