@@ -39,6 +39,20 @@ function mapProjectRow(row) {
   };
 }
 
+function mapProjectAuditRow(row) {
+  if (!row) return null;
+  return {
+    id: row.id,
+    action: row.action,
+    adminUserId: row.admin_user_id,
+    adminEmail: row.admin_email,
+    projectId: row.project_id,
+    projectTitle: row.project_title,
+    clientEmail: row.client_email,
+    createdAt: row.created_at,
+  };
+}
+
 async function getAdminProjectRow(projectId) {
   const row = await dbGet(`
     SELECT
@@ -93,6 +107,18 @@ router.get('/admin', requireAuth, requireRole('admin'), async (req, res) => {
 
   const rows = await dbAll(sql, params);
   res.json({ projects: rows.map(mapProjectRow) });
+});
+
+/* GET /api/projects/admin/audit — admin-only project deletion audit trail */
+router.get('/admin/audit', requireAuth, requireRole('admin'), async (req, res) => {
+  const limit = normaliseLimit(req.query.limit, 20, 100);
+  const rows = await dbAll(`
+    SELECT id, action, admin_user_id, admin_email, project_id, project_title, client_email, created_at
+    FROM project_admin_audits
+    ORDER BY created_at DESC
+    LIMIT ?
+  `, [limit]);
+  res.json({ audits: rows.map(mapProjectAuditRow) });
 });
 
 /* POST /api/projects/admin — admin-only project creation */
@@ -165,6 +191,45 @@ router.patch('/admin/:id',
     res.json({ project });
   }
 );
+
+/* DELETE /api/projects/admin/:id — admin-only project deletion for unbilled projects */
+router.delete('/admin/:id', requireAuth, requireRole('admin'), async (req, res) => {
+  const projectId = Number.parseInt(req.params.id, 10);
+  if (!Number.isInteger(projectId) || projectId <= 0) {
+    return res.status(400).json({ error: 'Invalid project id' });
+  }
+
+  const existing = await dbGet(`
+    SELECT p.id, p.title, u.email AS user_email
+    FROM projects p
+    JOIN users u ON u.id = p.user_id
+    WHERE p.id = ?
+  `, [projectId]);
+  if (!existing) {
+    return res.status(404).json({ error: 'Project not found' });
+  }
+
+  const paymentUsage = await dbGet('SELECT COUNT(*) AS count FROM payments WHERE project_id = ?', [projectId]);
+  const paymentCount = Number(paymentUsage?.count || 0);
+  const fileUsage = await dbGet('SELECT COUNT(*) AS count FROM files WHERE project_id = ?', [projectId]);
+  const fileCount = Number(fileUsage?.count || 0);
+
+  if (paymentCount > 0) {
+    return res.status(409).json({ error: 'Projects with payment records cannot be deleted.' });
+  }
+
+  if (fileCount > 0) {
+    return res.status(409).json({ error: 'Projects with uploaded files cannot be deleted.' });
+  }
+
+  const audit = await dbInsert(
+    'INSERT INTO project_admin_audits (action, admin_user_id, admin_email, project_id, project_title, client_email) VALUES (?, ?, ?, ?, ?, ?)',
+    ['project_deleted', req.user.id, req.user.email || null, projectId, existing.title || null, existing.user_email || null]
+  );
+
+  await dbRun('DELETE FROM projects WHERE id = ?', [projectId]);
+  res.json({ ok: true, deletedProjectId: projectId, title: existing.title || null, auditId: audit.id || null });
+});
 
 /* GET /api/projects — list current user's projects */
 router.get('/', requireAuth, async (req, res) => {

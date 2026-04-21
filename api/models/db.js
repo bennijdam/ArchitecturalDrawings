@@ -190,6 +190,16 @@ async function initPostgres() {
       email_message_id TEXT,
       created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
     )`,
+    `CREATE TABLE IF NOT EXISTS project_admin_audits (
+      id BIGSERIAL PRIMARY KEY,
+      action TEXT NOT NULL,
+      admin_user_id BIGINT,
+      admin_email TEXT,
+      project_id BIGINT,
+      project_title TEXT,
+      client_email TEXT,
+      created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    )`,
   ];
 
   for (const statement of statements) {
@@ -312,6 +322,17 @@ function initSqlite() {
       request_path TEXT,
       honeypot TEXT,
       email_message_id TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS project_admin_audits (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      action TEXT NOT NULL,
+      admin_user_id INTEGER,
+      admin_email TEXT,
+      project_id INTEGER,
+      project_title TEXT,
+      client_email TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);
