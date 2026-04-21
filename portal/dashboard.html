@@ -1875,7 +1875,7 @@ gtag('config', 'G-77CQ2PWJM4', {
       </div>
       <div class="settings-group">
         <h3>Security</h3>
-        <div class="settings-row"><div><div class="settings-label">Password</div><div class="settings-value">Change your password</div></div><button class="btn btn-outline btn-sm" onclick="alert('In production this sends a password reset email.')">Change</button></div>
+        <div class="settings-row"><div><div class="settings-label">Password</div><div class="settings-value">Email yourself a secure reset link</div></div><button class="btn btn-outline btn-sm" id="sendResetLink">Change</button></div>
         <div class="settings-row"><div><div class="settings-label">Two-factor authentication</div><div class="settings-value">Not enabled</div></div><button class="btn btn-outline btn-sm" disabled>Coming soon</button></div>
       </div>
       <div class="settings-group">
@@ -2374,6 +2374,40 @@ gtag('config', 'G-77CQ2PWJM4', {
     } finally {
       button.disabled = false;
       button.textContent = 'Save changes';
+    }
+  });
+
+  document.getElementById('sendResetLink').addEventListener('click', async () => {
+    const button = document.getElementById('sendResetLink');
+    const email = (document.getElementById('sEmail').value || usr.email || '').trim();
+
+    if (!email) {
+      alert('Add an email address to your profile before requesting a reset link.');
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = 'Sending…';
+
+    try {
+      const response = await fetch(`${API}/api/auth/reset-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        alert(data.error || 'Unable to send a reset link right now.');
+        return;
+      }
+
+      alert('If that email address exists, a reset link has been sent.');
+    } catch (_error) {
+      alert('Unable to send a reset link right now.');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Change';
     }
   });
 

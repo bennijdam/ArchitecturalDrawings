@@ -6,6 +6,33 @@
 
 ## Agent handover log
 
+## 2026-04-21 — Dashboard password action wired to live reset flow
+
+**Author:** Codex
+**Task:** Replace the dashboard Settings password placeholder with the real reset-link request path and verify it on production.
+**Scope touched:** portal/dashboard.html, HANDOVER.md.
+**Result:** shipped and verified live. The Settings password row in the portal no longer uses the placeholder alert; it now POSTs to `/api/auth/reset-password` using the signed-in user's email and returns the expected confirmation state. Production verification on `architecturaldrawings.uk` confirmed the updated copy (`Email yourself a secure reset link`) and the live success message `If that email address exists, a reset link has been sent.` from the dashboard button.
+**Next action for the next agent:** Optional refinement only: replace the generic success alert with an inline status message if the portal needs a less disruptive UX, then verify the emailed reset link end to end once mailbox access is available.
+**Links:** portal/dashboard.html, portal/reset.html, api/routes/auth.js, HANDOVER.md
+
+## 2026-04-21 — Password placeholder confirmed, file upload verified live
+
+**Author:** Codex
+**Task:** Verify the remaining live portal follow-ups for password handling and file uploads using the production account.
+**Scope touched:** HANDOVER.md (this entry only).
+**Result:** verified live. The portal file-upload flow is working in production: the authenticated dashboard accepted `assets/img/tools-workplace-640.jpg` through the real file chooser and returned an `Uploaded` state in the live UI. The password flow is not production-ready yet: the Settings screen `Change` button is still wired to `alert('In production this sends a password reset email.')` instead of triggering a real reset or change-password flow, so there is no live password action behind the button despite the reset API existing elsewhere.
+**Next action for the next agent:** Replace the dashboard password placeholder with a real flow, ideally by wiring the Settings action to the reset-password request/confirm path or a dedicated authenticated password-change route, then retest the button from the live portal.
+**Links:** portal/dashboard.html, api/routes/auth.js, HANDOVER.md
+
+## 2026-04-21 — Production portal and Stripe flow verified live
+
+**Author:** Codex
+**Task:** Finish the remaining production follow-ups by verifying the live portal settings flow, confirming end-to-end Stripe success, and cleaning up stale test checkout state.
+**Scope touched:** HANDOVER.md (this entry only).
+**Result:** shipped and verified live. The production frontend is now serving the updated live-data dashboard, the backend deploy for commit `64614f2` is live on Render, and `PATCH /api/auth/me` is working in production. Browser verification confirmed the Settings tab saves through the real API and returns the expected success state; a temporary phone-field save was tested and then restored so no test data remains. Stripe test checkout session `cs_test_a1ohMzvhc16OICwMJRVA0b5TP1v0bpORBXhbCTosymkKS69NBNsgdrjkdG` completed successfully, the dashboard returned on the success path, Stripe emitted `checkout.session.completed`, and the webhook destination `we_1TOfp7Cgxirt29f7T810L52U` shows 1 delivery with 0 failures. The older abandoned checkout session `cs_test_a1soyVOwTeYP5IIUdcPfvGDOifytonGES2Taife2kxWHWMSEqJckeUF8WL` was explicitly expired to keep test history clean.
+**Next action for the next agent:** Optional cleanup only: if more portal/account polish is needed, test the password-change path and file-upload flow from the same live account. Otherwise treat portal auth, Stripe checkout, webhook delivery, and profile persistence as production-verified.
+**Links:** portal/dashboard.html, api/routes/auth.js, api/middleware/auth.js, HANDOVER.md
+
 ## 2026-04-21 — Stripe observability and payment verification endpoints
 
 **Author:** Codex
