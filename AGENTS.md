@@ -18,6 +18,14 @@ You are not here to redesign, refactor, or "modernise" anything. The site, stack
 
 Anything outside this scope needs the operator's written approval before you touch it.
 
+Every agent must also follow these session-start rules:
+
+1. Read `CLAUDE.md` for project constraints and implementation conventions.
+2. Read `OPENAI.md` if you are an OpenAI-family agent or using GPT/Codex tooling.
+3. Preserve **100% visual parity** with the shipped site.
+4. Use `index.html` as the canonical design reference for any additive UI or UX work, including logo, footer, menu, and button styling.
+5. If a proposed change would alter the established look and feel, stop and ask the operator.
+
 ---
 
 ## 1. Hard constraints — read `.codex/GUARDRAILS.md` before every session

@@ -2,6 +2,16 @@
 
 This file is read automatically by Claude Code at the start of each session. It gives you the context you need to work on this codebase effectively. Read it first.
 
+## Session-zero non-negotiables
+
+Before you change anything in this repository, treat the following as hard requirements:
+
+1. **Design cannot be changed.** The site must retain **100% visual parity** unless the operator gives written approval for a specific visual change.
+2. **Any new UI or UX must inherit the existing `index.html` design scheme.** Use it as the reference for logo treatment, header/menu structure, footer structure, buttons, spacing rhythm, typography, palette, card treatment, and interaction tone.
+3. **Do not introduce a parallel design language.** No new button family, no new footer variant, no new menu pattern, no new font, and no new accent colour.
+4. **Additive work must feel native.** New sections, forms, states, or flows should look like they shipped with the original site.
+5. **When unsure, preserve.** If there is any tradeoff between a quick change and exact visual preservation, preserve the current visual system.
+
 ---
 
 ## 1. What this project is
@@ -111,6 +121,7 @@ Always include explicit `width` and `height` attributes to prevent CLS. Critical
 
 When adding features, sections, or modals to any existing page, the existing layout MUST remain pixel-identical. Specifically:
 
+- **Treat `index.html` as the canonical visual reference.** Any new UI must reuse the same logo language, footer pattern, navigation treatment, button hierarchy, typography, and warm editorial styling already established there.
 - **Do NOT wrap existing HTML in new container `<div>`s.** Adding a wrapper changes the DOM tree and can break CSS grid/flex layouts. Instead, add `class` or `data-*` attributes to existing elements and toggle visibility with CSS.
 - **Do NOT override `.portal-main`, `.portal`, or other structural CSS.** If you need to suppress styles on child elements (e.g. `section { padding }` inherited from the global design system), use scoped selectors like `.portal-main section { padding: 0; }` rather than changing the parent.
 - **Do NOT change media query breakpoints** unless you've verified the element lives in a context where the viewport width equals the content width. Inside the portal, the main area is `viewport minus 260px sidebar` — a 900px breakpoint on the viewport fires at 640px of actual content width.

@@ -6,6 +6,24 @@
 
 ## Agent handover log
 
+## 2026-04-21 — Auth hardening deployed and reverified
+
+**Author:** GitHub Copilot
+**Task:** Deploy the auth hardening and Neon/Postgres support changes, then re-test the live production reset and Stripe flows.
+**Scope touched:** HANDOVER.md (this entry only).
+**Result:** shipped. Commit 415e1ae was pushed to origin/main and matched the remote head. Production now serves `portal/reset`, invalid reset tokens return the expected API-backed error state, and the authenticated Stripe checkout endpoint now returns a live session URL instead of 404. Direct `/uploads` access was already returning 404 from the deployed API.
+**Next action for the next agent:** Run a full browser-level Stripe redirect success/cancel pass and then decide whether to commit the remaining untracked documentation files separately.
+**Links:** portal/reset.html, api/routes/stripe.js, api/server.js, portal/login.html, portal/register.html
+
+## 2026-04-21 — Full production readiness audit
+
+**Author:** Codex
+**Task:** Perform a full production-readiness audit across frontend, backend, database, API wiring, authentication, and E2E flows; add missing agent/runtime guidance docs.
+**Scope touched:** CLAUDE.md (strengthened visual-parity guardrails), AGENTS.md (session-start instructions), ARCHITECTURE.md (new), OPENAI.md (new), TODO.md (new), HANDOVER.md (this entry).
+**Result:** shipped. Existing agent docs already existed; they were tightened to make visual parity non-negotiable and to force new UI/UX to inherit the `index.html` design language. Added architecture and OpenAI-specific instructions plus a repo todo list based on concrete audit findings.
+**Next action for the next agent:** Execute `TODO.md` in priority order, starting with auth reset completion, removing production demo fallbacks, and closing upload/static file exposure. Validate each fix against live flows before expanding scope.
+**Links:** CLAUDE.md, AGENTS.md, ARCHITECTURE.md, OPENAI.md, TODO.md
+
 ## 2026-04-17 — Codex setup author
 
 **Author:** Codex Setup (initial scaffolding, performed by Claude Opus 4.7)
