@@ -393,6 +393,10 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   .hero-card-float { left: -12px; bottom: -20px; }
   .hero-card-badge { right: -8px; top: -12px; transform: rotate(3deg); }
 }
+@media (max-width: 480px) {
+  .hero-card-float { display: none; }
+  .hero-card-badge { right: 8px; top: 8px; transform: none; }
+}
 
 /* Decorative background shapes */
 .hero-bg-decor {
@@ -1054,6 +1058,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   margin: 0 auto;
   padding: 0 20px;
 }
+@media (max-width: 375px) { .quote-shell { padding: 0 12px; } }
 .quote-progress {
   display: flex;
   gap: 8px;
@@ -1390,6 +1395,7 @@ section { padding: clamp(60px, 9vw, 120px) 0; position: relative; }
   margin-bottom: 40px;
 }
 @media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .stats-grid { grid-template-columns: 1fr; } }
 .stat-card {
   background: var(--surface);
   border: 1px solid var(--line);

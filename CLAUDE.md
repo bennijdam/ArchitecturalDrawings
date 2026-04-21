@@ -11,6 +11,14 @@ Before you change anything in this repository, treat the following as hard requi
 3. **Do not introduce a parallel design language.** No new button family, no new footer variant, no new menu pattern, no new font, and no new accent colour.
 4. **Additive work must feel native.** New sections, forms, states, or flows should look like they shipped with the original site.
 5. **When unsure, preserve.** If there is any tradeoff between a quick change and exact visual preservation, preserve the current visual system.
+6. **All design work MUST be mobile responsive.** Any new section, component, form, modal, or page you add must work correctly at 375px, 480px, 768px, and 1200px viewport widths. Specifically:
+   - Grids collapse to single column on phones (use `grid-template-columns: 1fr` at ≤480px or ≤600px as appropriate)
+   - No horizontal overflow — test with `overflow-x: hidden` on body but also ensure nothing actually overflows
+   - Touch targets ≥ 44px tall (padding: 12px+ on buttons and links)
+   - Input `font-size` ≥ 16px (1rem) to prevent iOS auto-zoom
+   - Fixed-position elements (nav, modals) must not obstruct content on small screens
+   - Images use `max-width: 100%` and the full `<picture>` + `srcset` pattern
+   - After adding any new layout, add the corresponding `@media (max-width: ...)` rule in `assets/css/style.css` AND in the inlined `<style>` block of every affected HTML file
 
 ---
 

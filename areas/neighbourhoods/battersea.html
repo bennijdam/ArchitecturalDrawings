@@ -79,6 +79,11 @@
 .pricing-card.popular{background:linear-gradient(160deg,#142040 0%,#0B1222 100%);border-color:rgba(37,99,235,.4);box-shadow:0 4px 16px rgba(11,18,34,.09),0 20px 48px rgba(11,18,34,.07),0 0 0 1px rgba(37,99,235,.25),0 32px 80px rgba(37,99,235,.12);}
 .feature-visual{box-shadow:0 8px 40px rgba(11,18,34,.12),0 40px 100px rgba(11,18,34,.09),0 0 0 1px rgba(255,255,255,.5) inset;position:relative;}
 .feature-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,transparent 60%,rgba(11,18,34,.08) 100%);pointer-events:none;}
+
+/* === Mobile responsiveness fixes === */
+@media(max-width:480px){.stats-grid{grid-template-columns:1fr!important;}}
+@media(max-width:375px){.quote-shell{padding:0 12px!important;}}
+@media(max-width:480px){.hero-card-float{display:none!important;}.hero-card-badge{right:8px!important;top:8px!important;transform:none!important;}}
 </style>
 <!-- Google Analytics 4 (standardized) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-77CQ2PWJM4"></script>
