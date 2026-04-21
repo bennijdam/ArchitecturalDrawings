@@ -3,8 +3,8 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
 import { body, validationResult } from 'express-validator';
 import { Resend } from 'resend';
-import { dbGet, dbInsert, dbRun } from '../models/db.js';
-import { requireAuth, signToken } from '../middleware/auth.js';
+import { dbAll, dbGet, dbInsert, dbRun } from '../models/db.js';
+import { requireAuth, requireRole, signToken } from '../middleware/auth.js';
 import { logEmailSent } from './emailAudit.js';
 import { passwordResetEmail, passwordChangedEmail, welcomeEmail } from './emailTemplates.js';
 
@@ -89,6 +89,39 @@ router.get('/me', requireAuth, (req, res) => {
   res.json({ user: req.user });
 });
 
+/* GET /api/auth/password-resets — admin-only reset audit trail */
+router.get('/password-resets', requireAuth, requireRole('admin'), async (req, res) => {
+  const limitRaw = Number.parseInt(req.query.limit, 10);
+  const limit = Number.isInteger(limitRaw) && limitRaw > 0 ? Math.min(limitRaw, 100) : 50;
+  const email = typeof req.query.email === 'string' ? req.query.email.trim() : '';
+
+  let sql = `
+    SELECT
+      pr.id,
+      pr.user_id,
+      pr.expires_at,
+      pr.used,
+      pr.email_message_id,
+      pr.created_at,
+      u.email AS user_email,
+      u.name AS user_name
+    FROM password_resets pr
+    JOIN users u ON u.id = pr.user_id
+  `;
+  const params = [];
+
+  if (email) {
+    sql += ' WHERE u.email = ?';
+    params.push(email);
+  }
+
+  sql += ' ORDER BY pr.created_at DESC LIMIT ?';
+  params.push(limit);
+
+  const rows = await dbAll(sql, params);
+  res.json({ resets: rows });
+});
+
 /* PATCH /api/auth/me */
 router.patch('/me',
   requireAuth,
@@ -170,6 +203,10 @@ router.post('/reset-password',
           resetId: resetInfo.id,
           email,
         }, result);
+        const emailMessageId = result?.data?.id || result?.id || null;
+        if (emailMessageId) {
+          await dbRun('UPDATE password_resets SET email_message_id = ? WHERE id = ?', [emailMessageId, resetInfo.id]);
+        }
       } catch (err) {
         console.error('Reset email failed:', err);
       }

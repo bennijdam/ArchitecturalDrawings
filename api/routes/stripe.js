@@ -1,9 +1,20 @@
 import express from 'express';
+import { Resend } from 'resend';
 import Stripe from 'stripe';
 import { dbAll, dbGet, dbRun } from '../models/db.js';
 import { requireAuth, requireRole } from '../middleware/auth.js';
+import { logEmailSent } from './emailAudit.js';
+import { paymentConfirmationEmail } from './emailTemplates.js';
 
 const router = express.Router();
+
+let resend;
+function getResend() {
+  if (!resend && process.env.RESEND_API_KEY) {
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resend;
+}
 
 // Lazy init — allows server to boot without Stripe keys in dev
 function getStripe() {
@@ -28,6 +39,7 @@ function mapPaymentRow(row) {
     description: row.description,
     stripeSessionId: row.stripe_session_id,
     stripePaymentIntent: row.stripe_payment_intent,
+    emailMessageId: row.email_message_id,
     status: row.status,
     createdAt: row.created_at,
     userEmail: row.user_email,
@@ -49,6 +61,7 @@ router.get('/payments/mine', requireAuth, async (req, res) => {
       p.description,
       p.stripe_session_id,
       p.stripe_payment_intent,
+      p.email_message_id,
       p.status,
       p.created_at,
       projects.title AS project_title
@@ -80,6 +93,7 @@ router.get('/payments', requireAuth, requireRole('admin'), async (req, res) => {
       p.description,
       p.stripe_session_id,
       p.stripe_payment_intent,
+      p.email_message_id,
       p.status,
       p.created_at,
       users.email AS user_email,
@@ -129,6 +143,7 @@ router.get('/payments/:sessionId', requireAuth, requireRole('admin'), async (req
       p.description,
       p.stripe_session_id,
       p.stripe_payment_intent,
+      p.email_message_id,
       p.status,
       p.created_at,
       users.email AS user_email,
@@ -251,6 +266,87 @@ export async function stripeWebhookHandler(req, res) {
         paymentIntent: session.payment_intent,
         rowsUpdated: result.changes || 0,
       });
+
+      const payment = await dbGet(`
+        SELECT
+          p.id,
+          p.amount_pence,
+          p.currency,
+          p.description,
+          p.email_message_id,
+          u.email AS user_email,
+          u.name AS user_name,
+          projects.title AS project_title
+        FROM payments p
+        LEFT JOIN users u ON u.id = p.user_id
+        LEFT JOIN projects ON projects.id = p.project_id
+        WHERE p.stripe_session_id = ?
+      `, [session.id]);
+
+      if (!payment) {
+        console.warn('[stripe] payment email skipped: payment row missing after update', {
+          sessionId: session.id,
+        });
+        break;
+      }
+
+      if (payment.email_message_id) {
+        console.info('[payment_confirmation_email_skipped]', JSON.stringify({
+          paymentId: payment.id,
+          email: payment.user_email,
+          reason: 'already_sent',
+          emailMessageId: payment.email_message_id,
+        }));
+        break;
+      }
+
+      if (!payment.user_email) {
+        console.warn('[stripe] payment email skipped: user email missing', {
+          paymentId: payment.id,
+          sessionId: session.id,
+        });
+        break;
+      }
+
+      const emailClient = getResend();
+      if (!emailClient) {
+        console.warn('[stripe] payment email skipped: resend not configured', {
+          paymentId: payment.id,
+          sessionId: session.id,
+        });
+        break;
+      }
+
+      try {
+        const tpl = paymentConfirmationEmail({
+          name: payment.user_name,
+          amountGbp: Number(payment.amount_pence || 0) / 100,
+          projectTitle: payment.project_title || payment.description,
+          paymentId: payment.id,
+          receiptUrl: null,
+        });
+        const sendResult = await emailClient.emails.send({
+          from: process.env.EMAIL_FROM || 'Architectural Drawings <noreply@send.architecturaldrawings.uk>',
+          to: payment.user_email,
+          subject: tpl.subject,
+          html: tpl.html,
+          text: tpl.text,
+        });
+        const emailMessageId = logEmailSent('payment_confirmation_email_sent', {
+          paymentId: payment.id,
+          sessionId: session.id,
+          email: payment.user_email,
+        }, sendResult);
+        if (emailMessageId) {
+          await dbRun('UPDATE payments SET email_message_id = ? WHERE id = ?', [emailMessageId, payment.id]);
+        }
+      } catch (err) {
+        console.error('[stripe] payment confirmation email failed', {
+          paymentId: payment.id,
+          sessionId: session.id,
+          error: err.message,
+        });
+      }
       break;
     }
     case 'checkout.session.expired':

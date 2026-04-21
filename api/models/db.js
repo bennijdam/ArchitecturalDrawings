@@ -66,38 +66,6 @@ export function getDb() {
   return isPostgres ? getPgPool() : getSqliteDb();
 }
 
-export async function dbGet(sql, params = []) {
-  if (!isPostgres) return getSqliteDb().prepare(sql).get(...params);
-  const result = await getPgPool().query(toPgSql(sql), params);
-  return result.rows[0];
-}
-
-export async function dbAll(sql, params = []) {
-  if (!isPostgres) return getSqliteDb().prepare(sql).all(...params);
-  const result = await getPgPool().query(toPgSql(sql), params);
-  return result.rows;
-}
-
-export async function dbRun(sql, params = []) {
-  if (!isPostgres) return getSqliteDb().prepare(sql).run(...params);
-  const result = await getPgPool().query(toPgSql(sql), params);
-  return {
-    changes: result.rowCount,
-    rows: result.rows,
-  };
-}
-
-export async function dbInsert(sql, params = []) {
-  if (!isPostgres) {
-    const info = getSqliteDb().prepare(sql).run(...params);
-    return { id: Number(info.lastInsertRowid) };
-  }
-
-  const text = /returning\s+/i.test(sql) ? sql : `${sql} RETURNING id`;
-  const result = await getPgPool().query(toPgSql(text), params);
-  return result.rows[0] || { id: null };
-}
-
 async function initPostgres() {
   const pool = getPgPool();
   const statements = [
@@ -117,6 +85,7 @@ async function initPostgres() {
       token TEXT UNIQUE NOT NULL,
       expires_at TIMESTAMPTZ NOT NULL,
       used BOOLEAN NOT NULL DEFAULT FALSE,
+      email_message_id TEXT,
       created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
     )`,
     'CREATE INDEX IF NOT EXISTS idx_resets_token ON password_resets(token)',
@@ -133,6 +102,8 @@ async function initPostgres() {
       phone TEXT,
       notes TEXT,
       estimated_fee INTEGER,
+      customer_email_message_id TEXT,
+      ops_email_message_id TEXT,
       status TEXT NOT NULL DEFAULT 'new',
       created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
     )`,
@@ -145,6 +116,7 @@ async function initPostgres() {
       postcode TEXT,
       status TEXT NOT NULL DEFAULT 'pending',
       value_pence INTEGER NOT NULL DEFAULT 0,
+      drawing_ready_email_message_id TEXT,
       created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
     )`,
     `CREATE TABLE IF NOT EXISTS files (
@@ -167,6 +139,7 @@ async function initPostgres() {
       description TEXT,
       stripe_session_id TEXT,
       stripe_payment_intent TEXT,
+      email_message_id TEXT,
       status TEXT NOT NULL DEFAULT 'pending',
       created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
     )`,
@@ -197,6 +170,11 @@ async function initPostgres() {
   await pool.query('ALTER TABLE callbacks ADD COLUMN IF NOT EXISTS request_path TEXT');
   await pool.query('ALTER TABLE callbacks ADD COLUMN IF NOT EXISTS honeypot TEXT');
   await pool.query('ALTER TABLE callbacks ADD COLUMN IF NOT EXISTS email_message_id TEXT');
+  await pool.query('ALTER TABLE password_resets ADD COLUMN IF NOT EXISTS email_message_id TEXT');
+  await pool.query('ALTER TABLE quotes ADD COLUMN IF NOT EXISTS customer_email_message_id TEXT');
+  await pool.query('ALTER TABLE quotes ADD COLUMN IF NOT EXISTS ops_email_message_id TEXT');
+  await pool.query('ALTER TABLE payments ADD COLUMN IF NOT EXISTS email_message_id TEXT');
+  await pool.query('ALTER TABLE projects ADD COLUMN IF NOT EXISTS drawing_ready_email_message_id TEXT');
 }
 
 function initSqlite() {
@@ -219,6 +197,7 @@ function initSqlite() {
       token TEXT UNIQUE NOT NULL,
       expires_at DATETIME NOT NULL,
       used INTEGER NOT NULL DEFAULT 0,
+      email_message_id TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     );
@@ -237,6 +216,8 @@ function initSqlite() {
       phone TEXT,
       notes TEXT,
       estimated_fee INTEGER,
+      customer_email_message_id TEXT,
+      ops_email_message_id TEXT,
       status TEXT NOT NULL DEFAULT 'new',
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (user_id) REFERENCES users(id)
@@ -251,6 +232,7 @@ function initSqlite() {
       postcode TEXT,
       status TEXT NOT NULL DEFAULT 'pending',
       value_pence INTEGER NOT NULL DEFAULT 0,
+      drawing_ready_email_message_id TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     );
@@ -278,6 +260,7 @@ function initSqlite() {
       description TEXT,
       stripe_session_id TEXT,
       stripe_payment_intent TEXT,
+      email_message_id TEXT,
       status TEXT NOT NULL DEFAULT 'pending',
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (project_id) REFERENCES projects(id),
@@ -307,6 +290,11 @@ function initSqlite() {
   ensureSqliteColumn('callbacks', 'request_path', 'TEXT');
   ensureSqliteColumn('callbacks', 'honeypot', 'TEXT');
   ensureSqliteColumn('callbacks', 'email_message_id', 'TEXT');
+  ensureSqliteColumn('password_resets', 'email_message_id', 'TEXT');
+  ensureSqliteColumn('quotes', 'customer_email_message_id', 'TEXT');
+  ensureSqliteColumn('quotes', 'ops_email_message_id', 'TEXT');
+  ensureSqliteColumn('payments', 'email_message_id', 'TEXT');
+  ensureSqliteColumn('projects', 'drawing_ready_email_message_id', 'TEXT');
 }
 
 export async function initDb() {
