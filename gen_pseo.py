@@ -701,7 +701,7 @@ def render_service_location(borough_slug, service_slug):
   <div class="container" style="max-width: 640px; text-align: center;">
     <span class="eyebrow">Speak to a technologist</span>
     <h2 style="margin-top: 16px;">Get a callback in <em>30 minutes</em></h2>
-    <p style="color: var(--ink-soft); margin: 16px auto 32px; max-width: 480px;">Leave your number and a chartered technologist will call you back within 30 minutes during working hours.</p>
+    <p style="color: var(--ink-soft); margin: 16px auto 32px; max-width: 480px;">Leave your number and an Architectural technologist will call you back within 30 minutes during working hours.</p>
     <form style="display: flex; gap: 12px; max-width: 440px; margin: 0 auto;" onsubmit="event.preventDefault(); this.innerHTML='<p style=&quot;color:var(--success);font-weight:600;padding:16px;&quot;>Thanks! We\\'ll call you within 30 minutes.</p>';">
       <input type="tel" name="phone" placeholder="Your phone number" required style="flex: 1; padding: 14px 18px; border: 1px solid var(--line); border-radius: var(--r-full); font-size: 0.95rem; background: var(--surface);" />
       <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Call me back</button>
@@ -1288,7 +1288,7 @@ def render_borough_hub(borough_slug):
   <div class="container" style="max-width: 640px; text-align: center;">
     <span class="eyebrow">Speak to a technologist</span>
     <h2 style="margin-top: 16px;">Get a callback in <em>30 minutes</em></h2>
-    <p style="color: var(--ink-soft); margin: 16px auto 32px; max-width: 480px;">Leave your number and a chartered technologist covering {location} will call you back within 30 minutes during working hours.</p>
+    <p style="color: var(--ink-soft); margin: 16px auto 32px; max-width: 480px;">Leave your number and an Architectural technologist covering {location} will call you back within 30 minutes during working hours.</p>
     <form style="display: flex; gap: 12px; max-width: 440px; margin: 0 auto;" onsubmit="event.preventDefault(); this.innerHTML='<p style=&quot;color:var(--success);font-weight:600;padding:16px;&quot;>Thanks! We\\'ll call you within 30 minutes.</p>';">
       <input type="tel" name="phone" placeholder="Your phone number" required style="flex: 1; padding: 14px 18px; border: 1px solid var(--line); border-radius: var(--r-full); font-size: 0.95rem; background: var(--surface);" />
       <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Call me back</button>
