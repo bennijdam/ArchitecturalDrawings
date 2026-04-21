@@ -6,6 +6,24 @@
 
 ## Agent handover log
 
+## 2026-04-21 16:55 UTC — Callback deploy and favicon asset wiring
+
+**Author:** Codex
+**Task:** Deploy the callback audit-trail hardening and add a real physical favicon asset URL that matches the existing mark.
+**Scope touched:** api/routes/callbacks.js, api/models/db.js, index.html, manifest.webmanifest, favicon.svg, favicon-512.svg, HANDOVER.md.
+**Result:** ready to ship. Callback submissions now persist request provenance and Resend message IDs for later verification, and the site now has physical public icon assets at the root that preserve the existing favicon design instead of changing it.
+**Next action for the next agent:** Verify production after deploy by loading `/favicon.svg`, confirming the manifest resolves the new icon files, and tracing a fresh callback submission through Render logs plus the stored `email_message_id`.
+**Links:** api/routes/callbacks.js, api/models/db.js, index.html, manifest.webmanifest, favicon.svg, favicon-512.svg, HANDOVER.md
+
+## 2026-04-21 — Callback audit trail hardened
+
+**Author:** Codex
+**Task:** Investigate whether callback submissions can be distinguished from tests and harden the callback flow with source metadata for future verification.
+**Scope touched:** api/routes/callbacks.js, api/models/db.js, index.html, HANDOVER.md.
+**Result:** shipped locally and syntax-validated. The callback flow now records source IP, user agent, referrer, request path, honeypot value, and Resend message ID on the `callbacks` table. The public form now includes a hidden honeypot field, spammy fills return early without email delivery, and the server emits structured `[callback_request]` and `[callback_email_sent]` log lines so future checks can be done from Render logs plus Resend message IDs. During investigation, the Render logs page did not surface the earlier `POST /api/callbacks` submission cleanly, and direct Resend event metadata for the already-sent message was not retrievable from the available tools because the current app did not previously persist the Resend message ID.
+**Next action for the next agent:** Deploy this change, then verify a fresh callback submission in production by confirming the new metadata appears in the database/logs and that the corresponding `email_message_id` can be traced in Resend.
+**Links:** api/routes/callbacks.js, api/models/db.js, index.html, HANDOVER.md
+
 ## 2026-04-21 — Inline password reset status shipped
 
 **Author:** Codex

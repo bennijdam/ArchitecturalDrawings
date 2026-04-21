@@ -48,6 +48,16 @@ function toPgSql(sql) {
   return sql.replace(/\?/g, () => `$${++index}`);
 }
 
+function sqliteColumnExists(tableName, columnName) {
+  const rows = getSqliteDb().prepare(`PRAGMA table_info(${tableName})`).all();
+  return rows.some((row) => row.name === columnName);
+}
+
+function ensureSqliteColumn(tableName, columnName, definition) {
+  if (sqliteColumnExists(tableName, columnName)) return;
+  getSqliteDb().exec(`ALTER TABLE ${tableName} ADD COLUMN ${columnName} ${definition}`);
+}
+
 export function usingPostgres() {
   return isPostgres;
 }
@@ -167,6 +177,12 @@ async function initPostgres() {
       phone TEXT NOT NULL,
       call_when TEXT,
       topic TEXT,
+      source_ip TEXT,
+      user_agent TEXT,
+      referrer TEXT,
+      request_path TEXT,
+      honeypot TEXT,
+      email_message_id TEXT,
       created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
     )`,
   ];
@@ -174,6 +190,13 @@ async function initPostgres() {
   for (const statement of statements) {
     await pool.query(statement);
   }
+
+  await pool.query('ALTER TABLE callbacks ADD COLUMN IF NOT EXISTS source_ip TEXT');
+  await pool.query('ALTER TABLE callbacks ADD COLUMN IF NOT EXISTS user_agent TEXT');
+  await pool.query('ALTER TABLE callbacks ADD COLUMN IF NOT EXISTS referrer TEXT');
+  await pool.query('ALTER TABLE callbacks ADD COLUMN IF NOT EXISTS request_path TEXT');
+  await pool.query('ALTER TABLE callbacks ADD COLUMN IF NOT EXISTS honeypot TEXT');
+  await pool.query('ALTER TABLE callbacks ADD COLUMN IF NOT EXISTS email_message_id TEXT');
 }
 
 function initSqlite() {
@@ -268,9 +291,22 @@ function initSqlite() {
       phone TEXT NOT NULL,
       call_when TEXT,
       topic TEXT,
+      source_ip TEXT,
+      user_agent TEXT,
+      referrer TEXT,
+      request_path TEXT,
+      honeypot TEXT,
+      email_message_id TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);
+
+  ensureSqliteColumn('callbacks', 'source_ip', 'TEXT');
+  ensureSqliteColumn('callbacks', 'user_agent', 'TEXT');
+  ensureSqliteColumn('callbacks', 'referrer', 'TEXT');
+  ensureSqliteColumn('callbacks', 'request_path', 'TEXT');
+  ensureSqliteColumn('callbacks', 'honeypot', 'TEXT');
+  ensureSqliteColumn('callbacks', 'email_message_id', 'TEXT');
 }
 
 export async function initDb() {
