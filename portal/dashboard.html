@@ -2217,8 +2217,20 @@ gtag('config', 'G-77CQ2PWJM4', {
     try {
       const r = await fetch(API+'/api/stripe/checkout',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+sessionStorage.getItem('ad_token')},body:JSON.stringify({amount:87500,currency:'gbp',description:'Stage 2 \u2014 drawings delivery'})});
       if (r.ok) { window.location.href = (await r.json()).sessionUrl; return; }
+
+      const data = await r.json().catch(() => ({}));
+      if (r.status === 401) {
+        sessionStorage.removeItem('ad_token');
+        sessionStorage.removeItem('ad_user');
+        alert(data.error || 'Your session has expired. Please sign in again.');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      alert(data.error || 'Unable to start Stripe checkout right now. Please try again shortly.');
+      return;
     } catch(e) {}
-    alert('Demo mode: In production, this opens Stripe Checkout for \u00A3875.');
+    alert('Unable to start Stripe checkout right now. Please check your connection and try again.');
   });
 })();
 </script>

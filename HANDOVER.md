@@ -6,6 +6,15 @@
 
 ## Agent handover log
 
+## 2026-04-21 — Stale JWT payment failure fixed
+
+**Author:** Codex
+**Task:** Fix the intermittent Stripe checkout failure caused by stale JWTs that referenced users no longer present in Neon.
+**Scope touched:** api/middleware/auth.js, portal/dashboard.html, HANDOVER.md.
+**Result:** shipped locally. `requireAuth` now verifies the JWT user against the current database before trusting the token payload, returning a clean `401` when the session is no longer valid instead of allowing downstream inserts to fail on foreign-key constraints. The dashboard payment flow was also hardened so non-OK checkout responses no longer show the old demo-mode fallback: `401` now clears session state and redirects to login, and other payment failures surface honest error messaging.
+**Next action for the next agent:** Push/deploy this fix, then re-test production checkout with a fresh login to confirm the stale-session `500` is gone and any remaining Stripe errors are genuine payment/config issues.
+**Links:** api/middleware/auth.js, portal/dashboard.html, api/routes/stripe.js
+
 ## 2026-04-21 — Stripe return handling verified and patched
 
 **Author:** Codex
