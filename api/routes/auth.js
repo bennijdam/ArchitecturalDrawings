@@ -40,7 +40,7 @@ router.post('/register',
       'INSERT INTO users (email, password_hash, name, phone) VALUES (?, ?, ?, ?)'
       , [email, hash, name, phone || null]);
 
-    const user = { id: info.id, email, name, role: 'client' };
+    const user = { id: info.id, email, name, phone: phone || null, role: 'client' };
     const token = signToken(user);
     res.status(201).json({ token, user });
   }
@@ -62,7 +62,7 @@ router.post('/login',
       return res.status(401).json({ error: 'Invalid email or password.' });
     }
 
-    const safeUser = { id: user.id, email: user.email, name: user.name, role: user.role };
+    const safeUser = { id: user.id, email: user.email, name: user.name, phone: user.phone, role: user.role };
     const token = signToken(safeUser);
     res.json({ token, user: safeUser });
   }
@@ -72,6 +72,49 @@ router.post('/login',
 router.get('/me', requireAuth, (req, res) => {
   res.json({ user: req.user });
 });
+
+/* PATCH /api/auth/me */
+router.patch('/me',
+  requireAuth,
+  body('name').optional().isLength({ min: 1, max: 120 }).trim().escape(),
+  body('email').optional().isEmail().normalizeEmail(),
+  body('phone').optional({ nullable: true }).isLength({ max: 40 }).trim(),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ error: 'Validation failed', details: errors.array() });
+
+    const currentUser = await dbGet('SELECT id, email, name, phone, role FROM users WHERE id = ?', [req.user.id]);
+    if (!currentUser) return res.status(404).json({ error: 'User not found.' });
+
+    const nextName = req.body.name ?? currentUser.name;
+    const nextEmail = req.body.email ?? currentUser.email;
+    const nextPhone = Object.prototype.hasOwnProperty.call(req.body, 'phone')
+      ? (req.body.phone || null)
+      : currentUser.phone;
+
+    if (nextEmail !== currentUser.email) {
+      const existing = await dbGet('SELECT id FROM users WHERE email = ?', [nextEmail]);
+      if (existing && Number(existing.id) !== Number(req.user.id)) {
+        return res.status(409).json({ error: 'An account with this email already exists.' });
+      }
+    }
+
+    await dbRun(
+      'UPDATE users SET name = ?, email = ?, phone = ? WHERE id = ?'
+      , [nextName, nextEmail, nextPhone, req.user.id]
+    );
+
+    const user = {
+      id: currentUser.id,
+      email: nextEmail,
+      name: nextName,
+      phone: nextPhone,
+      role: currentUser.role || 'client',
+    };
+
+    res.json({ token: signToken(user), user });
+  }
+);
 
 /* POST /api/auth/reset-password — request a reset link */
 router.post('/reset-password',

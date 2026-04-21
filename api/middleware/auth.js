@@ -20,7 +20,7 @@ export async function requireAuth(req, res, next) {
 
     // Reject tokens for users that no longer exist in the current database.
     const user = await dbGet(
-      'SELECT id, email, name, role FROM users WHERE id = ?'
+      'SELECT id, email, name, phone, role FROM users WHERE id = ?'
       , [payload.id]
     );
 
@@ -32,6 +32,7 @@ export async function requireAuth(req, res, next) {
       id: user.id,
       email: user.email,
       name: user.name,
+      phone: user.phone,
       role: user.role || 'client',
     };
     next();

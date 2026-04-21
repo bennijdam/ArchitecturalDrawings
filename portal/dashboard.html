@@ -1752,23 +1752,23 @@ gtag('config', 'G-77CQ2PWJM4', {
     <div class="stats-grid overview-el">
       <div class="stat-card">
         <div class="stat-card-label">Active projects</div>
-        <div class="stat-card-value">2</div>
-        <div class="stat-card-trend">↑ 1 new this month</div>
+        <div class="stat-card-value" id="statActiveProjects">0</div>
+        <div class="stat-card-trend" id="statActiveProjectsTrend">No active projects yet</div>
       </div>
       <div class="stat-card">
         <div class="stat-card-label">Drawings delivered</div>
-        <div class="stat-card-value">14</div>
-        <div class="stat-card-trend">Last: 3 days ago</div>
+        <div class="stat-card-value" id="statDelivered">0</div>
+        <div class="stat-card-trend" id="statDeliveredTrend">No completed deliveries yet</div>
       </div>
       <div class="stat-card">
         <div class="stat-card-label">Pending approvals</div>
-        <div class="stat-card-value">1</div>
-        <div class="stat-card-trend" style="color: var(--warn);">Action needed</div>
+        <div class="stat-card-value" id="statPendingApprovals">0</div>
+        <div class="stat-card-trend" id="statPendingApprovalsTrend" style="color: var(--warn);">Nothing awaiting approval</div>
       </div>
       <div class="stat-card">
         <div class="stat-card-label">Outstanding balance</div>
-        <div class="stat-card-value">£0</div>
-        <div class="stat-card-trend">Up to date</div>
+        <div class="stat-card-value" id="statOutstandingBalance">£0</div>
+        <div class="stat-card-trend" id="statOutstandingBalanceTrend">Up to date</div>
       </div>
     </div>
 
@@ -1776,36 +1776,18 @@ gtag('config', 'G-77CQ2PWJM4', {
     <section id="projects" class="overview-el" style="margin-bottom: 40px;padding:0;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
         <h2 style="font-size:1.8rem;">Your projects</h2>
-        <a href="#" style="font-size:0.9rem;color:var(--accent-deep);font-weight:600;">View all →</a>
+        <span id="projectsCountLabel" style="font-size:0.9rem;color:var(--accent-deep);font-weight:600;">Syncing live data…</span>
       </div>
 
-      <div class="project-list">
+      <div class="project-list" id="projectList">
         <div class="project-item">
           <div>
-            <div class="project-title">Side return extension — 42 Broadhurst Gardens</div>
-            <div class="project-meta">Camden · Complete package · Started 3 March 2026</div>
+            <div class="project-title">Loading your projects…</div>
+            <div class="project-meta">Pulling live data from your account</div>
           </div>
-          <span class="badge badge-review">In review</span>
-          <span class="muted tiny">£1,750</span>
-          <a href="#" class="btn btn-outline btn-sm">Open →</a>
-        </div>
-        <div class="project-item">
-          <div>
-            <div class="project-title">Loft conversion (mansard) — 17a Ormonde Terrace</div>
-            <div class="project-meta">Westminster · Bespoke · Started 18 January 2026</div>
-          </div>
-          <span class="badge badge-active">In progress</span>
-          <span class="muted tiny">£3,200</span>
-          <a href="#" class="btn btn-outline btn-sm">Open →</a>
-        </div>
-        <div class="project-item">
-          <div>
-            <div class="project-title">Rear extension — 8 Henderson Road</div>
-            <div class="project-meta">Wandsworth · Complete · Completed 12 December 2025</div>
-          </div>
-          <span class="badge badge-done">Approved</span>
-          <span class="muted tiny">£1,750</span>
-          <a href="#" class="btn btn-outline btn-sm">Open →</a>
+          <span class="badge badge-pending">Please wait</span>
+          <span class="muted tiny">—</span>
+          <button type="button" class="btn btn-outline btn-sm" disabled>Open →</button>
         </div>
       </div>
     </section>
@@ -1830,17 +1812,17 @@ gtag('config', 'G-77CQ2PWJM4', {
         <div class="stat-card" style="padding: 28px;">
           <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:20px;">
             <div>
-              <div class="stat-card-label">Stage 2 — drawings delivery</div>
-              <div class="stat-card-value">£875</div>
-              <div class="stat-card-trend muted" style="color: var(--ink-soft);">Due on first draft approval</div>
+              <div class="stat-card-label" id="paymentDescription">Checking your latest payment…</div>
+              <div class="stat-card-value" id="paymentAmount">£0</div>
+              <div class="stat-card-trend muted" id="paymentMeta" style="color: var(--ink-soft);">Waiting for live payment data</div>
             </div>
-            <span class="badge badge-pending">Not due yet</span>
+            <span class="badge badge-pending" id="paymentBadge">Pending</span>
           </div>
           <button id="payNow" class="btn btn-accent btn-block">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="14" height="10" rx="2"/><path d="M3 9h14"/></svg>
-            Pay now with Stripe
+            Open Stripe Checkout
           </button>
-          <p class="tiny muted" style="margin-top:12px;text-align:center;">Secure payment · Powered by Stripe · Card, Apple Pay, Google Pay</p>
+          <p class="tiny muted" id="paymentHelpText" style="margin-top:12px;text-align:center;">Secure payment · Powered by Stripe · Card, Apple Pay, Google Pay</p>
         </div>
       </section>
 
@@ -2097,6 +2079,189 @@ gtag('config', 'G-77CQ2PWJM4', {
     document.getElementById('sidebarOverlay').style.display = 'none';
   }
 
+  function formatMoney(amountPence, currency = 'gbp') {
+    const safeAmount = Number(amountPence || 0) / 100;
+    return new Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency: (currency || 'gbp').toUpperCase(),
+      maximumFractionDigits: 0,
+    }).format(safeAmount);
+  }
+
+  function formatDateLabel(value, prefix = '') {
+    if (!value) return prefix ? prefix + ' recently' : 'Recently';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return prefix ? prefix + ' recently' : value;
+    const label = date.getDate() + ' ' + M[date.getMonth()] + ' ' + date.getFullYear();
+    return prefix ? prefix + ' ' + label : label;
+  }
+
+  function projectStatusMeta(status) {
+    const value = String(status || '').toLowerCase();
+    const map = {
+      active: ['In progress', 'badge-active'],
+      review: ['In review', 'badge-review'],
+      approved: ['Approved', 'badge-done'],
+      completed: ['Completed', 'badge-done'],
+      pending: ['Pending', 'badge-pending'],
+      new: ['New', 'badge-pending'],
+    };
+    return map[value] || ['Pending', 'badge-pending'];
+  }
+
+  function paymentStatusMeta(status) {
+    const value = String(status || '').toLowerCase();
+    const map = {
+      paid: ['Paid', 'badge-done'],
+      pending: ['Pending', 'badge-pending'],
+      failed: ['Failed', 'badge-review'],
+    };
+    return map[value] || ['Pending', 'badge-pending'];
+  }
+
+  function setStat(id, value, trend, trendColor) {
+    const valueEl = document.getElementById(id);
+    const trendEl = document.getElementById(id + 'Trend');
+    if (valueEl) valueEl.textContent = value;
+    if (trendEl) {
+      trendEl.textContent = trend;
+      trendEl.style.color = trendColor || '';
+    }
+  }
+
+  function updateStats(projects, payments) {
+    const activeProjects = projects.filter((project) => ['active', 'review', 'pending', 'new'].includes(String(project.status || '').toLowerCase()));
+    const deliveredProjects = projects.filter((project) => ['approved', 'completed'].includes(String(project.status || '').toLowerCase()));
+    const pendingApprovals = projects.filter((project) => String(project.status || '').toLowerCase() === 'review');
+    const outstandingPence = payments
+      .filter((payment) => String(payment.status || '').toLowerCase() === 'pending')
+      .reduce((sum, payment) => sum + Number(payment.amountPence || 0), 0);
+    const latestDelivered = deliveredProjects[0];
+
+    setStat('statActiveProjects', String(activeProjects.length), activeProjects.length ? formatDateLabel(activeProjects[0]?.created_at || activeProjects[0]?.createdAt, 'Latest:') : 'No active projects yet');
+    setStat('statDelivered', String(deliveredProjects.length), latestDelivered ? formatDateLabel(latestDelivered.created_at || latestDelivered.createdAt, 'Last delivered:') : 'No completed deliveries yet');
+    setStat('statPendingApprovals', String(pendingApprovals.length), pendingApprovals.length ? 'Action needed' : 'Nothing awaiting approval', pendingApprovals.length ? 'var(--warn)' : '');
+    setStat('statOutstandingBalance', formatMoney(outstandingPence, payments[0]?.currency || 'gbp'), outstandingPence ? 'Awaiting payment confirmation' : 'Up to date');
+  }
+
+  function renderProjectDetails(project) {
+    const [statusLabel, statusClass] = projectStatusMeta(project.status);
+    const fee = formatMoney(project.value_pence, 'gbp');
+    const started = formatDateLabel(project.created_at, 'Started');
+    document.getElementById('modalBadge').innerHTML = '<span class="badge ' + statusClass + '">' + statusLabel + '</span>';
+    document.getElementById('modalTitle').textContent = project.title || 'Project';
+    document.getElementById('modalMeta').textContent = (project.service || 'Architectural service') + ' · ' + started;
+    document.getElementById('modalDetails').innerHTML =
+      '<div class="modal-detail-row"><span class="modal-detail-label">Service</span><strong>' + (project.service || 'Not specified') + '</strong></div>' +
+      '<div class="modal-detail-row"><span class="modal-detail-label">Postcode</span><strong>' + (project.postcode || 'Not provided') + '</strong></div>' +
+      '<div class="modal-detail-row"><span class="modal-detail-label">Fee</span><strong>' + fee + '</strong></div>' +
+      '<div class="modal-detail-row"><span class="modal-detail-label">Status</span><span class="badge ' + statusClass + '">' + statusLabel + '</span></div>' +
+      '<div class="modal-detail-row"><span class="modal-detail-label">Created</span><strong>' + formatDateLabel(project.created_at) + '</strong></div>';
+    modal.classList.add('active');
+  }
+
+  function renderProjects(projects) {
+    const projectList = document.getElementById('projectList');
+    const projectsCountLabel = document.getElementById('projectsCountLabel');
+    projectList.innerHTML = '';
+
+    if (!projects.length) {
+      projectList.innerHTML = '<div class="project-item"><div><div class="project-title">No live projects yet</div><div class="project-meta">Start a new project from the quote flow and it will appear here.</div></div><span class="badge badge-pending">Empty</span><span class="muted tiny">—</span><a href="../quote.html" class="btn btn-outline btn-sm">Start →</a></div>';
+      projectsCountLabel.textContent = 'No projects yet';
+      return;
+    }
+
+    projectsCountLabel.textContent = projects.length === 1 ? '1 live project' : projects.length + ' live projects';
+
+    projects.forEach((project) => {
+      const [statusLabel, statusClass] = projectStatusMeta(project.status);
+      const item = document.createElement('div');
+      item.className = 'project-item';
+      item.innerHTML =
+        '<div><div class="project-title"></div><div class="project-meta"></div></div>' +
+        '<span class="badge"></span>' +
+        '<span class="muted tiny"></span>' +
+        '<button type="button" class="btn btn-outline btn-sm">Open →</button>';
+
+      item.querySelector('.project-title').textContent = project.title || 'Untitled project';
+      item.querySelector('.project-meta').textContent = (project.postcode || 'Postcode pending') + ' · ' + (project.service || 'Service pending') + ' · ' + formatDateLabel(project.created_at, 'Started');
+      const badge = item.querySelector('.badge');
+      badge.className = 'badge ' + statusClass;
+      badge.textContent = statusLabel;
+      item.querySelector('.muted').textContent = formatMoney(project.value_pence, 'gbp');
+      item.querySelector('button').addEventListener('click', () => renderProjectDetails(project));
+
+      projectList.appendChild(item);
+    });
+  }
+
+  function renderLatestPayment(payments) {
+    const latestPayment = payments[0];
+    const paymentDescription = document.getElementById('paymentDescription');
+    const paymentAmount = document.getElementById('paymentAmount');
+    const paymentMeta = document.getElementById('paymentMeta');
+    const paymentBadge = document.getElementById('paymentBadge');
+    const payNow = document.getElementById('payNow');
+    const paymentHelpText = document.getElementById('paymentHelpText');
+
+    if (!latestPayment) {
+      paymentDescription.textContent = 'No scheduled payment';
+      paymentAmount.textContent = '£0';
+      paymentMeta.textContent = 'A payment will appear here when your next stage is ready.';
+      paymentBadge.className = 'badge badge-pending';
+      paymentBadge.textContent = 'No payment';
+      paymentHelpText.textContent = 'Secure payment details will appear here once a stage is ready.';
+      payNow.disabled = true;
+      payNow.style.opacity = '0.6';
+      return;
+    }
+
+    const [label, badgeClass] = paymentStatusMeta(latestPayment.status);
+    paymentDescription.textContent = latestPayment.description || 'Project payment';
+    paymentAmount.textContent = formatMoney(latestPayment.amountPence, latestPayment.currency);
+    paymentMeta.textContent = String(latestPayment.status || '').toLowerCase() === 'paid'
+      ? 'Paid ' + formatDateLabel(latestPayment.createdAt || latestPayment.created_at).toLowerCase()
+      : 'Created ' + formatDateLabel(latestPayment.createdAt || latestPayment.created_at).toLowerCase();
+    paymentBadge.className = 'badge ' + badgeClass;
+    paymentBadge.textContent = label;
+    paymentHelpText.textContent = latestPayment.stripeSessionId
+      ? 'Latest Stripe session: ' + latestPayment.stripeSessionId
+      : 'Secure payment · Powered by Stripe · Card, Apple Pay, Google Pay';
+    payNow.disabled = false;
+    payNow.style.opacity = '1';
+  }
+
+  async function loadDashboardData() {
+    const authHeader = { Authorization: 'Bearer ' + sessionStorage.getItem('ad_token') };
+    try {
+      const [projectsResponse, paymentsResponse] = await Promise.all([
+        fetch(`${API}/api/projects`, { headers: authHeader }),
+        fetch(`${API}/api/stripe/payments/mine?limit=10`, { headers: authHeader }),
+      ]);
+
+      if (projectsResponse.status === 401 || paymentsResponse.status === 401) {
+        sessionStorage.removeItem('ad_token');
+        sessionStorage.removeItem('ad_user');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const projectsData = projectsResponse.ok ? await projectsResponse.json() : { projects: [] };
+      const paymentsData = paymentsResponse.ok ? await paymentsResponse.json() : { payments: [] };
+      const projects = Array.isArray(projectsData.projects) ? projectsData.projects : [];
+      const payments = Array.isArray(paymentsData.payments) ? paymentsData.payments : [];
+
+      renderProjects(projects);
+      updateStats(projects, payments);
+      renderLatestPayment(payments);
+    } catch (_error) {
+      document.getElementById('projectsCountLabel').textContent = 'Unable to load live data';
+      document.getElementById('projectList').innerHTML = '<div class="project-item"><div><div class="project-title">Unable to load projects</div><div class="project-meta">Please refresh the page or try again shortly.</div></div><span class="badge badge-review">Unavailable</span><span class="muted tiny">—</span><button type="button" class="btn btn-outline btn-sm" disabled>Retry later</button></div>';
+      renderLatestPayment([]);
+      updateStats([], []);
+    }
+  }
+
   if ((!usr.name || !usr.email) && sessionStorage.getItem('ad_token')) {
     fetch(`${API}/api/auth/me`, {
       headers: { Authorization: `Bearer ${sessionStorage.getItem('ad_token')}` }
@@ -2159,38 +2324,57 @@ gtag('config', 'G-77CQ2PWJM4', {
   document.getElementById('modalClose').addEventListener('click', () => modal.classList.remove('active'));
   modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('active'); });
-  const demos = [
-    {title:'Side return extension \u2014 42 Broadhurst Gardens',service:'Complete package',postcode:'NW6',status:'review',value_pence:175000,created_at:'2026-03-03'},
-    {title:'Loft conversion (mansard) \u2014 17a Ormonde Terrace',service:'Bespoke',postcode:'NW8',status:'active',value_pence:320000,created_at:'2026-01-18'},
-    {title:'Rear extension \u2014 8 Henderson Road',service:'Complete',postcode:'SW18',status:'approved',value_pence:175000,created_at:'2025-10-15'}
-  ];
-  const sMap = {active:['In progress','badge-active'],review:['In review','badge-review'],approved:['Approved','badge-done']};
-  document.querySelectorAll('.project-item .btn-outline').forEach((btn, i) => {
-    if (!demos[i]) return;
-    btn.addEventListener('click', e => {
-      e.preventDefault();
-      const p = demos[i], s = sMap[p.status]||['Pending','badge-pending'];
-      const fee = '\u00A3'+(p.value_pence/100).toLocaleString('en-GB');
-      const dt = new Date(p.created_at), ds = dt.getDate()+' '+M[dt.getMonth()]+' '+dt.getFullYear();
-      document.getElementById('modalBadge').innerHTML = '<span class="badge '+s[1]+'">'+s[0]+'</span>';
-      document.getElementById('modalTitle').textContent = p.title;
-      document.getElementById('modalMeta').textContent = p.service+' \u00B7 Started '+ds;
-      document.getElementById('modalDetails').innerHTML =
-        '<div class="modal-detail-row"><span class="modal-detail-label">Service</span><strong>'+p.service+'</strong></div>'+
-        '<div class="modal-detail-row"><span class="modal-detail-label">Postcode</span><strong>'+p.postcode+'</strong></div>'+
-        '<div class="modal-detail-row"><span class="modal-detail-label">Fee</span><strong>'+fee+'</strong></div>'+
-        '<div class="modal-detail-row"><span class="modal-detail-label">Status</span><span class="badge '+s[1]+'">'+s[0]+'</span></div>'+
-        '<div class="modal-detail-row"><span class="modal-detail-label">Started</span><strong>'+ds+'</strong></div>';
-      modal.classList.add('active');
-    });
-  });
+  loadDashboardData();
 
   // Save profile
-  document.getElementById('saveProfile').addEventListener('click', () => {
-    const n = document.getElementById('sName').value.trim(), e = document.getElementById('sEmail').value.trim();
-    if (!n||!e) { alert('Name and email required.'); return; }
-    usr = {...usr, name:n, email:e, phone:document.getElementById('sPhone').value.trim()};
-    sessionStorage.setItem('ad_user', JSON.stringify(usr)); fill(usr); alert('Profile updated.');
+  document.getElementById('saveProfile').addEventListener('click', async () => {
+    const button = document.getElementById('saveProfile');
+    const name = document.getElementById('sName').value.trim();
+    const email = document.getElementById('sEmail').value.trim();
+    const phone = document.getElementById('sPhone').value.trim();
+
+    if (!name || !email) {
+      alert('Name and email required.');
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = 'Saving…';
+
+    try {
+      const response = await fetch(`${API}/api/auth/me`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.getItem('ad_token')}`,
+        },
+        body: JSON.stringify({ name, email, phone }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (response.status === 401) {
+        sessionStorage.removeItem('ad_token');
+        sessionStorage.removeItem('ad_user');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      if (!response.ok || !data.user) {
+        alert(data.error || 'Unable to save your profile right now.');
+        return;
+      }
+
+      usr = { ...usr, ...data.user };
+      if (data.token) sessionStorage.setItem('ad_token', data.token);
+      sessionStorage.setItem('ad_user', JSON.stringify(usr));
+      fill(usr);
+      alert('Profile updated.');
+    } catch (_error) {
+      alert('Unable to save your profile right now.');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Save changes';
+    }
   });
 
   // File upload
