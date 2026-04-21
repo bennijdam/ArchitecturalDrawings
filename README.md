@@ -46,9 +46,9 @@ architectural-drawings/
 ## Design commitments
 
 - **Typography**: [Fraunces](https://fonts.google.com/specimen/Fraunces) (display serif, variable) paired with [Manrope](https://fonts.google.com/specimen/Manrope) (body sans) — distinctive, avoids generic Inter/Roboto feel.
-- **Palette**: Warm cream (#FAFAF7) backgrounds, ink (#0E1116) text, terracotta (#C8664A) accent — warm editorial minimalism rather than tech-bro purple.
-- **Layout**: 20–36px rounded cards, soft shadows, generous whitespace, staggered scroll-triggered reveals.
-- **Performance**: AVIF images (as small as 9 KB at 640px wide). WebP fallback. JPEG last-resort. Responsive `<picture>` + `srcset` everywhere. Hero image preloaded. Fonts preconnected.
+- **Palette**: Cool white (`#F5F8FF`) backgrounds, deep navy-black (`#0B1222`) text, blueprint blue (`#2563EB`) accent — light, modern, and glossy; thematically tied to architectural drawing.
+- **Layout**: 20–36px rounded cards, soft blue-glow shadows, generous whitespace, staggered scroll-triggered reveals.
+- **Performance**: AVIF images (as small as 3 KB at 640px wide). WebP fallback. JPEG last-resort. Responsive `<picture>` + `srcset` everywhere. All images self-hosted — zero external image dependencies. Hero image preloaded. Fonts preconnected.
 - **Accessibility**: Focus rings, `prefers-reduced-motion` honoured, native `<details>` for FAQ (keyboard-operable), semantic HTML throughout.
 
 ## SEO / GEO / AEO
@@ -157,22 +157,39 @@ Deploy to Railway, Fly.io, Render, or any Node host:
 - [ ] Schema validator pass: `https://validator.schema.org/`.
 - [ ] Lighthouse audit target: 95+ on Performance, Accessibility, Best Practices, SEO.
 
-## Content generation for service imagery
+## Image system
 
-The four uploaded stock photos are used throughout. For more bespoke service imagery (loft conversions, mansards, building regs in action), the recommended workflow:
+All images are self-hosted — zero external CDN or Unsplash dependencies.
+
+**Library:** `assets/img/` contains 20+ semantic image families, each at three responsive widths in three formats:
+
+| Family | Usage |
+|---|---|
+| `blueprint-correcting-*` | Hero / services |
+| `blueprint-tablet-*` | Hero / planning pages |
+| `technologist-working-*` | About / process |
+| `tools-workplace-*` | Services / process |
+| `london-house-exterior-*` | Borough pages / trust signals |
+| `london-victorian-terrace-*` | Suburban borough pages |
+| `dormer-loft-conversion-*` | Loft project pages |
+| `double-storey-extension-*` | Extension pages |
+| `kitchen-extension-*` | Side-return / kitchen pages |
+| `planning-permission-drawings-*` | Planning / regs pages |
+| `blueprint-review-*` | Process / about pages |
+| `architect-working-*` | About / studio pages |
+| `design-tools-*` | Services / structural pages |
+| …and 10 more | See `assets/img/` |
+
+**To add new images:**
 
 ```bash
-# Use the ffmpeg script at ../optimize_images.sh as a reference
-# Source: generate via Claude (claude.ai), ChatGPT (DALL·E 3), or Midjourney
-# Target: 2400px wide JPEG
-
-# Then re-run image optimization to produce responsive AVIF + WebP:
-ffmpeg -i source.jpg -vf "scale=1600:-2" \
-  -c:v libaom-av1 -crf 32 -b:v 0 -still-picture 1 \
-  output-1600.avif
+# Drop source JPEG(s) into assets/img/, then run:
+python3 scripts/optimize_local_images.py   # converts to AVIF/WebP/JPG at 640/1024/1600px
 ```
 
-Ship AVIF as primary (5–10× smaller than JPEG), WebP as fallback, JPEG as last resort. All three wrapped in a `<picture>` element — browsers pick the first they support.
+Add entry to `CONVERSIONS` dict in `scripts/optimize_local_images.py` first.
+
+Ship AVIF as primary (5–10× smaller than JPEG), WebP as fallback, JPEG as last resort. All wrapped in a `<picture>` element — browsers pick the first they support.
 
 ## Security notes
 
