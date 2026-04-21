@@ -3,6 +3,7 @@ import { body, validationResult } from 'express-validator';
 import { Resend } from 'resend';
 import { requireAuth, requireRole } from '../middleware/auth.js';
 import { dbAll, dbGet, dbInsert, dbRun } from '../models/db.js';
+import { logEmailSent } from './emailAudit.js';
 import { callbackOpsEmail } from './emailTemplates.js';
 
 const router = express.Router();
@@ -113,14 +114,13 @@ router.post('/',
           text: tpl.text,
         });
 
-        const emailMessageId = resendResult?.data?.id || resendResult?.id || null;
-        console.info('[callback_email_sent]', JSON.stringify({
+        const emailMessageId = logEmailSent('callback_email_sent', {
           callbackId,
-          emailMessageId,
+          email: opsEmail,
           name,
           sourceIp,
           requestPath,
-        }));
+        }, resendResult);
 
         if (callbackId && emailMessageId) {
           await dbRun('UPDATE callbacks SET email_message_id = ? WHERE id = ?', [emailMessageId, callbackId]);

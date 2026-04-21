@@ -3,6 +3,7 @@ import { body, validationResult } from 'express-validator';
 import { Resend } from 'resend';
 import { dbAll, dbInsert } from '../models/db.js';
 import { requireAuth, requireRole } from '../middleware/auth.js';
+import { logEmailSent } from './emailAudit.js';
 import { quoteConfirmationEmail, quoteOpsEmail } from './emailTemplates.js';
 
 const router = express.Router();
@@ -44,12 +45,24 @@ router.post('/',
       // Customer confirmation
       const customerTpl = quoteConfirmationEmail({ name, service, tier, postcode, quoteId });
       client.emails.send({ from, to: email, subject: customerTpl.subject, html: customerTpl.html, text: customerTpl.text })
+        .then((result) => {
+          logEmailSent('quote_customer_email_sent', {
+            quoteId,
+            email,
+          }, result);
+        })
         .catch(err => console.error('Quote customer email failed:', err));
 
       // Ops notification
       if (process.env.EMAIL_TO_OPS) {
         const opsTpl = quoteOpsEmail({ name, email, phone, service, tier, property, postcode, timeline, notes, quoteId });
         client.emails.send({ from, to: process.env.EMAIL_TO_OPS, subject: opsTpl.subject, html: opsTpl.html, text: opsTpl.text })
+          .then((result) => {
+            logEmailSent('quote_ops_email_sent', {
+              quoteId,
+              email: process.env.EMAIL_TO_OPS,
+            }, result);
+          })
           .catch(err => console.error('Quote ops email failed:', err));
       }
     }

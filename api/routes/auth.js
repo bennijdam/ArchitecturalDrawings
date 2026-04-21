@@ -5,6 +5,7 @@ import { body, validationResult } from 'express-validator';
 import { Resend } from 'resend';
 import { dbGet, dbInsert, dbRun } from '../models/db.js';
 import { requireAuth, signToken } from '../middleware/auth.js';
+import { logEmailSent } from './emailAudit.js';
 import { passwordResetEmail, passwordChangedEmail, welcomeEmail } from './emailTemplates.js';
 
 let resend;
@@ -49,6 +50,11 @@ router.post('/register',
         subject: tpl.subject,
         html: tpl.html,
         text: tpl.text,
+      }).then((result) => {
+        logEmailSent('welcome_email_sent', {
+          userId: info.id,
+          email,
+        }, result);
       }).catch(err => console.error('Welcome email failed:', err));
     }
 
@@ -142,7 +148,7 @@ router.post('/reset-password',
     const token = crypto.randomBytes(32).toString('hex');
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString(); // 1 hour
 
-    await dbRun(
+    const resetInfo = await dbInsert(
       'INSERT INTO password_resets (user_id, token, expires_at) VALUES (?, ?, ?)'
       , [user.id, token, expiresAt]);
 
@@ -152,13 +158,18 @@ router.post('/reset-password',
     if (client) {
       try {
         const tpl = passwordResetEmail({ name: user.name, resetUrl });
-        await client.emails.send({
+        const result = await client.emails.send({
           from: process.env.EMAIL_FROM || 'Architectural Drawings <noreply@send.architecturaldrawings.uk>',
           to: email,
           subject: tpl.subject,
           html: tpl.html,
           text: tpl.text,
         });
+        logEmailSent('reset_email_sent', {
+          userId: user.id,
+          resetId: resetInfo.id,
+          email,
+        }, result);
       } catch (err) {
         console.error('Reset email failed:', err);
       }
@@ -201,6 +212,11 @@ router.post('/reset-password/confirm',
         subject: tpl.subject,
         html: tpl.html,
         text: tpl.text,
+      }).then((result) => {
+        logEmailSent('password_changed_email_sent', {
+          userId: reset.user_id,
+          email: changedUser.email,
+        }, result);
       }).catch(err => console.error('Password changed email failed:', err));
     }
 
