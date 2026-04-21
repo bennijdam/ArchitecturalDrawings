@@ -39,6 +39,27 @@ function mapProjectRow(row) {
   };
 }
 
+async function getAdminProjectRow(projectId) {
+  const row = await dbGet(`
+    SELECT
+      p.id,
+      p.user_id,
+      u.email AS user_email,
+      u.name AS user_name,
+      p.title,
+      p.service,
+      p.postcode,
+      p.status,
+      p.value_pence,
+      p.drawing_ready_email_message_id,
+      p.created_at
+    FROM projects p
+    JOIN users u ON u.id = p.user_id
+    WHERE p.id = ?
+  `, [projectId]);
+  return mapProjectRow(row);
+}
+
 /* GET /api/projects/admin — admin-only project operations view */
 router.get('/admin', requireAuth, requireRole('admin'), async (req, res) => {
   const limit = normaliseLimit(req.query.limit, 20, 100);
@@ -73,6 +94,77 @@ router.get('/admin', requireAuth, requireRole('admin'), async (req, res) => {
   const rows = await dbAll(sql, params);
   res.json({ projects: rows.map(mapProjectRow) });
 });
+
+/* POST /api/projects/admin — admin-only project creation */
+router.post('/admin',
+  requireAuth,
+  requireRole('admin'),
+  body('user_email').isEmail().normalizeEmail(),
+  body('title').isLength({ min: 1, max: 200 }).trim().escape(),
+  body('service').optional({ nullable: true }).isString().trim(),
+  body('postcode').optional({ nullable: true }).isLength({ max: 12 }).trim(),
+  body('status').optional({ nullable: true }).isIn(['active', 'review', 'approved', 'completed', 'pending', 'new']),
+  body('value_pence').optional({ nullable: true }).isInt({ min: 0 }),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ error: 'Validation failed', details: errors.array() });
+
+    const { user_email, title, service, postcode, status, value_pence } = req.body;
+    const owner = await dbGet('SELECT id, email, name FROM users WHERE email = ?', [user_email]);
+    if (!owner) {
+      return res.status(404).json({ error: 'Client account not found for that email address' });
+    }
+
+    const info = await dbInsert(
+      'INSERT INTO projects (user_id, title, service, postcode, status, value_pence) VALUES (?, ?, ?, ?, ?, ?)'
+    , [owner.id, title, service || null, postcode || null, status || 'pending', value_pence || 0]);
+
+    const project = await getAdminProjectRow(info.id);
+    res.status(201).json({ project });
+  }
+);
+
+/* PATCH /api/projects/admin/:id — admin-only project updates */
+router.patch('/admin/:id',
+  requireAuth,
+  requireRole('admin'),
+  body('title').optional().isLength({ min: 1, max: 200 }).trim().escape(),
+  body('service').optional({ nullable: true }).isString().trim(),
+  body('postcode').optional({ nullable: true }).isLength({ max: 12 }).trim(),
+  body('status').optional({ nullable: true }).isIn(['active', 'review', 'approved', 'completed', 'pending', 'new']),
+  body('value_pence').optional({ nullable: true }).isInt({ min: 0 }),
+  async (req, res) => {
+    const projectId = Number.parseInt(req.params.id, 10);
+    if (!Number.isInteger(projectId) || projectId <= 0) {
+      return res.status(400).json({ error: 'Invalid project id' });
+    }
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ error: 'Validation failed', details: errors.array() });
+
+    const existing = await dbGet('SELECT id FROM projects WHERE id = ?', [projectId]);
+    if (!existing) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+
+    const allowed = ['title', 'service', 'postcode', 'status', 'value_pence'];
+    const sets = [];
+    const vals = [];
+    for (const key of allowed) {
+      if (Object.prototype.hasOwnProperty.call(req.body, key)) {
+        sets.push(`${key} = ?`);
+        vals.push(req.body[key] || (key === 'value_pence' ? 0 : null));
+      }
+    }
+
+    if (!sets.length) return res.status(400).json({ error: 'No fields to update' });
+
+    vals.push(projectId);
+    await dbRun(`UPDATE projects SET ${sets.join(', ')} WHERE id = ?`, vals);
+    const project = await getAdminProjectRow(projectId);
+    res.json({ project });
+  }
+);
 
 /* GET /api/projects — list current user's projects */
 router.get('/', requireAuth, async (req, res) => {

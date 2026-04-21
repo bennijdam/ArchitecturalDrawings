@@ -1865,6 +1865,20 @@ gtag('config', 'G-77CQ2PWJM4', {
         <span id="projectsCountLabel" style="font-size:0.9rem;color:var(--accent-deep);font-weight:600;">Syncing live data…</span>
       </div>
 
+      <div class="settings-group hidden" id="adminProjectComposer" style="margin-bottom:20px;">
+        <h3>Create project</h3>
+        <p class="muted tiny" style="margin:-6px 0 18px;">Assign a live project to an existing client account, then manage status and drawings-ready delivery from the same console.</p>
+        <div class="settings-field"><label for="adminProjectClientEmail">Client email</label><input type="email" id="adminProjectClientEmail" placeholder="hello@client.co.uk" /></div>
+        <div class="settings-field"><label for="adminProjectTitle">Project title</label><input type="text" id="adminProjectTitle" placeholder="Rear extension drawings" /></div>
+        <div class="settings-field"><label for="adminProjectService">Service</label><input type="text" id="adminProjectService" placeholder="planning-drawings" /></div>
+        <div class="settings-field"><label for="adminProjectPostcode">Postcode</label><input type="text" id="adminProjectPostcode" placeholder="SW1A 1AA" /></div>
+        <div class="settings-row" style="padding:0;border:0;align-items:flex-end;">
+          <div class="settings-field" style="flex:1;margin:0;"><label for="adminProjectFee">Fee</label><input type="number" id="adminProjectFee" min="0" step="1" placeholder="1750" /></div>
+          <div class="settings-field" style="flex:1;margin:0;"><label for="adminProjectStatus">Status</label><select id="adminProjectStatus"><option value="pending">Pending</option><option value="new">New</option><option value="active">Active</option><option value="review">Review</option><option value="approved">Approved</option><option value="completed">Completed</option></select></div>
+          <button type="button" class="btn btn-primary btn-sm" id="createAdminProjectButton">Create project</button>
+        </div>
+      </div>
+
       <div class="project-list" id="projectList">
         <div class="project-item">
           <div>
@@ -2067,6 +2081,8 @@ gtag('config', 'G-77CQ2PWJM4', {
   const callbacksSection = document.getElementById('callbacksSection');
   const quotesSection = document.getElementById('quotesSection');
   const resetsSection = document.getElementById('resetsSection');
+  const adminProjectComposer = document.getElementById('adminProjectComposer');
+  const createAdminProjectButton = document.getElementById('createAdminProjectButton');
   const userPaymentPanel = document.getElementById('userPaymentPanel');
   const adminPaymentsPanel = document.getElementById('adminPaymentsPanel');
   const paymentStatus = document.getElementById('paymentStatus');
@@ -2134,6 +2150,7 @@ gtag('config', 'G-77CQ2PWJM4', {
     callbacksSection.classList.toggle('hidden', !adminMode);
     quotesSection.classList.toggle('hidden', !adminMode);
     resetsSection.classList.toggle('hidden', !adminMode);
+    adminProjectComposer.classList.toggle('hidden', !adminMode);
     overviewSecondaryGrid.style.gridTemplateColumns = adminMode ? '1fr' : '1fr 1fr';
     statActiveProjectsLabel.textContent = adminMode ? 'Live projects' : 'Active projects';
     statDeliveredLabel.textContent = adminMode ? 'Quotes this cycle' : 'Drawings delivered';
@@ -2366,6 +2383,133 @@ gtag('config', 'G-77CQ2PWJM4', {
     container.innerHTML = '<div class="audit-empty">' + message + '</div>';
   }
 
+  function poundsToPence(value) {
+    const parsed = Number.parseFloat(String(value || '').trim());
+    if (!Number.isFinite(parsed) || parsed < 0) return 0;
+    return Math.round(parsed * 100);
+  }
+
+  function penceToWholePounds(value) {
+    return String(Math.round(Number(value || 0) / 100));
+  }
+
+  async function createAdminProject() {
+    const button = createAdminProjectButton;
+    const payload = {
+      user_email: (document.getElementById('adminProjectClientEmail').value || '').trim(),
+      title: (document.getElementById('adminProjectTitle').value || '').trim(),
+      service: (document.getElementById('adminProjectService').value || '').trim(),
+      postcode: (document.getElementById('adminProjectPostcode').value || '').trim(),
+      status: document.getElementById('adminProjectStatus').value,
+      value_pence: poundsToPence(document.getElementById('adminProjectFee').value),
+    };
+
+    if (!payload.user_email || !payload.title) {
+      setAdminNotice('Client email and project title are required.', 'error');
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = 'Creating…';
+    setAdminNotice('Creating a new project for ' + payload.user_email + '…');
+
+    try {
+      const response = await fetch(`${API}/api/projects/admin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.getItem('ad_token')}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (response.status === 401) {
+        sessionStorage.removeItem('ad_token');
+        sessionStorage.removeItem('ad_user');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      if (!response.ok || !data.project) {
+        setAdminNotice(data.error || 'Unable to create the project right now.', 'error');
+        return;
+      }
+
+      document.getElementById('adminProjectTitle').value = '';
+      document.getElementById('adminProjectService').value = '';
+      document.getElementById('adminProjectPostcode').value = '';
+      document.getElementById('adminProjectFee').value = '';
+      document.getElementById('adminProjectStatus').value = 'pending';
+      setAdminNotice('Project created successfully for ' + payload.user_email + '.', 'success');
+      await loadDashboardData();
+      renderProjectDetails(data.project);
+    } catch (_error) {
+      setAdminNotice('Unable to create the project right now.', 'error');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Create project';
+    }
+  }
+
+  async function saveAdminProject(projectId) {
+    const saveButton = document.getElementById('modalSaveProjectButton');
+    if (!saveButton) return;
+
+    const payload = {
+      title: (document.getElementById('modalProjectTitleInput')?.value || '').trim(),
+      service: (document.getElementById('modalProjectServiceInput')?.value || '').trim(),
+      postcode: (document.getElementById('modalProjectPostcodeInput')?.value || '').trim(),
+      status: document.getElementById('modalProjectStatusInput')?.value || 'pending',
+      value_pence: poundsToPence(document.getElementById('modalProjectFeeInput')?.value || ''),
+    };
+
+    if (!payload.title) {
+      setAdminNotice('Project title is required before saving.', 'error');
+      return;
+    }
+
+    saveButton.disabled = true;
+    saveButton.textContent = 'Saving…';
+    setAdminNotice('Saving changes to project #' + projectId + '…');
+
+    try {
+      const response = await fetch(`${API}/api/projects/admin/${projectId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.getItem('ad_token')}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (response.status === 401) {
+        sessionStorage.removeItem('ad_token');
+        sessionStorage.removeItem('ad_user');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      if (!response.ok || !data.project) {
+        setAdminNotice(data.error || 'Unable to save project changes right now.', 'error');
+        return;
+      }
+
+      setAdminNotice('Project updated successfully.', 'success');
+      await loadDashboardData();
+      renderProjectDetails(data.project);
+    } catch (_error) {
+      setAdminNotice('Unable to save project changes right now.', 'error');
+    } finally {
+      const nextButton = document.getElementById('modalSaveProjectButton');
+      if (nextButton) {
+        nextButton.disabled = false;
+        nextButton.textContent = 'Save changes';
+      }
+    }
+  }
+
   async function triggerDrawingReady(projectId, button) {
     const originalText = button.textContent;
     button.disabled = true;
@@ -2423,11 +2567,21 @@ gtag('config', 'G-77CQ2PWJM4', {
       document.getElementById('modalDetails').innerHTML +=
         '<div class="modal-detail-row"><span class="modal-detail-label">Client</span><strong>' + (project.userName || project.user_name || 'Unknown') + '</strong></div>' +
         '<div class="modal-detail-row"><span class="modal-detail-label">Client email</span><strong>' + (project.userEmail || project.user_email || 'Unavailable') + '</strong></div>' +
-        '<div class="modal-detail-row"><span class="modal-detail-label">Delivery audit</span><strong>' + (project.drawingReadyEmailMessageId || project.drawing_ready_email_message_id || 'Not sent yet') + '</strong></div>';
+        '<div class="modal-detail-row"><span class="modal-detail-label">Delivery audit</span><strong>' + (project.drawingReadyEmailMessageId || project.drawing_ready_email_message_id || 'Not sent yet') + '</strong></div>' +
+        '<div class="settings-group" style="margin-top:20px;margin-bottom:0;"><h3>Edit project</h3><div class="settings-field"><label for="modalProjectTitleInput">Project title</label><input type="text" id="modalProjectTitleInput" /></div><div class="settings-field"><label for="modalProjectServiceInput">Service</label><input type="text" id="modalProjectServiceInput" /></div><div class="settings-field"><label for="modalProjectPostcodeInput">Postcode</label><input type="text" id="modalProjectPostcodeInput" /></div><div class="settings-row" style="padding:0;border:0;align-items:flex-end;"><div class="settings-field" style="flex:1;margin:0;"><label for="modalProjectFeeInput">Fee</label><input type="number" id="modalProjectFeeInput" min="0" step="1" /></div><div class="settings-field" style="flex:1;margin:0;"><label for="modalProjectStatusInput">Status</label><select id="modalProjectStatusInput"><option value="pending">Pending</option><option value="new">New</option><option value="active">Active</option><option value="review">Review</option><option value="approved">Approved</option><option value="completed">Completed</option></select></div></div></div>';
+
+      document.getElementById('modalProjectTitleInput').value = project.title || '';
+      document.getElementById('modalProjectServiceInput').value = project.service || '';
+      document.getElementById('modalProjectPostcodeInput').value = project.postcode || '';
+      document.getElementById('modalProjectFeeInput').value = penceToWholePounds(project.valuePence ?? project.value_pence);
+      document.getElementById('modalProjectStatusInput').value = String(project.status || 'pending').toLowerCase();
 
       modalActions.innerHTML =
+        '<button type="button" class="btn btn-outline btn-sm" id="modalSaveProjectButton" style="flex:1;justify-content:center;">Save changes</button>' +
         '<button type="button" class="btn btn-primary btn-sm" id="modalDrawingsReadyButton" style="flex:1;justify-content:center;"' + (deliverySent ? ' disabled' : '') + '>' + (deliverySent ? 'Delivery email sent' : 'Send drawings-ready') + '</button>' +
         '<button class="btn btn-outline btn-sm" onclick="document.getElementById(\'projectModal\').classList.remove(\'active\')" style="flex:1;justify-content:center;">Close</button>';
+
+      document.getElementById('modalSaveProjectButton').addEventListener('click', () => saveAdminProject(project.id));
 
       if (!deliverySent) {
         document.getElementById('modalDrawingsReadyButton').addEventListener('click', () => triggerDrawingReady(project.id, document.getElementById('modalDrawingsReadyButton')));
@@ -2804,6 +2958,7 @@ gtag('config', 'G-77CQ2PWJM4', {
 
   refreshCallbacks.addEventListener('click', () => loadCallbacks(true));
   refreshAdminButton.addEventListener('click', () => loadDashboardData());
+  createAdminProjectButton.addEventListener('click', () => createAdminProject());
 
   // Sign out
   document.getElementById('signOut').addEventListener('click', () => { sessionStorage.clear(); window.location.href = 'login.html'; });
