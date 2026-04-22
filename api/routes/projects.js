@@ -305,7 +305,7 @@ router.get('/', requireAuth, async (req, res) => {
 });
 
 /* GET /api/projects/:id */
-router.get('/:id', requireAuth, async (req, res) => {
+router.get('/:id(\\d+)', requireAuth, async (req, res) => {
   const row = await dbGet('SELECT * FROM projects WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
   if (!row) return res.status(404).json({ error: 'Project not found' });
   res.json({ project: row });
@@ -332,7 +332,7 @@ router.post('/',
 );
 
 /* POST /api/projects/:id/drawings-ready — admin-only project transition + email */
-router.post('/:id/drawings-ready', requireAuth, requireRole('admin'), async (req, res) => {
+router.post('/:id(\\d+)/drawings-ready', requireAuth, requireRole('admin'), async (req, res) => {
   const projectId = Number.parseInt(req.params.id, 10);
   if (!Number.isInteger(projectId) || projectId <= 0) {
     return res.status(400).json({ error: 'Invalid project id' });
@@ -417,7 +417,7 @@ router.post('/:id/drawings-ready', requireAuth, requireRole('admin'), async (req
 });
 
 /* PATCH /api/projects/:id */
-router.patch('/:id', requireAuth, async (req, res) => {
+router.patch('/:id(\\d+)', requireAuth, async (req, res) => {
   const existing = await dbGet('SELECT id FROM projects WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
   if (!existing) return res.status(404).json({ error: 'Project not found' });
 
